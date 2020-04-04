@@ -1,0 +1,114 @@
+.AyogiPoem {
+    text-align: left;
+    width: 80%;
+    padding-top: 2rem;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    /* line-height: 1.3rem; */
+}
+
+/* .swiper-container-horizontal >.swiper-pagination-bullets, 
+.swiper-pagination-custom, 
+.swiper-pagination-fraction, */
+.swiper-pagination {
+    top: 2px;
+}
+
+ion-card-header {    
+    font-size: 1rem;
+    border-bottom: 1px solid lightgrey;
+    margin: 1rem 0.5rem 0.1rem;
+}
+
+.AyogiPoem .poem.break
+{
+    /* background-color: beige; */
+    margin-left: 0.5rem;
+}
+
+.AyogiPoem .poem.break:before {
+    content:"\a";
+    white-space: pre;
+}
+
+.AyogiPoem .poem + .poem::after {
+    content: " ";
+    white-space: pre;
+  }
+  
+.AyogiPoem .poem {
+    /* background-color: #ddd; */
+    /* margin: 0.3rem;
+    widows: 3;
+    orphans: 3; */
+    margin-top: 0px;
+    /* line-height: 12.0pt;*/
+    /* font-size: 10.0pt; */
+    /* font-weight: bold; */
+    /* word-spacing: .06em; */
+}
+
+
+/* .AyogiPoem .poem + .poem {
+    margin-left: 0.3em;
+} */
+
+/* .AyogiChapter .AyogiPoem .paragraphIndent.poem { */
+.AyogiPoem .paragraphIndent.poem {
+    margin-left: 0px;
+}
+
+/* .AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem,
+.AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem + .poem,
+.AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem + .poem + .poem */
+.AyogiPoem .paragraphIndent.poem + .poem,
+.AyogiPoem .paragraphIndent.poem + .poem + .poem,
+.AyogiPoem .paragraphIndent.poem + .poem + .poem + .poem
+ {
+    display: inline;
+    margin-left: -0.2em;
+}
+
+.AyogiPoem .poemIndent {
+    margin-left: 1em;
+}
+
+
+.AyogiPoem .poemStart {
+    margin: 30px 0;
+    border-bottom: 1px solid black;
+}
+
+.AyogiPoem .YoungAttributionIndent {
+    margin-left: 1em;
+}
+
+.AyogiPoem .ravidasStart {
+    margin-left: 1em;
+}
+
+.AyogiPoem .samadhi {
+    font-size: 0.9rem;
+}
+/*
+
+.AyogiPoem .shankaraStart {
+} */
+
+@media (max-width: 768px) {
+    .AyogiPoem {
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        padding-left: 0.5rem;
+        margin-top: 0.1rem;
+        margin-bottom: 0.1rem;
+        width: 100%;
+        /* font-size: 0.8rem; */
+    }
+    .AyogiPoem .poem {
+        font-size: 0.85rem;
+    }
+}
+

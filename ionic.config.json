@@ -1,0 +1,7 @@
+{
+  "name": "ay-chap-state",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
