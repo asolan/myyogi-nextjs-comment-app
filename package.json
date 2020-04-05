@@ -1,13 +1,13 @@
 {
-  "name": "ay-chap-state",
+  "name": "autoyogi2",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@capacitor/core": "1.5.2",
+    "@capacitor/core": "2.0.0",
     "@ionic/pwa-elements": "^1.5.1",
-    "@ionic/react": "^5.0.0",
+    "@ionic/react": "^5.0.7",
     "@ionic/react-hooks": "0.0.6",
-    "@ionic/react-router": "^5.0.0",
+    "@ionic/react-router": "^5.0.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^8.0.3",
@@ -47,7 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "1.5.2"
+    "@capacitor/cli": "2.0.0"
   },
   "description": "An Ionic project"
 }
