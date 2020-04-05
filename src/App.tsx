@@ -10,7 +10,7 @@ import {
   IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { imagesOutline, listOutline, bookOutline} from 'ionicons/icons';
 import ImageListTab from './pages/ImageListTab';
 import ImageTab from './pages/ImageTab';
 import PoemListTab from './pages/PoemListTab';
@@ -48,20 +48,16 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="imagelist" href="/imagelist">
-            <IonIcon icon={triangle} />
+            <IonIcon icon={imagesOutline} />
             <IonLabel>Images</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="image" href="/image">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Image</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="poemlist" href="/poemlist">
-            <IonIcon icon={square} />
-            <IonLabel>Poems</IonLabel>
+          <IonTabButton tab="chapterlistlist" href="/chapterlist">
+            <IonIcon icon={listOutline} />
+            <IonLabel>Chapters</IonLabel>
           </IonTabButton>
           <IonTabButton tab="poem" href="/poem">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Poem</IonLabel>
+            <IonIcon icon={bookOutline} />
+            <IonLabel>Book</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

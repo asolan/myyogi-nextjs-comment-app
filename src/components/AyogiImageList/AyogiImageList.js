@@ -26,7 +26,7 @@ import {
   IonIcon
 
 } from '@ionic/react';
-import { chevronDownOutline, chevronUpOutline, add, camera, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
+import { chevronDownOutline, chevronUpOutline, bookOutline, add, camera, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 
 import './AyogiImageList.css';
 //import { paper } from 'ionicons/icons';
@@ -60,10 +60,10 @@ const AyogiImageList = props => {
     const thisImage =
       (<IonCol class="ion-justify-content-end" size-lg="3" size-md="3" size-xs="6" key={'cs' + i}>
         <IonCard class="ion-text-center">
-        {/* <IonFab vertical="bottom" horizontal="center">
+          {/* <IonFab vertical="bottom" horizontal="center">
             <IonFabButton color="primary">Primary</IonFabButton>
         </IonFab> */}
-          <IonFab vertical="bottom" horizontal="center">
+          <IonFab vertical="top" horizontal="right">
             <IonFabButton color="primary" onClick={() => showImage(i)}>
               <IonIcon icon={chevronDownOutline}></IonIcon>
             </IonFabButton>
@@ -88,6 +88,10 @@ const AyogiImageList = props => {
     return null;
   });
 
+  const goToContent = () => {
+    console.log('gotocontent');
+  }
+   
   const showImage = (imageNum) => {
     let d = props.imageList[imageNum];
     //    console.log(`showimage-${d.src}`);
@@ -124,20 +128,18 @@ const AyogiImageList = props => {
 
   return (
     <IonContent className="ImageList">
-    <IonFabButton color="secondary">Secondary</IonFabButton>
-    <IonFabButton color="danger">Danger</IonFabButton>
-    <IonFabButton color="light">Light</IonFabButton>
-    <IonFabButton color="dark">Dark</IonFabButton>      
       <IonModal isOpen={showModal}>
-        <IonInfiniteScroll>
-          {popImage}
-          <IonFab vertical="bottom" horizontal="start" slot="fixed">
-            <IonFabButton onClick={() => setShowModal(false)} fill="outline">
-              Close
-              <IonIcon icon={add} />
-            </IonFabButton>
+      <IonFab vertical="top" horizontal="right">
+          <IonFabButton onClick={() => goToContent()} fill="outline">
+            <IonIcon icon={bookOutline} />
+          </IonFabButton>
           </IonFab>
-        </IonInfiniteScroll>
+        <IonFab vertical="top" horizontal="center">
+          <IonFabButton onClick={() => setShowModal(false)} fill="outline">
+            <IonIcon icon={chevronUpOutline} />
+          </IonFabButton>
+        </IonFab>
+        {popImage}
       </IonModal>
       <IonGrid>
         <IonRow class="justify-content-center align-items-center" >

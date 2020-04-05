@@ -10,13 +10,13 @@ const ImageListTab: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Image List</IonTitle>
+          <IonTitle>Autobiography of a Yogi Images</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Image List</IonTitle>
+            <IonTitle size="large">Illustrations</IonTitle>
           </IonToolbar>
         </IonHeader>
         {/* {ayimage.map((a: any) => {
