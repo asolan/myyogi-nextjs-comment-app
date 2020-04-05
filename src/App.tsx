@@ -15,6 +15,9 @@ import ImageListTab from './pages/ImageListTab';
 import ImageTab from './pages/ImageTab';
 import PoemListTab from './pages/PoemListTab';
 import PoemTab from './pages/PoemTab';
+import AyogiPage from './pages/AyogiPage';
+import AyogiChapterPage from './pages/AyogiChapterPage';
+import AyogiTypePage from './pages/AyogiTypePage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -35,27 +38,48 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import { LINE_TYPE_ENUM } from './utility/dataTypes';
+
+import aydata  from "./aydata.json";
+import aychaptlist from "./aychaptlist.json";
+import aychaptpos from "./aychaptpos.json";
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route path="/imagelist" component={ImageListTab} exact={true} />
-          <Route path="/image" component={ImageTab} exact={true} />
-          <Route path="/poemlist" component={PoemListTab} exact={true} />
-          <Route path="/poem" component={PoemTab} exact={true} />
-          <Route path="/" render={() => <Redirect to="/imagelist" />} exact={true} />
+          <Route 
+            path="/aychap" 
+            render={(props) => <AyogiChapterPage {...props} />}
+            exact={true} />
+          <Route
+            path="/ayogi/:id"
+            // aydata={aydata}
+            // aychaptlist={aychaptlist} 
+            render={(props) => 
+            <AyogiPage 
+                chPos={aychaptpos}
+                aychaptlist={aychaptlist} 
+                aydata={aydata} {...props} />}
+            exact={true} />
+          <Route path='/aypoems'
+            render={(props) => <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />}
+          />
+          {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
+           <Route path="/" render={() => <Redirect to="/imagelist" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="imagelist" href="/imagelist">
             <IonIcon icon={imagesOutline} />
             <IonLabel>Images</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="chapterlistlist" href="/chapterlist">
+          <IonTabButton tab="chapterlist" href="/aychap">
             <IonIcon icon={listOutline} />
             <IonLabel>Chapters</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="poem" href="/poem">
+          <IonTabButton tab="poem" href="/ayogi/:id">
             <IonIcon icon={bookOutline} />
             <IonLabel>Book</IonLabel>
           </IonTabButton>
