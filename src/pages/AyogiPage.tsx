@@ -46,11 +46,8 @@ const AyogiPage = (props: any) => {
   const contentRef = useRef(null);
 
   const scrollToTop = () => {
-//    console.log('stt');
-    let cref = contentRef!.current;
-    if(cref){
-//      cref.scrollToTop();
-    }
+    let cref = contentRef!.current as any;
+    cref.scrollToTop();
   }
 
   // Page load

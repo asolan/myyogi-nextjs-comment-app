@@ -34,6 +34,8 @@
     min-width: 100px;
 }
 
+ion-modal  ion-card-title,
+ion-modal  ion-card-subtitle,
 .ImageList ion-card-title,
 .ImageList ion-card-subtitle {
     font-size: 1.1rem;
@@ -42,10 +44,6 @@
 ion-card-subtitle div {
     text-transform: none;
     font-weight: normal;
-}
-
-ion-modal ion-fab {
-    opacity: 30%;
 }
 
 .ImageList ion-col ion-fab {
@@ -109,6 +107,32 @@ ion-modal ion-fab {
         font-size: 0.8rem;
     }
 }
+
+/* Modal */
+
+ion-modal ion-col ion-card-title {
+    background-color: white;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-radius: 0 0 5px 5px;
+    margin-bottom: 50px;
+}
+
+ion-modal ion-img {
+    margin: 0 0.01rem;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    border-top: 1px solid #999;
+    border-radius: 5px 5px 0 0;
+}
+
+
+ion-modal ion-fab {
+    opacity: 30%;
+}
+
+
 
 .ImageAlternateTitle {
     text-indent: 0pt;

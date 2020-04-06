@@ -63,7 +63,7 @@ const AyogiImageList = props => {
           {/* <IonFab vertical="bottom" horizontal="center">
             <IonFabButton color="primary">Primary</IonFabButton>
         </IonFab> */}
-          <IonFab vertical="top" horizontal="right">
+          <IonFab vertical="bottom" horizontal="end">
             <IonFabButton color="primary" onClick={() => showImage(i)}>
               <IonIcon icon={chevronDownOutline}></IonIcon>
             </IonFabButton>
@@ -91,7 +91,7 @@ const AyogiImageList = props => {
   const goToContent = () => {
     console.log('gotocontent');
   }
-   
+
   const showImage = (imageNum) => {
     let d = props.imageList[imageNum];
     //    console.log(`showimage-${d.src}`);
@@ -102,7 +102,6 @@ const AyogiImageList = props => {
       <IonCard button="true" class="ion-text-center">
         <IonImg
           alt={d.text}
-          height={d.height}
           width={d.width}
           src={d.src}
           border={d.border}
@@ -113,7 +112,7 @@ const AyogiImageList = props => {
         {/* <IonCardTitle>
         {d.text[0]}
       </IonCardTitle> */}
-        <IonCardSubtitle>
+        <IonCardTitle>
           {
             d.text.slice(1).map((t, i) => {
               return <div className={d.class[i + 1]}>
@@ -121,7 +120,7 @@ const AyogiImageList = props => {
               </div>
             })
           }
-        </IonCardSubtitle>
+        </IonCardTitle>
       </IonCard>);
     setShowModal(true);
   }
@@ -129,12 +128,12 @@ const AyogiImageList = props => {
   return (
     <IonContent className="ImageList">
       <IonModal isOpen={showModal}>
-      <IonFab vertical="top" horizontal="right">
+        <IonFab vertical="bottom" horizontal="start">
           <IonFabButton onClick={() => goToContent()} fill="outline">
             <IonIcon icon={bookOutline} />
           </IonFabButton>
-          </IonFab>
-        <IonFab vertical="top" horizontal="center">
+        </IonFab>
+        <IonFab vertical="bottom" horizontal="end">
           <IonFabButton onClick={() => setShowModal(false)} fill="outline">
             <IonIcon icon={chevronUpOutline} />
           </IonFabButton>
