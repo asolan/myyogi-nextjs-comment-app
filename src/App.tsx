@@ -49,7 +49,7 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/imagelist" component={ImageListTab} exact={true} />
+          <Route path="/imagelist"  render={(props) => <ImageListTab />} exact={true} />
           <Route 
             path="/aychap" 
             render={(props) => <AyogiChapterPage {...props} />}

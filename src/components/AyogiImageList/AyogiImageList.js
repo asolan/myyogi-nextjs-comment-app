@@ -63,7 +63,8 @@ const AyogiImageList = props => {
           {/* <IonFab vertical="bottom" horizontal="center">
             <IonFabButton color="primary">Primary</IonFabButton>
         </IonFab> */}
-          <IonFab vertical="bottom" horizontal="end">
+          {/* <div class="hidden">{JSON.stringify(c)}</div> */}
+          <IonFab vertical="top" horizontal="end">
             <IonFabButton color="primary" onClick={() => showImage(i)}>
               <IonIcon icon={chevronDownOutline}></IonIcon>
             </IonFabButton>
@@ -88,8 +89,10 @@ const AyogiImageList = props => {
     return null;
   });
 
-  const goToContent = () => {
+  const goToContent = (chapterNumber) => {
     console.log('gotocontent');
+    setShowModal(false);
+//    history.push(`/ayogi/${chapterNumber}`);
   }
 
   const showImage = (imageNum) => {
@@ -100,6 +103,13 @@ const AyogiImageList = props => {
     //    console.log(d.text);
     setPopImage(
       <IonCard button="true" class="ion-text-center">
+        <Link to={'/ayogi/' + d.chapterNumber}>
+          <IonFab vertical="top" horizontal="end">
+          <IonFabButton color="primary"  onClick={() => goToContent(d.chapterNumber)}>
+              <IonIcon icon={bookOutline}></IonIcon>
+            </IonFabButton>
+          </IonFab>
+        </Link>
         <IonImg
           alt={d.text}
           width={d.width}
@@ -128,11 +138,6 @@ const AyogiImageList = props => {
   return (
     <IonContent className="ImageList">
       <IonModal isOpen={showModal}>
-        <IonFab vertical="bottom" horizontal="start">
-          <IonFabButton onClick={() => goToContent()} fill="outline">
-            <IonIcon icon={bookOutline} />
-          </IonFabButton>
-        </IonFab>
         <IonFab vertical="bottom" horizontal="end">
           <IonFabButton onClick={() => setShowModal(false)} fill="outline">
             <IonIcon icon={chevronUpOutline} />

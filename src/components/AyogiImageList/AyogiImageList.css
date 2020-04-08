@@ -275,4 +275,7 @@ ion-modal ion-fab {
 .LOWERLEFTCaption:before	{content: "(LOWER LEFT) ";}
 
 
-
+/**************************************************/
+.hidden {
+    display: none;
+}
