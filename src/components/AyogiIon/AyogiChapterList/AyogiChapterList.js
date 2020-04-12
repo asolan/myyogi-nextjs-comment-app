@@ -61,8 +61,8 @@ const AyogiChapterList = props => {
                 {/* <ion-fab right top>
                     <ion-icon name="paper"></ion-icon>
                 </ion-fab>                 */}
-                <IonCardTitle>
-                  {c.chapterNumber}
+                <IonCardTitle className="chapterheader">
+                  chapter: <span>{c.chapterNumber}</span>
                 </IonCardTitle>
                 <div className="chaptertitle" slot="middle">
                   {c.text}

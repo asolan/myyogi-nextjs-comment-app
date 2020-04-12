@@ -38,7 +38,12 @@ ion-toolbar {
     font-weight: normal;
   }
   
-  ion-avatar {
+  .chapterheader span {
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
+}
+
+ion-avatar {
     --border-radius: 0;
   }
   
@@ -58,12 +63,7 @@ ion-toolbar {
     border: 1px solid #fff;
 }
 
-  .chapterheader span {
-      font-size: 1.5rem;
-      letter-spacing: -0.05em;
-  }
-
-  .chaptertitle {
+   .chaptertitle {
     text-align: left;
     font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-style: italic;

@@ -49,7 +49,6 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Route path="/imagelist"  render={(props) => <ImageListTab />} exact={true} />
           <Route 
             path="/aychap" 
             render={(props) => <AyogiChapterPage {...props} />}
@@ -64,24 +63,25 @@ const App: React.FC = () => (
                 aychaptlist={aychaptlist} 
                 aydata={aydata} {...props} />}
             exact={true} />
+          <Route path="/imagelist"  render={(props) => <ImageListTab />} exact={true} />
           <Route path='/aypoems'
             render={(props) => <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />}
           />
           {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
-           <Route path="/" render={() => <Redirect to="/imagelist" />} exact={true} />
+           <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="imagelist" href="/imagelist">
-            <IonIcon icon={imagesOutline} />
-            <IonLabel>Images</IonLabel>
-          </IonTabButton>
           <IonTabButton tab="chapterlist" href="/aychap">
             <IonIcon icon={listOutline} />
             <IonLabel>Chapters</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="book" href="/ayogi">
+          <IonTabButton tab="book" href="/ayogi/-1">
             <IonIcon icon={bookOutline} />
             <IonLabel>Book</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="imagelist" href="/imagelist">
+            <IonIcon icon={imagesOutline} />
+            <IonLabel>Images</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
