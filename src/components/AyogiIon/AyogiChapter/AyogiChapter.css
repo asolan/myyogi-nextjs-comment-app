@@ -10,29 +10,9 @@
      word-spacing: .003em;
  }
 
-.AyogiChapter { 
+ .AyogiChapter { 
+     margin: auto;
      max-width: 660px;
-     /* width: 400px; */
      text-align: justify;
-/* todo - center /*
-     /* float: left;
-     position: relative;
-     left: 50%; */
 }
-
-
-/* .AyogiChapter p {
-     text-align: left;
-
-     float: left;
-     position: relative;
-     left: -50%;
-} */
-
-
-
-
- 
-
-
 
