@@ -18,6 +18,10 @@ import PoemTab from './pages/PoemTab';
 import AyogiPage from './pages/AyogiPage';
 import AyogiChapterPage from './pages/AyogiChapterPage';
 import AyogiTypePage from './pages/AyogiTypePage';
+// Redux
+ 
+import {connect} from 'react-redux';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -88,5 +92,22 @@ const App: React.FC = () => (
     </IonReactRouter>
   </IonApp>
 );
+
+const mapStateToProps = (state: RootState) => ({
+  allFiltered: selectors.fishes.allFiltered(state.fishes),
+  favoritesFiltered: selectors.fishes.favoritesFiltered(state.fishes),
+  searchText: state.fishes.searchText,
+  favoriteFishes: state.fishes.favoriteFishes,
+  filteredTags: state.fishes.tagFilters,
+  allTags: selectors.fishes.allTags(state.fishes)
+});
+
+const mapDispatchToProps = {
+  updateFishes: () => actions.fishes.updateFishes(),
+  updateBranches: () => actions.branches.updateBranches(),
+  setSearchText: (searchText: string) => actions.fishes.setSearchText(searchText),
+  updateTrackFilters: (trackList: string[]) => actions.fishes.updateTagFilters(trackList)
+}
+
 
 export default App;
