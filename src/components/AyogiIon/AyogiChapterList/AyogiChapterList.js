@@ -48,11 +48,12 @@ const AyogiChapterList = props => {
             <IonCard 
               button="true"
               class="ion-text-center"
-              // onClick={()=>props.setCurrentChapter(c.chapterNumber)}>
-              // routerLink={'/detail/' + c.chapterNumber} 
-              // routerDirection="forward"
+              onClick={()=> {
+                console.log('occ');
+                props.onChangeChapter(c.chapterNumber);
+              }
+              }
               >
-              <Link to={'/ayogi/' + c.chapterNumber}>
                 {/* <ion-icon slot="end" name="paper">
                 </ion-icon> */}
                 {/* <IonCardSubtitle slot="start">
@@ -67,8 +68,7 @@ const AyogiChapterList = props => {
                 <div className="chaptertitle" slot="middle">
                   {c.text}
                 </div>
-              </Link>
-                            {/* <IonItem
+                           {/* <IonItem
               button="true"
               no-padding>
                 <IonLabel

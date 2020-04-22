@@ -1,72 +1,81 @@
 import constants from "../constants";
 //import { TActionCreatorType, TReducerExtraData } from '../types';
 
-export function onChangeChapter(chapterNumber: number) {
+export function onChangeTab(tabName: string) {
+    console.log('action-onChangeTab');
     return {
-        type: typeof constants.ON_CHANGE_CHAPTER,
+        type: constants.ON_CHANGE_TAB,
+        payload: tabName
+    }
+}
+
+export function onChangeChapter(chapterNumber: number) {
+    console.log('action-onChangeChapter');
+    return {
+        type: constants.ON_CHANGE_CHAPTER,
         payload: chapterNumber
     }
 }
 
 export function onChangeChapterLine(chapterLineNumber: number) {
     return {
-        type: typeof constants.ON_CHANGE_CHAPTER_LINE,
+        type: constants.ON_CHANGE_CHAPTER_LINE,
         payload: chapterLineNumber
     }
 }
 
 export function onChangeImage(imageId: string) {
     return {
-        type: typeof constants.ON_CHANGE_IMAGE,
+        type: constants.ON_CHANGE_IMAGE,
         payload: imageId
     }
 }
 
 export function onChangePoem(poemId: string) {
     return {
-        type: typeof constants.ON_CHANGE_POEM,
+        type: constants.ON_CHANGE_POEM,
         payload: poemId
     }
 }
 
-export function onChangeFont(fontSize: number) {
+export function onChangeFont(font: string) {
     return {
-        type: typeof constants.ON_CHANGE_FONT,
-        payload: fontSize
+        type: constants.ON_CHANGE_FONT,
+        payload: font
     }
 }
 
 export function updateChapter(chapterNumber: number) {
     return {
-        type: typeof constants.UPDATE_CHAPTER,
+        type: constants.UPDATE_CHAPTER,
         payload: chapterNumber
     }
 }
 
 export function updateChapterLine(chapterLineNumber: number) {
     return {
-        type: typeof constants.UPDATE_CHAPTER_LINE,
+        type: constants.UPDATE_CHAPTER_LINE,
         payload: chapterLineNumber
     }
 }
 
 export function updateImage(imageId: string) {
     return {
-        type: typeof constants.UPDATE_IMAGE,
+        type: constants.UPDATE_IMAGE,
         payload: imageId
     }
 }
 
 export function updatePoem(poemId: string) {
     return {
-        type: typeof constants.UPDATE_POEM,
+        type: constants.UPDATE_POEM,
         payload: poemId
     }
 }
 
-export function updateFont(fontSize: number) {
+export function updateFont(font: string) {
     return {
-        type: typeof constants.UPDATE_FONT,
-        payload: fontSize
+        type: constants.UPDATE_FONT,
+        payload: font
     }
 }

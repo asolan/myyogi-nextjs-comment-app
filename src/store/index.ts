@@ -37,10 +37,10 @@ const store = createStore(
     return store;
 };
 
-const store = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
+const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
 
 // const store = createStore<IRootState, any, any, any>(
 //     combineReducers({
 //         demo: demoReducer
 // }));
-export default store;
+export default configureStore;

@@ -27,12 +27,21 @@ import AyogiChapterList from '../components/AyogiIon/AyogiChapterList/AyogiChapt
 //import { fetchAYChapterList } from '../utility/fetchData';
 //import { LINE_TYPE_ENUM } from '../utility/dataTypes';
 import './AyogiPage.css';
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import selectors from "../store/selectors";
+import actions from "../store/actions";
+import constants from "../store/constants";
+
 let aychaptlist = require('../aychaptlist.json');
 
 
 const AyogiChapterPage = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
+
+  console.log('AyogiChapterPage');
+  console.log(props);
 
   // useEffect(() => {
   //   console.log(`AyogiChapterPage-chapter changed - ${props.type}`)
@@ -59,6 +68,7 @@ const AyogiChapterPage = (props: any) => {
 // setCurrentChapter={setCurrentChapter}
     content = (
       <AyogiChapterList 
+        {...props}
         chaptersList={chaptersList}
          />
       );
@@ -84,4 +94,26 @@ const AyogiChapterPage = (props: any) => {
   );
 };
 
-export default AyogiChapterPage;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onChangeChapter: (chapter: number) =>
+      dispatch(actions.onChangeChapter(chapter)),
+    onChangeChapterLine: (chapterLine: number) =>
+      dispatch(actions.onChangeChapterLine(chapterLine)),
+    onChangeImage: (image: string) => dispatch(actions.onChangeImage(image)),
+    onChangePoem: (poem: string) => dispatch(actions.onChangePoem(poem)),
+    onChangeFont: (font: string) => dispatch(actions.onChangeFont(font)),
+  };
+};
+
+const mapStateToProps = () =>
+  createStructuredSelector({
+    currentChapter: selectors.makeSelectChapter(),
+    currentChapterLine: selectors.makeSelectChapterLine(),
+    currentImage: selectors.makeSelectImage(),
+    currentPoem: selectors.makeSelectPoem(),
+    currentFont: selectors.makeSelectFont(),
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(AyogiChapterPage);
+//export default AyogiChapterPage;
