@@ -17,10 +17,10 @@ function userData(
 ) {
   switch (action.type) {
     case constants.ON_CHANGE_TAB:
-      console.log("ON_CHANGE_TAB-reducer");
-      console.log(action);
-      //            return state.set(action.payload);
-      return state;
+       console.log("ON_CHANGE_TAB-reducer");
+       console.log(action);
+       //            return state.set(action.payload);
+       return state;
      case constants.ON_CHANGE_CHAPTER:
       console.log("ON_CHANGE_CHAPTER-reducer");
       console.log(action);

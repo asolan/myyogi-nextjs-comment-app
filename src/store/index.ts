@@ -3,7 +3,7 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './reducers';
-import rootSaga from './sagas';
+import rootSaga from './sagas/index.js';
 
 const configureStoreProd = (initialState: any) => {
     const sagaMiddleware = createSagaMiddleware();
@@ -39,6 +39,8 @@ const store = createStore(
 
 const configureStore = process.env.NODE_ENV === 'production' ? configureStoreProd : configureStoreDev;
 
+console.log('rootSaga');
+console.log(rootSaga);
 // const store = createStore<IRootState, any, any, any>(
 //     combineReducers({
 //         demo: demoReducer
