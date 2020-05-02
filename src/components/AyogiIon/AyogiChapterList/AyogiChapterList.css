@@ -1,0 +1,78 @@
+.ChapterList {
+    border: 1px solid blue;
+}
+
+.ChapterList ion-card {
+    width:  100%;
+    padding: 1rem 0.5rem;
+    margin: 0.3rem 0.2rem;
+}
+
+.ChapterList a {
+    text-decoration: none 
+}
+
+ion-card-subtitle {
+    font-size: 1.0rem;
+}
+
+.ChapterList .chaptertitle {
+    color: black;
+    text-align: center;
+    font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    font-style: italic;
+    font-size: 16pt;
+    font-weight: normal;
+    letter-spacing: .020em;
+    word-spacing: .05em;
+    margin-left: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #333;
+    line-height: 1.5rem;
+}
+
+.ChapterList .chapterheader {
+    text-align: left;
+    white-space: nowrap;
+    margin-top: -0.2rem;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.ChapterList .chapterheader span {
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
+}
+
+
+@media (max-width: 1024px) {
+    .ChapterList ion-card-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .chaptertitle {
+        font-size: 14pt;
+    }
+
+    .ChapterList ion-card-subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .chaptertitle {
+        font-size: 12pt;
+    }
+
+    .ChapterList ion-card-subtitle {
+        font-size: 0.8rem;
+    }
+}
+

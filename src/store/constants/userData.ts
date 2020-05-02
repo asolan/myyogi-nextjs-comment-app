@@ -1,0 +1,11 @@
+export const ON_CHANGE_TAB = 'userData_ON_CHANGE_TAB';
+export const ON_CHANGE_CHAPTER = 'userData_ON_CHANGE_CHAPTER';
+export const ON_CHANGE_CHAPTER_LINE = 'userData_ON_CHANGE_CHAPTER_LINE';
+export const ON_CHANGE_IMAGE = 'userData_ON_CHANGE_IMAGE';
+export const ON_CHANGE_POEM = 'userData_ON_CHANGE_POEM';
+export const ON_CHANGE_FONT = 'userData_ON_CHANGE_FONT';
+export const UPDATE_CHAPTER = 'userData_UPDATE_CHAPTER';
+export const UPDATE_CHAPTER_LINE = 'userData_UPDATE_CHAPTER_LINE';
+export const UPDATE_IMAGE = 'userData_UPDATE_IMAGE';
+export const UPDATE_POEM = 'userData_UPDATE_POEM';
+export const UPDATE_FONT = 'userData_UPDATE_FONT';

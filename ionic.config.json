@@ -1,0 +1,7 @@
+{
+  "name": "autoyogi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

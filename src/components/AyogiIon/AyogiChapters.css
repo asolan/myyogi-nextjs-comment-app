@@ -1,0 +1,40 @@
+.AyogiChapters {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .AyogiChapters {
+        display: block;
+    }
+}
+
+
+.ChapterList {
+    /* max-width: 222px;
+    justify-content: left; */
+}
+
+.AyogiChapters Button {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+    padding: 2px 5px;
+    margin: 2px 5px;
+    font-size: 0.7rem;
+}
+
+.AyogiChapters > div {
+    /* text-align: center; */
+    margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .AyogiChapters {
+        width: 100%;
+    }
+}

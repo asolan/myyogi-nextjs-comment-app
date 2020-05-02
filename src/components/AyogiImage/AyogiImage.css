@@ -1,0 +1,250 @@
+.AyogiImage {
+    text-align: center;
+    min-height: 200px;
+    min-width: 250px;
+    /* border-top: 1px solid; */
+    border: 1px solid #999;
+    /* padding: 3rem 0.5rem;
+    margin-top: 1rem; */
+    /* margin: 1rem;
+    padding: 0.5rem; */
+}
+
+.swiper-pagination {
+    top: 2px;
+}
+
+.swiper-slide img {
+    width: 100%;
+}
+
+.image-div {
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.imageinner {
+    position: relative;
+}
+
+.AyogiImage p.smallSpace {
+    font-size: 1rem;
+    line-height: 0.2rem;
+}
+
+/************** Titles *********************/
+.AyogiImage .ImageAlternateTitle {
+    display: none;
+    font-size: 1rem;
+}
+
+.AyogiImage .ImageMainTitle {
+    font-size: 1rem;
+    text-align: center;
+    text-indent: 0pt;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+    font-family: "Venetian301ETT Bd BT", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    margin-top: 8pt;
+}
+
+.AyogiImage .ImageCredit {
+    text-align: right;
+    font-style: italic;
+    margin-top: -18pt;
+    margin-bottom: 4pt;
+    font-size: 1rem;
+    /* font-size: 8.4pt; */
+    display: block;
+    margin-right: 7rem;
+}
+
+/* image titles */
+.AyogiImage div.imagetitles {
+    /* position: absolute; */
+}
+
+
+.AyogiImage div.imagewrap {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.AyogiImage div.imagewrap img {
+}
+
+.AyogiImage .image {
+    position: relative;
+}
+
+.AyogiImage img#fig7 {
+    margin: 0;
+    width: 100%;
+    object-fit: contain;
+}
+
+.AyogiImage .ImageAlternateTitle {
+    text-indent: 0pt;
+    font-size: 1rem;
+    line-height: 1rem;
+    /* font-size: 8.4pt; */
+    /* line-height: 8.4pt; */
+    text-align: center;
+}
+
+.AyogiImage .ImageMainTitle {
+    font-size: 1rem;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    text-indent: 0pt;
+    text-transform: uppercase;
+    margin-bottom: 4pt;
+    font-family: "Venetian301ETT Bd BT", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    margin-top: 8pt;
+}
+
+.AyogiImage .ImageSubTitle1a, 
+.AyogiImage .ImageSubTitle1 {
+    font-size: 1rem;
+    display: inline-block;
+    width: 100%;
+   text-align: center;
+   text-indent: 0pt;
+}
+
+.AyogiImage .ImageSubTitle1 {
+    margin-bottom: 6pt;
+}
+
+.AyogiImage .ImageSubTitle2a,
+.AyogiImage .ImageSubTitle2 {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    text-indent: 0pt;
+    font-size: 1.13rem;
+    /* font-size: 9.5pt; */
+    font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    font-weight: normal;
+    font-style: italic;
+    margin-bottom: 6pt;
+}
+
+.AyogiImage .ImageSubTitle2a {
+    margin-bottom: 0pt;
+}
+
+
+.AyogiImage .ImageSubTitle2 + .ImageSubTitle2 {
+    margin-top: -10px;
+} 
+
+/***********************    Captions ************************/
+
+.AyogiImage .ImageCaption_centered_large {
+    text-indent: 0pt;
+    font-size: 1.3rem;
+    /* font-size: 11.0pt; */
+    line-height: 1.5rem;
+    /* line-height: 12.8011pt; */
+    text-align: center;
+}
+
+.AyogiImage .ImageCaption_indented_top,
+.AyogiImage .ImageCaption_indented,
+.AyogiImage .ImageCaption_indented_large,
+.AyogiImage .ImageCaption {
+    display: inline-block;
+    text-align: justify;
+}
+
+.AyogiImage .ImageCaption_continued {
+    display: flex;
+}
+
+.AyogiImage .ImageCaption_continued,
+.AyogiImage .ImageCaption {
+    text-indent: 0pt;
+    font-size: 1rem;
+    /* font-size: 8.4pt; */
+    line-height: 1rem;
+    /* line-height: 8.4pt; */
+}
+
+.AyogiImage .ImageCaption_centered {
+    text-indent: 0pt;
+    font-size: 1rem;
+    /* font-size: 8.4pt; */
+    line-height: 1rem;
+    /* line-height: 8.4pt; */
+    text-align: center;
+}
+
+.AyogiImage .ImageCaption_indented_large {
+    text-indent: 1rem;
+    font-size: 1.3rem;
+    /* font-size: 11.0pt; */
+    line-height: 1.5rem;
+    /* line-height: 12.8011pt; */
+}
+
+.AyogiImage .ImageCaption_indented_top,
+.AyogiImage .ImageCaption_indented {
+    text-indent: 1rem;
+    font-size: 1rem;
+    /* font-size: 8.4pt; */
+    line-height: 1rem;
+    /* line-height: 8.4pt; */
+}
+
+.AyogiImage .LEFTCaption, 
+.AyogiImage .RIGHTCaption, 
+.AyogiImage .UPPERLEFTCaption, 
+.AyogiImage .LOWERLEFTCaption {
+	display: inline;			 
+}
+
+.AyogiImage .LEFTCaption:before, 
+.AyogiImage .RIGHTCaption:before, 
+.AyogiImage .UPPERLEFTCaption:before, 
+.AyogiImage .LOWERLEFTCaption:before {
+	text-transform: lowercase;
+	font-variant: small-caps;
+    font-size: 0.8rem;
+	/* font-size: 80%; */
+	line-height: 0.8rem;
+}
+
+.LEFTCaption:before 		{content: "(LEFT) ";}
+.RIGHTCaption:before 		{content: "(RIGHT) ";}
+.UPPERLEFTCaption:before	{content: "(UPPER LEFT) ";}
+.LOWERLEFTCaption:before	{content: "(LOWER LEFT) ";}
+
+/* #fig24caption {
+    width: 4.375in;
+    margin-left: .3125in;
+}
+
+#fig25caption {
+    width: 4.375in;
+    margin-left: .3125in;
+} */
+/* .AyogiImage .ImageCaption .UPPERLEFTCaption {
+    
+}
+
+.AyogiImage .ImageCaption .LEFTCaption{
+    
+}
+.AyogiImage .ImageCaption .LOWERLEFTCaption {
+    
+}
+
+.AyogiImage .ImageCaption .RIGHTCaption {
+    
+} */
+
+

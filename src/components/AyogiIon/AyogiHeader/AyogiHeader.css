@@ -1,0 +1,89 @@
+ion-header {
+    border-bottom: 2pt solid black;
+}
+
+ion-toolbar {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --padding-left: 0;
+    --padding-right: 0;
+}
+
+.toolbar-container {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-inline-start: 0;
+    /* padding-left: 0;
+    padding-left: 0; */
+}
+
+.otherheader {
+    text-transform: uppercase;
+    margin-top: 1rem;
+    margin-left: -2rem;
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+}
+
+.chapterheader {
+    text-align: left;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+    margin-left: -1rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    font-style: normal;
+    font-weight: normal;
+  }
+  
+  .chapterheader span {
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
+}
+
+ion-avatar {
+    --border-radius: 0;
+  }
+  
+  .yogananda-row {
+    height: 70px;
+  }
+
+  .yogananda-portrait {
+      opacity: 0.4;
+      height: 70px;
+      width: 58px;
+      border: 4px solid #428dc6;
+  }
+
+  .yogananda-portrait img {
+      height: 62px;
+    border: 1px solid #fff;
+}
+
+   .chaptertitle {
+    text-align: left;
+    font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    font-style: italic;
+    font-size: 16pt;
+    font-weight: normal;
+    letter-spacing: .020em;
+    word-spacing: .05em;
+    margin-left: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+    .chaptertitle {
+        font-size: 14pt;
+    }
+}
+
+@media (max-width: 500px) {
+    .chaptertitle {
+        font-size: 12pt;
+    }
+}
+  

@@ -1,0 +1,35 @@
+.AyogiFootnotePopup {
+    position: relative;
+    display: inline;
+    margin:0.1rem;
+    padding: 0;
+}
+
+.AyogiFootnotePopup .footnote {
+    display: inline-table;
+    position: absolute;
+    max-width: 200px;
+    top: 30px;
+    left: -100px;
+    opacity: 0.9;
+    background-color: #eee;
+    border: 1px solid lightseagreen;
+    /* border-bottom: 1px solid lightseagreen; */
+    margin: 0px 0px;
+    padding-left: 0.1rem;
+}
+
+.AyogiFootnotePopup .footnote span {
+    /* font-size: 0.8rem; */
+    font-size: 9pt;
+    line-height: 9pt;
+    white-space: nowrap;
+}
+
+.AyogiChapters .AyogiFootnotePopup Button {
+    font-weight: bold;
+    display: inline-block;
+    width: 20px;
+    margin: 0 0 0 5px;
+    padding: 0 0 0 6px;
+}
