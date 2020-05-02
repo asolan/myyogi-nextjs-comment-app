@@ -1,8 +1,7 @@
 import { fromJS } from "immutable";
 import constants from "../constants";
-import { TActionCreatorType, TReducerExtraData, TUserDataInitialState } from "../types";
 
-let initialState: TUserDataInitialState = fromJS({
+let initialState = fromJS({
   tab: 'aychap',
   chapter: 1,
   chapterLine: 1,
@@ -11,17 +10,14 @@ let initialState: TUserDataInitialState = fromJS({
   font: "",
 });
 
-function userData(
-  state: TUserDataInitialState = initialState,
-  action: TActionCreatorType
-) {
+function userData(state = initialState, action) {
   switch (action.type) {
     case constants.ON_CHANGE_TAB:
        console.log("ON_CHANGE_TAB-reducer");
        console.log(action);
        //            return state.set(action.payload);
        return state;
-     case constants.ON_CHANGE_CHAPTER:
+   case constants.ON_CHANGE_CHAPTER:
       console.log("ON_CHANGE_CHAPTER-reducer");
       console.log(action);
       //            return state.set(action.payload);

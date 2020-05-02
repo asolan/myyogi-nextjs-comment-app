@@ -50,7 +50,7 @@ const AyogiChapterList = props => {
               class="ion-text-center"
               onClick={()=> {
                 console.log('occ');
-                props.onChangeChapter(c.chapterNumber);
+                props.onChangeChapter2(c.chapterNumber);
               }
               }
               >

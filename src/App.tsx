@@ -51,8 +51,9 @@ import aychaptlist from "./aychaptlist.json";
 import aychaptpos from "./aychaptpos.json";
 
 import selectors from "./store/selectors";
-import actions from "./store/actions";
-import constants from "./store/constants";
+//import selectors from "./store/selectors/index.js";
+// import actions from "./store/actions";
+// import constants from "./store/constants";
 
 const App: React.FC = (props) => {
   return (

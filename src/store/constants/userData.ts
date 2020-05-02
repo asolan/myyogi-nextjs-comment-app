@@ -1,5 +1,6 @@
 export const ON_CHANGE_TAB = 'userData_ON_CHANGE_TAB';
 export const ON_CHANGE_CHAPTER = 'userData_ON_CHANGE_CHAPTER';
+export const ON_CHANGE_CHAPTER2 = 'userData_ON_CHANGE_CHAPTER2';
 export const ON_CHANGE_CHAPTER_LINE = 'userData_ON_CHANGE_CHAPTER_LINE';
 export const ON_CHANGE_IMAGE = 'userData_ON_CHANGE_IMAGE';
 export const ON_CHANGE_POEM = 'userData_ON_CHANGE_POEM';

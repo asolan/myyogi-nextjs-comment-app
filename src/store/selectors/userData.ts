@@ -5,19 +5,19 @@ import { createSelector } from "reselect";
 //import { TActionCreatorType, TReducerExtraData, TUserDataInitialState } from "../types";
 
 //const selectUserData = (state: RootState) => state["userData"];
-const selectUserData = (state: any) => state["userData"];
+const selectUserData = (state) => state["userData"];
 
-const makeSelectTab: any = () =>
+const makeSelectTab = () =>
   createSelector(selectUserData, (ud) => ud.get("tab"));
-const makeSelectChapter: any = () =>
+const makeSelectChapter = () =>
   createSelector(selectUserData, (ud) => ud.get("chapter"));
-const makeSelectChapterLine: any = () =>
+const makeSelectChapterLine = () =>
   createSelector(selectUserData, (ud) => ud.get("chapterLine"));
-const makeSelectImage: any = () =>
+const makeSelectImage = () =>
   createSelector(selectUserData, (ud) => ud.get("image"));
-const makeSelectPoem: any = () =>
+const makeSelectPoem = () =>
   createSelector(selectUserData, (ud) => ud.get("poem"));
-const makeSelectFont: any = () =>
+const makeSelectFont = () =>
   createSelector(selectUserData, (ud) => ud.get("font"));
 
 export {

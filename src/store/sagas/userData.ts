@@ -1,10 +1,10 @@
-import { take, call, put, select, cancel, takeLatest, fork, all} from "redux-saga/effects";
+import { take, takeEvery, call, put, select, cancel, takeLatest, fork, all} from "redux-saga/effects";
 //import { fromJS, toJS, Map} from 'immutable';
 import constants from "../constants";
 import actions from "../actions";
 import selectors from "../selectors";
 
-import { TActionCreatorType, TReducerExtraData } from '../types';
+//import { TActionCreatorType, TReducerExtraData } from '../types';
 
 
 // function* getUserData(){
@@ -23,13 +23,13 @@ import { TActionCreatorType, TReducerExtraData } from '../types';
 // }
 
 
-function* onChangeTabSaga({ type, payload : {chapterNumber} }: TActionCreatorType) {
+function* onChangeTabSaga(chapterNumber) {
     console.log('onChangeTabSaga');
     console.log(chapterNumber);
     let response = yield put(actions.updateChapter(chapterNumber));
 }
 
-function* onChangeChapterSaga({ type, payload : {chapterNumber} }: TActionCreatorType) {
+function* onChangeChapterSaga(chapterNumber) {
     console.log('onChangeChapterSaga');
     console.log(chapterNumber);
     let response = yield put(actions.updateChapter(chapterNumber));
@@ -44,57 +44,67 @@ function* onChangeChapterSaga({ type, payload : {chapterNumber} }: TActionCreato
 //     let response = yield put(actions.updateChapter(chapterNumber));
 // }
 
-function* onChangeChapterLineSaga({ type, payload : {chapterLineNumber} }: TActionCreatorType) {
+function* onChangeChapterLineSaga(chapterLineNumber) {
     console.log('onChangeChapterLine');
     console.log(chapterLineNumber);
     let response = yield put(actions.updateChapterLine(chapterLineNumber));
 }
 
-function* onChangeImageSaga({ type, payload : {imageId} }: TActionCreatorType) {
+function* onChangeImageSaga(imageId) {
     let response = yield put(actions.updateImage(imageId));
 }
 
-function* onChangePoemSaga({ type, payload : {poemId} }: TActionCreatorType) {
+function* onChangePoemSaga(poemId) {
     let response = yield put(actions.updatePoem(poemId));
 }
 
-function* onChangeFontSaga({ type, payload : {font} }: TActionCreatorType) {
+function* onChangeFontSaga(font) {
     let response = yield put(actions.updateFont(font));
 }
 
+
+export function* watchUser() {
+    yield all ([ takeEvery(constants.ON_CHANGE_TAB, onChangeTabSaga),
+    takeEvery(constants.ON_CHANGE_CHAPTER2, onChangeChapterSaga),
+    takeEvery(constants.ON_CHANGE_CHAPTER_LINE, onChangeChapterLineSaga),
+    takeEvery(constants.ON_CHANGE_IMAGE, onChangeImageSaga),
+    takeEvery(constants.ON_CHANGE_POEM, onChangePoemSaga),
+    takeEvery(constants.ON_CHANGE_FONT, onChangeFontSaga)
+]);
+}
 //Watchers
-const handleOnChangeTabWatcher = fork(function* () {
-    console.log('handleOnChangeTabWatcher');
-    yield takeLatest(constants.ON_CHANGE_TAB, onChangeTabSaga);
-});
+// const handleOnChangeTabWatcher = fork(function* () {
+// //    console.log('handleOnChangeTabWatcher');
+//     yield takeLatest(constants.ON_CHANGE_TAB, onChangeTabSaga);
+// });
 
-const handleOnChangeChapterWatcher = fork(function* () {
-    console.log('handleOnChangeChapterWatcher');
-    yield takeLatest(constants.ON_CHANGE_CHAPTER, onChangeChapterSaga);
-});
+// const handleOnChangeChapterWatcher = fork(function* () {
+//     console.log('handleOnChangeChapterWatcher');
+//     yield takeLatest(constants.ON_CHANGE_CHAPTER2, onChangeChapterSaga);
+// });
 
-const handleOnChangeChapterLineWatcher = fork(function* () {
-    yield takeLatest(constants.ON_CHANGE_CHAPTER_LINE, onChangeChapterLineSaga);
-});
+// const handleOnChangeChapterLineWatcher = fork(function* () {
+//     yield takeLatest(constants.ON_CHANGE_CHAPTER_LINE, onChangeChapterLineSaga);
+// });
 
-const handleOnChangeImageWatcher = fork(function* () {
-    yield takeLatest(constants.ON_CHANGE_IMAGE, onChangeImageSaga);
-});
+// const handleOnChangeImageWatcher = fork(function* () {
+//     yield takeLatest(constants.ON_CHANGE_IMAGE, onChangeImageSaga);
+// });
 
-const handleOnChangePoemWatcher = fork(function* () {
-    yield takeLatest(constants.ON_CHANGE_POEM, onChangePoemSaga);
-});
+// const handleOnChangePoemWatcher = fork(function* () {
+//     yield takeLatest(constants.ON_CHANGE_POEM, onChangePoemSaga);
+// });
 
-const handleOnChangeFontWatcher = fork(function* () {
-    yield takeLatest(constants.ON_CHANGE_FONT, onChangeFontSaga);
-});
+// const handleOnChangeFontWatcher = fork(function* () {
+//     yield takeLatest(constants.ON_CHANGE_FONT, onChangeFontSaga);
+// });
 
-export default [
-    handleOnChangeTabWatcher,
-    handleOnChangeChapterWatcher,
-    handleOnChangeChapterLineWatcher,
-    handleOnChangeImageWatcher,
-    handleOnChangePoemWatcher,
-    handleOnChangeFontWatcher
-];
+// export default [
+//     handleOnChangeTabWatcher,
+//     handleOnChangeChapterWatcher,
+//     handleOnChangeChapterLineWatcher,
+//     handleOnChangeImageWatcher,
+//     handleOnChangePoemWatcher,
+//     handleOnChangeFontWatcher
+// ];
 
