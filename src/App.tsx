@@ -56,6 +56,9 @@ import selectors from "./store/selectors";
 // import constants from "./store/constants";
 
 const App: React.FC = (props) => {
+  console.log('app');
+  console.log(props);
+  let currentTab = props["currentTab"];
   return (
     <IonApp>
       <IonReactRouter>
@@ -94,7 +97,8 @@ const App: React.FC = (props) => {
             {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
             <Route
               path="/"
-              render={() => <Redirect to="/aychap" />}
+              render={(props) => <Redirect to={currentTab} />}
+//              render={(props) => console.log(props)}
               exact={true}
             />
           </IonRouterOutlet>

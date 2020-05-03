@@ -1,8 +1,9 @@
-import { take, takeEvery, call, put, select, cancel, takeLatest, fork, all} from "redux-saga/effects";
+import { takeEvery, put, all} from "redux-saga/effects";
+//import { take, takeEvery, call, put, select, cancel, takeLatest, fork, all} from "redux-saga/effects";
 //import { fromJS, toJS, Map} from 'immutable';
 import constants from "../constants";
 import actions from "../actions";
-import selectors from "../selectors";
+//import selectors from "../selectors";
 
 //import { TActionCreatorType, TReducerExtraData } from '../types';
 

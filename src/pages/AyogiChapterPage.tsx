@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Loading from '../components/AyogiIon/Loading/Loading';
+import React, { useState, useEffect } from "react";
+import Loading from "../components/AyogiIon/Loading/Loading";
 import {
   // IonCard,
   // IonCardContent,
@@ -19,14 +19,15 @@ import {
   // IonToolbar
   IonContent,
   IonPage,
-} from '@ionic/react';
+  IonApp,
+} from "@ionic/react";
 
 //import { book, build, colorFill, grid } from 'ionicons/icons';
-import AyogiHeader from '../components/AyogiIon/AyogiHeader/AyogiHeader';
-import AyogiChapterList from '../components/AyogiIon/AyogiChapterList/AyogiChapterList';
+import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
+import AyogiChapterList from "../components/AyogiIon/AyogiChapterList/AyogiChapterList";
 //import { fetchAYChapterList } from '../utility/fetchData';
 //import { LINE_TYPE_ENUM } from '../utility/dataTypes';
-import './AyogiPage.css';
+import "./AyogiPage.css";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import selectors from "../store/selectors";
@@ -35,14 +36,13 @@ import actions from "../store/actions";
 // import actions from "../store/actions/index.js";
 //import constants from "../store/constants";
 
-let aychaptlist = require('../aychaptlist.json');
-
+let aychaptlist = require("../aychaptlist.json");
 
 const AyogiChapterPage = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
-  console.log('AyogiChapterPage');
+  console.log("AyogiChapterPage");
   console.log(props);
 
   // useEffect(() => {
@@ -52,10 +52,9 @@ const AyogiChapterPage = (props: any) => {
 
   // Page load
   useEffect(() => {
-//    fetchAYChapterList().then(d => setChaptersList(d));
+    //    fetchAYChapterList().then(d => setChaptersList(d));
     setChaptersList(aychaptlist);
     setIsLoading(false);
-
   }, []);
 
   // const setCurrentChapter = (chapterNumber: number) => {
@@ -64,35 +63,29 @@ const AyogiChapterPage = (props: any) => {
 
   let content = <Loading loading={isLoading} />;
 
-  if (!isLoading && (chaptersList && chaptersList.length > 0)) {
-//    typeItems={contentTypeText[contentType]}
+  if (!isLoading && chaptersList && chaptersList.length > 0) {
+    //    typeItems={contentTypeText[contentType]}
 
-// setCurrentChapter={setCurrentChapter}
-    content = (
-      <AyogiChapterList 
-        {...props}
-        chaptersList={chaptersList}
-         />
-      );
+    // setCurrentChapter={setCurrentChapter}
+    content = <AyogiChapterList {...props} chaptersList={chaptersList} />;
   }
 
   if (!isLoading && chaptersList.length === 0) {
-    content = (<p>Found no content. Try again later.</p>);
+    content = <IonContent><p>Found no content. Try again later.</p></IonContent>;
   }
 
-//  return (<main>{buttons}{content}</main>);  
+  //  return (<main>{buttons}{content}</main>);
   return (
-    <IonPage>
-      <AyogiHeader
-        headerType="chapterlist"
-        headerNumber={0}
-        headerTitle="">
-      </AyogiHeader>
-      <IonContent>
+    <IonApp>
+      <IonPage>
+        <AyogiHeader
+          headerType="chapterlist"
+          headerNumber={0}
+          headerTitle=""
+        ></AyogiHeader>
         {content}
-      </IonContent>
-    </IonPage>
-
+      </IonPage>
+    </IonApp>
   );
 };
 
