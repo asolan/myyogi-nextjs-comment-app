@@ -51,7 +51,7 @@ const AyogiChapterList = props => {
               onClick={() => {
                 console.log('occ');
                 props.onChangeChapter(c.chapterNumber);
-                props.history.push(`/ayogi/${c.chapterNumber}`);
+                props.history.push(`/ayogi/${c.chapterNumber}/1`);
               }
               }
             >

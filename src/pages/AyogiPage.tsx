@@ -26,6 +26,11 @@ import AyogiChapter from "../components/AyogiIon/AyogiChapter/AyogiChapter";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiPage.css";
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import selectors from "../store/selectors";
+import actions from "../store/actions";
+
 
 //let aydata = require('../aydata.json');
 //let aychaptlist = require('../aychaptlist.json');
@@ -52,6 +57,20 @@ const AyogiPage = (props: any) => {
     cref.scrollToTop && cref.scrollToTop();
   };
 
+  const scrollToLine = (line) => {
+    let scrollToDelay = () => {      
+      let cref = contentRef!.current as any;
+      // console.log('scrollToLine');
+      // console.log(line);
+      // console.log(contentRef!.current);
+      // console.log(cref.scrollToPoint);
+      cref.scrollToPoint && cref.scrollToPoint(line, line);
+    }
+
+    // TODO: better than this
+    setTimeout(scrollToDelay, 500);
+  };
+
   // Page load
   useEffect(() => {
     // console.log(`page-effect-[]${props.match.params.id}`);
@@ -62,9 +81,10 @@ const AyogiPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-    // console.log(`page-effect-id`);
+    console.log(`page-effect-id-props.chPos-${props.chPos}`);
     // console.log(props.chPos);
-    setCurrentChapter(props.match.params.id - 1);
+    setCurrentChapter(props.match.params.id - 1,
+      props.match.params.line);
   }, [props.chPos]);
 
   // useEffect(() => {
@@ -72,12 +92,29 @@ const AyogiPage = (props: any) => {
   // },[props.aychaptlist])
 
   useEffect(() => {
-    console.log(`page-effect-id${props.match.params.id}`);
+    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
     setIsLoading(false);
-    setCurrentChapter(props.match.params.id - 1);
+    setCurrentChapter(
+      props.match.params.id - 1,
+      props.match.params.line);
   }, [props.match.params.id]);
 
-  const setCurrentChapter = (cnum: number) => {
+  const contentScrollEnd = (e) => {
+    // console.log('contentScrollEnd');
+    //    console.log(e);
+    //console.log(e.target.scrollTop);
+    e.target.getScrollElement().then((el) => {
+      //console.log(el);
+      // console.log(el.scrollHeight);
+      // console.log(el.clientHeight);
+      console.log(el.scrollTop);
+      // console.log(el.clientTop);
+      props.onChangeChapterLine(el.scrollTop);
+    });
+    //    console.log(e.srcElement);
+  };
+
+  const setCurrentChapter = (cnum: number, clinenumber: number) => {
     console.log(`setCurrentChapter-${cnum}`);
     console.log(chNum);
     // console.log('setcurrchapt');
@@ -91,14 +128,15 @@ const AyogiPage = (props: any) => {
       props.aychaptlist.length > 0
     ) {
       if (cnum === -2) {
-        cnum = chNum === 0 ? 0 : chNum-1;
+        cnum = chNum === 0 ? 0 : chNum - 1;
       }
 
       setChNum(props.aychaptlist[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychaptlist[cnum].text);
       buildChapterText(cnum);
       //      console.log('setcurrchapt2');
-      scrollToTop();
+      //      scrollToTop();
+      scrollToLine(clinenumber);
     }
   };
 
@@ -122,11 +160,6 @@ const AyogiPage = (props: any) => {
     let nextText = props.aydata
       .slice(props.chPos[cnum] + 1, props.chPos[cnum + 1])
       .filter(notChapterTitleHeader);
-
-    // console.log('buildChapterText');
-    // console.log(chPos.length);
-    // console.log(chPos[cnum] + 1 + '-' + chPos[cnum+1]);
-    // console.log(nextText);
 
     // Build array with positions of each type of content
     let nextContent = nextText.reduce(
@@ -199,19 +232,13 @@ const AyogiPage = (props: any) => {
     // console.log('chapterContent');
     // console.log(chapterContent);
     content = (
-      // <AyogiContext.Provider
-      //   value={{
-      //     footNum: ayogiState.footNum,
-      //     incrementFootNum: incrementFootNum
-
-      //   }}>
       <AyogiChapter
+        {...props}
         currentChapterNumber={chNum}
         currentChapterTitle={currentChapterTitle}
         currentChapterText={chapterContent}
         setChapter={setCurrentChapter}
       ></AyogiChapter>
-      // </AyogiContext.Provider>
     );
   } else {
     content = <p>Found no chapters. Try again later.</p>;
@@ -228,9 +255,9 @@ const AyogiPage = (props: any) => {
       <IonContent
         ref={contentRef}
         scrollEvents={true}
-        onIonScrollStart={() => {}}
-        onIonScroll={() => {}}
-        onIonScrollEnd={() => {}}
+        onIonScrollStart={() => { }}
+        onIonScroll={() => { }}
+        onIonScrollEnd={(e) => { contentScrollEnd(e) }}
       >
         {content}
       </IonContent>
@@ -238,4 +265,22 @@ const AyogiPage = (props: any) => {
   );
 };
 
-export default AyogiPage;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onChangeChapter: (chapter: number) =>
+      dispatch(actions.onChangeChapter(chapter)),
+    onChangeChapterLine: (chapterLine: number) =>
+      dispatch(actions.onChangeChapterLine(chapterLine)),
+  };
+};
+
+const mapStateToProps = () =>
+  createStructuredSelector({
+    currentChapter: selectors.makeSelectChapter(),
+    currentChapterLine: selectors.makeSelectChapterLine(),
+    currentImage: selectors.makeSelectImage(),
+    currentPoem: selectors.makeSelectPoem(),
+    currentFont: selectors.makeSelectFont(),
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(AyogiPage);

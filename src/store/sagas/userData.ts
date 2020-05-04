@@ -46,7 +46,7 @@ function* onChangeChapterSaga(chapterNumber) {
 // }
 
 function* onChangeChapterLineSaga(chapterLineNumber) {
-    console.log('onChangeChapterLine');
+    console.log('onChangeChapterLineSaga');
     console.log(chapterLineNumber);
     let response = yield put(actions.updateChapterLine(chapterLineNumber));
 }
@@ -65,13 +65,14 @@ function* onChangeFontSaga(font) {
 
 
 export function* watchUser() {
-    yield all ([ takeEvery(constants.ON_CHANGE_TAB, onChangeTabSaga),
-    takeEvery(constants.ON_CHANGE_CHAPTER2, onChangeChapterSaga),
-    takeEvery(constants.ON_CHANGE_CHAPTER_LINE, onChangeChapterLineSaga),
-    takeEvery(constants.ON_CHANGE_IMAGE, onChangeImageSaga),
-    takeEvery(constants.ON_CHANGE_POEM, onChangePoemSaga),
-    takeEvery(constants.ON_CHANGE_FONT, onChangeFontSaga)
-]);
+    yield all;
+    // yield all ([ takeEvery(constants.ON_CHANGE_TAB, onChangeTabSaga),
+    // takeEvery(constants.ON_CHANGE_CHAPTER2, onChangeChapterSaga),
+    // takeEvery(constants.ON_CHANGE_CHAPTER_LINE, onChangeChapterLineSaga),
+    // takeEvery(constants.ON_CHANGE_IMAGE, onChangeImageSaga),
+    // takeEvery(constants.ON_CHANGE_POEM, onChangePoemSaga),
+    // takeEvery(constants.ON_CHANGE_FONT, onChangeFontSaga)
+//]);
 }
 //Watchers
 // const handleOnChangeTabWatcher = fork(function* () {

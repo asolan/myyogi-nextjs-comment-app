@@ -7,7 +7,7 @@ import './AyogiChapter.css';
 //import parseBookData from '../../../utility/parseBookData';
 //import {useTraceUpdate} from '../../../utility/helpUtility';
 
-const AyogiChapter = props => {
+const AyogiChapter = (props) => {
     //AMSTODO-BUG - Rendered twice
     // console.log('AyogiChapter');
     // console.log(props);

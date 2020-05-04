@@ -20,7 +20,7 @@ const autoyogiState = window.localStorage["autoyogiState"]
 const fullInitiatState = fromJS({ ...initialState, ...autoyogiState });
 
 function userData(state = fullInitiatState, action) {
-  let newState;
+  let newState, newTab, currentChapter;
 
   switch (action.type) {
     case constants.ON_CHANGE_TAB:
@@ -32,12 +32,16 @@ function userData(state = fullInitiatState, action) {
     case constants.ON_CHANGE_CHAPTER:
       console.log("ON_CHANGE_CHAPTER-reducer");
       console.log(action);
-      const newTab = `/ayogi/${action.payload}`;
+      newTab = `/ayogi/${action.payload}/1`;
       newState = state.set("chapter", action.payload).set("tab", newTab);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_CHAPTER_LINE:
-      newState = state.set("chapterLine", action.chapterLineNumber);
+      console.log("ON_CHANGE_CHAPTER_LINE-reducer");
+      console.log(action);
+      currentChapter = state.get("chapter");
+      newTab = `/ayogi/${currentChapter}/${action.payload}`;
+      newState = state.set("chapterLine", action.chapterLineNumber).set("tab", newTab);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_IMAGE:

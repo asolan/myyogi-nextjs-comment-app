@@ -70,7 +70,7 @@ const App: React.FC = (props) => {
               exact={true}
             />
             <Route
-              path="/ayogi/:id"
+              path="/ayogi/:id/:line"
               // aydata={aydata}
               // aychaptlist={aychaptlist}
               render={(props) => (

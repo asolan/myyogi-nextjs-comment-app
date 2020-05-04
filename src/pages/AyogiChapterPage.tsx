@@ -32,9 +32,6 @@ import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import selectors from "../store/selectors";
 import actions from "../store/actions";
-// import selectors from "../store/selectors/index.js";
-// import actions from "../store/actions/index.js";
-//import constants from "../store/constants";
 
 let aychaptlist = require("../aychaptlist.json");
 
@@ -93,24 +90,23 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onChangeChapter: (chapter: number) =>
       dispatch(actions.onChangeChapter(chapter)),
-    onChangeChapter2: (chapter: number) =>
-      dispatch(actions.onChangeChapter2(chapter)),
-    onChangeChapterLine: (chapterLine: number) =>
-      dispatch(actions.onChangeChapterLine(chapterLine)),
-    onChangeImage: (image: string) => dispatch(actions.onChangeImage(image)),
-    onChangePoem: (poem: string) => dispatch(actions.onChangePoem(poem)),
-    onChangeFont: (font: string) => dispatch(actions.onChangeFont(font)),
+    // onChangeChapter2: (chapter: number) =>
+    //   dispatch(actions.onChangeChapter2(chapter)),
+    // onChangeChapterLine: (chapterLine: number) =>
+    //   dispatch(actions.onChangeChapterLine(chapterLine)),
+    // onChangeImage: (image: string) => dispatch(actions.onChangeImage(image)),
+    // onChangePoem: (poem: string) => dispatch(actions.onChangePoem(poem)),
+    // onChangeFont: (font: string) => dispatch(actions.onChangeFont(font)),
   };
 };
 
 const mapStateToProps = () =>
   createStructuredSelector({
     currentChapter: selectors.makeSelectChapter(),
-    currentChapterLine: selectors.makeSelectChapterLine(),
-    currentImage: selectors.makeSelectImage(),
-    currentPoem: selectors.makeSelectPoem(),
-    currentFont: selectors.makeSelectFont(),
+    // currentChapterLine: selectors.makeSelectChapterLine(),
+    // currentImage: selectors.makeSelectImage(),
+    // currentPoem: selectors.makeSelectPoem(),
+    // currentFont: selectors.makeSelectFont(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiChapterPage);
-//export default AyogiChapterPage;
