@@ -18,6 +18,10 @@ import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
+
+// Delme
+//import AyogiPageTest from "./pages/AyogiPageTest";
+
 // Redux
 
 // import { createStructuredSelector } from "reselect";
@@ -64,6 +68,15 @@ const App: React.FC = (props) => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+          {/* <Route
+              path="/aychaptest"
+              render={(props) => <AyogiPageTest 
+                chPos={aychaptpos}
+                aychaptlist={aychaptlist}
+                aydata={aydata}
+                {...props} />}
+              exact={true}
+            /> */}
             <Route
               path="/aychap"
               render={(props) => <AyogiChapterPage {...props} />}

@@ -5,7 +5,7 @@
      margin: 0pt;
      widows: 1;
      orphans: 1;
-     line-height: 1.0rem;
+     line-height: 1.1rem;
      letter-spacing: .014rem;
      word-spacing: .003em;
  }
@@ -14,5 +14,9 @@
      margin: auto;
      max-width: 660px;
      text-align: justify;
+}
+
+ion-grid {
+    margin: 20px;
 }
 

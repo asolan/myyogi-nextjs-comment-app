@@ -237,7 +237,6 @@ const AyogiPage = (props: any) => {
         currentChapterNumber={chNum}
         currentChapterTitle={currentChapterTitle}
         currentChapterText={chapterContent}
-        setChapter={setCurrentChapter}
       ></AyogiChapter>
     );
   } else {
