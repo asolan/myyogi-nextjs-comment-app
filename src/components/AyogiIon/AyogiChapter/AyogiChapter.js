@@ -7,7 +7,9 @@ import {
     IonGrid,
     IonRow,
     IonCol,
+    IonIcon
 } from "@ionic/react";
+import { chevronForwardOutline, chevronBackOutline } from "ionicons/icons";
 import './AyogiChapter.css';
 //import parseBookData from '../../../utility/parseBookData';
 //import {useTraceUpdate} from '../../../utility/helpUtility';
@@ -20,14 +22,21 @@ const AyogiChapter = (props) => {
     //end buildSection function
 
     const chapButton = (chNum, next) => {
+        const title = next ? 'Next' : 'Previous';
+        const arrow = next ?
+            <IonIcon icon={chevronForwardOutline} /> :
+            <IonIcon icon={chevronBackOutline} />;
+
         return (
             <Button
+                title={title}
+                alt={title}
                 key={'chapnext' + chNum}
                 onClick={() => {
                     props.onChangeChapter(chNum);
                     props.history.push(`/ayogi/${chNum}/1`);
                 }}>
-                {next ? 'Next Chapter' : 'Previous Chapter'}
+                {arrow}
             </Button>
         );
     }
@@ -45,7 +54,7 @@ const AyogiChapter = (props) => {
             </div>
             <AyogiFooters currentChapterText={props.currentChapterText}>
             </AyogiFooters>
-            <IonGrid>
+            <IonGrid className="prevnext">
                 <IonRow className="ion-text-center">
                     <IonCol>{prevChapt}</IonCol>
                     <IonCol>{nextChapt}</IonCol>
