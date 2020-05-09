@@ -21,6 +21,7 @@ import {
   IonPage,
   IonApp,
 } from "@ionic/react";
+import { withRouter } from "react-router"; 
 
 //import { book, build, colorFill, grid } from 'ionicons/icons';
 import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
@@ -35,7 +36,7 @@ import actions from "../store/actions";
 
 let aychaptlist = require("../aychaptlist.json");
 
-const AyogiChapterPage = (props: any) => {
+const AyogiChapterPage: React.SFC<any> = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
@@ -58,13 +59,20 @@ const AyogiChapterPage = (props: any) => {
   //   console.log(chapterNumber);
   // };
 
+  const goToChapter = (num: number) => {
+    props.onChangeChapter(num);
+    //props.goToTab(`/ayogi/${num}/1`);
+//    props.history.replace(`/ayogi/${num}/1`);
+    props.history.push(`/ayogi/${num}/1`);
+  }
+
   let content = <Loading loading={isLoading} />;
 
   if (!isLoading && chaptersList && chaptersList.length > 0) {
     //    typeItems={contentTypeText[contentType]}
 
     // setCurrentChapter={setCurrentChapter}
-    content = <AyogiChapterList {...props} chaptersList={chaptersList} />;
+    content = <AyogiChapterList {...props} goToChapter={goToChapter} chaptersList={chaptersList} />;
   }
 
   if (!isLoading && chaptersList.length === 0) {
@@ -73,7 +81,6 @@ const AyogiChapterPage = (props: any) => {
 
   //  return (<main>{buttons}{content}</main>);
   return (
-    <IonApp>
       <IonPage>
         <AyogiHeader
           headerType="chapterlist"
@@ -82,7 +89,6 @@ const AyogiChapterPage = (props: any) => {
         ></AyogiHeader>
         {content}
       </IonPage>
-    </IonApp>
   );
 };
 

@@ -48,10 +48,9 @@ const AyogiChapterList = props => {
             <IonCard
               button="true"
               class="ion-text-center"
-              onClick={() => {
-                console.log('occ');
-                props.onChangeChapter(c.chapterNumber);
-                props.history.push(`/ayogi/${c.chapterNumber}/1`);
+              onClick={(e) => {
+                e.preventDefault();
+                props.goToChapter(c.chapterNumber);
               }
               }
             >

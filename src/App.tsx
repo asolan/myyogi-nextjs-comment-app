@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -59,13 +59,23 @@ import selectors from "./store/selectors";
 // import actions from "./store/actions";
 // import constants from "./store/constants";
 
-const App: React.FC = (props) => {
+const App: React.SFC = (props) => {
   console.log('app');
   console.log(props);
   let currentTab = props["currentTab"];
+//  const tabRef = useRef(null);
+
+//   const goToTab = (newtab: string) => {
+//     let tref = tabRef!.current as any;
+// console.log(tref);
+//     tref.select(newtab);
+// //    props.history.push(`/ayogi/${num}/1`);
+//   }
+
   return (
     <IonApp>
       <IonReactRouter>
+        {/* <IonTabs ref={tabRef}> */}
         <IonTabs>
           <IonRouterOutlet>
           {/* <Route
@@ -80,7 +90,7 @@ const App: React.FC = (props) => {
             <Route
               path="/aychap"
               render={(props) => <AyogiChapterPage {...props} />}
-              exact={true}
+//              exact={true}
             />
             <Route
               path="/ayogi/:id/:line"
@@ -94,12 +104,12 @@ const App: React.FC = (props) => {
                   {...props}
                 />
               )}
-              exact={true}
+  //            exact={true}
             />
             <Route
-              path="/imagelist"
+              path="/:tab(imagelist)"
               render={(props) => <ImageListTab />}
-              exact={true}
+//              exact={true}
             />
             <Route
               path="/aypoems"
@@ -112,7 +122,7 @@ const App: React.FC = (props) => {
               path="/"
               render={(props) => <Redirect to={currentTab} />}
 //              render={(props) => console.log(props)}
-              exact={true}
+//              exact={true}
             />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
@@ -120,7 +130,7 @@ const App: React.FC = (props) => {
               <IonIcon icon={listOutline} />
               <IonLabel>Chapters</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="book" href="/ayogi/-1">
+            <IonTabButton tab="book" href={currentTab}>
               <IonIcon icon={bookOutline} />
               <IonLabel>Book</IonLabel>
             </IonTabButton>
