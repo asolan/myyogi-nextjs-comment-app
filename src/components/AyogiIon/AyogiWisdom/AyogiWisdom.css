@@ -11,6 +11,10 @@
     margin-bottom: 1rem;
 } */
 
+.wisdom {
+    font-size: var(--yogi-font-size);
+    /* text-align: var(--yogi-text-align); */
+}
 
 p.largeSpace {
     margin: 2px; 
@@ -28,32 +32,21 @@ p.smallSpace {
     /* display: inline-block; */
 }
 
-/* .normal-paragraph {
-    text-align: justify;
-    display: block;
-}
-
-.normal-paragraph:after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-  } */
-
 .spaceAfter {
     margin-right: 15px;
 }
 
 .DropCap {
-    font-size:   25.7pt;
-    line-height: 25.7pt;
+    font-size: calc(var(--yogi-font-size) * 2);
+    /* line-height: calc(var(--yogi-font-size) - 0.8); */
+    line-height: 0.75em;
     display: block;
     float: left;
-    vertical-align: top;
     position: relative;
-    top: .075em;
-    height: .7em;
+    top: .2em;
+    height: 0.7em;
     padding-right: 0.05em;
-    padding-bottom: 1em;
+    padding-bottom: 0.6em;
 }
 
 .FirstWords,
@@ -64,7 +57,7 @@ p.smallSpace {
     font-style: inherit;
     font-weight: inherit;
     font-variant: small-caps;
-    font-size: 80%;
+    font-size: calc(var(--yogi-font-size) * 0.8);
     line-height: 80%;
     letter-spacing: .12em;
 }
@@ -74,7 +67,7 @@ p.smallSpace {
     float: left;
     vertical-align: top;
     position: relative;
-    top: 0em;
+    top: 0.3em;
     height: .7em;
     left: -0.4em;
      width: 0em;
@@ -119,13 +112,13 @@ p.smallSpace {
 } */
 
 .footnote.emphasis {
-    font-size: 0.8rem;
+    font-size: calc(var(--yogi-font-size) * 0.8);
 }
 
 .emphasis {
     font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-weight: normal;
     font-style: italic;
-    font-size: 90%;
+    font-size: calc(var(--yogi-font-size) * 0.9);
     line-height: inherit;
 }

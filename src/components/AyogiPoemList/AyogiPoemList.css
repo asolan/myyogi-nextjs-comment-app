@@ -13,7 +13,7 @@
 }
 
 ion-card-subtitle {
-    font-size: 1.0rem;
+    font-size: calc(var(--yogi-font-size) * 1);
 }
 
 .chaptertitle {
@@ -21,7 +21,7 @@ ion-card-subtitle {
     text-align: center;
     font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-style: italic;
-    font-size: 16pt;
+    font-size: calc(var(--yogi-font-size) * 1.3);
     font-weight: normal;
     letter-spacing: .020em;
     word-spacing: .05em;
@@ -30,27 +30,27 @@ ion-card-subtitle {
 
 @media (max-width: 1024px) {
     .PoemList ion-card-subtitle {
-        font-size: 0.9rem;
+        font-size: calc(var(--yogi-font-size) * 0.9);
     }
 }
 
 @media (max-width: 768px) {
     .chaptertitle {
-        font-size: 14pt;
+        font-size: calc(var(--yogi-font-size) * 1.2);
     }
 
     .PoemList ion-card-subtitle {
-        font-size: 0.8rem;
+        font-size: calc(var(--yogi-font-size) * 0.8);
     }
 }
 
 @media (max-width: 500px) {
     .chaptertitle {
-        font-size: 12pt;
+        font-size: calc(var(--yogi-font-size) * 1.1);
     }
 
     .PoemList ion-card-subtitle {
-        font-size: 0.8rem;
+        font-size: calc(var(--yogi-font-size) * 0.8);
     }
 }
 

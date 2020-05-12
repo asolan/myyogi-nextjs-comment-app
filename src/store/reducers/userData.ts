@@ -8,7 +8,8 @@ let initialState = {
   chapterLine: 1,
   image: "",
   poem: "",
-  font: "",
+  fontSize: 1,
+  fontJustification: true,
 };
 
 console.log(window.localStorage["autoyogiState"] || initialState);
@@ -18,6 +19,11 @@ const autoyogiState = window.localStorage["autoyogiState"]
   : initialState;
 
 const fullInitiatState = fromJS({ ...initialState, ...autoyogiState });
+
+document.documentElement.style
+.setProperty("--yogi-font-size", fullInitiatState.fontSize + "em");
+document.documentElement.style
+.setProperty("--yogi-text-align", fullInitiatState.fontJustification ? "justify" : "left");
 
 function userData(state = fullInitiatState, action) {
   let newState, newTab, currentChapter;
@@ -52,8 +58,12 @@ function userData(state = fullInitiatState, action) {
       newState = state.set("poem", action.poemId);
       setStorageState(newState);
       return newState;
-    case constants.ON_CHANGE_FONT:
-      newState = state.set("font", action.font);
+    case constants.ON_CHANGE_FONT_SIZE:
+      newState = state.set("fontSize", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_FONT_JUSTIFICATION:
+      newState = state.set("fontJustification", action.payload);
       setStorageState(newState);
       return newState;
     default:

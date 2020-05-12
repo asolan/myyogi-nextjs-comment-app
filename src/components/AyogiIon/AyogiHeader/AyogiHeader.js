@@ -12,11 +12,19 @@ import {
 import './AyogiHeader.css';
 
 const AyogiHeader = (props) => {
-    // console.log('AyogiHeader');
-    // console.log(props);
+    console.log('AyogiHeader');
+    console.log(props);
 
     let headerContent = null;
     switch (props.headerType) {
+        case "settings":
+            headerContent =
+                (<IonRow>
+                    <IonCol className="otherheader">
+                        Settings
+                    </IonCol>
+                </IonRow>);
+            break;
         case "chapterlist":
             headerContent =
                 (<IonRow>

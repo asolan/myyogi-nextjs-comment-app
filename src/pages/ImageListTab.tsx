@@ -1,7 +1,6 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
-//import ExploreContainer from '../components/ExploreContainer';
 import './ImageListTab.css';
 let ayimage = require('../ayimage.json');
 

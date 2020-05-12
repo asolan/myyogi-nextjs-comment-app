@@ -34,8 +34,7 @@
 }
 
 .AyogiMetaPopup .meta span {
-    /* font-size: 0.8rem; */
-    font-size: 9pt;
+    font-size: calc(var(--yogi-font-size) * 0.8);
     line-height: 9pt;
     white-space: nowrap;
 }

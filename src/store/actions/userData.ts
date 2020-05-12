@@ -45,10 +45,17 @@ export function onChangePoem(poemId) {
     }
 }
 
-export function onChangeFont(font) {
+export function onChangeFontSize(font) {
     return {
-        type: constants.ON_CHANGE_FONT,
+        type: constants.ON_CHANGE_FONT_SIZE,
         payload: font
+    }
+}
+
+export function onChangeFontJustification(justify) {
+    return {
+        type: constants.ON_CHANGE_FONT_JUSTIFICATION,
+        payload: justify
     }
 }
 

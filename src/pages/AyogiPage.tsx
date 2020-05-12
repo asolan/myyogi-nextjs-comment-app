@@ -279,7 +279,7 @@ const mapStateToProps = () =>
     currentChapterLine: selectors.makeSelectChapterLine(),
     currentImage: selectors.makeSelectImage(),
     currentPoem: selectors.makeSelectPoem(),
-    currentFont: selectors.makeSelectFont(),
+    currentFontSize: selectors.makeSelectFontSize(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiPage);

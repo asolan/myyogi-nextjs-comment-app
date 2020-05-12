@@ -28,18 +28,18 @@
 }
 
 .AyogiImage p.smallSpace {
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 0.2rem;
 }
 
 /************** Titles *********************/
 .AyogiImage .ImageAlternateTitle {
     display: none;
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 1);
 }
 
 .AyogiImage .ImageMainTitle {
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 1);
     text-align: center;
     text-indent: 0pt;
     text-transform: uppercase;
@@ -53,26 +53,17 @@
     font-style: italic;
     margin-top: -18pt;
     margin-bottom: 4pt;
-    font-size: 1rem;
-    /* font-size: 8.4pt; */
+    font-size: calc(var(--yogi-font-size) * 1);
     display: block;
     margin-right: 7rem;
 }
 
 /* image titles */
-.AyogiImage div.imagetitles {
-    /* position: absolute; */
-}
-
-
 .AyogiImage div.imagewrap {
     position: absolute;
     left: 50%;
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-}
-
-.AyogiImage div.imagewrap img {
 }
 
 .AyogiImage .image {
@@ -87,15 +78,13 @@
 
 .AyogiImage .ImageAlternateTitle {
     text-indent: 0pt;
-    font-size: 1rem;
+    font-size: var(--yogi-font-size);
     line-height: 1rem;
-    /* font-size: 8.4pt; */
-    /* line-height: 8.4pt; */
     text-align: center;
 }
 
 .AyogiImage .ImageMainTitle {
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 0.8);
     display: inline-block;
     width: 100%;
     text-align: center;
@@ -108,7 +97,7 @@
 
 .AyogiImage .ImageSubTitle1a, 
 .AyogiImage .ImageSubTitle1 {
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 0.8);
     display: inline-block;
     width: 100%;
    text-align: center;
@@ -125,8 +114,7 @@
     width: 100%;
     text-align: center;
     text-indent: 0pt;
-    font-size: 1.13rem;
-    /* font-size: 9.5pt; */
+    font-size: calc(var(--yogi-font-size) * 0.8);
     font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-weight: normal;
     font-style: italic;
@@ -146,10 +134,8 @@
 
 .AyogiImage .ImageCaption_centered_large {
     text-indent: 0pt;
-    font-size: 1.3rem;
-    /* font-size: 11.0pt; */
+    font-size: calc(var(--yogi-font-size) * 1.3);
     line-height: 1.5rem;
-    /* line-height: 12.8011pt; */
     text-align: center;
 }
 
@@ -168,36 +154,28 @@
 .AyogiImage .ImageCaption_continued,
 .AyogiImage .ImageCaption {
     text-indent: 0pt;
-    font-size: 1rem;
-    /* font-size: 8.4pt; */
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
-    /* line-height: 8.4pt; */
 }
 
 .AyogiImage .ImageCaption_centered {
     text-indent: 0pt;
-    font-size: 1rem;
-    /* font-size: 8.4pt; */
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
-    /* line-height: 8.4pt; */
     text-align: center;
 }
 
 .AyogiImage .ImageCaption_indented_large {
     text-indent: 1rem;
-    font-size: 1.3rem;
-    /* font-size: 11.0pt; */
+    font-size: calc(var(--yogi-font-size) * 1.3);
     line-height: 1.5rem;
-    /* line-height: 12.8011pt; */
 }
 
 .AyogiImage .ImageCaption_indented_top,
 .AyogiImage .ImageCaption_indented {
     text-indent: 1rem;
-    font-size: 1rem;
-    /* font-size: 8.4pt; */
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
-    /* line-height: 8.4pt; */
 }
 
 .AyogiImage .LEFTCaption, 
@@ -213,8 +191,7 @@
 .AyogiImage .LOWERLEFTCaption:before {
 	text-transform: lowercase;
 	font-variant: small-caps;
-    font-size: 0.8rem;
-	/* font-size: 80%; */
+    font-size: calc(var(--yogi-font-size) * 0.8);
 	line-height: 0.8rem;
 }
 
@@ -222,29 +199,4 @@
 .RIGHTCaption:before 		{content: "(RIGHT) ";}
 .UPPERLEFTCaption:before	{content: "(UPPER LEFT) ";}
 .LOWERLEFTCaption:before	{content: "(LOWER LEFT) ";}
-
-/* #fig24caption {
-    width: 4.375in;
-    margin-left: .3125in;
-}
-
-#fig25caption {
-    width: 4.375in;
-    margin-left: .3125in;
-} */
-/* .AyogiImage .ImageCaption .UPPERLEFTCaption {
-    
-}
-
-.AyogiImage .ImageCaption .LEFTCaption{
-    
-}
-.AyogiImage .ImageCaption .LOWERLEFTCaption {
-    
-}
-
-.AyogiImage .ImageCaption .RIGHTCaption {
-    
-} */
-
 

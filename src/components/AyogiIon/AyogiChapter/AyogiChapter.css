@@ -5,18 +5,19 @@
      margin: 0pt;
      widows: 1;
      orphans: 1;
-     line-height: 1.1rem;
+     line-height: 1.15rem;
+     /* line-height: calc(var(--yogi-font-size) * 0.7); */
      letter-spacing: .014rem;
-     word-spacing: .003em;
+     /* word-spacing: .003em; */
+     word-spacing: -.1em;
  }
 
  .AyogiChapter { 
      margin: auto;
      max-width: 660px;
-     text-align: justify;
+     text-align: var(--yogi-text-align);
 }
 
 ion-grid.prevnext {
     margin: 20px;
 }
-

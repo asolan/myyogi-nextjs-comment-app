@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
@@ -10,7 +10,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { imagesOutline, listOutline, bookOutline } from "ionicons/icons";
+import { imagesOutline, listOutline, bookOutline, settingsOutline } from "ionicons/icons";
 import ImageListTab from "./pages/ImageListTab";
 import ImageTab from "./pages/ImageTab";
 import PoemListTab from "./pages/PoemListTab";
@@ -18,6 +18,7 @@ import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
+import AyogiSettings from './pages/AyogiSettings';
 
 // Delme
 //import AyogiPageTest from "./pages/AyogiPageTest";
@@ -62,15 +63,23 @@ import selectors from "./store/selectors";
 const App: React.SFC = (props) => {
   console.log('app');
   console.log(props);
-  let currentTab = props["currentTab"];
-//  const tabRef = useRef(null);
 
-//   const goToTab = (newtab: string) => {
-//     let tref = tabRef!.current as any;
-// console.log(tref);
-//     tref.select(newtab);
-// //    props.history.push(`/ayogi/${num}/1`);
-//   }
+  let currentTab = "/ayogi";
+  // Page load
+  useEffect(() => {
+    setCurrentTab(props["currentTab"]);
+    document.documentElement.style.setProperty("--yogi-font-size", props["currentFontSize"] + "em");
+    document.documentElement.style.setProperty("--yogi-text-align", props["currentFontJustification"] ? "justify" : "left");
+  }, []);
+  
+  useEffect(() => {
+    setCurrentTab(props["currentTab"]);
+  }, [props["currentTab"]]);
+
+  const setCurrentTab = (tab: string) => {
+   currentTab = tab;
+  };
+
 
   return (
     <IonApp>
@@ -117,6 +126,12 @@ const App: React.SFC = (props) => {
                 <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />
               )}
             />
+            <Route
+              path="/settings"
+              render={(props) => (
+                <AyogiSettings items={aydata.slice(3,9)} {...props} />
+              )}
+            />            
             {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
             <Route
               path="/"
@@ -138,6 +153,10 @@ const App: React.SFC = (props) => {
               <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
             </IonTabButton>
+            <IonTabButton tab="settings" href="/settings">
+              <IonIcon icon={settingsOutline} />
+              <IonLabel>Settings</IonLabel>
+            </IonTabButton>
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
@@ -145,27 +164,11 @@ const App: React.SFC = (props) => {
   );
 };
 
-// const mapDispatchToProps = (dispatch: any) => {
-//   return {
-//     onChangeChapter: (chapter: number) =>
-//       dispatch(actions.onChangeChapter(chapter)),
-//     onChangeChapterLine: (chapterLine: number) =>
-//       dispatch(actions.onChangeChapterLine(chapterLine)),
-//     onChangeImage: (image: string) => dispatch(actions.onChangeImage(image)),
-//     onChangePoem: (poem: string) => dispatch(actions.onChangePoem(poem)),
-//     onChangeFont: (font: string) => dispatch(actions.onChangeFont(font)),
-//   };
-// };
-
 const mapStateToProps = () =>
    createStructuredSelector({
      currentTab: selectors.makeSelectTab(),
-//     currentChapterLine: selectors.makeSelectChapterLine(),
-//     currentImage: selectors.makeSelectImage(),
-//     currentPoem: selectors.makeSelectPoem(),
-//     currentFont: selectors.makeSelectFont(),
+     currentFontSize: selectors.makeSelectFontSize(),
+     currentFontJustification: selectors.makeSelectFontJustification(),     
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 export default connect(mapStateToProps)(App);
-//export default App;
