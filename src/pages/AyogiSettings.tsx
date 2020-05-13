@@ -113,24 +113,24 @@ const AyogiSettings = (props: any) => {
         headerType="settings"
       ></AyogiHeader>
       <IonContent>
-        <AyogiWisdom items={props.items} />
         <IonList>
-          <IonItemDivider><h2 className="ion-margin-start">Content Spacing</h2></IonItemDivider>
+          {/* <IonItemDivider><h2 className="ion-margin-start">Content Spacing</h2></IonItemDivider>
           <IonItem>
             <IonLabel className="ion-text-end">Content Align Left</IonLabel>
             <IonToggle className="ion-margin-start ion-margin-end"checked={fontJustified} onIonChange={e => setFontJustifiedCss(e.detail.checked)} />
             <IonLabel >Content Justified</IonLabel>
-          </IonItem>
+          </IonItem> */}
 
           <IonItemDivider><h2 className="ion-margin-start">Font Size</h2></IonItemDivider>
           <IonItem>
-            <IonRange value={fontSize} min={1.0} max={1.5} step={0.125} snaps={true} color="secondary"
+            <IonRange value={fontSize} min={0.8} max={1.3} step={0.125} snaps={true} color="secondary"
               onIonChange={e => setFontSizeCss(e.detail.value as number)} >
               <IonIcon size="small" slot="start" icon={textOutline} className="ion-margin" />
               <IonIcon slot="end" icon={textOutline} className="ion-margin" />
             </IonRange>
           </IonItem>
         </IonList>
+        <AyogiWisdom items={props.items} />
       </IonContent>
     </IonPage>
   );

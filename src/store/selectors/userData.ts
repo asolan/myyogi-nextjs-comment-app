@@ -17,8 +17,10 @@ const makeSelectImage = () =>
   createSelector(selectUserData, (ud) => ud.get("image"));
 const makeSelectPoem = () =>
   createSelector(selectUserData, (ud) => ud.get("poem"));
-const makeSelectFont = () =>
-  createSelector(selectUserData, (ud) => ud.get("font"));
+const makeSelectFontSize = () =>
+  createSelector(selectUserData, (ud) => ud.get("fontSize"));
+const makeSelectFontJustification = () =>
+  createSelector(selectUserData, (ud) => ud.get("fontJustification"));
 
 export {
   makeSelectTab,
@@ -26,5 +28,6 @@ export {
   makeSelectChapterLine,
   makeSelectImage,
   makeSelectPoem,
-  makeSelectFont,
+  makeSelectFontSize,
+  makeSelectFontJustification
 };
