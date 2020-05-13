@@ -46,8 +46,9 @@ function userData(state = fullInitiatState, action) {
       console.log("ON_CHANGE_CHAPTER_LINE-reducer");
       console.log(action);
       currentChapter = state.get("chapter");
-      newTab = `/ayogi/${currentChapter}/${action.payload}`;
-      newState = state.set("chapterLine", action.chapterLineNumber).set("tab", newTab);
+      const lineNum = Math.round(action.payload);
+      newTab = `/ayogi/${currentChapter}/${lineNum}`;
+      newState = state.set("chapterLine", lineNum).set("tab", newTab);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_IMAGE:
