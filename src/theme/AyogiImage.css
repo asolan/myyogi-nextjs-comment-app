@@ -32,7 +32,9 @@
     line-height: 0.2rem;
 }
 
+
 /************** Titles *********************/
+
 .AyogiImage .ImageAlternateTitle {
     display: none;
     font-size: calc(var(--yogi-font-size) * 1);
@@ -58,7 +60,9 @@
     margin-right: 7rem;
 }
 
+
 /* image titles */
+
 .AyogiImage div.imagewrap {
     position: absolute;
     left: 50%;
@@ -76,14 +80,14 @@
     object-fit: contain;
 }
 
-.AyogiImage .ImageAlternateTitle {
+.ImageAlternateTitle {
     text-indent: 0pt;
-    font-size: var(--yogi-font-size);
+    font-size: calc(var(--yogi-font-size) * 0.7);
     line-height: 1rem;
     text-align: center;
 }
 
-.AyogiImage .ImageMainTitle {
+.ImageMainTitle {
     font-size: calc(var(--yogi-font-size) * 0.8);
     display: inline-block;
     width: 100%;
@@ -95,21 +99,21 @@
     margin-top: 8pt;
 }
 
-.AyogiImage .ImageSubTitle1a, 
-.AyogiImage .ImageSubTitle1 {
+.ImageSubTitle1a,
+.ImageSubTitle1 {
     font-size: calc(var(--yogi-font-size) * 0.8);
     display: inline-block;
     width: 100%;
-   text-align: center;
-   text-indent: 0pt;
+    text-align: center;
+    text-indent: 0pt;
 }
 
-.AyogiImage .ImageSubTitle1 {
+.ImageSubTitle1 {
     margin-bottom: 6pt;
 }
 
-.AyogiImage .ImageSubTitle2a,
-.AyogiImage .ImageSubTitle2 {
+.ImageSubTitle2a,
+.ImageSubTitle2 {
     display: inline-block;
     width: 100%;
     text-align: center;
@@ -121,82 +125,95 @@
     margin-bottom: 6pt;
 }
 
-.AyogiImage .ImageSubTitle2a {
+.ImageSubTitle2a {
     margin-bottom: 0pt;
 }
 
-
-.AyogiImage .ImageSubTitle2 + .ImageSubTitle2 {
+.ImageSubTitle2+.ImageSubTitle2 {
     margin-top: -10px;
-} 
+}
+
 
 /***********************    Captions ************************/
 
-.AyogiImage .ImageCaption_centered_large {
+.ImageCaption_centered_large {
     text-indent: 0pt;
     font-size: calc(var(--yogi-font-size) * 1.3);
     line-height: 1.5rem;
     text-align: center;
 }
 
-.AyogiImage .ImageCaption_indented_top,
-.AyogiImage .ImageCaption_indented,
-.AyogiImage .ImageCaption_indented_large,
-.AyogiImage .ImageCaption {
+.ImageCaption_indented_top,
+.ImageCaption_indented,
+.ImageCaption_indented_large,
+.ImageCaption {
     display: inline-block;
     text-align: justify;
 }
 
-.AyogiImage .ImageCaption_continued {
+.ImageCaption_continued {
     display: flex;
+    font-style: italic;
 }
 
-.AyogiImage .ImageCaption_continued,
-.AyogiImage .ImageCaption {
+.ImageCaption_continued,
+.ImageCaption {
+    /* TODO: Check */
+    text-align: justify;
     text-indent: 0pt;
     font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
 }
 
-.AyogiImage .ImageCaption_centered {
+.ImageCaption_centered {
     text-indent: 0pt;
     font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
     text-align: center;
 }
 
-.AyogiImage .ImageCaption_indented_large {
+.ImageCaption_indented_large {
     text-indent: 1rem;
     font-size: calc(var(--yogi-font-size) * 1.3);
     line-height: 1.5rem;
 }
 
-.AyogiImage .ImageCaption_indented_top,
-.AyogiImage .ImageCaption_indented {
+.ImageCaption_indented_top,
+.ImageCaption_indented {
     text-indent: 1rem;
     font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1rem;
 }
 
-.AyogiImage .LEFTCaption, 
-.AyogiImage .RIGHTCaption, 
-.AyogiImage .UPPERLEFTCaption, 
-.AyogiImage .LOWERLEFTCaption {
-	display: inline;			 
+.LEFTCaption,
+.RIGHTCaption,
+.UPPERLEFTCaption,
+.LOWERLEFTCaption {
+    display: inline;
 }
 
-.AyogiImage .LEFTCaption:before, 
-.AyogiImage .RIGHTCaption:before, 
-.AyogiImage .UPPERLEFTCaption:before, 
-.AyogiImage .LOWERLEFTCaption:before {
-	text-transform: lowercase;
-	font-variant: small-caps;
+.LEFTCaption:before,
+.RIGHTCaption:before,
+.UPPERLEFTCaption:before,
+.LOWERLEFTCaption:before {
+    text-transform: lowercase;
+    font-variant: small-caps;
     font-size: calc(var(--yogi-font-size) * 0.8);
-	line-height: 0.8rem;
+    line-height: 0.8rem;
 }
 
-.LEFTCaption:before 		{content: "(LEFT) ";}
-.RIGHTCaption:before 		{content: "(RIGHT) ";}
-.UPPERLEFTCaption:before	{content: "(UPPER LEFT) ";}
-.LOWERLEFTCaption:before	{content: "(LOWER LEFT) ";}
+.LEFTCaption:before {
+    content: "(LEFT) ";
+}
 
+.RIGHTCaption:before {
+    content: "(RIGHT) ";
+}
+
+.UPPERLEFTCaption:before {
+    content: "(UPPER LEFT) ";
+}
+
+.LOWERLEFTCaption:before {
+    content: "(LOWER LEFT) ";
+}

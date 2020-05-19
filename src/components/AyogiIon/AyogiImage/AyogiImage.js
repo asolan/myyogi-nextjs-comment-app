@@ -1,6 +1,6 @@
 //import * as React from 'react';
 import React, { useEffect } from 'react';
-import './AyogiImage.css';
+import '../../../theme/AyogiImage.css';
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
 import { parseImageTitles } from '../../../utility/parseUtility';
 import {
@@ -52,7 +52,7 @@ const AyogiImage = props => {
                     <IonCard
                         className="AyogiImage"
                         style={imgStyle}
-                        >
+                    >
                         <img
                             alt={image.text}
                             width={image.width}
@@ -79,9 +79,9 @@ const AyogiImage = props => {
         <div className="image-div">
             <IonSlides
                 key={props.items.map(p => p._id).join('_')}
-                pager={true} 
+                pager={true}
                 options={slideOpts}
-                >
+            >
                 {imageContent}
             </IonSlides>
         </div>);
