@@ -53,11 +53,12 @@
 .AyogiImage .ImageCredit {
     text-align: right;
     font-style: italic;
-    margin-top: -18pt;
+    margin-top: -50pt;
     margin-bottom: 4pt;
     font-size: calc(var(--yogi-font-size) * 1);
     display: block;
     margin-right: 7rem;
+    width: 100%;
 }
 
 

@@ -1,6 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
+//import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
+//import AyogiImageListSimple from '../components/AyogiImageListSimple/AyogiImageListSimple.js';
+//import AyogiImage from '../components/AyogiIon/AyogiImageOld/AyogiImage';
+import AyogiImage from '../components/AyogiIon/AyogiImage/AyogiImage';
+//import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
 import './ImageListTab.css';
 let ayimage = require('../ayimage.json');
 
@@ -21,7 +25,13 @@ const ImageListTab: React.FC = () => {
         {/* {ayimage.map((a: any) => {
             return <li>{JSON.stringify(a, null, 2) }</li>
           }, <ul/>) } */}
-        <AyogiImageList imageList={ayimage} />
+        {/* <AyogiImageList imageList={ayimage} /> */}
+        <AyogiImage 
+            items={ayimage}
+            key={'AyogiImageList'} >
+        </AyogiImage>);
+
+        {/* <AyogiImageListSimple imageList={ayimage} /> */}
       </IonContent>
     </IonPage>
   );

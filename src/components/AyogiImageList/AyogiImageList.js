@@ -60,6 +60,8 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 const AyogiImageList = (props) => {
+  console.log('AyogiImageList');
+  console.log(props);
   const imageContent = [];
   const [showModal, setShowModal] = useState(false);
   const [popImage, setPopImage] = useState({});
