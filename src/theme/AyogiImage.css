@@ -1,5 +1,4 @@
 .AyogiImage {
-    text-align: center;
     min-height: 200px;
     min-width: 250px;
     /* border-top: 1px solid; */
@@ -8,6 +7,19 @@
     margin-top: 1rem; */
     /* margin: 1rem;
     padding: 0.5rem; */
+}
+
+.AyogiImage,
+.AyogiImage a,
+.AyogiImageOuter
+{
+    width:  100%;
+    height: 100%;
+}
+
+.AyogiImage ion-card 
+{
+    text-align: center;
 }
 
 .swiper-pagination {
@@ -41,20 +53,26 @@
 }
 
 .AyogiImage .ImageMainTitle {
-    font-size: calc(var(--yogi-font-size) * 1);
+    font-size: calc(var(--yogi-font-size) * 0.5);
+    font-weight: normal;
     text-align: center;
     text-indent: 0pt;
     text-transform: uppercase;
-    margin-bottom: 4pt;
+    margin-bottom: 0.7rem;
     font-family: "Venetian301ETT Bd BT", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
-    margin-top: 8pt;
+    margin-top: 1.5rem;
 }
+
+/* .ImageMainTitle {
+    display: inline-block;
+    width: 100%;
+} */
 
 .AyogiImage .ImageCredit {
     text-align: right;
     font-style: italic;
     margin-top: -50pt;
-    margin-bottom: 4pt;
+    margin-bottom: 0.3rem;
     font-size: calc(var(--yogi-font-size) * 1);
     display: block;
     margin-right: 7rem;
@@ -83,34 +101,24 @@
 
 .ImageAlternateTitle {
     text-indent: 0pt;
-    font-size: calc(var(--yogi-font-size) * 0.7);
+    font-size: calc(var(--yogi-font-size) * 0.9);
     line-height: 1rem;
     text-align: center;
 }
 
-.ImageMainTitle {
-    font-size: calc(var(--yogi-font-size) * 0.8);
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    text-indent: 0pt;
-    text-transform: uppercase;
-    margin-bottom: 4pt;
-    font-family: "Venetian301ETT Bd BT", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
-    margin-top: 8pt;
-}
-
 .ImageSubTitle1a,
 .ImageSubTitle1 {
-    font-size: calc(var(--yogi-font-size) * 0.8);
+    font-size: calc(var(--yogi-font-size) * 1);
+    font-weight: normal;
     display: inline-block;
     width: 100%;
     text-align: center;
     text-indent: 0pt;
+    text-transform: none;
 }
 
-.ImageSubTitle1 {
-    margin-bottom: 6pt;
+.ImageSubTitle1, .ImageSubTitle2 {
+    margin-bottom: 0.7rem;
 }
 
 .ImageSubTitle2a,
@@ -119,15 +127,16 @@
     width: 100%;
     text-align: center;
     text-indent: 0pt;
-    font-size: calc(var(--yogi-font-size) * 0.8);
+    text-transform: none;
+    font-size: calc(var(--yogi-font-size) * 0.9);
     font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-weight: normal;
     font-style: italic;
-    margin-bottom: 6pt;
+    /* margin-bottom: 6pt; */
 }
 
 .ImageSubTitle2a {
-    margin-bottom: 0pt;
+    margin-bottom: 0rem;
 }
 
 .ImageSubTitle2+.ImageSubTitle2 {
@@ -139,7 +148,7 @@
 
 .ImageCaption_centered_large {
     text-indent: 0pt;
-    font-size: calc(var(--yogi-font-size) * 1.3);
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1.5rem;
     text-align: center;
 }
@@ -175,7 +184,7 @@
 
 .ImageCaption_indented_large {
     text-indent: 1rem;
-    font-size: calc(var(--yogi-font-size) * 1.3);
+    font-size: calc(var(--yogi-font-size) * 1);
     line-height: 1.5rem;
 }
 

@@ -34,17 +34,17 @@ const parseImageTitles = (c) => {
     if(c.titles && c.titles && c.titles.length > 0) {
         // console.log(c); 
         // console.log(c.titles); 
-        let title, subtitle, credit, contentClass = '', content = [];
+        let title = [], subtitle = [], credit = '', contentClass = '', content = [];
         c.titles.forEach((t, i) => {
             if(c.class[i] !== 'image'){
                 let ic = c.class[i];
                 let ik = 'imagetitle'+c._id+'-'+i;
                if(imageMainTitle.some((ti) => c.class[i] === ti)){
-                    title = (<IonCardTitle className={ic} key={ik}>{t}</IonCardTitle>);
+                    title.push(<div className={ic} key={ik}>{t}</div>);
                 } 
                 else if(imageSubTitle.some((ti) => c.class[i] === ti))
                 {
-                    subtitle = (<IonCardSubtitle  className={ic} key={ik}>{t}</IonCardSubtitle>); 
+                    subtitle.push(<div className={ic} key={ik}>{t}</div>); 
                 }
                 else if(imageCredit.some((ti) => c.class[i] === ti))
                 {
@@ -57,6 +57,8 @@ const parseImageTitles = (c) => {
             }
         });
 
+        title = <IonCardTitle>{title}</IonCardTitle>;
+        subtitle = <IonCardSubtitle>{subtitle}</IonCardSubtitle>;
         // let contentFull = (<IonCardContent className={contentClass} key={'imagetitle'+c._id+'-content'}>
         //         {content}
         //     </IonCardContent>);

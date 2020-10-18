@@ -1,5 +1,8 @@
 import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import {   IonGrid,
+  IonRow,
+  IonCol,
+IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 //import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
 //import AyogiImageListSimple from '../components/AyogiImageListSimple/AyogiImageListSimple.js';
 //import AyogiImage from '../components/AyogiIon/AyogiImageOld/AyogiImage';
@@ -11,9 +14,15 @@ let ayimage = require('../ayimage.json');
 const ImageListTab: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader no-border>
         <IonToolbar>
-          <IonTitle>Autobiography of a Yogi Images</IonTitle>
+          <IonTitle  size="small">
+          <IonGrid>
+            <IonRow className="yogananda-row">
+              <IonCol className="otherheader">Illustrations</IonCol>
+            </IonRow>
+          </IonGrid>
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

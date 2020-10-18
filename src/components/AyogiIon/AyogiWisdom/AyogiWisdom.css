@@ -106,13 +106,8 @@ p.smallSpace {
 
 /* todo: BLOCKQUOTE + all child classes*/
 
-/* .chapternumber,
-.chaptertitle {
-    padding-left: 2em;
-} */
-
 .footnote.emphasis {
-    font-size: calc(var(--yogi-font-size) * 0.8);
+    font-size: calc(var(--yogi-font-size) * 0.9);
 }
 
 .emphasis {
