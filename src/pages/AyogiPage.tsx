@@ -62,11 +62,11 @@ const AyogiPage = (props: any) => {
       // console.log(line);
       // console.log(contentRef!.current);
       // console.log(cref.scrollToPoint);
-      cref.scrollToPoint && cref.scrollToPoint(line, line);
+      cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*75));
     }
 
     // TODO: better than this
-    setTimeout(scrollToDelay, 500);
+    setTimeout(scrollToDelay, 100);
   };
 
   // Page load
@@ -107,7 +107,6 @@ const AyogiPage = (props: any) => {
       // console.log(el.clientHeight);
 //      console.log(el.scrollTop);
       // console.log(el.clientTop);
-      //AMSTODO.V1.Dont scroll if linked to exact line
       props.onChangeChapterLine(el.scrollTop);
     });
     //    console.log(e.srcElement);
