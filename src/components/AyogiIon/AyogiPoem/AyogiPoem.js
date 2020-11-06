@@ -38,7 +38,7 @@ const AyogiPoem = ({ items }) => {
         (acc, curr, pos, src) => {
             //            //console.log({acc, curr, pos, src});
             if (curr.class === 'poemStart') {
-                acc.push({ 'pos': pos, 'title': curr.text });
+                acc.push({ 'pos': pos, 'title': curr.text + 'yeah' });
             }
             return acc;
         }, []);
@@ -48,9 +48,9 @@ const AyogiPoem = ({ items }) => {
     // console.log(poemContent);
 
     let poemsz = poemContent && poemContent.slice(0).reduce((a, c, i) => {
-        console.log(a);
+        // console.log(a);
         if (i > 0) {
-            console.log(a);
+            // console.log(a);
             let ppos = poemContent[i - 1].pos;
             a.push(items.slice(ppos, c.pos));
         }
@@ -69,7 +69,7 @@ const AyogiPoem = ({ items }) => {
                 }
 
                 return (
-                    <IonSlide>
+                    <IonSlide key={'poemslide' + p[0]._id}>
                         <IonCard key={'poem' + p[0]._id}>
                             <IonCardHeader>
                                 {p[0].text}

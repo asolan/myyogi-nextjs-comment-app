@@ -12,8 +12,8 @@ import {
 import "./AyogiHeader.css";
 
 const AyogiHeader = (props) => {
-  console.log("AyogiHeader");
-  console.log(props);
+  // console.log("AyogiHeader");
+  // console.log(props);
 
   let headerContent = null;
   switch (props.headerType) {
@@ -34,7 +34,7 @@ const AyogiHeader = (props) => {
     case "image":
       headerContent = (
         <IonRow className="yogananda-row">
-          <IonCol className="otherheader">Images</IonCol>
+          <IonCol className="otherheader">Illustrations</IonCol>
         </IonRow>
       );
       break;

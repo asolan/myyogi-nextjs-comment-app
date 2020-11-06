@@ -32,14 +32,14 @@ ion-toolbar {
     margin-top: 0.2rem;
     margin-left: 0.2rem;
     text-transform: uppercase;
-    font-size: calc(var(--yogi-font-size) * 0.6);
+    /* font-size: calc(var(--yogi-font-size) * 0.6); */
     letter-spacing: 0.3em;
     font-style: normal;
     font-weight: normal;
   }
   
   .AyogiHeader .chapterheader span {
-    font-size: calc(var(--yogi-font-size) * 1.4);
+    font-size: calc(var(--yogi-font-size) * 1.2);
     letter-spacing: -0.05em;
 }
 
@@ -48,7 +48,7 @@ ion-avatar {
   }
   
   .AyogiHeader .yogananda-row {
-    height: 70px;
+    height: calc((var(--yogi-font-size) * 5));
   }
 
   .AyogiHeader .yogananda-portrait {
@@ -67,7 +67,7 @@ ion-avatar {
     text-align: left;
     font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
     font-style: italic;
-    font-size: calc(var(--yogi-font-size) * 1.7);
+    font-size: calc(var(--yogi-font-size) * 1.5);
     font-weight: normal;
     letter-spacing: .020em;
     word-spacing: .05em;
@@ -77,13 +77,13 @@ ion-avatar {
 
 @media (max-width: 768px) {
     .AyogiHeader .chaptertitle {
-        font-size: calc(var(--yogi-font-size) * 1.5);
+        font-size: calc(var(--yogi-font-size) * 1.2);
     }
 }
 
 @media (max-width: 500px) {
     .AyogiHeader .chaptertitle {
-        font-size: calc(var(--yogi-font-size) * 1.4);
+        font-size: calc(var(--yogi-font-size) * 1.1);
     }
 }
   

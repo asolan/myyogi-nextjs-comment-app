@@ -36,9 +36,7 @@ import actions from "../store/actions";
 //let aychaptlist = require('../aychaptlist.json');
 
 const AyogiPage = (props: any) => {
-  console.log("AyogiPage");
-  console.log(props);
-  // console.log('aypage');
+  // console.log("AyogiPage");
   // console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   //const [chaptersList, setChaptersList] = useState<any>([]);
@@ -81,7 +79,7 @@ const AyogiPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(`page-effect-id-props.chPos-${props.chPos}`);
+    // console.log(`page-effect-id-props.chPos-${props.chPos}`);
     // console.log(props.chPos);
     setCurrentChapter(props.match.params.id - 1,
       props.match.params.line);
@@ -92,7 +90,7 @@ const AyogiPage = (props: any) => {
   // },[props.aychaptlist])
 
   useEffect(() => {
-    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
+//    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
     setIsLoading(false);
     setCurrentChapter(
       props.match.params.id - 1,
@@ -107,16 +105,18 @@ const AyogiPage = (props: any) => {
       //console.log(el);
       // console.log(el.scrollHeight);
       // console.log(el.clientHeight);
-      console.log(el.scrollTop);
+//      console.log(el.scrollTop);
       // console.log(el.clientTop);
+      //AMSTODO.V1.Dont scroll if linked to exact line
       props.onChangeChapterLine(el.scrollTop);
     });
     //    console.log(e.srcElement);
   };
 
   const setCurrentChapter = (cnum: number, clinenumber: number) => {
-    console.log(`setCurrentChapter-${cnum}`);
-    console.log(chNum);
+    //AMSTODO.V1.Why Called Twice
+    // console.log(`setCurrentChapter-${cnum}`);
+    // console.log(chNum);
     // console.log('setcurrchapt');
     // console.log(cnum);
     // console.log(props.chPos);

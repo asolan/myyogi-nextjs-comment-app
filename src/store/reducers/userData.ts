@@ -12,7 +12,7 @@ let initialState = {
   fontJustification: true,
 };
 
-console.log(window.localStorage["autoyogiState"] || initialState);
+// console.log(window.localStorage["autoyogiState"] || initialState);
 
 const autoyogiState = window.localStorage["autoyogiState"]
   ? JSON.parse(window.localStorage["autoyogiState"])

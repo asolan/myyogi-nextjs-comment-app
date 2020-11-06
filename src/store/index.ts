@@ -17,8 +17,8 @@ import { watchUser } from './sagas/userData';
     sagaMiddleware.run(watchUser);
 
 
-console.log('watchUser');
-console.log(watchUser);
+// console.log('watchUser');
+// console.log(watchUser);
 // const store = createStore<IRootState, any, any, any>(
 //     combineReducers({
 //         demo: demoReducer

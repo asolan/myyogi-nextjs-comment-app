@@ -52,13 +52,13 @@ const parseImageTitles = (c) => {
                 }else {
                     contentClass = contentClass.length === 0 ? ic : contentClass;
 //                    content.push(<span className={ic}>{t}</span>);
-                    content.push(<span>{t}</span>);
+                    content.push(<span key={ik}>{t}</span>);
                 }
             }
         });
 
-        title = <IonCardTitle>{title}</IonCardTitle>;
-        subtitle = <IonCardSubtitle>{subtitle}</IonCardSubtitle>;
+        title = <IonCardTitle key={`title-${c._id}`}>{title}</IonCardTitle>;
+        subtitle = <IonCardSubtitle key={`subtitle-${c._id}`}>{subtitle}</IonCardSubtitle>;
         // let contentFull = (<IonCardContent className={contentClass} key={'imagetitle'+c._id+'-content'}>
         //         {content}
         //     </IonCardContent>);

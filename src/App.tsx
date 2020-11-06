@@ -61,8 +61,8 @@ import selectors from "./store/selectors";
 // import constants from "./store/constants";
 
 const App: React.SFC = (props) => {
-  console.log('app');
-  console.log(props);
+  // console.log('app');
+  // console.log(props);
 
   let currentTab = "/ayogi";
   // Page load

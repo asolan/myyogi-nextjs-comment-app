@@ -10,34 +10,13 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonList,
-  IonItem,
   IonCard,
-  //    IonCardContent,
   IonCardHeader,
-  //    IonCardSubtitle,
-  //    IonCardTitle
-  // IonButtons,
-  // IonButton,
-  // IonContent,
-  // IonHeader,
-  // IonPage,
-  // IonTitle,
-  // IonToolbar,
-  // IonIcon
 } from "@ionic/react";
 
-// const slideOpts = {
-//     initialSlide: 0,
-//     speed: 400,
-//     effect: 'cube',
-//     autoHeight: true,
-//     cssMode: true
-// };
-
 const AyogiImage = (props) => {
-  console.log("IonAyogiImage");
-  console.log(props);
+  // console.log("IonAyogiImage");
+  // console.log(props);
 
   // const [titlesHeight, setTitlesHeight] = useState([0]);
   //    const ref = useRef(null);
@@ -49,16 +28,18 @@ const AyogiImage = (props) => {
   }, []);
 
   let imageTitles;
+  let imageId;
   const imageContent = props.items.map((image, i) => {
     let maxWidth = image.width > 400 ? image.width : 400;
     let imgStyle = { maxWidth: maxWidth + "px" };
-    console.log(image);
+//    console.log(image);
     // console.log(imgStyle);
+    imageId += image.id;
     return (
       <IonRow
         className="ion-padding AyogiImage"
         lines="none"
-        key={"image" + image.id}
+        key={"image-row" + image.id}
       >
         <IonCol center text-center>
           <Link to={"/ayogi/" + image.chapterNumber + "/" + image.lineNumber}>
@@ -91,7 +72,7 @@ const AyogiImage = (props) => {
   });
 
   return (
-    <div className="image-div">
+    <div className="image-div" key={`ayogiimage-${imageId}`}>
       <IonGrid key={props.items.map((p) => p._id).join("_")}>
         {imageContent}
       </IonGrid>

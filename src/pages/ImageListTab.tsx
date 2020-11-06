@@ -7,6 +7,7 @@ IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 //import AyogiImageListSimple from '../components/AyogiImageListSimple/AyogiImageListSimple.js';
 //import AyogiImage from '../components/AyogiIon/AyogiImageOld/AyogiImage';
 import AyogiImage from '../components/AyogiIon/AyogiImage/AyogiImage';
+import AyogiHeader from '../components/AyogiIon/AyogiHeader/AyogiHeader';
 //import AyogiImageList from '../components/AyogiImageList/AyogiImageList.js';
 import './ImageListTab.css';
 let ayimage = require('../ayimage.json');
@@ -14,23 +15,17 @@ let ayimage = require('../ayimage.json');
 const ImageListTab: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader no-border>
-        <IonToolbar>
-          <IonTitle  size="small">
-          <IonGrid>
-            <IonRow className="yogananda-row">
-              <IonCol className="otherheader">Illustrations</IonCol>
-            </IonRow>
-          </IonGrid>
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <AyogiHeader
+        headerType="image"
+        headerNumber={0}
+        headerTitle="">
+      </AyogiHeader>
       <IonContent>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Illustrations</IonTitle>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         {/* {ayimage.map((a: any) => {
             return <li>{JSON.stringify(a, null, 2) }</li>
           }, <ul/>) } */}
