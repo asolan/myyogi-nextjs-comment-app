@@ -2,6 +2,7 @@
     text-align: left;
     padding-top: 2rem;
     margin-top: 1rem;
+    margin-left: 1rem;
     padding-bottom: 2rem;
     margin-bottom: 1rem;
     font-size: var(--yogi-font-size);
@@ -18,6 +19,16 @@ ion-card-header {
     font-size: var(--yogi-font-size);
     border-bottom: 1px solid lightgrey;
     margin: 1rem 0.5rem 0.1rem;
+}
+
+
+.poem-div {
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.poem-div ion-card {
+    max-width: 500px;
 }
 
 .AyogiPoem .poem.break
@@ -79,11 +90,16 @@ ion-card-header {
 } */
 
 @media (max-width: 768px) {
+    .poem-div ion-card {
+        max-width: 400px;
+    }
+    
     .AyogiPoem {
         padding-top: 0.2rem;
         padding-bottom: 0.2rem;
         padding-left: 0.5rem;
         margin-top: 0.1rem;
+        margin-left: 0.05rem;
         margin-bottom: 0.1rem;
         width: 100%;
     }
