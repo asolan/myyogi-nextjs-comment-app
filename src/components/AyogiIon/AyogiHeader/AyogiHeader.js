@@ -47,12 +47,13 @@ const AyogiHeader = (props) => {
       break;
     case "chapter":
     default:
+      const headerHeader = props.headerNumber > 0 ? (<span>Chapter: <span>{props.headerNumber}</span></span>): null;
       headerContent = (
         <IonRow className="yogananda-row">
           <IonGrid>
             <IonRow>
               <IonCol className="chapterheader">
-                Chapter: <span>{props.headerNumber}</span>
+                {headerHeader}
               </IonCol>
             </IonRow>
             <IonRow>

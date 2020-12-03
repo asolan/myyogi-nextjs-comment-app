@@ -44,7 +44,7 @@ ion-card-subtitle {
     font-weight: normal;
 }
 
-.ChapterList .chapterheader span {
+.ChapterList .chapterheader span span {
     font-size: calc(var(--yogi-font-size) * 1.5);
     letter-spacing: -0.05em;
 }

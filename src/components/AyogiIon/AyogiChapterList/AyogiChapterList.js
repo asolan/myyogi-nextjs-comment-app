@@ -42,8 +42,9 @@ const AyogiChapterList = props => {
   return (
     <IonContent className="ChapterList">
       <IonList>
-        {props.chaptersList.map((c, i) => (
-          <IonItem key={'cs' + i}>
+        {props.chaptersList.map((c, i) => {
+          const headerHeader = c.chapterNumber > 0 ? (<span>Chapter: <span>{c.chapterNumber}</span></span>): null;
+          return (<IonItem key={'cs' + i}>
             {/* <Button key={'cb'+i} onClick={()=>props.setCurrentChapter(c.chapterNumber-1)}> */}
             <IonCard
               button="true"
@@ -66,7 +67,7 @@ const AyogiChapterList = props => {
               </IonCardContent>
               <IonCardTitle>
                 <div className="chapterheader">
-                  chapter: <span>{c.chapterNumber}</span>
+                  {headerHeader}
                 </div>
                 <div className="chaptertitle">
                   {c.text}
@@ -90,7 +91,8 @@ const AyogiChapterList = props => {
                 </IonButton> */}
             </IonCard>
           </IonItem>
-        ))
+        )}
+        )
         }
       </IonList>
     </IonContent>
