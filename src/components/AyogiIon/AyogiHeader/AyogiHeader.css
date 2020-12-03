@@ -48,7 +48,8 @@ ion-avatar {
   }
   
   .AyogiHeader .yogananda-row {
-    height: calc((var(--yogi-font-size) * 5));
+      height: 4rem;
+    /* height: calc((var(--yogi-font-size) * 5)); */
   }
 
   .AyogiHeader .yogananda-portrait {

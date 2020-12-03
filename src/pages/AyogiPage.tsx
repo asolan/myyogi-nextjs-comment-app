@@ -126,9 +126,17 @@ const AyogiPage = (props: any) => {
       props.aychaptlist &&
       props.aychaptlist.length > 0
     ) {
-      if (cnum === -2) {
-        cnum = chNum === 0 ? 0 : chNum - 1;
-      }
+
+//       if (cnum < 0) {
+// //        cnum = 0;
+//         cnum = chNum <= 0 ? 0 : chNum - 1;
+//       }
+     cnum++;
+
+      // console.log(chNum);
+      // console.log(cnum);
+      // console.log(props.aychaptlist[cnum]);
+      // console.log(props.aychaptlist[cnum].chapterNumber);
 
       setChNum(props.aychaptlist[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychaptlist[cnum].text);

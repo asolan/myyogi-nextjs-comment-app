@@ -9,7 +9,7 @@ export function onChangeTab(tabName) {
 }
 
 export function onChangeChapter(chapterNumber) {
-    console.log('action-onChangeChapter');
+//    console.log('action-onChangeChapter');
     return {
         type: constants.ON_CHANGE_CHAPTER,
         payload: chapterNumber
@@ -17,7 +17,7 @@ export function onChangeChapter(chapterNumber) {
 }
 
 export function onChangeChapter2(chapterNumber) {
-    console.log('action-onChangeChapter2');
+//    console.log('action-onChangeChapter2');
     return {
         type: constants.ON_CHANGE_CHAPTER2,
         payload: chapterNumber
