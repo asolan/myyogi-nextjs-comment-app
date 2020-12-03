@@ -31,12 +31,17 @@ const parseFootnote = (c, wrap, type) => {
 
 const parseImageTitles = (c) => {
     let imageTitles = []; 
+    let hasTitle = true;
     if(c.titles && c.titles && c.titles.length > 0) {
         // console.log(c); 
         // console.log(c.titles); 
         let title = [], subtitle = [], credit = '', contentClass = '', content = [];
         c.titles.forEach((t, i) => {
             if(c.class[i] !== 'image'){
+                if(t === 'NoTitle'){
+                    hasTitle = false;
+                }
+
                 let ic = c.class[i];
                 let ik = 'imagetitle'+c._id+'-'+i;
                if(imageMainTitle.some((ti) => c.class[i] === ti)){
@@ -66,7 +71,11 @@ const parseImageTitles = (c) => {
                 {content}
             </IonCardContent>);
 
-        imageTitles = [title, subtitle, credit, contentFull];
+        if(hasTitle){
+            imageTitles = [title, subtitle, credit, contentFull];
+        } else {
+            imageTitles = [[], [], '', null];
+        }
 
         // imageTitles = c.titles.reduce((a, t, i) => {
         //     if(c.class[i] !== 'image'){
