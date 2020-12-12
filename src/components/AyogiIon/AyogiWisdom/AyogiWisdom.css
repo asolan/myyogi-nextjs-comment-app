@@ -177,6 +177,14 @@ p.smallSpace {
     font-style: italic;
 }
 
+.wentzsignature {
+    text-align: right;
+    text-transform: uppercase;
+    font-family: "Times", "Times New Roman", serif;
+    margin-top: 1rem;
+    display: block;
+}
+
 .nocontent {
     display: none;
 }
@@ -197,3 +205,11 @@ p.smallSpace {
     text-transform: lowercase;
     font-variant: small-caps;
 }
+
+.acknowledgmentsplace{
+    display: block;
+    text-align: left;
+    font-style: italic;
+}
+
+
