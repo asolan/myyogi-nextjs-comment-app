@@ -26,7 +26,7 @@ const AyogiFootnoteAlert = props => {
             key={'fn' + props.c.footnoteCount}
             onClick={() => showhideClick()}
         >
-            {showhide ? 'X' : props.c.footnoteCount}
+            {props.c.footnoteCount}
         </IonBadge>;
 
     const footnote = parseFootnote(props.c, false, 'p');

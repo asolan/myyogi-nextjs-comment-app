@@ -129,7 +129,7 @@ const App: React.SFC = (props) => {
             <Route
               path="/settings"
               render={(props) => (
-                <AyogiSettings items={aydata.slice(3,9)} {...props} />
+                <AyogiSettings items={aydata.slice(45,51)} {...props} />
               )}
             />            
             {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
