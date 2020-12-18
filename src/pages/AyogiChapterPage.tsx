@@ -51,8 +51,10 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   // Page load
   useEffect(() => {
     //    fetchAYChapterList().then(d => setChaptersList(d));
-    setChaptersList(aychaptlist);
-    setIsLoading(false);
+    if(chaptersList === undefined || chaptersList.length == 0){
+      setChaptersList(aychaptlist);
+      setIsLoading(false);
+    }
   }, []);
 
   // const setCurrentChapter = (chapterNumber: number) => {

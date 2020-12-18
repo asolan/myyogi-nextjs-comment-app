@@ -33,14 +33,14 @@ import actions from "../store/actions";
 
 
 //let aydata = require('../aydata.json');
-//let aychaptlist = require('../aychaptlist.json');
+//let aychapttitle = require('../aychapttitle.json');
 
 const AyogiPage = (props: any) => {
   // console.log("AyogiPage");
   // console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   //const [chaptersList, setChaptersList] = useState<any>([]);
-  // const [props.aychaptlist, setprops.aychaptlist] = useState<any>([]);
+  // const [props.aychapttitle, setprops.aychapttitle] = useState<any>([]);
   // const [chaptersText, setChaptersText] = useState<any>([]);
   const [chNum, setChNum] = useState<number>(0);
   const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("");
@@ -58,28 +58,29 @@ const AyogiPage = (props: any) => {
   const scrollToLine = (line) => {
     let scrollToDelay = () => {      
       let cref = contentRef!.current as any;
-      // console.log('scrollToLine');
+      console.log('scrollToLine', line);
       // console.log(line);
       // console.log(contentRef!.current);
-      // console.log(cref.scrollToPoint);
-      cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*75));
+      console.log(cref.scrollToPoint);
+//      cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*75));
+      cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*1));
     }
 
     // TODO: better than this
-    setTimeout(scrollToDelay, 100);
+    setTimeout(scrollToDelay, 500);
   };
 
   // Page load
   useEffect(() => {
     // console.log(`page-effect-[]${props.match.params.id}`);
-    // console.log(aychaptlist);
+    // console.log(aychapttitle);
     // console.log('ayogipage-load');
     // console.log(aydata);
     //    parseChapterData();
   }, []);
 
   useEffect(() => {
-    // console.log(`page-effect-id-props.chPos-${props.chPos}`);
+    console.log(`page-effect-id-props.chPos-${props.chPos}`);
     // console.log(props.chPos);
     setCurrentChapter(props.match.params.id - 1,
       props.match.params.line);
@@ -87,7 +88,7 @@ const AyogiPage = (props: any) => {
 
   // useEffect(() => {
   //   parseAyogiToChapters();
-  // },[props.aychaptlist])
+  // },[props.aychapttitle])
 
   useEffect(() => {
 //    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
@@ -114,17 +115,17 @@ const AyogiPage = (props: any) => {
 
   const setCurrentChapter = (cnum: number, clinenumber: number) => {
     //AMSTODO.V1.Why Called Twice
-    // console.log(`setCurrentChapter-${cnum}`);
+    console.log(`setCurrentChapter-${cnum}-${clinenumber}`);
     // console.log(chNum);
     // console.log('setcurrchapt');
     // console.log(cnum);
     // console.log(props.chPos);
-    // console.log(props.aychaptlist.length);
+    // console.log(props.aychapttitle.length);
     if (
       props.aydata &&
       props.chPos.length > 0 &&
-      props.aychaptlist &&
-      props.aychaptlist.length > 0
+      props.aychapttitle &&
+      props.aychapttitle.length > 0
     ) {
 
 //       if (cnum < 0) {
@@ -135,11 +136,11 @@ const AyogiPage = (props: any) => {
 
       // console.log(chNum);
       // console.log(cnum);
-      // console.log(props.aychaptlist[cnum]);
-      // console.log(props.aychaptlist[cnum].chapterNumber);
+      // console.log(props.aychapttitle[cnum]);
+      // console.log(props.aychapttitle[cnum].chapterNumber);
 
-      setChNum(props.aychaptlist[cnum].chapterNumber);
-      setCurrentChapterTitle(props.aychaptlist[cnum].text);
+      setChNum(props.aychapttitle[cnum].chapterNumber);
+      setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
       //      console.log('setcurrchapt2');
       //      scrollToTop();
@@ -231,8 +232,8 @@ const AyogiPage = (props: any) => {
 
   if (
     !isLoading &&
-    props.aychaptlist &&
-    props.aychaptlist.length > 0 &&
+    props.aychapttitle &&
+    props.aychapttitle.length > 0 &&
     chapterContent &&
     chapterContent.length > 0
   ) {

@@ -23,8 +23,8 @@ import actions from "../store/actions";
 //let aychaptlist = require('../aychaptlist.json');
 
 const AyogiSettings = (props: any) => {
-  console.log("AyogiSettings");
-  console.log(props);
+  // console.log("AyogiSettings");
+  // console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fontSize, setFontSize] = useState<number>(1);
   const [fontJustified, setFontJustified] = useState<boolean>(true);

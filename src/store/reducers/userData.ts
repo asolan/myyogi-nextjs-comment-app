@@ -38,13 +38,15 @@ function userData(state = fullInitiatState, action) {
     case constants.ON_CHANGE_CHAPTER:
       // console.log("ON_CHANGE_CHAPTER-reducer");
       // console.log(action);
-      newTab = `/ayogi/${action.payload}/1`;
-      newState = state.set("chapter", action.payload).set("tab", newTab);
+      const chapterNum = action.payload || '1'; 
+//      const chapterNum = action.payload; 
+      newTab = `/ayogi/${chapterNum}/1`;
+      newState = state.set("chapter", chapterNum).set("tab", newTab);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_CHAPTER_LINE:
-      // console.log("ON_CHANGE_CHAPTER_LINE-reducer");
-      // console.log(action);
+      console.log("ON_CHANGE_CHAPTER_LINE-reducer");
+      console.log(action);
       currentChapter = state.get("chapter");
       const lineNum = Math.round(action.payload);
       newTab = `/ayogi/${currentChapter}/${lineNum}`;

@@ -53,6 +53,7 @@ import { connect } from "react-redux";
 
 import aydata from "./aydata.json";
 import aychaptlist from "./aychaptlist.json";
+import aychapttitle from "./aychapttitle.json";
 import aychaptpos from "./aychaptpos.json";
 
 import selectors from "./store/selectors";
@@ -108,7 +109,7 @@ const App: React.SFC = (props) => {
               render={(props) => (
                 <AyogiPage
                   chPos={aychaptpos}
-                  aychaptlist={aychaptlist}
+                  aychapttitle={aychapttitle}
                   aydata={aydata}
                   {...props}
                 />
