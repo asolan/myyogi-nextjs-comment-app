@@ -108,7 +108,7 @@ p.smallSpace {
 /* todo: BLOCKQUOTE + all child classes*/
 
 .footnote.emphasis {
-    font-size: calc(var(--yogi-font-size) * 0.9);
+    font-size: calc(var(--yogi-font-size) * 0.8);
 }
 
 .emphasis {

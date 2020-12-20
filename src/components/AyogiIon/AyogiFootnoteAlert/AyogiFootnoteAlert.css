@@ -7,7 +7,12 @@
 }
 
 .footnote .emphasis {
-    font-size: calc(var(--yogi-font-size) * 0.9);
+    font-size: calc(var(--yogi-font-size) * 0.8);
+}
+
+.footnotepoem {
+    display: block;
+    margin-left: 3rem;
 }
 
 .popover-wrapper .footnote {
