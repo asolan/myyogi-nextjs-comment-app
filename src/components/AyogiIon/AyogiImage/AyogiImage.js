@@ -32,7 +32,7 @@ const AyogiImage = (props) => {
   const imageContent = props.items.map((image, i) => {
     let maxWidth = image.width > 400 ? image.width : 400;
     let imgStyle = { maxWidth: maxWidth + "px" };
-//    console.log(image);
+
     // console.log(imgStyle);
     imageId += image.id;
     return (
@@ -40,6 +40,7 @@ const AyogiImage = (props) => {
         className="ion-padding AyogiImage"
         lines="none"
         key={"image-row" + image.id}
+        id={image._id}
       >
         <IonCol center text-center>
           <Link to={"/ayogi/" + image.chapterNumber + "/" + image.lineNumber}>

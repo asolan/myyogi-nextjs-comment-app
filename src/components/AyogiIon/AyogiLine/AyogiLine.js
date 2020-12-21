@@ -17,6 +17,7 @@ const AyogiLine = (props) => {    // <div className={classes.AyogiChapter}>
             <React.Fragment>
                 {paragraph}
                 <span
+                    id={props.c._id}
                     // style={props.style}
                     className={indentClasses.join(' ')}>
                     {props.c.text}

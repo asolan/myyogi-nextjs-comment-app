@@ -55,14 +55,26 @@ const AyogiPage = (props: any) => {
     cref.scrollToTop && cref.scrollToTop();
   };
 
+  const scrollToId = (chapter, line) => {
+    let scrollToIdDelay = () => {      
+      let cref = contentRef!.current as any;
+      let lineId = `${chapter}-${line}`;
+      var scrollEl = document.getElementById(lineId);
+      // console.log(lineId);
+      // console.log(scrollEl);
+      let offsetTop = scrollEl && scrollEl.offsetTop || 0;
+      cref.scrollToPoint && cref.scrollToPoint(0, offsetTop);  
+    }
+    setTimeout(scrollToIdDelay, 1);
+  };
+
   const scrollToLine = (line) => {
     let scrollToDelay = () => {      
       let cref = contentRef!.current as any;
       console.log('scrollToLine', line);
       // console.log(line);
       // console.log(contentRef!.current);
-      console.log(cref.scrollToPoint);
-//      cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*75));
+//      console.log(cref.scrollToPoint);
       cref.scrollToPoint && cref.scrollToPoint(0,((line-1)*1));
     }
 
@@ -115,7 +127,7 @@ const AyogiPage = (props: any) => {
 
   const setCurrentChapter = (cnum: number, clinenumber: number) => {
     //AMSTODO.V1.Why Called Twice
-    console.log(`setCurrentChapter-${cnum}-${clinenumber}`);
+    // console.log(`setCurrentChapter-${cnum}-${clinenumber}`);
     // console.log(chNum);
     // console.log('setcurrchapt');
     // console.log(cnum);
@@ -142,9 +154,11 @@ const AyogiPage = (props: any) => {
       setChNum(props.aychapttitle[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
-      //      console.log('setcurrchapt2');
+//      console.log(props.aychapttitle[cnum].chapterNumber);
       //      scrollToTop();
-      scrollToLine(clinenumber);
+
+      scrollToId(props.aychapttitle[cnum].chapterNumber, clinenumber);
+      //scrollToLine(clinenumber);
     }
   };
 

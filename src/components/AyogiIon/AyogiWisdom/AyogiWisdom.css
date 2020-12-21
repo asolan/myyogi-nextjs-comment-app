@@ -44,9 +44,9 @@ p.smallSpace {
     display: block;
     float: left;
     position: relative;
-    top: .1em;
+    top: .2em;
     height: 0.7em;
-    padding-right: 0.05em;
+    padding-right: 0.07em;
     padding-bottom: 0.6em;
 }
 

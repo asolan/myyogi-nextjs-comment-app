@@ -48,7 +48,7 @@ const AyogiPoem = ({ items }) => {
             <IonRow key={"poemrow" + p[0]._id}>
               <IonCol center text-center>
                 <IonCard key={"poem" + p[0]._id}>
-                  <IonCardHeader>{p[0].text}</IonCardHeader>
+                  {/* <IonCardHeader>{p[0].text}</IonCardHeader> */}
                   {/* <div className={poemClasses.split(' ')}> */}
                   <div className="AyogiPoem">
                     {p &&
