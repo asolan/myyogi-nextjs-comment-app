@@ -234,7 +234,7 @@ const AyogiPage = (props: any) => {
       default:
         //        console.log(newItems);
         result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} />
+          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
         );
         break;
     }
@@ -292,6 +292,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeChapter(chapter)),
     onChangeChapterLine: (chapterLine: number) =>
       dispatch(actions.onChangeChapterLine(chapterLine)),
+    addSelectedQuote: (chapter:string, line:string, lineType:string) =>
+      dispatch(actions.addSelectedQuote(chapter, line, lineType)),
+    removeSelectedQuote: (chapter:string, line:string, lineType:string) =>
+      dispatch(actions.removeSelectedQuote(chapter, line, lineType)),
   };
 };
 
@@ -302,6 +306,7 @@ const mapStateToProps = () =>
     currentImage: selectors.makeSelectImage(),
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
+    selectedQuotes: selectors.makeSelectSelectedQuotes(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiPage);

@@ -1,0 +1,7 @@
+.itemSelected {
+    /* font-weight: bold; */
+    /* color: darkslategray; */
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+    background-color:#F0F0F0;
+}

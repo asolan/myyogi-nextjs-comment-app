@@ -93,3 +93,4 @@ export function updateFont(font) {
         payload: font
     }
 }
+

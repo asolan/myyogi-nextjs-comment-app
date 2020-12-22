@@ -1,0 +1,2 @@
+export const ADD_SELECTED_QUOTE = 'userData.ADD_SELECTED_QUOTE';
+export const REMOVE_SELECTED_QUOTE = 'userData.REMOVE_SELECTED_QUOTE';

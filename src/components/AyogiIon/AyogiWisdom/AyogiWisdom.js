@@ -13,7 +13,8 @@ const AyogiWisdom = props => {
                         key={c._id} 
                         c={c} 
                         i={i} 
-                        type={LINE_TYPE_ENUM.WISDOM}>
+                        type={LINE_TYPE_ENUM.WISDOM}
+                        {...props}>
                     </AyogiLine>
                 })
             }
