@@ -8,7 +8,7 @@ import { createSelector } from "reselect";
 const selectQuotes = (state) => state["selectedQuotes"];
 
 const makeSelectSelectedQuotes = () =>
-  createSelector(selectQuotes, (sq) => sq.get("selectedQuotes"));
+  createSelector(selectQuotes, (sq) => sq.get("selectedQuotes").toJS());
 
 export {
   makeSelectSelectedQuotes

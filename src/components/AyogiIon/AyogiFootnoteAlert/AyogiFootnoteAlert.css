@@ -1,13 +1,14 @@
 
 .footnote {
     display: block;
-    font-size: calc(var(--yogi-font-size) * 0.8);
+    hyphens: auto;
+    font-size: calc(var(--yogi-font-size) * 0.9);
     line-height: 9pt;
     text-align: justify;
 }
 
 .footnote .emphasis {
-    font-size: calc(var(--yogi-font-size) * 0.8);
+    font-size: calc(var(--yogi-font-size) * 0.9);
 }
 
 .footnotepoem {
