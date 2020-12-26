@@ -10,7 +10,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { imagesOutline, listOutline, bookOutline, settingsOutline } from "ionicons/icons";
+import { imagesOutline, listOutline, bookOutline, ribbonOutline, settingsOutline } from "ionicons/icons";
 import ImageListTab from "./pages/ImageListTab";
 import ImageTab from "./pages/ImageTab";
 import PoemListTab from "./pages/PoemListTab";
@@ -18,6 +18,7 @@ import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
+import AyogiMyQuote from "./pages/AyogiMyQuote";
 import AyogiSettings from './pages/AyogiSettings';
 
 // Delme
@@ -128,6 +129,14 @@ const App: React.SFC = (props) => {
               )}
             />
             <Route
+              path="/quotes"
+              render={(props) => (
+                <AyogiMyQuote 
+                aydata={aydata}
+                {...props} />
+              )}
+            />            
+            <Route
               path="/settings"
               render={(props) => (
                 <AyogiSettings items={aydata.slice(45,51)} {...props} />
@@ -153,6 +162,10 @@ const App: React.SFC = (props) => {
             <IonTabButton tab="imagelist" href="/imagelist">
               <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="quotes" href="/quotes">
+              <IonIcon icon={ribbonOutline} />
+              <IonLabel>Quotes</IonLabel>
             </IonTabButton>
             <IonTabButton tab="settings" href="/settings">
               <IonIcon icon={settingsOutline} />

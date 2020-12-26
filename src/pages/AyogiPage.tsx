@@ -92,7 +92,7 @@ const AyogiPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-    console.log(`page-effect-id-props.chPos-${props.chPos}`);
+//    console.log(`page-effect-id-props.chPos-${props.chPos}`);
     // console.log(props.chPos);
     setCurrentChapter(props.match.params.id - 1,
       props.match.params.line);
@@ -238,6 +238,7 @@ const AyogiPage = (props: any) => {
         );
         break;
     }
+
     // console.log(chlist);
     return result;
   };

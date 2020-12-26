@@ -7,9 +7,9 @@ let initialState = {
 };
 
 const newQuote = {
-  chapter: '',
-  line: '',
-  lineType: LINE_TYPE_ENUM.WISDOM
+  chapter: 0,
+  line: 0,
+  type: LINE_TYPE_ENUM.WISDOM
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
 
@@ -23,7 +23,7 @@ const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 function selectedQuotes(state = fullInitiatState, action) {
   let newState, selQuotes, quoteIndex;
 
-  const getQuoteIndex = (quotes: any[], chapter:string, line:string, lineType:string) => {
+  const getQuoteIndex = (quotes: any[], chapter:number, line:number, lineType:string) => {
     return quotes.findIndex(q => 
       q.chapter === chapter && 
       q.line === line && 
@@ -45,13 +45,13 @@ function selectedQuotes(state = fullInitiatState, action) {
       return newState;
 
     case constants.REMOVE_SELECTED_QUOTE:
-      selQuotes = [...state.get("selectedQuotes")];
+      selQuotes = [...state.get("selectedQuotes").toJS()];
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);
       }
 
-      newState = state.set("selectedQuotes", selQuotes);
+      newState = state.set("selectedQuotes", fromJS(selQuotes));
       setStorageState(newState);
       return newState;
 

@@ -17,6 +17,13 @@ const AyogiHeader = (props) => {
 
   let headerContent = null;
   switch (props.headerType) {
+    case "quotes":
+      headerContent = (
+        <IonRow className="yogananda-row">
+          <IonCol className="otherheader">My Quotes</IonCol>
+        </IonRow>
+      );
+      break;
     case "settings":
       headerContent = (
         <IonRow className="yogananda-row">
