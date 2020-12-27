@@ -20,7 +20,7 @@ const AyogiMyQuote = (props: any) => {
   // console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [quoteGroups, setQuoteGroups] = useState<any>([]);
-
+  let allowSelected = false;
   let contentId: number = 0;
   const contentRef = useRef(null);
 
@@ -97,7 +97,7 @@ const AyogiMyQuote = (props: any) => {
 //        console.log(c.chapter + '-' + c.line);
           let item = props.aydata.filter(i => i._id === c.chapter + '-' + c.line);
           //console.log(props.aydata[dIndex].text);
-          content.push(<AyogiWisdom key={"AyogiWisdom" + contentId} items={item} {...props} />);
+          content.push(<AyogiWisdom key={"AyogiWisdom" + contentId} alloweSelected={allowSelected} items={item} {...props} />);
     });
 
       // console.log(quoteGroups[key]);
@@ -118,7 +118,7 @@ const AyogiMyQuote = (props: any) => {
       <AyogiHeader
         headerType="quotes"
       ></AyogiHeader>
-      <IonContent>
+      <IonContent className="AyogiMyQuote">
         <IonList>{content.map(c => c)}</IonList>
       </IonContent>
     </IonPage>

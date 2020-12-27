@@ -31,6 +31,7 @@ const AyogiWisdom = props => {
         <div className="AyogiWisdom">
             {props.items && props.items.map((c,i) => {
                  return (<AyogiLine 
+                    allowSelected={props.allowSelected}
                     isLineSelected={itemsSelected[c._id]}
                     key={c._id} 
                     c={c} 

@@ -33,7 +33,8 @@ function selectedQuotes(state = fullInitiatState, action) {
 
   switch (action.type) {
     case constants.ADD_SELECTED_QUOTE:
-      selQuotes = [...state.get("selectedQuotes").toJS()];
+    console.log('Add Quote', action.chapter, action.line);
+    selQuotes = [...state.get("selectedQuotes").toJS()];
       quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line, action.lineType);
 
       if(quoteIndex === -1){
@@ -45,7 +46,10 @@ function selectedQuotes(state = fullInitiatState, action) {
       return newState;
 
     case constants.REMOVE_SELECTED_QUOTE:
+      console.log('Remove Quote', action.chapter, action.line);
       selQuotes = [...state.get("selectedQuotes").toJS()];
+
+      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line, action.lineType);
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);

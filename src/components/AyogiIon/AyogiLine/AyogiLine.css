@@ -5,3 +5,7 @@
     border-left: 1px solid gray; */
     background-color:#F0F0F0;
 }
+
+.AyogiMyQuote .itemSelected {
+    background-color:#fff;
+}

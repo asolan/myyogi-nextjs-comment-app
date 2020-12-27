@@ -49,6 +49,7 @@ const AyogiPage = (props: any) => {
 
   let contentId: number = 0;
   const contentRef = useRef(null);
+  let allowSelected = true;
 
   const scrollToTop = () => {
     let cref = contentRef!.current as any;
@@ -56,6 +57,7 @@ const AyogiPage = (props: any) => {
   };
 
   const scrollToId = (chapter, line) => {
+//    console.log('scrollToId', chapter, line);
     let scrollToIdDelay = () => {      
       let cref = contentRef!.current as any;
       let lineId = `${chapter}-${line}`;
@@ -84,7 +86,7 @@ const AyogiPage = (props: any) => {
 
   // Page load
   useEffect(() => {
-    // console.log(`page-effect-[]${props.match.params.id}`);
+//    console.log(`page-effect-[]-${props.match.params.id}`);
     // console.log(aychapttitle);
     // console.log('ayogipage-load');
     // console.log(aydata);
@@ -92,7 +94,7 @@ const AyogiPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-//    console.log(`page-effect-id-props.chPos-${props.chPos}`);
+//    console.log(`page-effect-[props.chPo]-${props.chPos}`);
     // console.log(props.chPos);
     setCurrentChapter(props.match.params.id - 1,
       props.match.params.line);
@@ -104,7 +106,7 @@ const AyogiPage = (props: any) => {
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id, props.selectedQuotes]);
+  }, [props.match.params.id]);
 
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
@@ -202,7 +204,7 @@ const AyogiPage = (props: any) => {
       default:
         //        console.log(newItems);
         result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
+          <AyogiWisdom key={"AyogiWisdom" + contentId} allowSelected={allowSelected} items={newItems} {...props} />
         );
         break;
     }

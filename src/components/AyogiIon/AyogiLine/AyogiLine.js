@@ -16,7 +16,9 @@ import { is, setIn } from "immutable";
 import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
 
 const AyogiLine = (props) => {
+  const [isSelected, setIsSelected] = useState(false);
   const [indentClasses, setIndentClasses] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
   const [paragraph, setParagraph] = useState('');
   const [footnote, setFootnote] = useState('');
   // <div className={classes.AyogiChapter}>
@@ -42,37 +44,40 @@ const AyogiLine = (props) => {
   }, [props.c, props.i, props.type]);
 
   useEffect(() => {
+    setIsSelected(props.isLineSelected);
 //    console.log('isLineSelected', props.isLineSelected);    
-    let newIndent = [...indentClasses];
-    if (props.isLineSelected) {
-      newIndent.push("itemSelected")
-      setIndentClasses(newIndent);
-    } else {
-      const sIndex = newIndent.indexOf("itemSelected");
-      if (sIndex !== -1) {
-        // console.log(indentClasses.splice(sIndex, 1));
-        setIndentClasses(newIndent.splice(sIndex, 1));
-      }
-    }
   }, [props.isLineSelected]);
+
+  useEffect(() => {
+    let newIndentClasses = [...indentClasses];
+    console.log(newIndentClasses);
+    if (isSelected) {
+      console.log('isSelected');
+      newIndentClasses.push("itemSelected");
+    }
+    setAllClasses(newIndentClasses);
+    console.log(newIndentClasses);
+  //    console.log('isLineSelected', props.isLineSelected);    
+  }, [isSelected]);
+  
   
   let returnVal = <div />;
-  if(typeof indentClasses === 'number'){
-    console.log(props.c, indentClasses);
-    returnVal = <React.Fragment>{props.c.text}</React.Fragment>
-  } else {
+
   returnVal = (
     <React.Fragment>
       {paragraph}
       <IonLabel
         onClick={() => {
-          props.isLineSelected ? 
+          if(props.allowSelected){
+          setIsSelected(!isSelected);
+          isSelected ? 
             props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
             props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM);
+          }
         }}
         id={props.c._id}
         // style={props.style}
-        className={indentClasses.join(" ")}
+        className={allClasses.join(" ")}
       >
         {props.c.text}
         <AyogiMetaItem c={props.c} />
@@ -80,7 +85,6 @@ const AyogiLine = (props) => {
       {footnote}
     </React.Fragment>
   );
-      }
   return returnVal;
 };
 
