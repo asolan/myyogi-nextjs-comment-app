@@ -9,7 +9,7 @@ let initialState = {
 const newQuote = {
   chapter: 0,
   line: 0,
-  type: LINE_TYPE_ENUM.WISDOM
+  lineType: LINE_TYPE_ENUM.WISDOM
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
 

@@ -30,9 +30,9 @@ const slideOpts = {
     cssMode: true
 };
 
-const AyogiPoem = ({ items }) => {
-//    console.log('AyogiPoem');
-//    console.log(items);
+const AyogiPoem = ({ items, selectedQuotes }) => {
+    console.log('AyogiPoem');
+    console.log(items);
 
     let poemContent = items.reduce(
         (acc, curr, pos, src) => {

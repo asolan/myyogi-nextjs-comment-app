@@ -98,63 +98,31 @@ const AyogiPage = (props: any) => {
       props.match.params.line);
   }, [props.chPos]);
 
-  // useEffect(() => {
-  //   parseAyogiToChapters();
-  // },[props.aychapttitle])
-
   useEffect(() => {
 //    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
     setIsLoading(false);
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id]);
+  }, [props.match.params.id, props.selectedQuotes]);
 
   const contentScrollEnd = (e) => {
-    // console.log('contentScrollEnd');
-    //    console.log(e);
-    //console.log(e.target.scrollTop);
     e.target.getScrollElement().then((el) => {
-      //console.log(el);
-      // console.log(el.scrollHeight);
-      // console.log(el.clientHeight);
-//      console.log(el.scrollTop);
-      // console.log(el.clientTop);
       props.onChangeChapterLine(el.scrollTop);
     });
-    //    console.log(e.srcElement);
   };
 
   const setCurrentChapter = (cnum: number, clinenumber: number) => {
-    //AMSTODO.V1.Why Called Twice
-    // console.log(`setCurrentChapter-${cnum}-${clinenumber}`);
-    // console.log(chNum);
-    // console.log('setcurrchapt');
-    // console.log(cnum);
-    // console.log(props.chPos);
-    // console.log(props.aychapttitle.length);
     if (
       props.aydata &&
       props.chPos.length > 0 &&
       props.aychapttitle &&
       props.aychapttitle.length > 0
     ) {
-
-//       if (cnum < 0) {
-// //        cnum = 0;
-//         cnum = chNum <= 0 ? 0 : chNum - 1;
-//       }
      cnum++;
-
-      // console.log(chNum);
-      // console.log(cnum);
-      // console.log(props.aychapttitle[cnum]);
-      // console.log(props.aychapttitle[cnum].chapterNumber);
-
       setChNum(props.aychapttitle[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
-//      console.log(props.aychapttitle[cnum].chapterNumber);
       //      scrollToTop();
 
       scrollToId(props.aychapttitle[cnum].chapterNumber, clinenumber);

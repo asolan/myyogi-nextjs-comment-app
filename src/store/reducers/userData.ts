@@ -42,8 +42,8 @@ function userData(state = fullInitiatState, action) {
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_CHAPTER_LINE:
-      console.log("ON_CHANGE_CHAPTER_LINE-reducer");
-      console.log(action);
+      // console.log("ON_CHANGE_CHAPTER_LINE-reducer");
+      // console.log(action);
       currentChapter = state.get("chapter");
       const lineNum = Math.round(action.payload);
       newTab = `/ayogi/${currentChapter}/${lineNum}`;

@@ -110,9 +110,10 @@ const parseParagraphData = (c, i) => {
 
     let indentClasses = [];
     if (c && c.class) {
-//        console.log(c.class);
-        if(typeof c.class === 'string') {
-            indentClasses.push(c.class.split(' '));
+        // console.log(c.class);
+        // console.log(typeof c.class);
+        if(typeof c.class === 'string' && c.class.indexOf(' ') > -1) {
+            indentClasses.concat(c.class.split(' '));
         } else {
             indentClasses.push(c.class);
         }
