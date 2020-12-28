@@ -49,7 +49,6 @@ const AyogiPage = (props: any) => {
 
   let contentId: number = 0;
   const contentRef = useRef(null);
-  let allowSelected = true;
 
   const scrollToTop = () => {
     let cref = contentRef!.current as any;
@@ -106,7 +105,7 @@ const AyogiPage = (props: any) => {
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id]);
+  }, [props.match.params.id, props.currentQuoteSelection]);
 
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
@@ -204,7 +203,7 @@ const AyogiPage = (props: any) => {
       default:
         //        console.log(newItems);
         result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} allowSelected={allowSelected} items={newItems} {...props} />
+          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
         );
         break;
     }
@@ -278,6 +277,7 @@ const mapStateToProps = () =>
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
+    currentQuoteSelection: selectors.makeSelectMyQuoteSelection(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiPage);

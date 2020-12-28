@@ -11,3 +11,9 @@ export const UPDATE_CHAPTER_LINE = 'userData.UPDATE_CHAPTER_LINE';
 export const UPDATE_IMAGE = 'userData.UPDATE_IMAGE';
 export const UPDATE_POEM = 'userData.UPDATE_POEM';
 export const UPDATE_FONT = 'userData.UPDATE_FONT';
+export const ON_CHANGE_MY_QUOTE_SELECTION = 'userData.ON_CHANGE_MY_QUOTE_SELECTION';
+export const MY_QUOTE_SELECTION = {
+    NONE: 'NONE',
+    BASIC: 'BASIC',
+    CATEGORIZED: 'CATEGORIZED',
+  }

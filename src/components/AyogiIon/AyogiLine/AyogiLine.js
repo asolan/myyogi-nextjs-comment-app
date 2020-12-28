@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 //import React from 'react';
 import "./AyogiLine.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
+import AyogiQuoteSelection from "../AyogiQuoteSelection/AyogiQuoteSelection";
 import { parseParagraphData } from "../../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
 import {
@@ -14,8 +15,10 @@ import {
 import { checkboxOutline, squareOutline } from "ionicons/icons";
 import { is, setIn } from "immutable";
 import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
+import constants from "../../../store/constants";
 
 const AyogiLine = (props) => {
+  const [showQuotePopup, setShowQuotePopup] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [indentClasses, setIndentClasses] = useState([]);
   const [allClasses, setAllClasses] = useState([]);
@@ -37,9 +40,7 @@ const AyogiLine = (props) => {
 
     setParagraph(p);
     setFootnote(f);
-    let newIndent = [...indentClasses];
-    newIndent.concat(ic);
-    setIndentClasses(newIndent);
+    setIndentClasses(ic);
 
   }, [props.c, props.i, props.type]);
 
@@ -50,29 +51,44 @@ const AyogiLine = (props) => {
 
   useEffect(() => {
     let newIndentClasses = [...indentClasses];
-    console.log(newIndentClasses);
+    // console.log(newIndentClasses);
     if (isSelected) {
       console.log('isSelected');
       newIndentClasses.push("itemSelected");
     }
     setAllClasses(newIndentClasses);
-    console.log(newIndentClasses);
+      // console.log(newIndentClasses);
   //    console.log('isLineSelected', props.isLineSelected);    
   }, [isSelected]);
   
+  let quoteModal = null;
   
+  if(props.currentQuoteSelection === constants.MY_QUOTE_SELECTION.CATEGORIZED) {
+    quoteModal = (<AyogiQuoteSelection 
+                    showQuotePopup={showQuotePopup}
+                    setShowQuotePopup={setShowQuotePopup}
+                    item={props.c} />);
+  }
+
   let returnVal = <div />;
 
   returnVal = (
     <React.Fragment>
+      {quoteModal}
       {paragraph}
       <IonLabel
         onClick={() => {
-          if(props.allowSelected){
-          setIsSelected(!isSelected);
-          isSelected ? 
-            props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
-            props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM);
+          switch(props.currentQuoteSelection){
+            case constants.MY_QUOTE_SELECTION.BASIC:
+              setIsSelected(!isSelected);
+              isSelected ? 
+                props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
+                props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM);
+              break;
+            case constants.MY_QUOTE_SELECTION.CATEGORIZED:
+              setShowQuotePopup(true);
+              setIsSelected(!isSelected);
+              break;
           }
         }}
         id={props.c._id}

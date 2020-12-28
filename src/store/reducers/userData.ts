@@ -9,6 +9,7 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
+  myQuoteSelection: constants.MY_QUOTE_SELECTION.BASIC
 };
 
 const autoyogiState = window.localStorage["autoyogiState"]
@@ -64,6 +65,12 @@ function userData(state = fullInitiatState, action) {
       return newState;
     case constants.ON_CHANGE_FONT_JUSTIFICATION:
       newState = state.set("fontJustification", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_MY_QUOTE_SELECTION:
+      console.log('ON_CHANGE_MY_QUOTE_SELECTION', action);
+      newState = state.set("myQuoteSelection", action.payload);
+      console.log(newState);
       setStorageState(newState);
       return newState;
     default:

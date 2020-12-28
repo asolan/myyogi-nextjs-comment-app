@@ -21,7 +21,8 @@ const AyogiWisdom = props => {
         //     q.chapter === c.chapterNumber && 
         //     q.line === c.lineNumber 
         // ) > -1);
-        return s.findIndex(q => 
+
+        return s && s.findIndex(q => 
             q.chapter === c.chapterNumber && 
             q.line === c.lineNumber 
         ) > -1;
@@ -31,7 +32,6 @@ const AyogiWisdom = props => {
         <div className="AyogiWisdom">
             {props.items && props.items.map((c,i) => {
                  return (<AyogiLine 
-                    allowSelected={props.allowSelected}
                     isLineSelected={itemsSelected[c._id]}
                     key={c._id} 
                     c={c} 

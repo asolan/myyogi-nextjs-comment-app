@@ -40,8 +40,8 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
-  console.log("AyogiChapterPage");
-  console.log(props);
+  // console.log("AyogiChapterPage");
+  // console.log(props);
 
   // useEffect(() => {
   //   console.log(`AyogiChapterPage-chapter changed - ${props.type}`)

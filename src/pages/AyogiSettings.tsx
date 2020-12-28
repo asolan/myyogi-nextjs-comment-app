@@ -3,22 +3,32 @@ import Loading from "../components/AyogiIon/Loading/Loading";
 import {
   IonContent,
   IonHeader,
-  IonPage, IonTitle, IonToolbar,
-  IonList, IonItem, IonRange,
-  IonLabel, IonIcon, IonItemDivider,
-  IonToggle
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonList,
+  IonItem,
+  IonRange,
+  IonListHeader,
+  IonLabel,
+  IonIcon,
+  IonItemDivider,
+  IonRadio,
+  IonRadioGroup,
+  IonToggle,
 } from "@ionic/react";
-import { textOutline, sunny } from 'ionicons/icons';
+import { textOutline, sunny } from "ionicons/icons";
 
 import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
 import AyogiWisdom from "../components/AyogiIon/AyogiWisdom/AyogiWisdom";
-import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiSettings.css";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import selectors from "../store/selectors";
 import actions from "../store/actions";
+import constants from "../store/constants";
+import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //let aydata = require('../aydata.json');
 //let aychaptlist = require('../aychaptlist.json');
 
@@ -37,20 +47,22 @@ const AyogiSettings = (props: any) => {
     // TODO: Load local state from props
   }, []);
 
-
   const setFontSizeCss = (size: number) => {
     // Move to Redux?
     document.documentElement.style.setProperty("--yogi-font-size", size + "em");
     setFontSize(size);
     props.onChangeFontSize(size);
-  }
+  };
 
   const setFontJustifiedCss = (value: boolean) => {
     // Move to Redux?
-    document.documentElement.style.setProperty("--yogi-text-align", value ? "justify" : "left");
+    document.documentElement.style.setProperty(
+      "--yogi-text-align",
+      value ? "justify" : "left"
+    );
     setFontJustified(value);
     props.onChangeFontJustification(value);
-  }
+  };
 
   // const buildTestContent = (newItems: any[]): any => {
   //   let lineType = newItems[0].type;
@@ -107,11 +119,11 @@ const AyogiSettings = (props: any) => {
   // }
 
   //  return (<main>{buttons}{content}</main>);
+
+  console.log(props.currentQuoteSelection);
   return (
     <IonPage className="AyogiSettings AyogiChapter">
-      <AyogiHeader
-        headerType="settings"
-      ></AyogiHeader>
+      <AyogiHeader headerType="settings"></AyogiHeader>
       <IonContent>
         <IonList>
           {/* <IonItemDivider><h2 className="ion-margin-start">Content Spacing</h2></IonItemDivider>
@@ -120,12 +132,69 @@ const AyogiSettings = (props: any) => {
             <IonToggle className="ion-margin-start ion-margin-end"checked={fontJustified} onIonChange={e => setFontJustifiedCss(e.detail.checked)} />
             <IonLabel >Content Justified</IonLabel>
           </IonItem> */}
-
-          <IonItemDivider><h2 className="ion-margin-start">Font Size</h2></IonItemDivider>
+          <IonItemDivider>
+            <h2 className="ion-margin-start">Quote Selection</h2>
+          </IonItemDivider>
           <IonItem>
-            <IonRange value={fontSize} min={0.8} max={1.3} step={0.125} snaps={true} color="secondary"
-              onIonChange={e => setFontSizeCss(e.detail.value as number)} >
-              <IonIcon size="small" slot="start" icon={textOutline} className="ion-margin" />
+            <IonList>
+              <IonRadioGroup
+                value={props.currentQuoteSelection}
+                onIonChange={(e) => {
+                  if (e.detail.value === undefined) return;
+                  console.log(e.detail.value);
+                  props.onChangeMyQuoteSelection(e.detail.value);
+                }}
+              >
+                <IonItem>
+                  <IonLabel className="ion-margin-start">
+                    No Quote Selection
+                  </IonLabel>
+                  <IonRadio
+                    slot="start"
+                    value={constants.MY_QUOTE_SELECTION.NONE}
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel className="ion-margin-start">
+                    Basic Selection
+                  </IonLabel>
+                  <IonRadio
+                    slot="start"
+                    value={constants.MY_QUOTE_SELECTION.BASIC}
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel className="ion-margin-start">
+                    Categorized Selection
+                  </IonLabel>
+                  <IonRadio
+                    slot="start"
+                    value={constants.MY_QUOTE_SELECTION.CATEGORIZED}
+                  />
+                </IonItem>
+              </IonRadioGroup>
+            </IonList>
+          </IonItem>
+
+          <IonItemDivider>
+            <h2 className="ion-margin-start">Font Size</h2>
+          </IonItemDivider>
+          <IonItem>
+            <IonRange
+              value={fontSize}
+              min={0.8}
+              max={1.3}
+              step={0.125}
+              snaps={true}
+              color="secondary"
+              onIonChange={(e) => setFontSizeCss(e.detail.value as number)}
+            >
+              <IonIcon
+                size="small"
+                slot="start"
+                icon={textOutline}
+                className="ion-margin"
+              />
               <IonIcon slot="end" icon={textOutline} className="ion-margin" />
             </IonRange>
           </IonItem>
@@ -142,6 +211,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeFontSize(size)),
     onChangeFontJustification: (justified: boolean) =>
       dispatch(actions.onChangeFontJustification(justified)),
+    onChangeMyQuoteSelection: (myQuoteSelection: string) =>
+      dispatch(actions.onChangeMyQuoteSelection(myQuoteSelection)),
   };
 };
 
@@ -149,6 +220,7 @@ const mapStateToProps = () =>
   createStructuredSelector({
     currentFontSize: selectors.makeSelectFontSize(),
     currentFontJustification: selectors.makeSelectFontJustification(),
+    currentQuoteSelection: selectors.makeSelectMyQuoteSelection(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiSettings);
