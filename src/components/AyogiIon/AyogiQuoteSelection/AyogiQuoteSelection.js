@@ -23,12 +23,47 @@ import { isTemplateExpression } from "typescript";
 
 const AyogiQuoteSelection = (props) => {
   const [selectedCategory, setSelectedCategory] = useState("yogananda");
-  let categories = [
+  let saintsPersonages = [
     "Yogananda",
     "Jesus Christ",
     "Lahiri Mahasaya",
     "Sri Yukteswar",
     "Babaji",
+    "Krishna",
+    "Buddha",
+    "SAnanamoya Ma",
+    "Swami Pranabananda",
+    "Ram Gopal Muzumdar",
+    "Gandhi",
+    "Bhagabati",
+    "Therese Neumann",
+    "Giri Bala"
+  ];
+  let godhead = [
+    "Brahma",
+    "Vishnu",
+    "Shiva",
+    "Durga",
+    "Kali",
+    "Yoga Sutras",
+    "Babaji",
+    "Ram",
+    "Sita"
+  ];
+  let scriptures = [
+    "Bible",
+    "Bhagavad Git",
+    "Mahabharata",
+    "Yoga Sutras",
+    "Koran",
+  ];
+  let religions = [
+    "Christianity",
+    "Buddhism",
+    "Sikhism",
+    "Hinduism",
+    "Muslism",
+    "Janoism",
   ];
   // isSelected ?
   // props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
@@ -49,7 +84,7 @@ const AyogiQuoteSelection = (props) => {
               setSelectedCategory(e.detail.value);
             }}
           >
-            {categories.map((c) => {
+            {saintsPersonages.map((c) => {
               return (
                 <IonItem>
                   <IonLabel className="ion-margin-start">{c}</IonLabel>
@@ -57,7 +92,31 @@ const AyogiQuoteSelection = (props) => {
                 </IonItem>
               );
             })}
-          </IonRadioGroup>
+            {godhead.map((c) => {
+              return (
+                <IonItem>
+                  <IonLabel className="ion-margin-start">{c}</IonLabel>
+                  <IonRadio slot="start" value={c} />
+                </IonItem>
+              );
+            })}
+            {scriptures.map((c) => {
+              return (
+                <IonItem>
+                  <IonLabel className="ion-margin-start">{c}</IonLabel>
+                  <IonRadio slot="start" value={c} />
+                </IonItem>
+              );
+            })}
+            {religions.map((c) => {
+              return (
+                <IonItem>
+                  <IonLabel className="ion-margin-start">{c}</IonLabel>
+                  <IonRadio slot="start" value={c} />
+                </IonItem>
+              );
+            })}
+            </IonRadioGroup>
         </IonList>
         <IonButton
           onClick={() => {
