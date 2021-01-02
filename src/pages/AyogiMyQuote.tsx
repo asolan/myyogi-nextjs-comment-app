@@ -127,8 +127,8 @@ const AyogiMyQuote = (props: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeSelectedQuote: (chapter:string, line:string, lineType:string) =>
-      dispatch(actions.removeSelectedQuote(chapter, line, lineType)),
+    removeSelectedQuote: (chapter:string, line:string) =>
+      dispatch(actions.removeSelectedQuote(chapter, line)),
   };
 };
 
@@ -136,6 +136,7 @@ const mapStateToProps = () =>
   createStructuredSelector({
     currentFontSize: selectors.makeSelectFontSize(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
+    currentQuoteTags: selectors.makeSelectMyQuoteTags(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiMyQuote);

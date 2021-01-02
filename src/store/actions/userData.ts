@@ -101,3 +101,9 @@ export function onChangeMyQuoteSelection(myQuoteSelection) {
     }
 }
 
+export function onChangeMyQuoteTags(myQuoteTags) {
+    return {
+        type: constants.ON_CHANGE_MY_QUOTE_TAGS,
+        payload: myQuoteTags
+    }
+}

@@ -23,6 +23,8 @@ const makeSelectFontJustification = () =>
   createSelector(selectUserData, (ud) => ud.get("fontJustification"));
 const makeSelectMyQuoteSelection = () =>
   createSelector(selectUserData, (ud) => ud.get("myQuoteSelection"));
+const makeSelectMyQuoteTags = () =>
+  createSelector(selectUserData, (ud) => ud.get("myQuoteTags").toJS());
 
 export {
   makeSelectTab,
@@ -32,5 +34,6 @@ export {
   makeSelectPoem,
   makeSelectFontSize,
   makeSelectFontJustification,
-  makeSelectMyQuoteSelection
+  makeSelectMyQuoteSelection,
+  makeSelectMyQuoteTags
 };

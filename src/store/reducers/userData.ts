@@ -9,7 +9,8 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
-  myQuoteSelection: constants.MY_QUOTE_SELECTION.BASIC
+  myQuoteSelection: constants.MY_QUOTE_SELECTION.BASIC,
+  myQuoteTags: []
 };
 
 const autoyogiState = window.localStorage["autoyogiState"]
@@ -70,6 +71,12 @@ function userData(state = fullInitiatState, action) {
     case constants.ON_CHANGE_MY_QUOTE_SELECTION:
       console.log('ON_CHANGE_MY_QUOTE_SELECTION', action);
       newState = state.set("myQuoteSelection", action.payload);
+      console.log(newState);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_MY_QUOTE_TAGS:
+      console.log('ON_CHANGE_MY_QUOTE_TAGS', action);
+      newState = state.set("myQuoteTags", fromJS(action.payload));
       console.log(newState);
       setStorageState(newState);
       return newState;

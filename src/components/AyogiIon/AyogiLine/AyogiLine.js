@@ -65,8 +65,13 @@ const AyogiLine = (props) => {
   
   if(props.currentQuoteSelection === constants.MY_QUOTE_SELECTION.CATEGORIZED) {
     quoteModal = (<AyogiQuoteSelection 
+                    currentQuoteTags={props.currentQuoteTags}
+                    itemsTags={props.itemTags}
+                    addSelectedQuote={props.addSelectedQuote}
+                    removeSelectedQuote={props.removeSelectedQuote}
                     showQuotePopup={showQuotePopup}
                     setShowQuotePopup={setShowQuotePopup}
+                    setIsSelected={setIsSelected}
                     item={props.c} />);
   }
 
@@ -82,12 +87,11 @@ const AyogiLine = (props) => {
             case constants.MY_QUOTE_SELECTION.BASIC:
               setIsSelected(!isSelected);
               isSelected ? 
-                props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
-                props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM);
+                props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber) :
+                props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, []);
               break;
             case constants.MY_QUOTE_SELECTION.CATEGORIZED:
               setShowQuotePopup(true);
-              setIsSelected(!isSelected);
               break;
           }
         }}

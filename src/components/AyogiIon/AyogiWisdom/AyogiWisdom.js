@@ -7,25 +7,35 @@ const AyogiWisdom = props => {
     // console.log('AyogiWisdom');
     // console.log(props);
     const [itemsSelected, setItemsSelected] = useState([]);
+    const [itemTags, setItemTags] = useState([]);
 
     useEffect(() => {
-        let itemsSelected = {};
+        let itemsSel = {};
+        let itemTags = {};
         props.items && props.items.map((c,i) => {
-            itemsSelected[c._id] = itemIsQuote(c, props.selectedQuotes);
+            let {isQuote, tags} = itemQuoteTags(c, props.selectedQuotes);
+            itemsSel[c._id] = isQuote;
+            itemTags[c._id] = tags;
         });
-        setItemsSelected(itemsSelected);
+        setItemsSelected(itemsSel);
+        setItemTags(itemTags);
+        console.log(itemTags);
     }, [props.selectedQuotes]);
 
-    const itemIsQuote = (c, s) => {
+    const itemQuoteTags = (c, s) => {
         // console.log(s.findIndex(q => 
         //     q.chapter === c.chapterNumber && 
         //     q.line === c.lineNumber 
         // ) > -1);
-
-        return s && s.findIndex(q => 
+        let quoteIndex = s && s.findIndex(q => 
             q.chapter === c.chapterNumber && 
             q.line === c.lineNumber 
-        ) > -1;
+        );
+
+        let quoteTags = quoteIndex > -1 ? s[quoteIndex].tags : [];
+        return { 
+            isQuote: quoteIndex > -1,
+            tags: quoteTags};
     };
 
     return (
@@ -33,17 +43,17 @@ const AyogiWisdom = props => {
             {props.items && props.items.map((c,i) => {
                  return (<AyogiLine 
                     isLineSelected={itemsSelected[c._id]}
+                    itemTags={itemTags[c._id]}
                     key={c._id} 
                     c={c} 
                     i={i} 
                     type={LINE_TYPE_ENUM.WISDOM}
                     {...props}>
                 </AyogiLine>)
-                    })
+                })
             }
         </div>
     )
-
 }
 
 export default AyogiWisdom;

@@ -14,7 +14,7 @@ import './AyogiQuote.css';
 //import parseBookData from '../../../utility/parseBookData';
 //import {useTraceUpdate} from '../../../utility/helpUtility';
 
-
+//COMPONENT NOT CURRENTLY USED
 const AyogiQuote = (props) => {
     console.log(props);
     return (

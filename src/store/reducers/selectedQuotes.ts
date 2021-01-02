@@ -9,7 +9,7 @@ let initialState = {
 const newQuote = {
   chapter: 0,
   line: 0,
-  lineType: LINE_TYPE_ENUM.WISDOM
+  tags: []
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
 
@@ -23,11 +23,10 @@ const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 function selectedQuotes(state = fullInitiatState, action) {
   let newState, selQuotes, quoteIndex;
 
-  const getQuoteIndex = (quotes: any[], chapter:number, line:number, lineType:string) => {
+  const getQuoteIndex = (quotes: any[], chapter:number, line:number) => {
     return quotes.findIndex(q => 
       q.chapter === chapter && 
-      q.line === line && 
-      q.lineType === lineType 
+      q.line === line
       );
   };
 
@@ -35,10 +34,10 @@ function selectedQuotes(state = fullInitiatState, action) {
     case constants.ADD_SELECTED_QUOTE:
     console.log('Add Quote', action.chapter, action.line);
     selQuotes = [...state.get("selectedQuotes").toJS()];
-      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line, action.lineType);
+      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line);
 
       if(quoteIndex === -1){
-        selQuotes.push({...newQuote, chapter: action.chapter, line: action.line, lineType: action.lineType});
+        selQuotes.push({...newQuote, chapter: action.chapter, line: action.line, tags: action.tags});
       }
 
       newState = state.set("selectedQuotes", fromJS(selQuotes));
@@ -49,7 +48,7 @@ function selectedQuotes(state = fullInitiatState, action) {
       console.log('Remove Quote', action.chapter, action.line);
       selQuotes = [...state.get("selectedQuotes").toJS()];
 
-      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line, action.lineType);
+      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line);
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);

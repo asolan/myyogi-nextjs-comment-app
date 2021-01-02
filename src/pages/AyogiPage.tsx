@@ -105,7 +105,7 @@ const AyogiPage = (props: any) => {
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id, props.currentQuoteSelection]);
+  }, [props.match.params.id, props.currentQuoteSelection, props.currentQuoteTags]);
 
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
@@ -262,10 +262,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeChapter(chapter)),
     onChangeChapterLine: (chapterLine: number) =>
       dispatch(actions.onChangeChapterLine(chapterLine)),
-    addSelectedQuote: (chapter:string, line:string, lineType:string) =>
-      dispatch(actions.addSelectedQuote(chapter, line, lineType)),
-    removeSelectedQuote: (chapter:string, line:string, lineType:string) =>
-      dispatch(actions.removeSelectedQuote(chapter, line, lineType)),
+    addSelectedQuote: (chapter:string, line:string, tags:string[]) =>
+      dispatch(actions.addSelectedQuote(chapter, line, tags)),
+    removeSelectedQuote: (chapter:string, line:string) =>
+      dispatch(actions.removeSelectedQuote(chapter, line)),
   };
 };
 
@@ -278,6 +278,7 @@ const mapStateToProps = () =>
     currentFontSize: selectors.makeSelectFontSize(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
     currentQuoteSelection: selectors.makeSelectMyQuoteSelection(),
+    currentQuoteTags: selectors.makeSelectMyQuoteTags(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiPage);
