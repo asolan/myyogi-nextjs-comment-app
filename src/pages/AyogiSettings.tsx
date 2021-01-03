@@ -57,8 +57,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeFontSize(size)),
     onChangeFontJustification: (justified: boolean) =>
       dispatch(actions.onChangeFontJustification(justified)),
-    onChangeMyQuoteSelection: (myQuoteSelection: string) =>
-      dispatch(actions.onChangeMyQuoteSelection(myQuoteSelection)),
+    onChangeMyQuoteSelectionType: (myQuoteSelectionType: string) =>
+      dispatch(actions.onChangeMyQuoteSelectionType(myQuoteSelectionType)),
     onChangeMyQuoteTags: (myQuoteTags: string[]) =>
       dispatch(actions.onChangeMyQuoteTags(myQuoteTags)),
   };
@@ -68,7 +68,7 @@ const mapStateToProps = () =>
   createStructuredSelector({
     currentFontSize: selectors.makeSelectFontSize(),
     currentFontJustification: selectors.makeSelectFontJustification(),
-    currentQuoteSelection: selectors.makeSelectMyQuoteSelection(),
+    currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),
   });
 

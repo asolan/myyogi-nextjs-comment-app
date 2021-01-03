@@ -44,7 +44,6 @@ const AyogiSettingFontSize = (props) => {
   };
 
 
-  console.log(props.currentQuoteSelection);
   return (
     <React.Fragment>
       <IonList>

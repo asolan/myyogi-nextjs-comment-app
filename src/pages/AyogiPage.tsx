@@ -105,7 +105,7 @@ const AyogiPage = (props: any) => {
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id, props.currentQuoteSelection, props.currentQuoteTags]);
+  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
@@ -262,10 +262,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeChapter(chapter)),
     onChangeChapterLine: (chapterLine: number) =>
       dispatch(actions.onChangeChapterLine(chapterLine)),
-    addSelectedQuote: (chapter:string, line:string, tags:string[]) =>
-      dispatch(actions.addSelectedQuote(chapter, line, tags)),
-    removeSelectedQuote: (chapter:string, line:string) =>
-      dispatch(actions.removeSelectedQuote(chapter, line)),
+    addSelectedQuote: (chapter:number,  startline:number, startchar:number, endline:number, endchar:number, tags:string[]) =>
+      dispatch(actions.addSelectedQuote(chapter, startline, startchar, endline, endchar, tags)),
+    removeSelectedQuote: (chapter:number, startline:number, startchar:number) =>
+      dispatch(actions.removeSelectedQuote(chapter, startline, startchar)),
   };
 };
 
@@ -277,7 +277,7 @@ const mapStateToProps = () =>
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
-    currentQuoteSelection: selectors.makeSelectMyQuoteSelection(),
+    currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),
   });
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import React from 'react';
-import "./AyogiQuoteSelection.css";
+import "./AyogiQuoteMetadata.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import { parseParagraphData } from "../../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
@@ -21,7 +21,7 @@ import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
 import constants from "../../../store/constants";
 import { isTemplateExpression } from "typescript";
 
-const AyogiQuoteSelection = (props) => {
+const AyogiQuoteMetadata = (props) => {
   const [myTagsShow, setMyTagsShow] = useState(false);
   const [saintsPersonagesShow, setSaintsPersonagesShow] = useState(false);
   const [godheadsShow, setGodheadsShow] = useState(false);
@@ -411,8 +411,10 @@ const AyogiQuoteSelection = (props) => {
             props.addSelectedQuote(
               props.item.chapterNumber,
               props.item.lineNumber,
-              selTags
-            );
+              1,
+              props.item.lineNumber, 
+              props.item.text.length, 
+              selTags);
             props.setIsSelected(true);
             props.setShowQuotePopup(false);
           }}
@@ -423,9 +425,9 @@ const AyogiQuoteSelection = (props) => {
           color="light"
           onClick={() => {
             props.removeSelectedQuote(
-              props.item.chapterNumber,
-              props.item.lineNumber
-            );
+              props.item.chapterNumber, 
+              props.item.lineNumber, 
+              1);
             props.setIsSelected(false);
             props.setShowQuotePopup(false);
           }}
@@ -438,4 +440,4 @@ const AyogiQuoteSelection = (props) => {
   return returnVal;
 };
 
-export default AyogiQuoteSelection;
+export default AyogiQuoteMetadata;

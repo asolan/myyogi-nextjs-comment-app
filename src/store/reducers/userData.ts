@@ -9,7 +9,7 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
-  myQuoteSelection: constants.MY_QUOTE_SELECTION.BASIC,
+  myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.BASIC,
   myQuoteTags: []
 };
 
@@ -68,9 +68,9 @@ function userData(state = fullInitiatState, action) {
       newState = state.set("fontJustification", action.payload);
       setStorageState(newState);
       return newState;
-    case constants.ON_CHANGE_MY_QUOTE_SELECTION:
-      console.log('ON_CHANGE_MY_QUOTE_SELECTION', action);
-      newState = state.set("myQuoteSelection", action.payload);
+    case constants.ON_CHANGE_MY_QUOTE_SELECTION_TYPE:
+      console.log('ON_CHANGE_MY_QUOTE_SELECTION_TYPE', action);
+      newState = state.set("myQuoteSelectionType", action.payload);
       console.log(newState);
       setStorageState(newState);
       return newState;

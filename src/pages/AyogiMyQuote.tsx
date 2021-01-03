@@ -95,7 +95,7 @@ const AyogiMyQuote = (props: any) => {
 
     quoteGroups[key].map(c => {
 //        console.log(c.chapter + '-' + c.line);
-          let item = props.aydata.filter(i => i._id === c.chapter + '-' + c.line);
+          let item = props.aydata.filter(i => i._id === c.chapter + '-' + c.startline);
           //console.log(props.aydata[dIndex].text);
           content.push(<AyogiWisdom key={"AyogiWisdom" + contentId} alloweSelected={allowSelected} items={item} {...props} />);
     });
@@ -127,8 +127,8 @@ const AyogiMyQuote = (props: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeSelectedQuote: (chapter:string, line:string) =>
-      dispatch(actions.removeSelectedQuote(chapter, line)),
+    removeSelectedQuote: (chapter:number, startline:number, startchar:number) =>
+      dispatch(actions.removeSelectedQuote(chapter, startline, startchar)),
   };
 };
 

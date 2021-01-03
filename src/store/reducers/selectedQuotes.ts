@@ -8,7 +8,10 @@ let initialState = {
 
 const newQuote = {
   chapter: 0,
-  line: 0,
+  startline: 0,
+  startchar: 0,
+  endline: 0,
+  endchar: 0,
   tags: []
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
@@ -23,21 +26,34 @@ const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 function selectedQuotes(state = fullInitiatState, action) {
   let newState, selQuotes, quoteIndex;
 
-  const getQuoteIndex = (quotes: any[], chapter:number, line:number) => {
+  const getQuoteIndex = (quotes: any[], chapter:number, startline:number, startchar:number) => {
     return quotes.findIndex(q => 
       q.chapter === chapter && 
-      q.line === line
+      q.startline === startline &&
+      q.startchar === startchar
       );
   };
 
   switch (action.type) {
     case constants.ADD_SELECTED_QUOTE:
-    console.log('Add Quote', action.chapter, action.line);
+    console.log('Add Quote', 
+    action.chapter, action.startline, 
+    action.startchar);
     selQuotes = [...state.get("selectedQuotes").toJS()];
-      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line);
+      quoteIndex = getQuoteIndex(
+        selQuotes, 
+        action.chapter, 
+        action.startline, 
+        action.startchar);
 
       if(quoteIndex === -1){
-        selQuotes.push({...newQuote, chapter: action.chapter, line: action.line, tags: action.tags});
+        selQuotes.push({...newQuote, 
+          chapter: action.chapter, 
+          startline: action.startline,
+          startchar: action.startchar,
+          endline: action.endline,
+          endchar: action.endchar,
+          tags: action.tags});
       }
 
       newState = state.set("selectedQuotes", fromJS(selQuotes));
@@ -45,10 +61,14 @@ function selectedQuotes(state = fullInitiatState, action) {
       return newState;
 
     case constants.REMOVE_SELECTED_QUOTE:
-      console.log('Remove Quote', action.chapter, action.line);
+      console.log('Remove Quote', action.chapter, action.startline);
       selQuotes = [...state.get("selectedQuotes").toJS()];
 
-      quoteIndex = getQuoteIndex(selQuotes, action.chapter, action.line);
+      quoteIndex = getQuoteIndex(
+        selQuotes, 
+        action.chapter, 
+        action.startline, 
+        action.startchar);
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);

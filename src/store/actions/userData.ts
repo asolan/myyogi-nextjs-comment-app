@@ -94,10 +94,10 @@ export function updateFont(font) {
     }
 }
 
-export function onChangeMyQuoteSelection(myQuoteSelection) {
+export function onChangeMyQuoteSelectionType(myQuoteSelectionType) {
     return {
-        type: constants.ON_CHANGE_MY_QUOTE_SELECTION,
-        payload: myQuoteSelection
+        type: constants.ON_CHANGE_MY_QUOTE_SELECTION_TYPE,
+        payload: myQuoteSelectionType
     }
 }
 

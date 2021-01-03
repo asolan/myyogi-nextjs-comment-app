@@ -1,18 +1,22 @@
 import constants from "../constants";
 
-export function addSelectedQuote(chapter, line, tags) {
+export function addSelectedQuote(chapter, startline, startchar, endline, endchar, tags) {
     return {
         type: constants.ADD_SELECTED_QUOTE,
         chapter: chapter,
-        line: line,
+        startline: startline,
+        startchar: startchar,
+        endline: endline,
+        endchar: endchar,
         tags: tags
     }
 }
 
-export function removeSelectedQuote(chapter, line) {
+export function removeSelectedQuote(chapter, startline, startchar) {
     return {
         type: constants.REMOVE_SELECTED_QUOTE,
         chapter: chapter,
-        line: line
+        startline: startline,
+        startchar: startchar,
     }
 }

@@ -20,11 +20,11 @@ const AyogiSettingQuoteSelection = (props) => {
       <IonItem>
         <IonList>
           <IonRadioGroup
-            value={props.currentQuoteSelection}
+            value={props.currentQuoteSelectionType}
             onIonChange={(e) => {
               if (e.detail.value === undefined) return;
               console.log(e.detail.value);
-              props.onChangeMyQuoteSelection(e.detail.value);
+              props.onChangeMyQuoteSelectionType(e.detail.value);
             }}
           >
             <IonItem>
@@ -45,11 +45,20 @@ const AyogiSettingQuoteSelection = (props) => {
             </IonItem>
             <IonItem>
               <IonLabel className="ion-margin-start">
-                Categorized Selection
+                Tag Quotes Selection
               </IonLabel>
               <IonRadio
                 slot="start"
-                value={constants.MY_QUOTE_SELECTION.CATEGORIZED}
+                value={constants.MY_QUOTE_SELECTION.TAGS}
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel className="ion-margin-start">
+                Metadata and Tag Quotes Selection
+              </IonLabel>
+              <IonRadio
+                slot="start"
+                value={constants.MY_QUOTE_SELECTION.METADATA}
               />
             </IonItem>
           </IonRadioGroup>
