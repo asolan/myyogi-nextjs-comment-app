@@ -33,14 +33,14 @@ const AyogiSettingQuoteSelection = (props) => {
               </IonLabel>
               <IonRadio
                 slot="start"
-                value={constants.MY_QUOTE_SELECTION.NONE}
+                value={constants.MY_QUOTE_SELECTION_TYPE.NONE}
               />
             </IonItem>
             <IonItem>
               <IonLabel className="ion-margin-start">Basic Selection</IonLabel>
               <IonRadio
                 slot="start"
-                value={constants.MY_QUOTE_SELECTION.BASIC}
+                value={constants.MY_QUOTE_SELECTION_TYPE.BASIC}
               />
             </IonItem>
             <IonItem>
@@ -49,7 +49,7 @@ const AyogiSettingQuoteSelection = (props) => {
               </IonLabel>
               <IonRadio
                 slot="start"
-                value={constants.MY_QUOTE_SELECTION.TAGS}
+                value={constants.MY_QUOTE_SELECTION_TYPE.TAGS}
               />
             </IonItem>
             <IonItem>
@@ -58,7 +58,7 @@ const AyogiSettingQuoteSelection = (props) => {
               </IonLabel>
               <IonRadio
                 slot="start"
-                value={constants.MY_QUOTE_SELECTION.METADATA}
+                value={constants.MY_QUOTE_SELECTION_TYPE.METADATA}
               />
             </IonItem>
           </IonRadioGroup>

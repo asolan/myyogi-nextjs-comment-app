@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 //import React from 'react';
 import "./AyogiLine.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
-import AyogiQuoteMetadata from "../AyogiQuoteMetadata/AyogiQuoteMetadata";
-import AyogiQuoteTags from "../AyogiQuoteTags/AyogiQuoteTags";
+import AyogiQuote from "../AyogiQuote/AyogiQuote";
 import { parseParagraphData } from "../../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
 import {
@@ -62,31 +61,14 @@ const AyogiLine = (props) => {
   //    console.log('isLineSelected', props.isLineSelected);    
   }, [isSelected]);
   
-  let quoteModal = null;
+  let quoteModal = (<AyogiQuote 
+                    showQuotePopup={showQuotePopup}
+                    setShowQuotePopup={setShowQuotePopup}
+                    setIsSelected={setIsSelected}
+                    item={props.c}
+                    {...props}
+                     />);
   
-  if(props.currentQuoteSelectionType === constants.MY_QUOTE_SELECTION_TYPE.TAGS) {
-    quoteModal = (<AyogiQuoteTags 
-                    currentQuoteTags={props.currentQuoteTags}
-                    itemsTags={props.itemTags}
-                    addSelectedQuote={props.addSelectedQuote}
-                    removeSelectedQuote={props.removeSelectedQuote}
-                    showQuotePopup={showQuotePopup}
-                    setShowQuotePopup={setShowQuotePopup}
-                    setIsSelected={setIsSelected}
-                    item={props.c} />);
-  }
-
-  if(props.currentQuoteSelectionType === constants.MY_QUOTE_SELECTION_TYPE.METADATA) {
-    quoteModal = (<AyogiQuoteMetadata 
-                    currentQuoteTags={props.currentQuoteTags}
-                    itemsTags={props.itemTags}
-                    addSelectedQuote={props.addSelectedQuote}
-                    removeSelectedQuote={props.removeSelectedQuote}
-                    showQuotePopup={showQuotePopup}
-                    setShowQuotePopup={setShowQuotePopup}
-                    setIsSelected={setIsSelected}
-                    item={props.c} />);
-  }
 
   let returnVal = <div />;
 
@@ -95,26 +77,7 @@ const AyogiLine = (props) => {
       {quoteModal}
       {paragraph}
       <IonLabel
-        onClick={() => {
-          switch(props.currentQuoteSelectionType){
-            case constants.MY_QUOTE_SELECTION_TYPE.BASIC:
-              setIsSelected(!isSelected);
-              isSelected ? 
-                props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, 1) :
-                props.addSelectedQuote(
-                  props.c.chapterNumber, 
-                  props.c.lineNumber, 
-                  1, 
-                  props.c.lineNumber, 
-                  props.c.text.length, 
-                  []);
-              break;
-            case constants.MY_QUOTE_SELECTION_TYPE.TAGS:
-            case constants.MY_QUOTE_SELECTION_TYPE.METADATA:
-                setShowQuotePopup(true);
-                break;
-          }
-        }}
+        onClick={() => { setShowQuotePopup(true);}}
         id={props.c._id}
         // style={props.style}
         className={allClasses.join(" ")}

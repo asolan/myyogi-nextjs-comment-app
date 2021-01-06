@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import React from 'react';
 import "./AyogiQuoteMetadata.css";
+//import AyogiQuoteTags from './AyogiQuoteTags';
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import { parseParagraphData } from "../../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
@@ -12,14 +13,8 @@ import {
   IonLabel,
   IonButton,
   IonContent,
-  IonRadioGroup,
   IonCheckbox,
 } from "@ionic/react";
-import { checkboxOutline, squareOutline } from "ionicons/icons";
-import { is, setIn } from "immutable";
-import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
-import constants from "../../../store/constants";
-import { isTemplateExpression } from "typescript";
 
 const AyogiQuoteMetadata = (props) => {
   const [myTagsShow, setMyTagsShow] = useState(false);
@@ -56,6 +51,20 @@ const AyogiQuoteMetadata = (props) => {
       }),
     ]);
   }, []);
+
+  useEffect(() => {
+    setQuoteTagsList(
+      (props.currentQuoteTags &&
+        props.currentQuoteTags.map((s) => {
+          const wasChecked =
+            props.itemTags &&
+            props.itemTags.length > 0 &&
+            props.itemTags.indexOf(s) > -1;
+          return { val: s, isChecked: wasChecked };
+        })) ||
+        []
+    );
+  }, [props.currentQuoteSelectionType]);
 
   useEffect(() => {
     setQuoteTagsList(
@@ -207,13 +216,14 @@ const AyogiQuoteMetadata = (props) => {
             slot="end"
             value={val}
             checked={isChecked}
-            onIonChange={(e) =>
+            onIonChange={(e) =>{
+              if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
               setQuoteTagsList([
                 ...quoteTagsList.slice(0, i),
                 { ...quoteTagsList[i], isChecked: e.detail.checked },
                 ...quoteTagsList.slice(i + 1),
-              ])
-            }
+              ]);
+            }}
           />
         </IonItem>
       ))
@@ -225,11 +235,11 @@ const AyogiQuoteMetadata = (props) => {
 
   let returnVal = (
     <React.Fragment>
-      <IonModal isOpen={props.showQuotePopup} cssClass="">
+      {/* <IonModal isOpen={props.showQuotePopup} cssClass="">
         <IonItem>
           <h2 className="ion-margin-start">Quote Selection</h2>
         </IonItem>
-        <IonLabel className="ion-margin-start">{props.item.text}</IonLabel>
+        <IonLabel className="ion-margin-start">{props.item.text}</IonLabel> */}
         <IonContent>
         {/* <IonButton color="dark">Primary</IonButton>
         <IonButton color="secondary">Secondary</IonButton>
@@ -290,15 +300,20 @@ const AyogiQuoteMetadata = (props) => {
                     value={val}
                     checked={isChecked}
                     onIonChange={(e) => {
-                      console.log(e);
-                      setSaintsPersonagesList([
-                        ...saintsPersonagesList.slice(0, i),
-                        {
-                          ...saintsPersonagesList[i],
-                          isChecked: e.detail.checked,
-                        },
-                        ...saintsPersonagesList.slice(i + 1),
-                      ]);
+                      console.log('onIonChange',e.detail);
+                      if(e.detail.checked) 
+                        {props.addTag(e.detail.value);} 
+                      else 
+                        {props.removeTag(e.detail.value)
+                      };
+                      // setSaintsPersonagesList([
+                      //   ...saintsPersonagesList.slice(0, i),
+                      //   {
+                      //     ...saintsPersonagesList[i],
+                      //     isChecked: e.detail.checked,
+                      //   },
+                      //   ...saintsPersonagesList.slice(i + 1),
+                      // ]);
                     }}
                   />
                 </IonItem>
@@ -325,13 +340,14 @@ const AyogiQuoteMetadata = (props) => {
                     slot="end"
                     value={val}
                     checked={isChecked}
-                    onIonChange={(e) =>
+                    onIonChange={(e) => {
+                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
                       setGodheadsList([
                         ...godheadsList.slice(0, i),
                         { ...godheadsList[i], isChecked: e.detail.checked },
                         ...godheadsList.slice(i + 1),
-                      ])
-                    }
+                      ]);
+                    }}
                   />
                 </IonItem>
               ))}
@@ -359,13 +375,14 @@ const AyogiQuoteMetadata = (props) => {
                     slot="end"
                     value={val}
                     checked={isChecked}
-                    onIonChange={(e) =>
+                    onIonChange={(e) => {
+                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
                       setScripturesList([
                         ...scripturesList.slice(0, i),
                         { ...scripturesList[i], isChecked: e.detail.checked },
                         ...scripturesList.slice(i + 1),
-                      ])
-                    }
+                      ]);
+                    }}
                   />
                 </IonItem>
               ))}
@@ -393,19 +410,20 @@ const AyogiQuoteMetadata = (props) => {
                     slot="end"
                     value={val}
                     checked={isChecked}
-                    onIonChange={(e) =>
+                    onIonChange={(e) => {
+                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
                       setReligionsList([
                         ...religionsList.slice(0, i),
                         { ...religionsList[i], isChecked: e.detail.checked },
                         ...religionsList.slice(i + 1),
-                      ])
-                    }
+                      ]);
+                    }}
                   />
                 </IonItem>
               ))}
           </IonList>
         </IonContent>
-        <IonButton
+        {/* <IonButton
           onClick={() => {
             const selTags = getSelectedTags();
             props.addSelectedQuote(
@@ -433,8 +451,8 @@ const AyogiQuoteMetadata = (props) => {
           }}
         >
           Remove Quote
-        </IonButton>
-      </IonModal>
+        </IonButton> */}
+      {/* </IonModal> */}
     </React.Fragment>
   );
   return returnVal;
