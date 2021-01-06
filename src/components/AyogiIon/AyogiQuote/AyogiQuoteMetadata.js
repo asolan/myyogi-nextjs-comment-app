@@ -17,54 +17,16 @@ import {
 } from "@ionic/react";
 
 const AyogiQuoteMetadata = (props) => {
-  const [myTagsShow, setMyTagsShow] = useState(false);
-  const [saintsPersonagesShow, setSaintsPersonagesShow] = useState(false);
-  const [godheadsShow, setGodheadsShow] = useState(false);
-  const [scripturesShow, setScripturesShow] = useState(false);
-  const [religionsShow, setReligionsShow] = useState(false);
+  const initialCategories = {
+    mytags: false,
+    saintsPersonages: false,
+    godheads: false,
+    scriptures: false,
+    religions: false,
+  };
 
+  const [categoryShow, setCategoryShow] = useState({ ...initialCategories });
   const [quoteTagsList, setQuoteTagsList] = useState([]);
-  const [saintsPersonagesList, setSaintsPersonagesList] = useState([]);
-  const [godheadsList, setGodheadsList] = useState([]);
-  const [scripturesList, setScripturesList] = useState([]);
-  const [religionsList, setReligionsList] = useState([]);
-
-  useEffect(() => {
-    setSaintsPersonagesList([
-      ...saintsPersonages.map((s) => {
-        return { val: s, isChecked: false };
-      }),
-    ]);
-    setGodheadsList([
-      ...godheads.map((s) => {
-        return { val: s, isChecked: false };
-      }),
-    ]);
-    setScripturesList([
-      ...scriptures.map((s) => {
-        return { val: s, isChecked: false };
-      }),
-    ]);
-    setReligionsList([
-      ...religions.map((s) => {
-        return { val: s, isChecked: false };
-      }),
-    ]);
-  }, []);
-
-  useEffect(() => {
-    setQuoteTagsList(
-      (props.currentQuoteTags &&
-        props.currentQuoteTags.map((s) => {
-          const wasChecked =
-            props.itemTags &&
-            props.itemTags.length > 0 &&
-            props.itemTags.indexOf(s) > -1;
-          return { val: s, isChecked: wasChecked };
-        })) ||
-        []
-    );
-  }, [props.currentQuoteSelectionType]);
 
   useEffect(() => {
     setQuoteTagsList(
@@ -80,133 +42,66 @@ const AyogiQuoteMetadata = (props) => {
     );
   }, [props.currentQuoteTags]);
 
-  const QUOTE_CATEGORY = {
-    NONE: "NONE",
-    MY_TAGS: "MY_TAGS",
-    SAINTS_PERSONAGES: "SAINTS_PERSONAGES",
-    GODHEADS: "GODHEADS",
-    SCRIPTURES: "SCRIPTURES",
-    RELIGIONS: "RELIGIONS",
+  const showSetting = (settingToShow, value) => {
+    let newCategoryShow = { ...initialCategories };
+    newCategoryShow[settingToShow] = value;
+    setCategoryShow(newCategoryShow);
   };
 
-  const getSelectedTags = () => {
-    const selectedTags = [];
-    if (quoteTagsList.length > 0)
-      selectedTags.push(
-        ...quoteTagsList.filter((t) => t.isChecked).map((t) => t.val)
-      );
-    if (saintsPersonagesList.length > 0)
-      selectedTags.push(
-        ...saintsPersonagesList.filter((t) => t.isChecked).map((t) => t.val)
-      );
-    if (godheadsList.length > 0)
-      selectedTags.push(
-        ...godheadsList.filter((t) => t.isChecked).map((t) => t.val)
-      );
-    if (scripturesList.length > 0)
-      selectedTags.push(
-        ...scripturesList.filter((t) => t.isChecked).map((t) => t.val)
-      );
-    if (religionsList.length > 0)
-      selectedTags.push(
-        ...religionsList.filter((t) => t.isChecked).map((t) => t.val)
-      );
-    console.log(selectedTags);
-    return selectedTags;
+  // const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
+  const categories = [
+    "saintsPersonages",
+    "godheads",
+    "scriptures",
+    "religions",
+  ];
+  const categoryItems = {
+    saintsPersonages: [
+      "Yogananda",
+      "Jesus Christ",
+      "Lahiri Mahasaya",
+      "Sri Yukteswar",
+      "Babaji",
+      "Krishna",
+      "Buddha",
+      "Ananamoya Ma",
+      "Swami Pranabananda",
+      "Ram Gopal Muzumdar",
+      "Gandhi",
+      "Bhagabati",
+      "Therese Neumann",
+      "Giri Bala",
+    ],
+    godheads: [
+      "Brahma",
+      "Vishnu",
+      "Shiva",
+      "Durga",
+      "Kali",
+      "Yoga Sutras",
+      "Babaji",
+      "Ram",
+      "Sita",
+    ],
+    scriptures: [
+      "Bible",
+      "Bhagavad Gita",
+      "Mahabharata",
+      "Yoga Sutras",
+      "Koran",
+    ],
+    religions: [
+      "Christianity",
+      "Buddhism",
+      "Sikhism",
+      "Hinduism",
+      "Muslism",
+      "Janoism",
+    ],
   };
 
-  const showSetting = (settingToShow) => {
-    setMyTagsShow(false);
-    setSaintsPersonagesShow(false);
-    setGodheadsShow(false);
-    setScripturesShow(false);
-    setReligionsShow(false);
+  console.log("categororyTags", props.categororyTags);
 
-    switch (settingToShow) {
-      case QUOTE_CATEGORY.MY_TAGS:
-        setMyTagsShow(true);
-        break;
-      case QUOTE_CATEGORY.SAINTS_PERSONAGES:
-        setSaintsPersonagesShow(true);
-        break;
-      case QUOTE_CATEGORY.GODHEADS:
-        setGodheadsShow(true);
-        break;
-      case QUOTE_CATEGORY.SCRIPTURES:
-        setScripturesShow(true);
-        break;
-      case QUOTE_CATEGORY.RELIGIONS:
-        setReligionsShow(true);
-        break;
-    }
-  };
-
-  // const updateCategory = (category, i, newValue) => {
-  //   switch (category) {
-  //     case QUOTE_CATEGORY.MY_TAGS:
-  //       setQuoteTagsList([...quoteTagsList.slice(0, i),{...quoteTagsList[i], checked: newValue},...quoteTagsList.slice(i + 1)]);
-  //       break;
-  //     case QUOTE_CATEGORY.SAINTS_PERSONAGES:
-  //       setSaintsPersonagesList([...saintsPersonagesList.slice(0, i),{...saintsPersonagesList[i], checked: newValue},...saintsPersonagesList.slice(i + 1)]);
-  //       break;
-  //     case QUOTE_CATEGORY.GODHEADS:
-  //       setGodheadsList([...godheadsList.slice(0, i),{...godheadsList[i], checked: newValue},...godheadsList.slice(i + 1)]);
-  //       break;
-  //     case QUOTE_CATEGORY.SCRIPTURES:
-  //       setScripturesList([...scripturesList.slice(0, i),{...scripturesList[i], checked: newValue},...scripturesList.slice(i + 1)]);
-  //       break;
-  //     case QUOTE_CATEGORY.RELIGIONS:
-  //       setReligionsList([...religionsList.slice(0, i),{...religionsList[i], checked: newValue},...religionsList.slice(i + 1)]);
-  //       break;
-  //   }
-  // };
-
-  const saintsPersonages = [
-    "Yogananda",
-    "Jesus Christ",
-    "Lahiri Mahasaya",
-    "Sri Yukteswar",
-    "Babaji",
-    "Krishna",
-    "Buddha",
-    "Ananamoya Ma",
-    "Swami Pranabananda",
-    "Ram Gopal Muzumdar",
-    "Gandhi",
-    "Bhagabati",
-    "Therese Neumann",
-    "Giri Bala",
-  ];
-  let godheads = [
-    "Brahma",
-    "Vishnu",
-    "Shiva",
-    "Durga",
-    "Kali",
-    "Yoga Sutras",
-    "Babaji",
-    "Ram",
-    "Sita",
-  ];
-  let scriptures = [
-    "Bible",
-    "Bhagavad Git",
-    "Mahabharata",
-    "Yoga Sutras",
-    "Koran",
-  ];
-  let religions = [
-    "Christianity",
-    "Buddhism",
-    "Sikhism",
-    "Hinduism",
-    "Muslism",
-    "Janoism",
-  ];
-
-  // isSelected ?
-  // props.removeSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM) :
-  // props.addSelectedQuote(props.c.chapterNumber, props.c.lineNumber, LINE_TYPE_ENUM.WISDOM);
   const listMyTags =
     quoteTagsList.length > 0 ? (
       quoteTagsList.map(({ val, isChecked }, i) => (
@@ -216,8 +111,12 @@ const AyogiQuoteMetadata = (props) => {
             slot="end"
             value={val}
             checked={isChecked}
-            onIonChange={(e) =>{
-              if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
+            onIonChange={(e) => {
+              if (e.detail.checked) {
+                props.addTag({ name: e.detail.value, category: "mytags" });
+              } else {
+                props.removeTag({ name: e.detail.value, category: "mytags" });
+              }
               setQuoteTagsList([
                 ...quoteTagsList.slice(0, i),
                 { ...quoteTagsList[i], isChecked: e.detail.checked },
@@ -233,6 +132,48 @@ const AyogiQuoteMetadata = (props) => {
       </IonItem>
     );
 
+  let categoriesMarkup = categories.map((c) => {
+    console.log(c);
+    return (
+      <React.Fragment>
+        <IonButton
+          expand="block"
+          color="dark"
+          fill={categoryShow[c] ? "solid" : "outline"}
+          onClick={() => {
+            showSetting(c, !categoryShow[c]);
+          }}
+        >
+          <h4>{c}</h4>
+        </IonButton>
+        {categoryShow[c] &&
+          categoryItems[c].map((val, i) => {
+            const isChecked =
+              props.categororyTags.hasOwnProperty(c) &&
+              props.categororyTags[c].includes(val);
+            return (
+              <IonItem key={i}>
+                <IonLabel>{val}</IonLabel>
+                <IonCheckbox
+                  slot="end"
+                  value={val}
+                  checked={isChecked}
+                  onIonChange={(e) => {
+                    console.log("onIonChange", e.detail);
+                    if (e.detail.checked) {
+                      props.addTag({ name: e.detail.value, category: c });
+                    } else {
+                      props.removeTag({ name: e.detail.value, category: c });
+                    }
+                  }}
+                />
+              </IonItem>
+            );
+          })}
+      </React.Fragment>
+    );
+  });
+
   let returnVal = (
     <React.Fragment>
       {/* <IonModal isOpen={props.showQuotePopup} cssClass="">
@@ -240,7 +181,7 @@ const AyogiQuoteMetadata = (props) => {
           <h2 className="ion-margin-start">Quote Selection</h2>
         </IonItem>
         <IonLabel className="ion-margin-start">{props.item.text}</IonLabel> */}
-        <IonContent>
+      <IonContent>
         {/* <IonButton color="dark">Primary</IonButton>
         <IonButton color="secondary">Secondary</IonButton>
         <IonButton color="tertiary">Tertiary</IonButton>
@@ -259,200 +200,23 @@ const AyogiQuoteMetadata = (props) => {
         <IonButton fill="outline" color="light">Light</IonButton>
         <IonButton fill="outline" color="medium">Medium</IonButton>
         <IonButton fill="outline" color="dark">Dark</IonButton> */}
-          <IonList>
-              <IonButton
-                //style={{ width: "100%" }}
-                expand="block"
-                //size="large"
-                color="dark"
-                fill={myTagsShow ? "solid" :"outline"}
-                onClick={() => {
-                  showSetting(
-                    myTagsShow ? QUOTE_CATEGORY.NONE : QUOTE_CATEGORY.MY_TAGS
-                  );
-                }}
-              >
-                <h4>My Tags</h4>
-              </IonButton>
-            {myTagsShow && listMyTags}
-              <IonButton
-                //style={{ width: "100%" }}
-                expand="block"
-                //size="large"
-                color="dark"
-                fill={saintsPersonagesShow ? "solid" :"outline"}
-                onClick={() => {
-                  showSetting(
-                    saintsPersonagesShow
-                      ? QUOTE_CATEGORY.NONE
-                      : QUOTE_CATEGORY.SAINTS_PERSONAGES
-                  );
-                }}
-              >
-                <h4>Personages</h4>
-              </IonButton>
-            {saintsPersonagesShow &&
-              saintsPersonagesList.map(({ val, isChecked }, i) => (
-                <IonItem key={i}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    slot="end"
-                    value={val}
-                    checked={isChecked}
-                    onIonChange={(e) => {
-                      console.log('onIonChange',e.detail);
-                      if(e.detail.checked) 
-                        {props.addTag(e.detail.value);} 
-                      else 
-                        {props.removeTag(e.detail.value)
-                      };
-                      // setSaintsPersonagesList([
-                      //   ...saintsPersonagesList.slice(0, i),
-                      //   {
-                      //     ...saintsPersonagesList[i],
-                      //     isChecked: e.detail.checked,
-                      //   },
-                      //   ...saintsPersonagesList.slice(i + 1),
-                      // ]);
-                    }}
-                  />
-                </IonItem>
-              ))}
-              <IonButton
-                //style={{ width: "100%" }}
-                expand="block"
-                //size="large"
-                color="dark"
-                fill={godheadsShow ? "solid" :"outline"}
-                onClick={() => {
-                  showSetting(
-                    godheadsShow ? QUOTE_CATEGORY.NONE : QUOTE_CATEGORY.GODHEADS
-                  );
-                }}
-              >
-                <h4>Godheads</h4>
-              </IonButton>
-            {godheadsShow &&
-              godheadsList.map(({ val, isChecked }, i) => (
-                <IonItem key={i}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    slot="end"
-                    value={val}
-                    checked={isChecked}
-                    onIonChange={(e) => {
-                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
-                      setGodheadsList([
-                        ...godheadsList.slice(0, i),
-                        { ...godheadsList[i], isChecked: e.detail.checked },
-                        ...godheadsList.slice(i + 1),
-                      ]);
-                    }}
-                  />
-                </IonItem>
-              ))}
-              <IonButton
-                //style={{ width: "100%" }}
-                expand="block"
-                //size="large"
-                color="dark"
-                fill={scripturesShow ? "solid" :"outline"}
-                onClick={() => {
-                  showSetting(
-                    scripturesShow
-                      ? QUOTE_CATEGORY.NONE
-                      : QUOTE_CATEGORY.SCRIPTURES
-                  );
-                }}
-              >
-                <h4>Scriptures</h4>
-              </IonButton>
-            {scripturesShow &&
-              scripturesList.map(({ val, isChecked }, i) => (
-                <IonItem key={i}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    slot="end"
-                    value={val}
-                    checked={isChecked}
-                    onIonChange={(e) => {
-                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
-                      setScripturesList([
-                        ...scripturesList.slice(0, i),
-                        { ...scripturesList[i], isChecked: e.detail.checked },
-                        ...scripturesList.slice(i + 1),
-                      ]);
-                    }}
-                  />
-                </IonItem>
-              ))}
-              <IonButton
-                //style={{ width: "100%" }}
-                expand="block"
-                //size="large"
-                color="dark"
-                fill={religionsShow ? "solid" :"outline"}
-                onClick={() => {
-                  showSetting(
-                    religionsShow
-                      ? QUOTE_CATEGORY.NONE
-                      : QUOTE_CATEGORY.RELIGIONS
-                  );
-                }}
-              >
-                <h4>Religions</h4>
-              </IonButton>
-            {religionsShow &&
-              religionsList.map(({ val, isChecked }, i) => (
-                <IonItem key={i}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    slot="end"
-                    value={val}
-                    checked={isChecked}
-                    onIonChange={(e) => {
-                      if(e.detail.checked) { props.addTag(e.detail.value);} else {props.removeTag(e.detail.value)};
-                      setReligionsList([
-                        ...religionsList.slice(0, i),
-                        { ...religionsList[i], isChecked: e.detail.checked },
-                        ...religionsList.slice(i + 1),
-                      ]);
-                    }}
-                  />
-                </IonItem>
-              ))}
-          </IonList>
-        </IonContent>
-        {/* <IonButton
-          onClick={() => {
-            const selTags = getSelectedTags();
-            props.addSelectedQuote(
-              props.item.chapterNumber,
-              props.item.lineNumber,
-              1,
-              props.item.lineNumber, 
-              props.item.text.length, 
-              selTags);
-            props.setIsSelected(true);
-            props.setShowQuotePopup(false);
-          }}
-        >
-          Save Quote
-        </IonButton>
-        <IonButton
-          color="light"
-          onClick={() => {
-            props.removeSelectedQuote(
-              props.item.chapterNumber, 
-              props.item.lineNumber, 
-              1);
-            props.setIsSelected(false);
-            props.setShowQuotePopup(false);
-          }}
-        >
-          Remove Quote
-        </IonButton> */}
-      {/* </IonModal> */}
+        <IonList>
+          <IonButton
+            //style={{ width: "100%" }}
+            expand="block"
+            //size="large"
+            color="dark"
+            fill={categoryShow["mytags"] ? "solid" : "outline"}
+            onClick={() => {
+              showSetting("mytags", !categoryShow("mytags"));
+            }}
+          >
+            <h4>My Tags</h4>
+          </IonButton>
+          {categoryShow["mytags"] && listMyTags}
+          {categoriesMarkup}
+        </IonList>
+      </IonContent>
     </React.Fragment>
   );
   return returnVal;

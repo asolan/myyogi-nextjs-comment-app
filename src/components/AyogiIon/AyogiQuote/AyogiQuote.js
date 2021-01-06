@@ -12,15 +12,18 @@ const initialQuote = {
     startchar: 0,
     endline: 0,
     endchar: 0,
+    categororyTags: {},
     tags: []
 };
 
 const AyogiQuote = (props) => {
-    const [quote, dispatch] = useReducer(quoteReducer, initialQuote);
+    const [quoteState, dispatch] = useReducer(quoteReducer, initialQuote);
+//    const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
+    const categories = ["saintsPersonages", "godheads","scriptures","religions"];
 
-    
     function quoteReducer(state, action) {
       let newTags;
+      let newCategoryTags;
       switch (action.type) {
         case 'SET_POS':
             console.log('SET_POS', action);
@@ -33,15 +36,34 @@ const AyogiQuote = (props) => {
         case 'ADD_TAG':
             console.log('ADD_TAG',action);
             newTags = [...state.tags];
-            newTags.push(action.tag);
-                        console.log(newTags);
-            return {...state, tags: newTags};
+            if(!newTags.includes){
+                newTags.push(action.tag.name);
+            }
+            newCategoryTags = {...state.categororyTags};
+            console.log(newCategoryTags);
+            newCategoryTags[action.tag.category] = newCategoryTags[action.tag.category] || [];
+            if(!newCategoryTags[action.tag.category].includes(action.tag.name)){
+                newCategoryTags[action.tag.category].push(action.tag.name);
+            }
+            console.log(newTags);
+            console.log(newCategoryTags);
+            return {...state, 
+                tags: newTags, 
+                categororyTags: newCategoryTags
+            };
         case 'REMOVE_TAG':
             console.log('REMOVE_TAG',action);
-            console.log(state.tags);
-            newTags = [...state.tags].filter(t => t !== action.tag);
-            console.log(newTags);
-            return {...state, tags: newTags};
+            newTags = [...state.tags].filter(t => t !== action.tag.name);
+            newCategoryTags = {...state.categororyTags};
+            console.log(newCategoryTags);
+            if(newCategoryTags.hasOwnProperty(action.tag.category)){
+                newCategoryTags[action.tag.category].filter(t => t !== action.tag.name);
+            }
+            console.log(newCategoryTags);
+            return {...state, 
+                tags: newTags, 
+                categororyTags: newCategoryTags
+            };
         default:
           throw new Error();
       }
@@ -75,6 +97,7 @@ const AyogiQuote = (props) => {
         /> */}
         {props.currentQuoteSelectionType === constants.MY_QUOTE_SELECTION_TYPE.TAGS &&
             <AyogiQuoteMetadata
+            categororyTags={quoteState.categororyTags}
             addTag={addTag}
             removeTag={removeTag}
             showQuotePopup={props.showQuotePopup}
@@ -86,7 +109,7 @@ const AyogiQuote = (props) => {
         }
         <IonButton
           onClick={() => {
-            console.log('add-quote', quote.tags);
+            console.log('add-quote', quoteState.tags);
 //            const selTags = getSelectedTags();
             props.addSelectedQuote(
               props.item.chapterNumber,
@@ -94,7 +117,7 @@ const AyogiQuote = (props) => {
               1,
               props.item.lineNumber,
               props.item.text.length,
-              quote.tags
+              quoteState.tags
             );
             props.setIsSelected(true);
             props.setShowQuotePopup(false);
