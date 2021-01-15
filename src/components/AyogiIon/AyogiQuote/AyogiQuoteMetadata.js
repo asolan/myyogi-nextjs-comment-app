@@ -14,7 +14,19 @@ import {
   IonButton,
   IonContent,
   IonCheckbox,
+  IonChip,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonPopover,
 } from "@ionic/react";
+import {
+  personOutline,
+  bookOutline,
+  infiniteOutline,
+  earthOutline,
+  colorFilterOutline,
+} from "ionicons/icons";
 
 const AyogiQuoteMetadata = (props) => {
   const initialCategories = {
@@ -25,21 +37,12 @@ const AyogiQuoteMetadata = (props) => {
     religions: false,
   };
 
+  // const [isAdding, setIsAdding] = useState(false);
+  const [tagSelectorShow, setTagSelectorShow] = useState(false);
   const [categoryShow, setCategoryShow] = useState({ ...initialCategories });
-  const [quoteTagsList, setQuoteTagsList] = useState([]);
 
   useEffect(() => {
-    setQuoteTagsList(
-      (props.currentQuoteTags &&
-        props.currentQuoteTags.map((s) => {
-          const wasChecked =
-            props.itemTags &&
-            props.itemTags.length > 0 &&
-            props.itemTags.indexOf(s) > -1;
-          return { val: s, isChecked: wasChecked };
-        })) ||
-        []
-    );
+    categoryItems.mytags = props.currentQuoteTags;
   }, [props.currentQuoteTags]);
 
   const showSetting = (settingToShow, value) => {
@@ -48,13 +51,6 @@ const AyogiQuoteMetadata = (props) => {
     setCategoryShow(newCategoryShow);
   };
 
-  // const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
-  const categories = [
-    "saintsPersonages",
-    "godheads",
-    "scriptures",
-    "religions",
-  ];
   const categoryItems = {
     saintsPersonages: [
       "Yogananda",
@@ -78,7 +74,6 @@ const AyogiQuoteMetadata = (props) => {
       "Shiva",
       "Durga",
       "Kali",
-      "Yoga Sutras",
       "Babaji",
       "Ram",
       "Sita",
@@ -100,126 +95,118 @@ const AyogiQuoteMetadata = (props) => {
     ],
   };
 
-  console.log("categororyTags", props.categororyTags);
+  const setMyTags = (
+    <IonItem>
+      <IonLabel>Click here to set your tags</IonLabel>
+    </IonItem>
+  );
 
-  const listMyTags =
-    quoteTagsList.length > 0 ? (
-      quoteTagsList.map(({ val, isChecked }, i) => (
-        <IonItem key={i}>
-          <IonLabel>{val}</IonLabel>
-          <IonCheckbox
-            slot="end"
-            value={val}
-            checked={isChecked}
-            onIonChange={(e) => {
-              if (e.detail.checked) {
-                props.addTag({ name: e.detail.value, category: "mytags" });
-              } else {
-                props.removeTag({ name: e.detail.value, category: "mytags" });
-              }
-              setQuoteTagsList([
-                ...quoteTagsList.slice(0, i),
-                { ...quoteTagsList[i], isChecked: e.detail.checked },
-                ...quoteTagsList.slice(i + 1),
-              ]);
-            }}
-          />
-        </IonItem>
-      ))
-    ) : (
-      <IonItem>
-        <IonLabel>Click here to set your tags</IonLabel>
-      </IonItem>
-    );
-
-  let categoriesMarkup = categories.map((c) => {
-    console.log(c);
-    return (
-      <React.Fragment>
-        <IonButton
-          expand="block"
-          color="dark"
-          fill={categoryShow[c] ? "solid" : "outline"}
-          onClick={() => {
-            showSetting(c, !categoryShow[c]);
-          }}
-        >
-          <h4>{c}</h4>
-        </IonButton>
-        {categoryShow[c] &&
-          categoryItems[c].map((val, i) => {
-            const isChecked =
-              props.categororyTags.hasOwnProperty(c) &&
-              props.categororyTags[c].includes(val);
-            return (
-              <IonItem key={i}>
-                <IonLabel>{val}</IonLabel>
-                <IonCheckbox
-                  slot="end"
-                  value={val}
-                  checked={isChecked}
-                  onIonChange={(e) => {
-                    console.log("onIonChange", e.detail);
-                    if (e.detail.checked) {
-                      props.addTag({ name: e.detail.value, category: c });
-                    } else {
-                      props.removeTag({ name: e.detail.value, category: c });
-                    }
+  let categoriesMarkup =
+    // isAdding &&
+    props.categories.map((c, i) => {
+      if (c === "mytags" && props.currentQuoteTags.length === 0) {
+        return setMyTags;
+      } else {
+        return (
+          <React.Fragment key={`metadata-${c}`}>
+            <IonButton
+              // expand="block"
+              color="dark"
+              fill={categoryShow[c] ? "solid" : "outline"}
+              onClick={() => {
+                showSetting(c, !categoryShow[c]);
+              }}
+            >
+              <h4>{c}</h4>
+            </IonButton>
+            <IonPopover
+              cssClass="metadatapop"
+              event={null}
+              isOpen={categoryShow[c]}
+              onDidDismiss={() => showSetting(c, false)}
+            >
+              {categoryItems[c].length > 0 &&
+                categoryItems[c].map((val, i) => {
+                  const isChecked =
+                    props.categororyTags &&
+                    props.categororyTags.hasOwnProperty(c) &&
+                    props.categororyTags[c].includes(val);
+                  return (
+                    <IonItem key={i}>
+                      <IonLabel>{val}</IonLabel>
+                      <IonCheckbox
+                        slot="end"
+                        value={val}
+                        checked={isChecked}
+                        onIonChange={(e) => {
+                          // console.log("onIonChange", e.detail);
+                          if (e.detail.checked) {
+                            props.addTag({ name: e.detail.value, category: c });
+                          } else {
+                            props.removeTag({
+                              name: e.detail.value,
+                              category: c,
+                            });
+                          }
+                        }}
+                      />
+                    </IonItem>
+                  );
+                })}
+              <IonItem>
+                <IonButton
+                  // expand="block"
+                  color="primary"
+                  onClick={() => {
+                    showSetting(c, false);
                   }}
-                />
-              </IonItem>
-            );
-          })}
-      </React.Fragment>
-    );
-  });
+                >
+                  <h4>Close</h4>
+                </IonButton>
+              </IonItem>{" "}
+            </IonPopover>
+          </React.Fragment>
+        );
+      }
+    });
 
-  let returnVal = (
+  // let reviewTags = (
+  //   <IonButton
+  //     color="primary"
+  //     onClick={() => {
+  //       setIsAdding(false);
+  //     }}
+  //   >
+  //     <h4>Review Tags</h4>
+  //   </IonButton>
+  // );
+  // console.log(categoriesMarkup);
+  // let returnVal = (
+  return (
     <React.Fragment>
-      {/* <IonModal isOpen={props.showQuotePopup} cssClass="">
-        <IonItem>
-          <h2 className="ion-margin-start">Quote Selection</h2>
-        </IonItem>
-        <IonLabel className="ion-margin-start">{props.item.text}</IonLabel> */}
-      <IonContent>
-        {/* <IonButton color="dark">Primary</IonButton>
-        <IonButton color="secondary">Secondary</IonButton>
-        <IonButton color="tertiary">Tertiary</IonButton>
-        <IonButton color="success">Success</IonButton>
-        <IonButton color="warning">Warning</IonButton>
-        <IonButton color="danger">Danger</IonButton>
-        <IonButton color="light">Light</IonButton>
-        <IonButton color="medium">Medium</IonButton>
-        <IonButton color="dark">Dark</IonButton>
-        <IonButton fill="outline" color="dark">Primary</IonButton>
-        <IonButton fill="outline" color="secondary">Secondary</IonButton>
-        <IonButton fill="outline" color="tertiary">Tertiary</IonButton>
-        <IonButton fill="outline" color="success">Success</IonButton>
-        <IonButton fill="outline" color="warning">Warning</IonButton>
-        <IonButton fill="outline" color="danger">Danger</IonButton>
-        <IonButton fill="outline" color="light">Light</IonButton>
-        <IonButton fill="outline" color="medium">Medium</IonButton>
-        <IonButton fill="outline" color="dark">Dark</IonButton> */}
-        <IonList>
+      <IonList>
+        {tagSelectorShow &&
+          categoriesMarkup &&
+          categoriesMarkup.map((c) => {
+            //          console.log(c);
+            return c;
+          })}
+      </IonList>
+      <IonItem>
           <IonButton
-            //style={{ width: "100%" }}
-            expand="block"
-            //size="large"
-            color="dark"
-            fill={categoryShow["mytags"] ? "solid" : "outline"}
+            color="primary"
+            fill={"solid"}
             onClick={() => {
-              showSetting("mytags", !categoryShow("mytags"));
+              setTagSelectorShow(!tagSelectorShow);
             }}
           >
-            <h4>My Tags</h4>
+            {tagSelectorShow ? "Done" : "Select Tags"}
           </IonButton>
-          {categoryShow["mytags"] && listMyTags}
-          {categoriesMarkup}
-        </IonList>
-      </IonContent>
+        </IonItem>
+      {/* {isAdding ? reviewTags : addedTags} */}
     </React.Fragment>
   );
-  return returnVal;
+  //  return returnVal;
 };
 
 export default AyogiQuoteMetadata;

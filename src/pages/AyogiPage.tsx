@@ -36,8 +36,8 @@ import actions from "../store/actions";
 //let aychapttitle = require('../aychapttitle.json');
 
 const AyogiPage = (props: any) => {
-  // console.log("AyogiPage");
-  // console.log(props);
+  //  console.log("AyogiPage");
+  //  console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   //const [chaptersList, setChaptersList] = useState<any>([]);
   // const [props.aychapttitle, setprops.aychapttitle] = useState<any>([]);
@@ -56,7 +56,7 @@ const AyogiPage = (props: any) => {
   };
 
   const scrollToId = (chapter, line) => {
-//    console.log('scrollToId', chapter, line);
+    console.log('scrollToId', chapter, line);
     let scrollToIdDelay = () => {      
       let cref = contentRef!.current as any;
       let lineId = `${chapter}-${line}`;
@@ -93,19 +93,20 @@ const AyogiPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-//    console.log(`page-effect-[props.chPo]-${props.chPos}`);
+//    console.log(`AyogiPage[props.chPos]-${props.chPos}`);
     // console.log(props.chPos);
     setCurrentChapter(props.match.params.id - 1,
       props.match.params.line);
   }, [props.chPos]);
 
   useEffect(() => {
-//    console.log(`page-effect-id-props.match.params.id-${props.match.params.id}`);
+//    console.log(`AyogiPage[page-effect-id-props.match.params.id]-${props.match.params.id}`);
     setIsLoading(false);
     setCurrentChapter(
       props.match.params.id - 1,
       props.match.params.line);
-  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
+    }, [props.match.params.id]);
+//  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
@@ -262,8 +263,8 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeChapter(chapter)),
     onChangeChapterLine: (chapterLine: number) =>
       dispatch(actions.onChangeChapterLine(chapterLine)),
-    addSelectedQuote: (chapter:number,  startline:number, startchar:number, endline:number, endchar:number, tags:string[]) =>
-      dispatch(actions.addSelectedQuote(chapter, startline, startchar, endline, endchar, tags)),
+    addSelectedQuote: (chapter:number,  startline:number, startchar:number, endline:number, endchar:number, categororyTags:any, tags:string[]) =>
+      dispatch(actions.addSelectedQuote(chapter, startline, startchar, endline, endchar, categororyTags, tags)),
     removeSelectedQuote: (chapter:number, startline:number, startchar:number) =>
       dispatch(actions.removeSelectedQuote(chapter, startline, startchar)),
   };

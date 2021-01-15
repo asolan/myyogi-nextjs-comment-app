@@ -20,7 +20,7 @@ const AyogiChapter = (props) => {
     // console.log('AyogiChapter');
     // console.log(props);
     //end buildSection function
-    console.log('selectedQuotes', props.selectedQuotes);
+//    console.log('selectedQuotes', props.selectedQuotes);
 
     const chapButton = (chNum, next) => {
         const title = next ? 'Next' : 'Previous';

@@ -13,6 +13,7 @@
  }
 
  .AyogiQuote { 
+     display: inline;
      margin: auto;
      max-width: 660px;
      text-align: var(--yogi-text-align);

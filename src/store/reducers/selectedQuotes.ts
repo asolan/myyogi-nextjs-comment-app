@@ -12,6 +12,7 @@ const newQuote = {
   startchar: 0,
   endline: 0,
   endchar: 0,
+  categororyTags: {},
   tags: []
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
@@ -53,6 +54,7 @@ function selectedQuotes(state = fullInitiatState, action) {
           startchar: action.startchar,
           endline: action.endline,
           endchar: action.endchar,
+          categororyTags: action.categororyTags,
           tags: action.tags});
       }
 

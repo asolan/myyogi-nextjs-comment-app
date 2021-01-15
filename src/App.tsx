@@ -69,13 +69,16 @@ const App: React.SFC = (props) => {
   let currentTab = "/ayogi";
   // Page load
   useEffect(() => {
+//    console.log("app[]");
     setCurrentTab(props["currentTab"]);
     document.documentElement.style.setProperty("--yogi-font-size", props["currentFontSize"] + "em");
     document.documentElement.style.setProperty("--yogi-text-align", props["currentFontJustification"] ? "justify" : "left");
   }, []);
   
   useEffect(() => {
+//    console.log("app[currentTab]");
     setCurrentTab(props["currentTab"]);
+    //AMSTODO:BUG?:props["currentTab"]
   }, [props["currentTab"]]);
 
   const setCurrentTab = (tab: string) => {
@@ -139,7 +142,7 @@ const App: React.SFC = (props) => {
             <Route
               path="/settings"
               render={(props) => (
-                <AyogiSettings items={aydata.slice(45,51)} {...props} />
+                <AyogiSettings items={aydata.slice(45,49)} {...props} />
               )}
             />            
             {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}

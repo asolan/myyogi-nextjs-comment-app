@@ -29,7 +29,7 @@ const AyogiWisdom = props => {
         // ) > -1);
         let quoteIndex = s && s.findIndex(q => 
             q.chapter === c.chapterNumber && 
-            q.line === c.lineNumber 
+            q.startline === c.lineNumber 
         );
 
         let quoteTags = quoteIndex > -1 ? s[quoteIndex].tags : [];

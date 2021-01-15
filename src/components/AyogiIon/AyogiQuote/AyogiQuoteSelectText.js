@@ -8,18 +8,206 @@ import {
   IonList,
   IonLabel,
   IonButton,
-  IonContent,
+  IonTextarea,
   IonRadioGroup,
-  IonCheckbox,
+  IonText,
+  IonRange,
 } from "@ionic/react";
+import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
 
 const AyogiQuoteSelectText = (props) => {
   const [selectorShow, setSelectorShow] = useState(false);
+  const [startPos, setStartPos] = useState(0);
+  const [endPos, setEndPos] = useState(0);
+
+  useEffect(() => {
+    let newEndPos = props.item.text.length;
+    setEndPos(newEndPos);
+  }, []);
+
+  useEffect(() => {
+    let newEndPos = props.item.text.length;
+    setEndPos(newEndPos);
+  }, [props.item.text]);
+
+  // useEffect(() => {
+
+  // }, [start / end pos]);
+  let realEnd = endPos > 0 ? endPos : props.item.text.length;
+  let textSelected = (
+    <React.Fragment>
+      <IonText className="ion-margin-start">
+        {/* <span className="">{props.item.text.slice(0, startPos)}</span> */}
+        <span className="selectclass">
+          {props.item.text.slice(startPos, realEnd)}
+        </span>
+        {/* <span className="">
+          {props.item.text.slice(endPos, props.item.text.length)}
+        </span> */}
+      </IonText>
+      <IonItem>
+        <IonButton
+          color="primary"
+          fill={"solid"}
+          onClick={() => {
+            setSelectorShow(!selectorShow);
+          }}
+        >
+          Change Text
+        </IonButton>
+      </IonItem>{" "}
+    </React.Fragment>
+  );
+
+  let rangeSelector = null;
+
+  const adjustPos = (amount, isStart, isAdd) => {
+    if (
+      isStart && ((!isAdd && startPos - amount >= 0) ||
+      (isAdd && startPos + amount <= endPos))
+    ) {
+      setStartPos(isAdd ? startPos + amount : startPos - amount);
+    }
+
+    if (
+      !isStart && ((!isAdd && endPos - amount >= startPos) ||
+      (isAdd && endPos + amount <= props.item.text.length))
+    ) {
+      setEndPos(isAdd ? endPos + amount : endPos - amount);
+    }
+  };
+
+//  console.log(props.item.text);
+  rangeSelector = (
+    <React.Fragment>
+      <IonText className="ion-margin-start">
+        <span className="">{props.item.text.slice(0, startPos)}</span>
+        <span className="selectclass">
+          {props.item.text.slice(startPos, realEnd)}
+        </span>
+        <span className="">
+          {props.item.text.slice(endPos, props.item.text.length)}
+        </span>
+      </IonText>
+      <IonRange
+        className="quoterange"
+        //          debounce={5}
+        dualKnobs={true}
+        min={0}
+        max={props.item.text.length}
+        step={3}
+        snaps={false}
+        //          pin
+        value={{ lower: startPos, upper: realEnd }}
+        onIonChange={(e) => {
+          //          console.log(e.detail.value);
+          setStartPos(e.detail.value.lower);
+          setEndPos(e.detail.value.upper);
+        }}
+      >
+        <ion-icon
+          slot="start"
+          size="small"
+          color="secondary"
+          name="chatbubble"
+        ></ion-icon>
+        <ion-icon slot="end" color="secondary" name="chatbubble"></ion-icon>
+      </IonRange>
+      <IonItem>
+        {/* <IonButton fill="outline" slot="start" onClick={() => { adjustPos(5,true,false) }}>
+            <ion-icon size="small" color="secondary" name="bookOutline"></ion-icon>
+        </IonButton> */}
+        <IonButton
+          fill="outline"
+          slot="start"
+          onClick={() => {
+            adjustPos(1, true, false);
+          }}
+        >-
+          {/* <ion-icon
+            size="small"
+            color="secondary"
+            name="bookOutline"
+          ></ion-icon> */}
+        </IonButton>
+        <IonText className="ion-padding" slot="start">Start</IonText>
+        <IonButton
+          fill="outline"
+          slot="start"
+          onClick={() => {
+            adjustPos(1, true, true);
+          }}
+        >+
+          {/* <ion-icon
+            size="small"
+            color="primary"
+            name="bookOutline"
+          ></ion-icon> */}
+        </IonButton>
+        {/* <IonButton fill="outline" slot="start" onClick={() => { adjustPos(5,true,true) }}>
+            <ion-icon size="small" color="secondary" name="bookOutline"></ion-icon>
+        </IonButton> */}
+        {/* </IonItem>
+        <IonItem> */}
+        {/* <IonButton fill="outline" slot="end" onClick={() => { adjustPos(5,false,false)}}>
+            <ion-icon size="small" color="secondary" name="listOutline"></ion-icon>
+        </IonButton> */}
+        <IonButton
+          fill="outline"
+          slot="end"
+          onClick={() => {
+            adjustPos(1, false, false);
+          }}
+        >-
+          {/* <ion-icon
+            size="tiny"
+            color="secondary"
+            name="list"
+          ></ion-icon> */}
+        </IonButton>
+        <IonText className="ion-padding" slot="end">End</IonText>
+        <IonButton
+          fill="outline"
+          slot="end"
+          onClick={() => {
+            adjustPos(1, false, true);
+          }}
+        >+
+          {/* <ion-icon
+            color="primary"
+            name="list"
+          ></ion-icon> */}
+        </IonButton>
+        {/* <IonButton fill="outline" slot="end" onClick={() => { adjustPos(5,false,true)}}>
+            <ion-icon size="small" color="secondary" name="listOutline"></ion-icon>
+        </IonButton> */}
+      </IonItem>
+      <IonItem>
+        <IonButton
+          color="primary"
+          fill={"solid"}
+          onClick={() => {
+            let pos = {
+              chapter: props.item.chapterNumber,
+              startline: props.item.lineNumber,
+              startchar: startPos,
+              endline: props.item.lineNumber,
+              endchar: endPos,
+            };
+            props.setPos(pos);
+            setSelectorShow(!selectorShow);
+          }}
+        >
+          Set
+        </IonButton>
+      </IonItem>
+    </React.Fragment>
+  );
 
   let returnVal = (
-    <React.Fragment>
-        <IonLabel className="ion-margin-start">{props.item.text}</IonLabel>
-    </React.Fragment>
+    <div className="AyogiQuoteSelectText">
+      {selectorShow ? rangeSelector : textSelected}
+    </div>
   );
   return returnVal;
 };

@@ -41,7 +41,7 @@ const AyogiQuoteTags = (props) => {
   const listMyTags =
     quoteTagsList.length > 0 ? (
       quoteTagsList.map(({ val, isChecked }, i) => (
-        <IonItem key={i}>
+        <IonItem key={`mytags-${i}`}>
           <IonLabel>{val}</IonLabel>
           <IonCheckbox
             slot="end"

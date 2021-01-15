@@ -40,8 +40,8 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
-  // console.log("AyogiChapterPage");
-  // console.log(props);
+  //  console.log("AyogiChapterPage");
+  //  console.log(props);
 
   // useEffect(() => {
   //   console.log(`AyogiChapterPage-chapter changed - ${props.type}`)
@@ -50,6 +50,7 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
 
   // Page load
   useEffect(() => {
+ //   console.log("AyogiChapterPage[]");
     //    fetchAYChapterList().then(d => setChaptersList(d));
     if(chaptersList === undefined || chaptersList.length == 0){
       setChaptersList(aychaptlist);
@@ -62,6 +63,7 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   // };
 
   const goToChapter = (num: number) => {
+    console.log("goToChapter");
     props.onChangeChapter(num);
     //props.goToTab(`/ayogi/${num}/1`);
 //    props.history.replace(`/ayogi/${num}/1`);

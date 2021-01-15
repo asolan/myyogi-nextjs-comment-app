@@ -9,8 +9,8 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
-  myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.BASIC,
-  myQuoteTags: []
+  myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
+  myQuoteTags: ['Inspiration','Favorite']
 };
 
 const autoyogiState = window.localStorage["autoyogiState"]
