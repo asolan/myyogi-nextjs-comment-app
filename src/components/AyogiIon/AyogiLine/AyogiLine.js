@@ -4,18 +4,10 @@ import "./AyogiLine.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import AyogiQuote from "../AyogiQuote/AyogiQuote";
 import { parseParagraphData } from "../../../utility/parseUtility";
-//import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
 import {
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonFabList,
   IonLabel,
 } from "@ionic/react";
-import { checkboxOutline, squareOutline } from "ionicons/icons";
-import { is, setIn } from "immutable";
-import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
-import constants from "../../../store/constants";
+import {getTextQuoteFromPos, getLineQuote} from '../../../shared/helper';
 
 const AyogiLine = (props) => {
   const [showQuotePopup, setShowQuotePopup] = useState(false);
@@ -24,7 +16,19 @@ const AyogiLine = (props) => {
   const [allClasses, setAllClasses] = useState([]);
   const [paragraph, setParagraph] = useState('');
   const [footnote, setFootnote] = useState('');
+  const [textQuote, setTextQuote] = useState([]);
   // <div className={classes.AyogiChapter}>
+
+  useEffect(() => {
+    const quote = getLineQuote(props.c, props.selectedQuotes);
+    const newTextQuote = getTextQuoteFromPos(props.c, quote);
+    setTextQuote(newTextQuote);
+  }, [props.selectedQuotes]);
+
+  const updateQuote = (newQuote) => {
+    const newTextQuote = getTextQuoteFromPos(props.c, newQuote);
+    setTextQuote(newTextQuote);
+  };
 
   useEffect(() => {
     let [p, f, ic] = parseParagraphData(
@@ -53,7 +57,7 @@ const AyogiLine = (props) => {
     let newIndentClasses = [...indentClasses];
     // console.log(newIndentClasses);
     if (isSelected) {
-      console.log('isSelected');
+//      console.log('isSelected');
       newIndentClasses.push("itemSelected");
     }
     setAllClasses(newIndentClasses);
@@ -62,6 +66,7 @@ const AyogiLine = (props) => {
   }, [isSelected]);
   
   let quoteModal = (<AyogiQuote 
+                    updateQuote={updateQuote}
                     showQuotePopup={showQuotePopup}
                     setShowQuotePopup={setShowQuotePopup}
                     setIsSelected={setIsSelected}
@@ -82,7 +87,8 @@ const AyogiLine = (props) => {
         // style={props.style}
         className={allClasses.join(" ")}
       >
-        {props.c.text}
+        {textQuote && textQuote.map((q, i) => <span key={`itemquotesels${i}`} className={q.className}>{q.text}</span>)}
+        {/* {props.c.text} */}
         <AyogiMetaItem c={props.c} />
       </IonLabel>
       {footnote}

@@ -40,10 +40,28 @@ const AyogiQuoteMetadata = (props) => {
   // const [isAdding, setIsAdding] = useState(false);
   const [tagSelectorShow, setTagSelectorShow] = useState(false);
   const [categoryShow, setCategoryShow] = useState({ ...initialCategories });
+  const [categoryItemsValues, setCategoryItemsValues] = useState({});
 
   useEffect(() => {
-    categoryItems.mytags = props.currentQuoteTags;
+//  console.log('AyogiQuoteMetadata[]');
+    buildCategoriesValues();
+  }, []);
+
+  useEffect(() => {
+//    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
+//  categoryItems.mytags = props.currentQuoteTags;
+  
+    buildCategoriesValues();
   }, [props.currentQuoteTags]);
+
+  useEffect(() => {
+//    console.log("AyogiQuoteMetadata[categororyTags]");
+  }, [props.categororyTags]);
+
+  // useEffect(() => {
+  //   console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
+  //   categoryItems.mytags = props.currentQuoteTags;
+  // }, [props.currentQuoteTags]);
 
   const showSetting = (settingToShow, value) => {
     let newCategoryShow = { ...initialCategories };
@@ -101,8 +119,36 @@ const AyogiQuoteMetadata = (props) => {
     </IonItem>
   );
 
+  const buildCategoriesValues = () => {
+    let newCategoriesItemValues = {...categoryItems};
+    props.categories.map((c, i) => {
+      categoryItems[c].length > 0 &&
+        categoryItems[c].map((val, i) => {
+              const isChecked =
+                props.categororyTags &&
+                props.categororyTags.hasOwnProperty(c) &&
+                props.categororyTags[c].includes(val);
+                newCategoriesItemValues[c][val] = isChecked;
+        });
+    });
+    console.log('setCategoryItemsValues', newCategoriesItemValues);
+    setCategoryItemsValues(newCategoriesItemValues);
+  };
+
+//   props.categories.map((c, i) => {
+//     let newIsChecked = {};
+//     categoryItems[c].length > 0 &&
+//       categoryItems[c].map((val, i) => {
+//         newIsChecked[c] =
+//           props.categororyTags &&
+//           props.categororyTags.hasOwnProperty(c) &&
+//           props.categororyTags[c].includes(val);
+//         setIsChecked({...isChecked, isChecked[c]: isThisChecked})
+// });
+console.log(categoryItemsValues);
   let categoriesMarkup =
     // isAdding &&
+    Object.keys(categoryItemsValues).length >  0 && 
     props.categories.map((c, i) => {
       if (c === "mytags" && props.currentQuoteTags.length === 0) {
         return setMyTags;
@@ -114,6 +160,7 @@ const AyogiQuoteMetadata = (props) => {
               color="dark"
               fill={categoryShow[c] ? "solid" : "outline"}
               onClick={() => {
+                console.log(categoryShow[c]);
                 showSetting(c, !categoryShow[c]);
               }}
             >
@@ -127,32 +174,32 @@ const AyogiQuoteMetadata = (props) => {
             >
               {categoryItems[c].length > 0 &&
                 categoryItems[c].map((val, i) => {
-                  const isChecked =
-                    props.categororyTags &&
-                    props.categororyTags.hasOwnProperty(c) &&
-                    props.categororyTags[c].includes(val);
-                  return (
-                    <IonItem key={i}>
-                      <IonLabel>{val}</IonLabel>
-                      <IonCheckbox
-                        slot="end"
-                        value={val}
-                        checked={isChecked}
-                        onIonChange={(e) => {
-                          // console.log("onIonChange", e.detail);
-                          if (e.detail.checked) {
-                            props.addTag({ name: e.detail.value, category: c });
-                          } else {
-                            props.removeTag({
-                              name: e.detail.value,
-                              category: c,
-                            });
-                          }
-                        }}
-                      />
-                    </IonItem>
-                  );
-                })}
+                  return(<IonItem key={`MetadatacategoryItems${i}`}>
+                  <IonLabel>{val}</IonLabel>
+                  <IonCheckbox
+                    slot="end"
+                    value={val}
+                    checked={categoryItemsValues && categoryItemsValues[c] && categoryItemsValues[c][val]}
+                    onIonChange={(e) => {
+//                      e.stopPropagation();
+                      console.log("onIonChange", e.detail);
+                      categoryItemsValues[c][val] = e.detail.checked;
+                      if (e.detail.checked) {
+                        props.addTag({
+                          name: e.detail.value,
+                          category: c,
+                        });
+                      } else {
+                        props.removeTag({
+                          name: e.detail.value,
+                          category: c,
+                        });
+                      }
+                    }}
+                  />
+                </IonItem>
+                );
+              })}
               <IonItem>
                 <IonButton
                   // expand="block"
@@ -182,6 +229,9 @@ const AyogiQuoteMetadata = (props) => {
   // );
   // console.log(categoriesMarkup);
   // let returnVal = (
+
+  console.log(categoriesMarkup);
+  
   return (
     <React.Fragment>
       <IonList>
@@ -193,16 +243,16 @@ const AyogiQuoteMetadata = (props) => {
           })}
       </IonList>
       <IonItem>
-          <IonButton
-            color="primary"
-            fill={"solid"}
-            onClick={() => {
-              setTagSelectorShow(!tagSelectorShow);
-            }}
-          >
-            {tagSelectorShow ? "Done" : "Select Tags"}
-          </IonButton>
-        </IonItem>
+        <IonButton
+          color="primary"
+          fill={"solid"}
+          onClick={() => {
+            setTagSelectorShow(!tagSelectorShow);
+          }}
+        >
+          {tagSelectorShow ? "Done" : "Select Tags"}
+        </IonButton>
+      </IonItem>
       {/* {isAdding ? reviewTags : addedTags} */}
     </React.Fragment>
   );

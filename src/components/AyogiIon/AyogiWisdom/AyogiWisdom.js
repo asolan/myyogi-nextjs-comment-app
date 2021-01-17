@@ -19,7 +19,7 @@ const AyogiWisdom = props => {
         });
         setItemsSelected(itemsSel);
         setItemTags(itemTags);
-        console.log(itemTags);
+//        console.log(itemTags);
     }, [props.selectedQuotes]);
 
     const itemQuoteTags = (c, s) => {

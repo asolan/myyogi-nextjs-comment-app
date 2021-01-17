@@ -2,7 +2,7 @@
     font-size: calc(var(--yogi-font-size) * 1.1);
 }
     
-.AyogiQuoteSelectText .selectclass {
+.quoteclass {
     background-color: rgb(223, 222, 219);
     color: rgb(0, 0, 0);
 }

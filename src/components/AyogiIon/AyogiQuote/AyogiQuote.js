@@ -14,6 +14,7 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/react";
+import {getTextQuoteFromPos, getLineQuote} from '../../../shared/helper';
 import constants from "../../../store/constants";
 
 const initialQuote = {
@@ -38,17 +39,42 @@ const AyogiQuote = (props) => {
   ];
 
   useEffect(() => {
-    console.log(props.selectedQuotes);
+//    console.log('AyogiQuote[]');
+//    console.log(props.selectedQuotes);
     // if(props.selectedQuotes){
     //   dispatch({ type: 'UPDATE', payload: quotes })
     // }
+  }, []);
+
+  useEffect(() => {
+    const quote = getLineQuote(props.item, props.selectedQuotes);
+    if(quote && quote.chapter){
+      dispatch({ type: "UPDATE", quote });
+    }
   }, [props.selectedQuotes]);
+
+  useEffect(() => {
+    if(props.showQuotePopup){
+      console.log('AyogiQuote[props.showQuotePopup]', quoteState);
+
+    }
+  }, [props.showQuotePopup]);
 
   function quoteReducer(state, action) {
     let newTags;
     let newCategoryTags;
     switch (action.type) {
-//      case "UPDATE":
+      case "UPDATE":
+//        console.log('UPDATE', action);
+        const newQuote = action ? {...action.quote} : {...state};
+        return {...state, 
+          chapter: action.quote.chapter,
+          startline: action.quote.startline,
+          startchar: action.quote.startchar,
+          endline: action.quote.endline,
+          endchar: action.quote.endchar,
+          categororyTags: action.quote.categororyTags,
+          tags: action.quote.tags};
       case "SET_POS":
         console.log("SET_POS", action);
         return {...state, 
@@ -78,13 +104,14 @@ const AyogiQuote = (props) => {
         //            console.log('REMOVE_TAG',action);
         newTags = [...state.tags].filter((t) => t !== action.tag.name);
         newCategoryTags = { ...state.categororyTags };
+//        debugger;
         // console.log(newCategoryTags);
         if (newCategoryTags.hasOwnProperty(action.tag.category)) {
-          newCategoryTags[action.tag.category].filter(
+          newCategoryTags[action.tag.category] = newCategoryTags[action.tag.category].filter(
             (t) => t !== action.tag.name
           );
         }
-        //            console.log(newCategoryTags);
+                    console.log(newCategoryTags);
         return { ...state, tags: newTags, categororyTags: newCategoryTags };
       default:
         throw new Error();
@@ -113,7 +140,8 @@ const AyogiQuote = (props) => {
           <IonCardContent>
             <AyogiQuoteSelectText
               setPos={setPos} 
-              item={props.item} />
+              item={props.item}
+              quoteState={quoteState} />
             {/* <AyogiQuoteTags
           showQuotePopup={props.showQuotePopup}
           setShowQuotePopup={props.setShowQuotePopup}
@@ -157,6 +185,7 @@ const AyogiQuote = (props) => {
                     quoteState.tags
                   );
                   props.setIsSelected(true);
+                  props.updateQuote(quoteState);
                   props.setShowQuotePopup(false);
                 }}
               >

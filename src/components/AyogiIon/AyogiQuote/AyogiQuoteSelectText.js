@@ -13,12 +13,15 @@ import {
   IonText,
   IonRange,
 } from "@ionic/react";
+import {getTextQuoteFromPos} from '../../../shared/helper';
 import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
+import { get } from "https";
 
 const AyogiQuoteSelectText = (props) => {
   const [selectorShow, setSelectorShow] = useState(false);
   const [startPos, setStartPos] = useState(0);
   const [endPos, setEndPos] = useState(0);
+  const [quote, setQuote] = useState({});
 
   useEffect(() => {
     let newEndPos = props.item.text.length;
@@ -30,20 +33,34 @@ const AyogiQuoteSelectText = (props) => {
     setEndPos(newEndPos);
   }, [props.item.text]);
 
-  // useEffect(() => {
+  useEffect(() => {
+    if(props.quoteState.chapter > 0 && props.quoteState.startline > 0){
+      console.log('AyogiQuoteSelectText[props.quoteState]', props.quoteState);
+      setQuote({...props.quoteState});
+      setStartPos(props.quoteState.startchar);
+      setEndPos(props.quoteState.endchar);
+    } else {
+      setQuote({
+        chapter: props.item.chapterNumber,
+        startline: props.item.lineNumber,
+        startchar: 0,
+        endline: props.item.lineNumber,
+        endchar: props.item.text ? props.item.text.length : 0,
+        categororyTags: {},
+        tags: [],
+      });
+    }
+  }, [props.quoteState]);
 
-  // }, [start / end pos]);
+
+  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
+  // console.log(quote);
+  // console.log(textQuote);
   let realEnd = endPos > 0 ? endPos : props.item.text.length;
   let textSelected = (
     <React.Fragment>
       <IonText className="ion-margin-start">
-        {/* <span className="">{props.item.text.slice(0, startPos)}</span> */}
-        <span className="selectclass">
-          {props.item.text.slice(startPos, realEnd)}
-        </span>
-        {/* <span className="">
-          {props.item.text.slice(endPos, props.item.text.length)}
-        </span> */}
+      {textQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
       </IonText>
       <IonItem>
         <IonButton
@@ -77,17 +94,10 @@ const AyogiQuoteSelectText = (props) => {
     }
   };
 
-//  console.log(props.item.text);
   rangeSelector = (
     <React.Fragment>
       <IonText className="ion-margin-start">
-        <span className="">{props.item.text.slice(0, startPos)}</span>
-        <span className="selectclass">
-          {props.item.text.slice(startPos, realEnd)}
-        </span>
-        <span className="">
-          {props.item.text.slice(endPos, props.item.text.length)}
-        </span>
+        {textQuote.map((q, i) => <span key={`itemquotesels${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
       </IonText>
       <IonRange
         className="quoterange"

@@ -27,11 +27,12 @@ const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 function selectedQuotes(state = fullInitiatState, action) {
   let newState, selQuotes, quoteIndex;
 
-  const getQuoteIndex = (quotes: any[], chapter:number, startline:number, startchar:number) => {
+//  const getQuoteIndex = (quotes: any[], chapter:number, startline:number, startchar:number) => {
+    const getQuoteIndex = (quotes: any[], chapter:number, startline:number) => {
     return quotes.findIndex(q => 
       q.chapter === chapter && 
-      q.startline === startline &&
-      q.startchar === startchar
+      q.startline === startline 
+//&&      q.startchar === startchar
       );
   };
 
@@ -44,19 +45,21 @@ function selectedQuotes(state = fullInitiatState, action) {
       quoteIndex = getQuoteIndex(
         selQuotes, 
         action.chapter, 
-        action.startline, 
-        action.startchar);
+        action.startline); 
+//        action.startchar);
 
-      if(quoteIndex === -1){
-        selQuotes.push({...newQuote, 
-          chapter: action.chapter, 
-          startline: action.startline,
-          startchar: action.startchar,
-          endline: action.endline,
-          endchar: action.endchar,
-          categororyTags: action.categororyTags,
-          tags: action.tags});
+      if(quoteIndex !== -1){
+        selQuotes.splice(quoteIndex, 1);
       }
+
+      selQuotes.push({...newQuote, 
+        chapter: action.chapter, 
+        startline: action.startline,
+        startchar: action.startchar,
+        endline: action.endline,
+        endchar: action.endchar,
+        categororyTags: action.categororyTags,
+        tags: action.tags});
 
       newState = state.set("selectedQuotes", fromJS(selQuotes));
       setStorageState(newState);
@@ -69,8 +72,8 @@ function selectedQuotes(state = fullInitiatState, action) {
       quoteIndex = getQuoteIndex(
         selQuotes, 
         action.chapter, 
-        action.startline, 
-        action.startchar);
+        action.startline); 
+//        action.startchar);
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);
