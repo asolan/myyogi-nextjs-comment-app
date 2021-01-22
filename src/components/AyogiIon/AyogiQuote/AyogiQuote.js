@@ -141,6 +141,7 @@ const AyogiQuote = (props) => {
             <AyogiQuoteSelectText
               setPos={setPos} 
               item={props.item}
+              paragraphLines={props.paragraphLines}
               quoteState={quoteState} />
             {/* <AyogiQuoteTags
           showQuotePopup={props.showQuotePopup}

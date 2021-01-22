@@ -13,7 +13,7 @@ import {
   IonText,
   IonRange,
 } from "@ionic/react";
-import {getTextQuoteFromPos} from '../../../shared/helper';
+import {getParaQuoteFromPos} from '../../../shared/helper';
 import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
 import { get } from "https";
 
@@ -24,14 +24,17 @@ const AyogiQuoteSelectText = (props) => {
   const [quote, setQuote] = useState({});
 
   useEffect(() => {
-    let newEndPos = props.item.text.length;
-    setEndPos(newEndPos);
+    setNewEndPos(props.paragraphLines);
   }, []);
 
   useEffect(() => {
-    let newEndPos = props.item.text.length;
+    setNewEndPos(props.paragraphLines);
+  }, [props.paragraphLines]);
+
+  const setNewEndPos = (para) => {
+    let newEndPos = para.reduce((l,p) => l + p.text.length);
     setEndPos(newEndPos);
-  }, [props.item.text]);
+  };
 
   useEffect(() => {
     if(props.quoteState.chapter > 0 && props.quoteState.startline > 0){
@@ -40,28 +43,35 @@ const AyogiQuoteSelectText = (props) => {
       setStartPos(props.quoteState.startchar);
       setEndPos(props.quoteState.endchar);
     } else {
+      const lastLine = props.paragraphLines.length-1;
       setQuote({
-        chapter: props.item.chapterNumber,
-        startline: props.item.lineNumber,
+        chapter: props.paragraphLines[0].chapterNumber,
+        startline: props.paragraphLines[0].lineNumber,
         startchar: 0,
-        endline: props.item.lineNumber,
-        endchar: props.item.text ? props.item.text.length : 0,
+        endline: props.paragraphLines[lastLine].lineNumber,
+        endchar: props.paragraphLines[lastLine].text ? props.paragraphLines[lastLine].text : 0,
         categororyTags: {},
         tags: [],
       });
     }
   }, [props.quoteState]);
 
-
-  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
+//  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
+  const paraQuote = getParaQuoteFromPos(props.paragraphLines, {...quote, startchar:startPos ,endchar: endPos});
   // console.log(quote);
-  // console.log(textQuote);
+  console.log(paraQuote);
   let realEnd = endPos > 0 ? endPos : props.item.text.length;
+
   let textSelected = (
     <React.Fragment>
       <IonText className="ion-margin-start">
-      {textQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
+      {paraQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
       </IonText>
+      {/* <IonText className="ion-margin-start">
+      {props.paragraphLines && props.paragraphLines.map(l => {
+        return l.text
+      })}
+      </IonText> */}
       <IonItem>
         <IonButton
           color="primary"
@@ -97,7 +107,7 @@ const AyogiQuoteSelectText = (props) => {
   rangeSelector = (
     <React.Fragment>
       <IonText className="ion-margin-start">
-        {textQuote.map((q, i) => <span key={`itemquotesels${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
+        {paraQuote.map((q, i) => <span key={`itemquotesels${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
       </IonText>
       <IonRange
         className="quoterange"
