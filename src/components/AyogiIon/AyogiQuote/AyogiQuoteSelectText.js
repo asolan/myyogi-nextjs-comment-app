@@ -21,8 +21,7 @@ const AyogiQuoteSelectText = (props) => {
   const [selectorShow, setSelectorShow] = useState(false);
   const [startPos, setStartPos] = useState(0);
   const [endPos, setEndPos] = useState(0);
-  const [quote, setQuote] = useState({});
-  const [paraQuote, setParaQuote] = useState([]);
+//  const [paraQuote, setParaQuote] = useState([]);
 
   useEffect(() => {
   }, []);
@@ -34,26 +33,13 @@ const AyogiQuoteSelectText = (props) => {
         const schar = props.quoteState.startchar;
         const echar = props.quoteState.endchar;
 
-        setQuote({...props.quoteState});
         setStartPos(schar);
         setEndPos(echar);
         console.log(props.paragraphLine);
-        const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
-        console.log(newParaQuote);
-        setParaQuote(newParaQuote);
+        // const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
+        // console.log(newParaQuote);
+        // setParaQuote(newParaQuote);
       }
-    // } else {
-    //   const lastLine = props.paragraphLines.length-1;
-    //   setQuote({
-    //     chapter: props.paragraphLines[0].chapterNumber,
-    //     startline: props.paragraphLines[0].lineNumber,
-    //     startchar: 0,
-    //     endline: props.paragraphLines[lastLine].lineNumber,
-    //     endchar: props.paragraphLines[lastLine].text ? props.paragraphLines[lastLine].text : 0,
-    //     categororyTags: {},
-    //     tags: [],
-    //   });
-    //}
   }, [props.quoteState]);
 
   // useEffect(() => {
@@ -63,8 +49,11 @@ const AyogiQuoteSelectText = (props) => {
 
 //  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
   // console.log(quote);
-  console.log(paraQuote);
+//  console.log(paraQuote);
   let realEnd = endPos > 0 ? endPos : props.paragraphLine.length;
+  const paraQuote = getParaLineQuoteFromPos(props.paragraphLine, startPos, endPos);
+  // console.log(newParaQuote);
+  // setParaQuote(newParaQuote);
 
   let textSelected = (
     <React.Fragment>

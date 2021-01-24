@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import "./AyogiQuote.css";
 import AyogiQuoteSelectText from "./AyogiQuoteSelectText";
-//import AyogiQuoteTags from "./AyogiQuoteTags";
 import AyogiQuoteChips from "./AyogiQuoteChips";
 import AyogiQuoteMetadata from "./AyogiQuoteMetadata";
 import {
@@ -14,7 +13,7 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/react";
-import {getParaQuoteFromFullPos, getParagraphQuote} from '../../../shared/helper';
+import {getParaQuoteFromFullPos, getParagraphQuote, getLinesInParagraph} from '../../../shared/helper';
 import constants from "../../../store/constants";
 import { act } from "react-dom/test-utils";
 
@@ -30,6 +29,8 @@ const initialQuote = {
 
 const AyogiQuote = (props) => {
   const [quoteState, dispatch] = useReducer(quoteReducer, initialQuote);
+  const [editState, setEditState] = useState(0);
+  const [paragraphLines, setParagraphLines] = useState([]);
   const [paragraphLine, setParagraphLine] = useState('');
   //    const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
   const categories = [
@@ -41,39 +42,29 @@ const AyogiQuote = (props) => {
   ];
 
   useEffect(() => {
-//    console.log('AyogiQuote[]');
-//    console.log(props.selectedQuotes);
-    // if(props.selectedQuotes){
-    //   dispatch({ type: 'UPDATE', payload: quotes })
-    // }
   }, []);
 
   useEffect(() => {
-    if(props.paragraphLines && props.paragraphLines.length > 0){
-      let pline = props.paragraphLines.reduce((t,l) => t + l.text);
-      setParagraphLine(pline);
-      setQuoteState();
-    }
-  }, [props.paragraphLines]);
-    
-  useEffect(() => {
-    if(props.selectedQuotes && props.selectedQuotes.length > 0){
-      setQuoteState();
-    }
-  }, [props.selectedQuotes]);
+    let para = getLinesInParagraph(props.c, props.items);
+    console.log(para);
+    setParagraphLines(para);
+    let pline = para.reduce((t,l) => t + l.text, '');
+    setParagraphLine(pline);  
+    setQuoteState(para);
+}, [props.items]);
 
-  const setQuoteState = () => {
-    if(props.paragraphLines.length > 0){
+  const setQuoteState = (para) => {
+    if(para.length > 0){
 //      debugger;
-      let quote = getParagraphQuote(props.paragraphLines, props.selectedQuotes);
+      let quote = getParagraphQuote(para, props.selectedQuotes);
       if(!quote || !quote.chapter){
-        const endLineNum = props.paragraphLines.length -1;
-        const endCharNum = props.paragraphLines.reduce((n,l) => n + l.text.length,0);
+        const endLineNum = para.length -1;
+        const endCharNum = para.reduce((n,l) => n + l.text.length,0);
 //        console.log(endCharNum);
         quote = {...initialQuote, 
-          chapter: props.paragraphLines[0].chapterNumber,
-          startline: props.paragraphLines[0].lineNumber,
-          endline: props.paragraphLines[endLineNum].lineNumber,
+          chapter: para[0].chapterNumber,
+          startline: para[0].lineNumber,
+          endline: para[endLineNum].lineNumber,
           endchar: endCharNum,
         };
       }
@@ -176,16 +167,9 @@ const AyogiQuote = (props) => {
             <AyogiQuoteSelectText
               setPos={setPos} 
               item={props.item}
-              paragraphLines={props.paragraphLines}
+              paragraphLines={paragraphLines}
               paragraphLine={paragraphLine}
               quoteState={quoteState} />
-            {/* <AyogiQuoteTags
-          showQuotePopup={props.showQuotePopup}
-          setShowQuotePopup={props.setShowQuotePopup}
-          setIsSelected={props.setIsSelected}
-          item={props.c}
-          {...props}
-        /> */}
             <AyogiQuoteChips
               categories={categories}
               categororyTags={quoteState.categororyTags}
@@ -227,6 +211,16 @@ const AyogiQuote = (props) => {
                 }}
               >
                 Save Quote
+              </IonButton>
+              <IonButton
+                slot="end"
+                color="light"
+                onClick={() => {
+                  props.setIsSelected(false);
+                  props.setShowQuotePopup(false);
+                }}
+              >
+                TODO-Cancel
               </IonButton>
               <IonButton
                 slot="end"

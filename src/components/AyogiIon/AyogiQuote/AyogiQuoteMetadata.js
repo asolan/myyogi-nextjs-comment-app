@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 //import React from 'react';
 import "./AyogiQuoteMetadata.css";
-//import AyogiQuoteTags from './AyogiQuoteTags';
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import { parseParagraphData } from "../../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';

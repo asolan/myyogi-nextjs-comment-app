@@ -22,12 +22,12 @@ export const getTextQuoteFromPos = (item, quote) => {
     return textQuote;
 };
 
-export const getParaLineQuoteFromPos = (paraLine, quote) => {
+export const getParaLineQuoteFromPos = (paraLine, startchar, endchar) => {
     let paraLineQuote = [];
-    console.log(paraLine);
-    paraLineQuote.push({text: paraLine.text.slice(0, quote.startchar), className: ''});
-    paraLineQuote.push({text: paraLine.text.slice(quote.startchar, quote.endchar), className: 'quoteclass'});
-    paraLineQuote.push({text: paraLine.text.slice(quote.endchar, paraLine.length), className: ''});
+    console.log(paraLine, startchar, endchar);
+    paraLineQuote.push({text: paraLine.slice(0, startchar), className: ''});
+    paraLineQuote.push({text: paraLine.slice(startchar, endchar), className: 'quoteclass'});
+    paraLineQuote.push({text: paraLine.slice(endchar, paraLine.length), className: ''});
 console.log(paraLineQuote);
     return paraLineQuote;
 };

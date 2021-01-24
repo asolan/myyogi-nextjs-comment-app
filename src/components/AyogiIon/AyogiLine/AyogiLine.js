@@ -7,7 +7,7 @@ import { parseParagraphData } from "../../../utility/parseUtility";
 import {
   IonLabel,
 } from "@ionic/react";
-import {getTextQuoteFromPos, getLineQuote, getLinesInParagraph} from '../../../shared/helper';
+import {getTextQuoteFromPos, getLineQuote} from '../../../shared/helper';
 
 const AyogiLine = (props) => {
   const [showQuotePopup, setShowQuotePopup] = useState(false);
@@ -17,17 +17,8 @@ const AyogiLine = (props) => {
   const [paragraph, setParagraph] = useState('');
   const [footnote, setFootnote] = useState('');
   const [textQuote, setTextQuote] = useState([]);
-  const [paragraphLines, setParagraphLines] = useState([]);
   // <div className={classes.AyogiChapter}>
   
-  useEffect(() => {
-    let para = getLinesInParagraph(props.c, props.items);
-    // console.log(props.items);
-//    console.log(para);
-    console.log(para);
-    setParagraphLines(para);
-  }, [props.items]);
-
   useEffect(() => {
     const quote = getLineQuote(props.c, props.selectedQuotes);
     const newTextQuote = getTextQuoteFromPos(props.c, quote);
@@ -74,15 +65,14 @@ const AyogiLine = (props) => {
   //    console.log('isLineSelected', props.isLineSelected);    
   }, [isSelected]);
   
-  let quoteModal = (<AyogiQuote 
+  let quoteModal = showQuotePopup ? (<AyogiQuote 
                     updateQuote={updateQuote}
                     showQuotePopup={showQuotePopup}
                     setShowQuotePopup={setShowQuotePopup}
                     setIsSelected={setIsSelected}
                     item={props.c}
-                    paragraphLines={paragraphLines}
                     {...props}
-                     />);
+                     />) : null;
   
 
   let returnVal = <div />;
