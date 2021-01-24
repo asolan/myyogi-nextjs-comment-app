@@ -23,6 +23,7 @@ const AyogiLine = (props) => {
   useEffect(() => {
     let para = getLinesInParagraph(props.c, props.items);
     // console.log(props.items);
+//    console.log(para);
     console.log(para);
     setParagraphLines(para);
   }, [props.items]);

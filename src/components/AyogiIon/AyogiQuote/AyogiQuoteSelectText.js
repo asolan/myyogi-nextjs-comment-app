@@ -13,7 +13,7 @@ import {
   IonText,
   IonRange,
 } from "@ionic/react";
-import {getParaQuoteFromPos} from '../../../shared/helper';
+import {getParaQuoteFromPos, getParaLineQuoteFromPos} from '../../../shared/helper';
 import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
 import { get } from "https";
 
@@ -22,45 +22,49 @@ const AyogiQuoteSelectText = (props) => {
   const [startPos, setStartPos] = useState(0);
   const [endPos, setEndPos] = useState(0);
   const [quote, setQuote] = useState({});
+  const [paraQuote, setParaQuote] = useState([]);
 
   useEffect(() => {
-    setNewEndPos(props.paragraphLines);
   }, []);
 
   useEffect(() => {
-    setNewEndPos(props.paragraphLines);
-  }, [props.paragraphLines]);
-
-  const setNewEndPos = (para) => {
-    let newEndPos = para.reduce((l,p) => l + p.text.length);
-    setEndPos(newEndPos);
-  };
-
-  useEffect(() => {
-    if(props.quoteState.chapter > 0 && props.quoteState.startline > 0){
+    // if(props.quoteState.chapter > 0 && props.quoteState.startline > 0){
       console.log('AyogiQuoteSelectText[props.quoteState]', props.quoteState);
-      setQuote({...props.quoteState});
-      setStartPos(props.quoteState.startchar);
-      setEndPos(props.quoteState.endchar);
-    } else {
-      const lastLine = props.paragraphLines.length-1;
-      setQuote({
-        chapter: props.paragraphLines[0].chapterNumber,
-        startline: props.paragraphLines[0].lineNumber,
-        startchar: 0,
-        endline: props.paragraphLines[lastLine].lineNumber,
-        endchar: props.paragraphLines[lastLine].text ? props.paragraphLines[lastLine].text : 0,
-        categororyTags: {},
-        tags: [],
-      });
-    }
+      if(props.quoteState.chapter > 0 || props.quoteState.startline > 0){
+        const schar = props.quoteState.startchar;
+        const echar = props.quoteState.endchar;
+
+        setQuote({...props.quoteState});
+        setStartPos(schar);
+        setEndPos(echar);
+        console.log(props.paragraphLine);
+        const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
+        console.log(newParaQuote);
+        setParaQuote(newParaQuote);
+      }
+    // } else {
+    //   const lastLine = props.paragraphLines.length-1;
+    //   setQuote({
+    //     chapter: props.paragraphLines[0].chapterNumber,
+    //     startline: props.paragraphLines[0].lineNumber,
+    //     startchar: 0,
+    //     endline: props.paragraphLines[lastLine].lineNumber,
+    //     endchar: props.paragraphLines[lastLine].text ? props.paragraphLines[lastLine].text : 0,
+    //     categororyTags: {},
+    //     tags: [],
+    //   });
+    //}
   }, [props.quoteState]);
 
+  // useEffect(() => {
+  //   const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...quote, startchar:startPos ,endchar: endPos});
+  //   setParaQuote(newParaQuote);
+  // }, [props.paragraphLine]);
+
 //  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
-  const paraQuote = getParaQuoteFromPos(props.paragraphLines, {...quote, startchar:startPos ,endchar: endPos});
   // console.log(quote);
   console.log(paraQuote);
-  let realEnd = endPos > 0 ? endPos : props.item.text.length;
+  let realEnd = endPos > 0 ? endPos : props.paragraphLine.length;
 
   let textSelected = (
     <React.Fragment>
@@ -114,7 +118,7 @@ const AyogiQuoteSelectText = (props) => {
         //          debounce={5}
         dualKnobs={true}
         min={0}
-        max={props.item.text.length}
+        max={props.paragraphLine.length}
         step={3}
         snaps={false}
         //          pin
@@ -207,13 +211,7 @@ const AyogiQuoteSelectText = (props) => {
           color="primary"
           fill={"solid"}
           onClick={() => {
-            let pos = {
-              chapter: props.item.chapterNumber,
-              startline: props.item.lineNumber,
-              startchar: startPos,
-              endline: props.item.lineNumber,
-              endchar: endPos,
-            };
+            let pos = {...props.quoteState, startchar: startPos, endchar: endPos };
             props.setPos(pos);
             setSelectorShow(!selectorShow);
           }}

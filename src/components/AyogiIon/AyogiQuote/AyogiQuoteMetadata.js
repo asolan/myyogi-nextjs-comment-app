@@ -145,7 +145,7 @@ const AyogiQuoteMetadata = (props) => {
 //           props.categororyTags[c].includes(val);
 //         setIsChecked({...isChecked, isChecked[c]: isThisChecked})
 // });
-console.log(categoryItemsValues);
+//console.log(categoryItemsValues);
   let categoriesMarkup =
     // isAdding &&
     Object.keys(categoryItemsValues).length >  0 && 
