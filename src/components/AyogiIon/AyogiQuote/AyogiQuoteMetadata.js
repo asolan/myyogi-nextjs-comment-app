@@ -26,6 +26,7 @@ import {
   earthOutline,
   colorFilterOutline,
 } from "ionicons/icons";
+import constants from "../../../store/constants";
 
 const AyogiQuoteMetadata = (props) => {
   const initialCategories = {
@@ -37,7 +38,6 @@ const AyogiQuoteMetadata = (props) => {
   };
 
   // const [isAdding, setIsAdding] = useState(false);
-  const [tagSelectorShow, setTagSelectorShow] = useState(false);
   const [categoryShow, setCategoryShow] = useState({ ...initialCategories });
   const [categoryItemsValues, setCategoryItemsValues] = useState({});
 
@@ -234,8 +234,7 @@ const AyogiQuoteMetadata = (props) => {
   return (
     <React.Fragment>
       <IonList>
-        {tagSelectorShow &&
-          categoriesMarkup &&
+        {categoriesMarkup &&
           categoriesMarkup.map((c) => {
             //          console.log(c);
             return c;
@@ -246,10 +245,10 @@ const AyogiQuoteMetadata = (props) => {
           color="primary"
           fill={"solid"}
           onClick={() => {
-            setTagSelectorShow(!tagSelectorShow);
+            props.setQuoteEdit(constants.QUOTE_EDIT.NONE);
           }}
         >
-          {tagSelectorShow ? "Done" : "Select Tags"}
+          Done
         </IonButton>
       </IonItem>
       {/* {isAdding ? reviewTags : addedTags} */}

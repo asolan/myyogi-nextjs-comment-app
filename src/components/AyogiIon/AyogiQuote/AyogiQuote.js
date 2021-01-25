@@ -12,8 +12,9 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonCardContent,
+  IonText,
 } from "@ionic/react";
-import {getParaQuoteFromFullPos, getParagraphQuote, getLinesInParagraph} from '../../../shared/helper';
+import {getParaLineQuoteFromPos, getParagraphQuote, getLinesInParagraph} from '../../../shared/helper';
 import constants from "../../../store/constants";
 import { act } from "react-dom/test-utils";
 
@@ -25,13 +26,14 @@ const initialQuote = {
   endchar: 0,
   categororyTags: {},
   tags: [],
+  paragraphLines: [],
+  paragraphLine: '',
+  paragraphLineQuote: [],
+  edit: constants.QUOTE_EDIT.NONE
 };
 
 const AyogiQuote = (props) => {
   const [quoteState, dispatch] = useReducer(quoteReducer, initialQuote);
-  const [editState, setEditState] = useState(0);
-  const [paragraphLines, setParagraphLines] = useState([]);
-  const [paragraphLine, setParagraphLine] = useState('');
   //    const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
   const categories = [
 //    "mytags",
@@ -45,17 +47,13 @@ const AyogiQuote = (props) => {
   }, []);
 
   useEffect(() => {
-    let para = getLinesInParagraph(props.c, props.items);
-    console.log(para);
-    setParagraphLines(para);
-    let pline = para.reduce((t,l) => t + l.text, '');
-    setParagraphLine(pline);  
-    setQuoteState(para);
+    setQuoteState();
 }, [props.items]);
 
-  const setQuoteState = (para) => {
+  const setQuoteState = () => {
+    let para = getLinesInParagraph(props.c, props.items);
     if(para.length > 0){
-//      debugger;
+      //      debugger;
       let quote = getParagraphQuote(para, props.selectedQuotes);
       if(!quote || !quote.chapter){
         const endLineNum = para.length -1;
@@ -68,10 +66,24 @@ const AyogiQuote = (props) => {
           endchar: endCharNum,
         };
       }
-//      console.log(quote);
+
+      const pline = para.reduce((t,l) => t + l.text, '');
+      const plineQuote = getParaLineQuoteFromPos(
+        pline, 
+        quote.startchar, 
+        quote.endchar);
+      quote.paragraphLines = para;
+      quote.paragraphLine = pline;
+      quote.paragraphLineQuote = plineQuote;
+
+      console.log(quote);
       dispatch({ type: "UPDATE", quote });
     }
   };
+
+    // this.setState({ dealersOverallTotal: total }, () => {
+  //   console.log(this.state.dealersOverallTotal, 'dealersOverallTotal1');
+  // }); 
 
   // useEffect(() => {
   //   if(props.showQuotePopup){
@@ -83,32 +95,29 @@ const AyogiQuote = (props) => {
     let newTags;
     let newCategoryTags;
     switch (action.type) {
+      case "EDIT_STATE":
+        console.log("EDIT_STATE", action);
+        return {...state, 
+          edit: action.edit
+        };
       case "UPDATE":
         let newQuote;
-        // if(action && action.quote){
           newQuote = {...action.quote};
-//          console.log('newquote', newQuote);
-        // } else {
-        //   newQuote = {...state}
-        // };
-//        const newQuote = action ? {...action.quote} : {...state};
-        return {...state, ...action.quote}
-        // return {...state, 
-        //   chapter: action.quote.chapter,
-        //   startline: action.quote.startline,
-        //   startchar: action.quote.startchar,
-        //   endline: action.quote.endline,
-        //   endchar: action.quote.endchar,
-        //   categororyTags: action.quote.categororyTags,
-        //   tags: action.quote.tags};
+       return {...state, ...action.quote}
       case "SET_POS":
         console.log("SET_POS", action);
+        const plineQuoteNew = getParaLineQuoteFromPos(
+          state.paragraphLine, 
+          action.pos.startchar, 
+          action.pos.endchar);
+  
         return {...state, 
           chapter: action.pos.chapter,
           startline: action.pos.startline,
           startchar: action.pos.startchar,
           endline: action.pos.endline,
           endchar: action.pos.endchar,
+          paragraphLineQuote: plineQuoteNew
         };
       case "ADD_TAG":
         //            console.log('ADD_TAG',action);
@@ -156,6 +165,10 @@ const AyogiQuote = (props) => {
     dispatch({ type: "SET_POS", pos });
   };
 
+  const setQuoteEdit = (edit) => {
+    dispatch({ type: "EDIT_STATE", edit });
+  };
+
   return (
     <div className="AyogiQuote">
       <IonModal isOpen={props.showQuotePopup} cssClass="">
@@ -164,29 +177,53 @@ const AyogiQuote = (props) => {
             <IonCardTitle>Quote Selection</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <AyogiQuoteSelectText
+          {quoteState.edit !== constants.QUOTE_EDIT.SELECT_TEXT 
+          && (<IonText className="ion-margin-start">
+            {quoteState.paragraphLineQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
+          </IonText>)}
+          <AyogiQuoteChips
+            categories={categories}
+            categororyTags={quoteState.categororyTags}
+          />
+
+          {quoteState.edit === constants.QUOTE_EDIT.NONE && (<IonItem>
+            <IonButton
+              color="primary"
+              fill={"solid"}
+              onClick={() => {
+                setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
+              }}
+            >
+              Change Text
+            </IonButton>
+            <IonButton
+              color="primary"
+              fill={"solid"}
+              onClick={() => {
+                setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
+              }}
+            >
+              Change Tags
+            </IonButton>
+          </IonItem>)}
+
+            {quoteState.edit === constants.QUOTE_EDIT.SELECT_TEXT 
+            && (<AyogiQuoteSelectText
               setPos={setPos} 
+              setQuoteEdit={setQuoteEdit}
               item={props.item}
-              paragraphLines={paragraphLines}
-              paragraphLine={paragraphLine}
-              quoteState={quoteState} />
-            <AyogiQuoteChips
-              categories={categories}
-              categororyTags={quoteState.categororyTags}
-            />
-            {(props.currentQuoteSelectionType ===
+              quoteState={quoteState} />)}
+            {(quoteState.edit === constants.QUOTE_EDIT.SELECT_TAGS &&
+              (props.currentQuoteSelectionType ===
               constants.MY_QUOTE_SELECTION_TYPE.TAGS ||
               props.currentQuoteSelectionType ===
-                constants.MY_QUOTE_SELECTION_TYPE.METADATA) && (
+                constants.MY_QUOTE_SELECTION_TYPE.METADATA)) && (
               <AyogiQuoteMetadata
                 categories={categories}
                 categororyTags={quoteState.categororyTags}
                 addTag={addTag}
                 removeTag={removeTag}
-                showQuotePopup={props.showQuotePopup}
-                setShowQuotePopup={props.setShowQuotePopup}
-                setIsSelected={props.setIsSelected}
-                item={props.c}
+                setQuoteEdit={setQuoteEdit}
                 {...props}
               />
             )}

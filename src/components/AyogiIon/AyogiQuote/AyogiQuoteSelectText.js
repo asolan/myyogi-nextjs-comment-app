@@ -16,9 +16,10 @@ import {
 import {getParaQuoteFromPos, getParaLineQuoteFromPos} from '../../../shared/helper';
 import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
 import { get } from "https";
+import constants from "../../../store/constants";
 
 const AyogiQuoteSelectText = (props) => {
-  const [selectorShow, setSelectorShow] = useState(false);
+  // const [selectorShow, setSelectorShow] = useState(false);
   const [startPos, setStartPos] = useState(0);
   const [endPos, setEndPos] = useState(0);
 //  const [paraQuote, setParaQuote] = useState([]);
@@ -35,51 +36,23 @@ const AyogiQuoteSelectText = (props) => {
 
         setStartPos(schar);
         setEndPos(echar);
-        console.log(props.paragraphLine);
-        // const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
+        console.log(props.quoteState.paragraphLine);
+        // const newParaQuote = getParaLineQuoteFromPos(props.quoteState.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
         // console.log(newParaQuote);
         // setParaQuote(newParaQuote);
       }
   }, [props.quoteState]);
 
   // useEffect(() => {
-  //   const newParaQuote = getParaLineQuoteFromPos(props.paragraphLine, {...quote, startchar:startPos ,endchar: endPos});
+  //   const newParaQuote = getParaLineQuoteFromPos(props.quoteState.paragraphLine, {...quote, startchar:startPos ,endchar: endPos});
   //   setParaQuote(newParaQuote);
-  // }, [props.paragraphLine]);
+  // }, [props.quoteState.paragraphLine]);
 
 //  const textQuote = getTextQuoteFromPos(props.item, {...quote, startchar:startPos ,endchar: endPos});
   // console.log(quote);
 //  console.log(paraQuote);
-  let realEnd = endPos > 0 ? endPos : props.paragraphLine.length;
-  const paraQuote = getParaLineQuoteFromPos(props.paragraphLine, startPos, endPos);
-  // console.log(newParaQuote);
-  // setParaQuote(newParaQuote);
-
-  let textSelected = (
-    <React.Fragment>
-      <IonText className="ion-margin-start">
-      {paraQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
-      </IonText>
-      {/* <IonText className="ion-margin-start">
-      {props.paragraphLines && props.paragraphLines.map(l => {
-        return l.text
-      })}
-      </IonText> */}
-      <IonItem>
-        <IonButton
-          color="primary"
-          fill={"solid"}
-          onClick={() => {
-            setSelectorShow(!selectorShow);
-          }}
-        >
-          Change Text
-        </IonButton>
-      </IonItem>{" "}
-    </React.Fragment>
-  );
-
-  let rangeSelector = null;
+  let realEnd = endPos > 0 ? endPos : props.quoteState.paragraphLine.length;
+  const paraQuote = getParaLineQuoteFromPos(props.quoteState.paragraphLine, startPos, endPos);
 
   const adjustPos = (amount, isStart, isAdd) => {
     if (
@@ -97,7 +70,7 @@ const AyogiQuoteSelectText = (props) => {
     }
   };
 
-  rangeSelector = (
+  let rangeSelector = (
     <React.Fragment>
       <IonText className="ion-margin-start">
         {paraQuote.map((q, i) => <span key={`itemquotesels${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
@@ -107,7 +80,7 @@ const AyogiQuoteSelectText = (props) => {
         //          debounce={5}
         dualKnobs={true}
         min={0}
-        max={props.paragraphLine.length}
+        max={props.quoteState.paragraphLine.length}
         step={3}
         snaps={false}
         //          pin
@@ -202,7 +175,7 @@ const AyogiQuoteSelectText = (props) => {
           onClick={() => {
             let pos = {...props.quoteState, startchar: startPos, endchar: endPos };
             props.setPos(pos);
-            setSelectorShow(!selectorShow);
+            props.setQuoteEdit(constants.QUOTE_EDIT.NONE);
           }}
         >
           Set
@@ -213,7 +186,7 @@ const AyogiQuoteSelectText = (props) => {
 
   let returnVal = (
     <div className="AyogiQuoteSelectText">
-      {selectorShow ? rangeSelector : textSelected}
+      {rangeSelector}
     </div>
   );
   return returnVal;
