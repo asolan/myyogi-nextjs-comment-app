@@ -263,10 +263,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeChapter(chapter)),
     onChangeChapterLine: (chapterLine: number) =>
       dispatch(actions.onChangeChapterLine(chapterLine)),
-    addSelectedQuote: (chapter:number,  startline:number, startchar:number, endline:number, endchar:number, categororyTags:any, tags:string[]) =>
-      dispatch(actions.addSelectedQuote(chapter, startline, startchar, endline, endchar, categororyTags, tags)),
-    removeSelectedQuote: (chapter:number, startline:number, startchar:number) =>
-      dispatch(actions.removeSelectedQuote(chapter, startline, startchar)),
+    addSelectedQuote: (quoteId: string, chapter:number,  startline:number, startchar:number, endline:number, endchar:number, linePos:any[], categoryTags:any, tags:string[]) =>
+      dispatch(actions.addSelectedQuote(quoteId, chapter, startline, startchar, endline, endchar, linePos, categoryTags, tags)),
+    removeSelectedQuote: (quoteId: string) =>
+      dispatch(actions.removeSelectedQuote(quoteId)),
   };
 };
 

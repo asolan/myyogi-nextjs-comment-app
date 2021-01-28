@@ -14,8 +14,9 @@ import {
   IonCardContent,
   IonText,
 } from "@ionic/react";
-import {getParaLineQuoteFromPos, getParagraphQuote, getLinesInParagraph} from '../../../shared/helper';
+import {getParaLineQuoteFromPos, getParagraphQuote, getLinesInParagraph} from '../../../utility/quoteUtility';
 import constants from "../../../store/constants";
+import { uuidv4 } from "../../../utility/jsutility";
 import { act } from "react-dom/test-utils";
 
 const initialQuote = {
@@ -24,8 +25,9 @@ const initialQuote = {
   startchar: 0,
   endline: 0,
   endchar: 0,
-  categororyTags: {},
+  categoryTags: {},
   tags: [],
+  linePos: [],
   paragraphLines: [],
   paragraphLine: '',
   paragraphLineQuote: [],
@@ -60,6 +62,7 @@ const AyogiQuote = (props) => {
         const endCharNum = para.reduce((n,l) => n + l.text.length,0);
 //        console.log(endCharNum);
         quote = {...initialQuote, 
+          quoteId: uuidv4(),
           chapter: para[0].chapterNumber,
           startline: para[0].lineNumber,
           endline: para[endLineNum].lineNumber,
@@ -125,7 +128,7 @@ const AyogiQuote = (props) => {
         if (!newTags.includes) {
           newTags.push(action.tag.name);
         }
-        newCategoryTags = { ...state.categororyTags };
+        newCategoryTags = { ...state.categoryTags };
         //            console.log(newCategoryTags);
         newCategoryTags[action.tag.category] =
           newCategoryTags[action.tag.category] || [];
@@ -134,11 +137,11 @@ const AyogiQuote = (props) => {
         }
         // console.log(newTags);
         // console.log(newCategoryTags);
-        return { ...state, tags: newTags, categororyTags: newCategoryTags };
+        return { ...state, tags: newTags, categoryTags: newCategoryTags };
       case "REMOVE_TAG":
         //            console.log('REMOVE_TAG',action);
         newTags = [...state.tags].filter((t) => t !== action.tag.name);
-        newCategoryTags = { ...state.categororyTags };
+        newCategoryTags = { ...state.categoryTags };
 //        debugger;
         // console.log(newCategoryTags);
         if (newCategoryTags.hasOwnProperty(action.tag.category)) {
@@ -147,7 +150,7 @@ const AyogiQuote = (props) => {
           );
         }
                     console.log(newCategoryTags);
-        return { ...state, tags: newTags, categororyTags: newCategoryTags };
+        return { ...state, tags: newTags, categoryTags: newCategoryTags };
       default:
         throw new Error();
     }
@@ -183,7 +186,7 @@ const AyogiQuote = (props) => {
           </IonText>)}
           <AyogiQuoteChips
             categories={categories}
-            categororyTags={quoteState.categororyTags}
+            categoryTags={quoteState.categoryTags}
           />
 
           {quoteState.edit === constants.QUOTE_EDIT.NONE && (<IonItem>
@@ -220,7 +223,7 @@ const AyogiQuote = (props) => {
                 constants.MY_QUOTE_SELECTION_TYPE.METADATA)) && (
               <AyogiQuoteMetadata
                 categories={categories}
-                categororyTags={quoteState.categororyTags}
+                categoryTags={quoteState.categoryTags}
                 addTag={addTag}
                 removeTag={removeTag}
                 setQuoteEdit={setQuoteEdit}
@@ -234,12 +237,13 @@ const AyogiQuote = (props) => {
                   console.log("add-quote", quoteState.tags);
                   //            const selTags = getSelectedTags();
                   props.addSelectedQuote(
+                    quoteState.quoteId,
                     quoteState.chapter,
                     quoteState.startline,
                     quoteState.startchar,
                     quoteState.endline,
                     quoteState.endchar,
-                    quoteState.categororyTags,
+                    quoteState.categoryTags,
                     quoteState.tags
                   );
                   props.setIsSelected(true);
@@ -263,11 +267,7 @@ const AyogiQuote = (props) => {
                 slot="end"
                 color="light"
                 onClick={() => {
-                  props.removeSelectedQuote(
-                    props.item.chapterNumber,
-                    props.item.lineNumber,
-                    1
-                  );
+                  props.removeSelectedQuote(quoteState.quoteId);
                   props.setIsSelected(false);
                   props.setShowQuotePopup(false);
                 }}

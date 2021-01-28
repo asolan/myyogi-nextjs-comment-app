@@ -13,7 +13,7 @@ import {
   IonText,
   IonRange,
 } from "@ionic/react";
-import {getParaQuoteFromPos, getParaLineQuoteFromPos} from '../../../shared/helper';
+import {getParaQuoteFromPos, getParaLineQuoteFromPos} from '../../../utility/quoteUtility';
 import { book, bookOutline, list, listOutline, chatbubble } from "ionicons";
 import { get } from "https";
 import constants from "../../../store/constants";

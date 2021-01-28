@@ -7,12 +7,14 @@ let initialState = {
 };
 
 const newQuote = {
+  quoteId: '',
   chapter: 0,
   startline: 0,
   startchar: 0,
   endline: 0,
   endchar: 0,
-  categororyTags: {},
+  linePos: [],
+  categoryTags: {},
   tags: []
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
@@ -25,40 +27,45 @@ const autoyogiQuotes = window.localStorage["autoyogiQuotes"]
 const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 
 function selectedQuotes(state = fullInitiatState, action) {
-  let newState, selQuotes, quoteIndex;
+  let newState, selQuotes, quoteIndex, newQuoteId;
 
 //  const getQuoteIndex = (quotes: any[], chapter:number, startline:number, startchar:number) => {
-    const getQuoteIndex = (quotes: any[], chapter:number, startline:number) => {
-    return quotes.findIndex(q => 
-      q.chapter === chapter && 
-      q.startline === startline 
-//&&      q.startchar === startchar
-      );
-  };
-
+//   const getQuoteIndex = (quotes: any[], chapter:number, startline:number) => {
+//     return quotes.findIndex(q => 
+//       q.chapter === chapter && 
+//       q.startline === startline 
+// //&&      q.startchar === startchar
+//       );
+//   };
+const getQuoteIndex = (quotes: any[], quoteId: string) => {
+  return quotes.findIndex(q => q.quoteId === quoteId);
+};
+  
   switch (action.type) {
     case constants.ADD_SELECTED_QUOTE:
     console.log('Add Quote', 
-    action.chapter, action.startline, 
-    action.startchar);
-    selQuotes = [...state.get("selectedQuotes").toJS()];
-      quoteIndex = getQuoteIndex(
-        selQuotes, 
-        action.chapter, 
-        action.startline); 
-//        action.startchar);
+    action.chapter, 
+    action.startline, 
+    action.startchar,
+    action.quoteId);
 
+    selQuotes = [...state.get("selectedQuotes").toJS()];
+
+      quoteIndex = getQuoteIndex(selQuotes, newQuoteId); 
+      
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);
       }
 
       selQuotes.push({...newQuote, 
+        quoteId: action.quoteId,
         chapter: action.chapter, 
         startline: action.startline,
         startchar: action.startchar,
         endline: action.endline,
         endchar: action.endchar,
-        categororyTags: action.categororyTags,
+        linePos: action.linePos,
+        categoryTags: action.categoryTags,
         tags: action.tags});
 
       newState = state.set("selectedQuotes", fromJS(selQuotes));
@@ -66,14 +73,10 @@ function selectedQuotes(state = fullInitiatState, action) {
       return newState;
 
     case constants.REMOVE_SELECTED_QUOTE:
-      console.log('Remove Quote', action.chapter, action.startline);
+      console.log('Remove Quote', action.quoteId);
       selQuotes = [...state.get("selectedQuotes").toJS()];
 
-      quoteIndex = getQuoteIndex(
-        selQuotes, 
-        action.chapter, 
-        action.startline); 
-//        action.startchar);
+      quoteIndex = getQuoteIndex(selQuotes, action.quoteId); 
 
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);

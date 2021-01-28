@@ -7,7 +7,7 @@ import { parseParagraphData } from "../../../utility/parseUtility";
 import {
   IonLabel,
 } from "@ionic/react";
-import {getTextQuoteFromPos, getLineQuote} from '../../../shared/helper';
+import {getTextQuoteFromPos, getLineQuote} from '../../../utility/quoteUtility';
 
 const AyogiLine = (props) => {
   const [showQuotePopup, setShowQuotePopup] = useState(false);

@@ -127,8 +127,8 @@ const AyogiMyQuote = (props: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    removeSelectedQuote: (chapter:number, startline:number, startchar:number) =>
-      dispatch(actions.removeSelectedQuote(chapter, startline, startchar)),
+    removeSelectedQuote: (quoteId: string) =>
+      dispatch(actions.removeSelectedQuote(quoteId)),
   };
 };
 

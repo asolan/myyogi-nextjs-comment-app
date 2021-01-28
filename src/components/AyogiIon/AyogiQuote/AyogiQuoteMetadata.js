@@ -54,8 +54,8 @@ const AyogiQuoteMetadata = (props) => {
   }, [props.currentQuoteTags]);
 
   useEffect(() => {
-//    console.log("AyogiQuoteMetadata[categororyTags]");
-  }, [props.categororyTags]);
+//    console.log("AyogiQuoteMetadata[categoryTags]");
+  }, [props.categoryTags]);
 
   // useEffect(() => {
   //   console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
@@ -124,9 +124,9 @@ const AyogiQuoteMetadata = (props) => {
       categoryItems[c].length > 0 &&
         categoryItems[c].map((val, i) => {
               const isChecked =
-                props.categororyTags &&
-                props.categororyTags.hasOwnProperty(c) &&
-                props.categororyTags[c].includes(val);
+                props.categoryTags &&
+                props.categoryTags.hasOwnProperty(c) &&
+                props.categoryTags[c].includes(val);
                 newCategoriesItemValues[c][val] = isChecked;
         });
     });
@@ -139,9 +139,9 @@ const AyogiQuoteMetadata = (props) => {
 //     categoryItems[c].length > 0 &&
 //       categoryItems[c].map((val, i) => {
 //         newIsChecked[c] =
-//           props.categororyTags &&
-//           props.categororyTags.hasOwnProperty(c) &&
-//           props.categororyTags[c].includes(val);
+//           props.categoryTags &&
+//           props.categoryTags.hasOwnProperty(c) &&
+//           props.categoryTags[c].includes(val);
 //         setIsChecked({...isChecked, isChecked[c]: isThisChecked})
 // });
 //console.log(categoryItemsValues);

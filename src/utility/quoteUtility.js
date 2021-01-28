@@ -32,30 +32,52 @@ console.log(paraLineQuote);
     return paraLineQuote;
 };
 
-export const getParaQuoteFromFullPos = (para, quote) => {
+export const getParaQuoteForLine = (item, para, quote) => {
     //debugger;
-    const ll = para.length-1;
-    const tt = para && para.reduce((t,l) => { t+= l.text; return t; },'');
-
     if(!quote || 
         !quote.chapter ||
-        para[0].chapterNumber !== quote.chapter ||
-        para[0].lineNumber < quote.startline ||
-        para[ll].lineNumber > quote.endline){
+        item.chapterNumber !== quote.chapter ||
+        item.lineNumber < quote.startline ||
+        item.lineNumber > quote.endline){
         return [{text: '', className: ''},
-                {text: tt, className: ''},
+                {text: item.text, className: ''},
                 {text: '', className: ''}];
     }
 
+    let startchar = item.lineNumber > quote.startline ? 1 : quote.startchar;
+    let endchar = item.lineNumber < quote.startline ? item.text.length : quote.endchar;
+
     let textQuote = [];
-    textQuote.push({text: tt.slice(0, quote.startchar), className: ''});
-    textQuote.push({text: tt.slice(quote.startchar, quote.endchar), className: 'quoteclass'});
-    textQuote.push({text: tt.slice(quote.endchar, tt.length), className: ''});
-    
+    textQuote.push({text: item.text.slice(0, startchar), className: ''});
+    textQuote.push({text: item.text.slice(startchar, endchar), className: 'quoteclass'});
+    textQuote.push({text: item.text.slice(endchar, item.text.length), className: ''});
+
     return textQuote;
 };
-    
 
+// export const getParaQuoteFromFullPos = (para, quote) => {
+//     //debugger;
+//     const ll = para.length-1;
+//     const tt = para && para.reduce((t,l) => { t+= l.text; return t; },'');
+
+//     if(!quote || 
+//         !quote.chapter ||
+//         para[0].chapterNumber !== quote.chapter ||
+//         para[0].lineNumber < quote.startline ||
+//         para[ll].lineNumber > quote.endline){
+//         return [{text: '', className: ''},
+//                 {text: tt, className: ''},
+//                 {text: '', className: ''}];
+//     }
+
+//     let textQuote = [];
+//     textQuote.push({text: tt.slice(0, quote.startchar), className: ''});
+//     textQuote.push({text: tt.slice(quote.startchar, quote.endchar), className: 'quoteclass'});
+//     textQuote.push({text: tt.slice(quote.endchar, tt.length), className: ''});
+    
+//     return textQuote;
+// };
+    
 export const getLinesInParagraph = (item, chapterItems) => {
     return chapterItems && chapterItems.filter(q => {
         return q.chapterNumber === item.chapterNumber &&
