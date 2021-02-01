@@ -3,21 +3,20 @@ export const getTextQuoteFromPos = (item, quote) => {
 
     if(!quote || 
         !quote.chapter ||
-        item.chapterNumber !== quote.chapter ||
-        item.lineNumber < quote.startline ||
-        item.lineNumber > quote.endline){
+        item.chapterNumber !== quote.chapter){
         return [{text: '', className: ''},
                 {text: item.text, className: ''},
                 {text: '', className: ''}];
     }
 
-    let startchar = item.lineNumber > quote.startline ? 1 : quote.startchar;
-    let endchar = item.lineNumber < quote.startline ? item.text.length : quote.endchar;
-
+    let l = item.text.length;
+    let pos = quote.linePos.length < item.paragraphLineNumber  ? 
+    {start:l, end: l} :
+    {...quote.linePos[item.paragraphLineNumber]};
     let textQuote = [];
-    textQuote.push({text: item.text.slice(0, startchar), className: ''});
-    textQuote.push({text: item.text.slice(startchar, endchar), className: 'quoteclass'});
-    textQuote.push({text: item.text.slice(endchar, item.text.length), className: ''});
+    textQuote.push({text: item.text.slice(0, pos.start), className: ''});
+    textQuote.push({text: item.text.slice(pos.start, pos.end), className: 'quoteclass'});
+    textQuote.push({text: item.text.slice(pos.end, l), className: ''});
 
     return textQuote;
 };
@@ -88,8 +87,8 @@ export const getLinesInParagraph = (item, chapterItems) => {
 export const getLineQuote = (item, selectedQuotes) => {
     return selectedQuotes && selectedQuotes.find(q => {
         return q.chapter === item.chapterNumber &&
-            q.startline >= item.lineNumber &&
-            q.endline <= item.lineNumber}
+            (q.startline <= item.lineNumber &&
+            q.endline >= item.lineNumber)}
     ); 
 };
 
@@ -101,6 +100,26 @@ export const getParagraphQuote = (para, selectedQuotes) => {
             q.startline >= para[0].lineNumber &&
             q.endline <= para[ll].lineNumber}
     ); 
+};
+
+export const getQuotelinePos = (quote) => {
+    let cp = 0;
+    let quotePos = quote.paragraphLines.map((q) => {
+      let l = q.text.length;
+      let ep = cp + l;
+      let h = {start:l, end: l};
+//      console.log("q cp l ep", q.text, cp, l, ep);
+      if (ep >= quote.startchar && cp <= quote.endchar) {
+        const s = quote.startchar > cp ? quote.startchar - cp : 0;
+        const e = quote.endchar < ep ? quote.endchar - cp : l;
+//        console.log("s e", s, e);
+        h = {start:s, end: e};
+      }
+      cp = ep;
+      return h;
+    });
+    console.log(quotePos);
+    return quotePos;
 };
 
 // export const getParaQuoteFromPos = (para, quote) => {

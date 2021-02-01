@@ -108,6 +108,13 @@ const AyogiPage = (props: any) => {
     }, [props.match.params.id]);
 //  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
+useEffect(() => {
+      console.log(`AyogiPage[props.selectedQuotes]`, props.selectedQuotes, chNum);
+      if(chNum > 0){
+        buildChapterText(chNum);
+      }
+}, [props.selectedQuotes]);
+  
   const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
       props.onChangeChapterLine(el.scrollTop);

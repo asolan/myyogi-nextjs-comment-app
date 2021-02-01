@@ -11,6 +11,7 @@ import {
 } from "@ionic/react";
 import { chevronForwardOutline, chevronBackOutline } from "ionicons/icons";
 import './AyogiChapter.css';
+import constants from '../../../store/constants';
 //import parseBookData from '../../../utility/parseBookData';
 //import {useTraceUpdate} from '../../../utility/helpUtility';
 
@@ -42,8 +43,8 @@ const AyogiChapter = (props) => {
         );
     }
 
-    const prevChapt = props.currentChapterNumber > 1 ? chapButton(props.currentChapterNumber - 1, false) : null;
-    const nextChapt = props.currentChapterNumber < 48 ? chapButton(props.currentChapterNumber + 1, true) : null;
+    const prevChapt = props.currentChapterNumber > constants.MIN_CHAPTER ? chapButton(props.currentChapterNumber - 1, false) : null;
+    const nextChapt = props.currentChapterNumber < constants.MAX_CHAPTER ? chapButton(props.currentChapterNumber + 1, true) : null;
 
     return (
         <div className="AyogiChapter">

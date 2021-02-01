@@ -44,10 +44,11 @@ p.smallSpace {
     display: block;
     float: left;
     position: relative;
-    top: .2em;
+    /* top: .12em; */
+    top:calc(0.1rem + (var(--yogi-font-size) * 0.1));
     height: 0.7em;
-    padding-right: 0.07em;
-    padding-bottom: 0.6em;
+    /* margin-right: 0.07em;
+    margin-bottom: 0.6em; */
 }
 
 .FirstWords,

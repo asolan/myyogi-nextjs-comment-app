@@ -14,7 +14,10 @@ import {
   IonCardContent,
   IonText,
 } from "@ionic/react";
-import {getParaLineQuoteFromPos, getParagraphQuote, getLinesInParagraph} from '../../../utility/quoteUtility';
+import {getParaLineQuoteFromPos, 
+  getParagraphQuote, 
+  getLinesInParagraph, 
+  getQuotelinePos} from '../../../utility/quoteUtility';
 import constants from "../../../store/constants";
 import { uuidv4 } from "../../../utility/jsutility";
 import { act } from "react-dom/test-utils";
@@ -191,6 +194,7 @@ const AyogiQuote = (props) => {
 
           {quoteState.edit === constants.QUOTE_EDIT.NONE && (<IonItem>
             <IonButton
+              slot="start"
               color="primary"
               fill={"solid"}
               onClick={() => {
@@ -200,6 +204,7 @@ const AyogiQuote = (props) => {
               Change Text
             </IonButton>
             <IonButton
+              slot="end"
               color="primary"
               fill={"solid"}
               onClick={() => {
@@ -230,11 +235,13 @@ const AyogiQuote = (props) => {
                 {...props}
               />
             )}
-            <IonItem>
+            {quoteState.edit === constants.QUOTE_EDIT.NONE 
+            && (<IonItem>
               <IonButton
                 slot="start"
                 onClick={() => {
                   console.log("add-quote", quoteState.tags);
+                  const newLinePos = getQuotelinePos(quoteState);
                   //            const selTags = getSelectedTags();
                   props.addSelectedQuote(
                     quoteState.quoteId,
@@ -243,6 +250,7 @@ const AyogiQuote = (props) => {
                     quoteState.startchar,
                     quoteState.endline,
                     quoteState.endchar,
+                    newLinePos,
                     quoteState.categoryTags,
                     quoteState.tags
                   );
@@ -264,6 +272,7 @@ const AyogiQuote = (props) => {
                 TODO-Cancel
               </IonButton>
               <IonButton
+                className="ion-padding-start"
                 slot="end"
                 color="light"
                 onClick={() => {
@@ -274,7 +283,7 @@ const AyogiQuote = (props) => {
               >
                 Remove Quote
               </IonButton>
-            </IonItem>
+            </IonItem>)}
           </IonCardContent>
         </IonCard>
       </IonModal>

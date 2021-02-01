@@ -27,7 +27,7 @@ const autoyogiQuotes = window.localStorage["autoyogiQuotes"]
 const fullInitiatState = fromJS({ ...initialState, ...autoyogiQuotes });
 
 function selectedQuotes(state = fullInitiatState, action) {
-  let newState, selQuotes, quoteIndex, newQuoteId;
+  let newState, selQuotes, quoteIndex;
 
 //  const getQuoteIndex = (quotes: any[], chapter:number, startline:number, startchar:number) => {
 //   const getQuoteIndex = (quotes: any[], chapter:number, startline:number) => {
@@ -44,6 +44,7 @@ const getQuoteIndex = (quotes: any[], quoteId: string) => {
   switch (action.type) {
     case constants.ADD_SELECTED_QUOTE:
     console.log('Add Quote', 
+    action,
     action.chapter, 
     action.startline, 
     action.startchar,
@@ -51,7 +52,7 @@ const getQuoteIndex = (quotes: any[], quoteId: string) => {
 
     selQuotes = [...state.get("selectedQuotes").toJS()];
 
-      quoteIndex = getQuoteIndex(selQuotes, newQuoteId); 
+      quoteIndex = getQuoteIndex(selQuotes, action.quoteId ); 
       
       if(quoteIndex !== -1){
         selQuotes.splice(quoteIndex, 1);
