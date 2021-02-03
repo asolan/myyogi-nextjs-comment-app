@@ -56,6 +56,7 @@ import aydata from "./aydata.json";
 import aychaptlist from "./aychaptlist.json";
 import aychapttitle from "./aychapttitle.json";
 import aychaptpos from "./aychaptpos.json";
+import aycategories from "./aycategories.json";
 
 import selectors from "./store/selectors";
 //import selectors from "./store/selectors/index.js";
@@ -115,6 +116,7 @@ const App: React.SFC = (props) => {
                   chPos={aychaptpos}
                   aychapttitle={aychapttitle}
                   aydata={aydata}
+                  aycategories={aycategories}
                   {...props}
                 />
               )}
@@ -136,6 +138,7 @@ const App: React.SFC = (props) => {
               render={(props) => (
                 <AyogiMyQuote 
                 aydata={aydata}
+                aycategories={aycategories}
                 {...props} />
               )}
             />            

@@ -48,7 +48,7 @@ const AyogiQuoteMetadata = (props) => {
 
   useEffect(() => {
 //    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-//  categoryItems.mytags = props.currentQuoteTags;
+//  props.categoryItems.mytags = props.currentQuoteTags;
   
     buildCategoriesValues();
   }, [props.currentQuoteTags]);
@@ -59,57 +59,13 @@ const AyogiQuoteMetadata = (props) => {
 
   // useEffect(() => {
   //   console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-  //   categoryItems.mytags = props.currentQuoteTags;
+  //   props.categoryItems.mytags = props.currentQuoteTags;
   // }, [props.currentQuoteTags]);
 
   const showSetting = (settingToShow, value) => {
     let newCategoryShow = { ...initialCategories };
     newCategoryShow[settingToShow] = value;
     setCategoryShow(newCategoryShow);
-  };
-
-  const categoryItems = {
-    saintsPersonages: [
-      "Yogananda",
-      "Jesus Christ",
-      "Lahiri Mahasaya",
-      "Sri Yukteswar",
-      "Babaji",
-      "Krishna",
-      "Buddha",
-      "Ananamoya Ma",
-      "Swami Pranabananda",
-      "Ram Gopal Muzumdar",
-      "Gandhi",
-      "Bhagabati",
-      "Therese Neumann",
-      "Giri Bala",
-    ],
-    godheads: [
-      "Brahma",
-      "Vishnu",
-      "Shiva",
-      "Durga",
-      "Kali",
-      "Babaji",
-      "Ram",
-      "Sita",
-    ],
-    scriptures: [
-      "Bible",
-      "Bhagavad Gita",
-      "Mahabharata",
-      "Yoga Sutras",
-      "Koran",
-    ],
-    religions: [
-      "Christianity",
-      "Buddhism",
-      "Sikhism",
-      "Hinduism",
-      "Muslism",
-      "Janoism",
-    ],
   };
 
   const setMyTags = (
@@ -119,10 +75,10 @@ const AyogiQuoteMetadata = (props) => {
   );
 
   const buildCategoriesValues = () => {
-    let newCategoriesItemValues = {...categoryItems};
+    let newCategoriesItemValues = {...props.categoryItems};
     props.categories.map((c, i) => {
-      categoryItems[c].length > 0 &&
-        categoryItems[c].map((val, i) => {
+      props.categoryItems[c].length > 0 &&
+        props.categoryItems[c].map((val, i) => {
               const isChecked =
                 props.categoryTags &&
                 props.categoryTags.hasOwnProperty(c) &&
@@ -136,8 +92,8 @@ const AyogiQuoteMetadata = (props) => {
 
 //   props.categories.map((c, i) => {
 //     let newIsChecked = {};
-//     categoryItems[c].length > 0 &&
-//       categoryItems[c].map((val, i) => {
+//     props.categoryItems[c].length > 0 &&
+//       props.categoryItems[c].map((val, i) => {
 //         newIsChecked[c] =
 //           props.categoryTags &&
 //           props.categoryTags.hasOwnProperty(c) &&
@@ -171,8 +127,8 @@ const AyogiQuoteMetadata = (props) => {
               isOpen={categoryShow[c]}
               onDidDismiss={() => showSetting(c, false)}
             >
-              {categoryItems[c].length > 0 &&
-                categoryItems[c].map((val, i) => {
+              {props.categoryItems[c].length > 0 &&
+                props.categoryItems[c].map((val, i) => {
                   return(<IonItem key={`MetadatacategoryItems${i}`}>
                   <IonLabel>{val}</IonLabel>
                   <IonCheckbox

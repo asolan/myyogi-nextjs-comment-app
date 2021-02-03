@@ -37,7 +37,7 @@ const AyogiQuoteChips = (props) => {
                   // outline={true}
                   key={`tagchip-${t}`}
                   className="ion-padding"
-                  color={categoryChips[c].color}
+                  color={props.categoryChips[c]}
                 >
                   {/* <IonIcon icon={categoryChips[c].icon}></IonIcon> */}
                   {t}
@@ -52,14 +52,6 @@ const AyogiQuoteChips = (props) => {
 
     setTagsChips(chips);
   }, [props.categoryTags]);
-
-  const categoryChips = {
-    mytags: {color: "primary", icon: "colorFilterOutline"},
-    saintsPersonages: {color: "secondary", icon: "personOutline"},
-    godheads: {color: "tertiary", icon: "infiniteOutline"},
-    scriptures: {color: "success", icon: "bookOutline"},
-    religions: {color: "medium", icon: "earthOutline"},
-  };
 
   let returnVal = (
     <React.Fragment>

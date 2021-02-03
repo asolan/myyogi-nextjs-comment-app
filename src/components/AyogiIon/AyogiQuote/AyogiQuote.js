@@ -39,17 +39,31 @@ const initialQuote = {
 
 const AyogiQuote = (props) => {
   const [quoteState, dispatch] = useReducer(quoteReducer, initialQuote);
-  //    const categories = ["mytags","saintsPersonages", "godheads","scriptures","religions"];
-  const categories = [
-//    "mytags",
-    "saintsPersonages",
-    "godheads",
-    "scriptures",
-    "religions",
-  ];
+  const [categories, setCategories] = useState([]);
+  const [categoryItems, setCategoryItems] = useState([]);
+  const [categoryChips, setCategoryChips] = useState([]);
+  
+
 
   useEffect(() => {
-  }, []);
+    const newCategories = props.aycategories.map(c => c.category);
+//    console.log(newCategories);
+    setCategories(newCategories);
+
+    const newCategoryItems = props.aycategories.reduce(function(map, obj) {
+      map[obj.category] = obj.items;
+      return map;
+    }, {});
+    console.log(newCategoryItems);
+    setCategoryItems(newCategoryItems);
+
+    const newCategoryChips = props.aycategories.reduce(function(map, obj) {
+      map[obj.category] = obj.color;
+      return map;
+    }, {});
+    console.log(newCategoryChips);
+    setCategoryChips(newCategoryChips);
+}, []);
 
   useEffect(() => {
     setQuoteState();
@@ -189,6 +203,7 @@ const AyogiQuote = (props) => {
           </IonText>)}
           <AyogiQuoteChips
             categories={categories}
+            categoryChips={categoryChips}
             categoryTags={quoteState.categoryTags}
           />
 
@@ -228,6 +243,7 @@ const AyogiQuote = (props) => {
                 constants.MY_QUOTE_SELECTION_TYPE.METADATA)) && (
               <AyogiQuoteMetadata
                 categories={categories}
+                categoryItems={categoryItems}
                 categoryTags={quoteState.categoryTags}
                 addTag={addTag}
                 removeTag={removeTag}
