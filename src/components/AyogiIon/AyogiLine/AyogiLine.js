@@ -20,6 +20,10 @@ const AyogiLine = (props) => {
   // <div className={classes.AyogiChapter}>
   
   useEffect(() => {
+if(props.c.lineNumber === 4){
+//    debugger; 
+  console.log("ayogiline[selectedQuotes]", props.c, props.selectedQuotes);
+}
     const quote = getLineQuote(props.c, props.selectedQuotes);
     const newTextQuote = getTextQuoteFromPos(props.c, quote);
     setTextQuote(newTextQuote);

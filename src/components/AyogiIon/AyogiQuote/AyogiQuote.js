@@ -40,34 +40,49 @@ const initialQuote = {
 const AyogiQuote = (props) => {
   const [quoteState, dispatch] = useReducer(quoteReducer, initialQuote);
   const [categories, setCategories] = useState([]);
-  const [categoryItems, setCategoryItems] = useState([]);
+  const [categoryTags, setCategoryTags] = useState([]);
   const [categoryChips, setCategoryChips] = useState([]);
   
-
+  useEffect(() => {
+    setupCategories();
+  }, []);
 
   useEffect(() => {
-    const newCategories = props.aycategories.map(c => c.category);
-//    console.log(newCategories);
-    setCategories(newCategories);
+    setupCategories();
+  }, [props.currentQuoteTags]);
 
-    const newCategoryItems = props.aycategories.reduce(function(map, obj) {
-      map[obj.category] = obj.items;
+    useEffect(() => {
+      setQuoteState();
+  }, [props.items]);
+
+  const setupCategories = () => {
+    let newCategories = props.aycategories.map(c => c.category);
+
+    let newCategoryTags = props.aycategories.reduce(function(map, obj) {
+      map[obj.category] = obj.tags;
       return map;
     }, {});
-    console.log(newCategoryItems);
-    setCategoryItems(newCategoryItems);
 
-    const newCategoryChips = props.aycategories.reduce(function(map, obj) {
+    let newCategoryChips = props.aycategories.reduce(function(map, obj) {
       map[obj.category] = obj.color;
       return map;
     }, {});
-    console.log(newCategoryChips);
-    setCategoryChips(newCategoryChips);
-}, []);
 
-  useEffect(() => {
-    setQuoteState();
-}, [props.items]);
+    //AMSTODO: Uopdate with categories of tags
+    if(props.currentQuoteTags.length > 0){
+      newCategories.push("My Tags");
+      newCategoryTags["My Tags"] = props.currentQuoteTags;
+      newCategoryChips["My Tags"] = "warning";
+    };
+
+    //    console.log(newCategories);
+    console.log(newCategoryTags);
+    console.log(newCategoryChips);
+    setCategories(newCategories);
+    setCategoryTags(newCategoryTags);
+    setCategoryChips(newCategoryChips);
+
+  };
 
   const setQuoteState = () => {
     let para = getLinesInParagraph(props.c, props.items);
@@ -77,7 +92,7 @@ const AyogiQuote = (props) => {
       if(!quote || !quote.chapter){
         const endLineNum = para.length -1;
         const endCharNum = para.reduce((n,l) => n + l.text.length,0);
-//        console.log(endCharNum);
+  //        console.log(endCharNum);
         quote = {...initialQuote, 
           quoteId: uuidv4(),
           chapter: para[0].chapterNumber,
@@ -243,7 +258,7 @@ const AyogiQuote = (props) => {
                 constants.MY_QUOTE_SELECTION_TYPE.METADATA)) && (
               <AyogiQuoteMetadata
                 categories={categories}
-                categoryItems={categoryItems}
+                categoryTags={categoryTags}
                 categoryTags={quoteState.categoryTags}
                 addTag={addTag}
                 removeTag={removeTag}

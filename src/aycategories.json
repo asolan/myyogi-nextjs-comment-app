@@ -1,6 +1,6 @@
 [{"category": "saints",
     "color": "primary",
-    "items": [
+    "tags": [
     "Yogananda",
     "Jesus Christ",
     "Lahiri Mahasaya",
@@ -18,7 +18,7 @@
   ]}
   ,{"category": "people",
     "color": "secondary",
-    "items": [
+    "tags": [
     "Bhagabati",
     "Mother",
     "Ananta",
@@ -28,7 +28,7 @@
   ]},
   {"category": "godheads",
     "color": "tertiary",
-    "items": [
+    "tags": [
     "Brahma",
     "Vishnu",
     "Shiva",
@@ -40,7 +40,7 @@
   ]},
   {"category": "scriptures",
     "color":"success",
-    "items": [
+    "tags": [
     "Bible",
     "Bhagavad Gita",
     "Mahabharata",
@@ -49,7 +49,7 @@
   ]},
   {"category": "religions",
     "color":"medium",
-    "items": [
+    "tags": [
     "Christianity",
     "Buddhism",
     "Sikhism",

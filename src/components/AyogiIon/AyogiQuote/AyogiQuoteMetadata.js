@@ -29,17 +29,10 @@ import {
 import constants from "../../../store/constants";
 
 const AyogiQuoteMetadata = (props) => {
-  const initialCategories = {
-    mytags: false,
-    saintsPersonages: false,
-    godheads: false,
-    scriptures: false,
-    religions: false,
-  };
 
   // const [isAdding, setIsAdding] = useState(false);
-  const [categoryShow, setCategoryShow] = useState({ ...initialCategories });
-  const [categoryItemsValues, setCategoryItemsValues] = useState({});
+  const [categoryShow, setCategoryShow] = useState({});
+  const [categoryTagsValues, setCategoryTagsValues] = useState({});
 
   useEffect(() => {
 //  console.log('AyogiQuoteMetadata[]');
@@ -48,7 +41,7 @@ const AyogiQuoteMetadata = (props) => {
 
   useEffect(() => {
 //    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-//  props.categoryItems.mytags = props.currentQuoteTags;
+//  props.categoryTags.mytags = props.currentQuoteTags;
   
     buildCategoriesValues();
   }, [props.currentQuoteTags]);
@@ -59,11 +52,11 @@ const AyogiQuoteMetadata = (props) => {
 
   // useEffect(() => {
   //   console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-  //   props.categoryItems.mytags = props.currentQuoteTags;
+  //   props.categoryTags.mytags = props.currentQuoteTags;
   // }, [props.currentQuoteTags]);
 
   const showSetting = (settingToShow, value) => {
-    let newCategoryShow = { ...initialCategories };
+    let newCategoryShow = { ...props.categories };
     newCategoryShow[settingToShow] = value;
     setCategoryShow(newCategoryShow);
   };
@@ -75,35 +68,43 @@ const AyogiQuoteMetadata = (props) => {
   );
 
   const buildCategoriesValues = () => {
-    let newCategoriesItemValues = {...props.categoryItems};
+
+    let newCategories = props.categories.reduce(function(map, obj) {
+      map[obj] = false;
+      return map;
+    }, {});
+    console.log(newCategories);
+    setCategoryShow(newCategories);
+
+    let newCategoriesTagValues = {...props.categoryTags};
     props.categories.map((c, i) => {
-      props.categoryItems[c].length > 0 &&
-        props.categoryItems[c].map((val, i) => {
+      props.categoryTags[c].length > 0 &&
+        props.categoryTags[c].map((val, i) => {
               const isChecked =
                 props.categoryTags &&
                 props.categoryTags.hasOwnProperty(c) &&
                 props.categoryTags[c].includes(val);
-                newCategoriesItemValues[c][val] = isChecked;
+                newCategoriesTagValues[c][val] = isChecked;
         });
     });
-    console.log('setCategoryItemsValues', newCategoriesItemValues);
-    setCategoryItemsValues(newCategoriesItemValues);
+    console.log('setCategoryTagsValues', newCategoriesTagValues);
+    setCategoryTagsValues(newCategoriesTagValues);
   };
 
 //   props.categories.map((c, i) => {
 //     let newIsChecked = {};
-//     props.categoryItems[c].length > 0 &&
-//       props.categoryItems[c].map((val, i) => {
+//     props.categoryTags[c].length > 0 &&
+//       props.categoryTags[c].map((val, i) => {
 //         newIsChecked[c] =
 //           props.categoryTags &&
 //           props.categoryTags.hasOwnProperty(c) &&
 //           props.categoryTags[c].includes(val);
 //         setIsChecked({...isChecked, isChecked[c]: isThisChecked})
 // });
-//console.log(categoryItemsValues);
+//console.log(categoryTagsValues);
   let categoriesMarkup =
     // isAdding &&
-    Object.keys(categoryItemsValues).length >  0 && 
+    Object.keys(categoryTagsValues).length >  0 && 
     props.categories.map((c, i) => {
       if (c === "mytags" && props.currentQuoteTags.length === 0) {
         return setMyTags;
@@ -127,18 +128,18 @@ const AyogiQuoteMetadata = (props) => {
               isOpen={categoryShow[c]}
               onDidDismiss={() => showSetting(c, false)}
             >
-              {props.categoryItems[c].length > 0 &&
-                props.categoryItems[c].map((val, i) => {
-                  return(<IonItem key={`MetadatacategoryItems${i}`}>
+              {props.categoryTags[c].length > 0 &&
+                props.categoryTags[c].map((val, i) => {
+                  return(<IonItem key={`MetadatacategoryTags${i}`}>
                   <IonLabel>{val}</IonLabel>
                   <IonCheckbox
                     slot="end"
                     value={val}
-                    checked={categoryItemsValues && categoryItemsValues[c] && categoryItemsValues[c][val]}
+                    checked={categoryTagsValues && categoryTagsValues[c] && categoryTagsValues[c][val]}
                     onIonChange={(e) => {
 //                      e.stopPropagation();
                       console.log("onIonChange", e.detail);
-                      categoryItemsValues[c][val] = e.detail.checked;
+                      categoryTagsValues[c][val] = e.detail.checked;
                       if (e.detail.checked) {
                         props.addTag({
                           name: e.detail.value,
