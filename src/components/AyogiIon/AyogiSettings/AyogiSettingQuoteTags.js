@@ -108,16 +108,20 @@ const AyogiSettingQuoteTags = (props) => {
   };
 
   let addCategoryMarkup;
+  const isEditing = addingCategory || editingCategory || addingTag || editingTag;
+
   if(addingCategory || editingCategory){
-    addCategoryMarkup = (<IonItem>
+    addCategoryMarkup = (<React.Fragment><IonItem>
       <IonLabel>Enter new category:</IonLabel>
       <IonInput 
         value={newCategory} 
         placeholder="Enter New Category" 
         onIonChange={e => {setNewCategory(e.detail.value);}}>
       </IonInput>
+      </IonItem>
+      <IonItem>
       <IonButton color="primary" fill="outline" onClick={() => {updateCategoryList(newCategory);}}>Save Category</IonButton>
-      </IonItem>)
+      </IonItem></React.Fragment>)
   } else if (addingTag || editingTag){
     addCategoryMarkup = (<IonItem><IonLabel>Category:</IonLabel> { <h4>{currentCategory}</h4>}</IonItem>);
   } else {
@@ -148,7 +152,9 @@ const AyogiSettingQuoteTags = (props) => {
       </React.Fragment>);
   };
 
-  const addTagMarkup = addingTag ? (<React.Fragment>
+  let addTagMarkup;
+  if(addingTag) { 
+    addTagMarkup = (<IonItem>
     {/* <IonSelect value={newCategory} okText="Okay" cancelText="Dismiss"  onIonChange={e => {setCategoryAndTags(e.detail.value);}}>
       {categories && categories.map(c => {
         return (<IonSelectOption value={c}>{c}</IonSelectOption>);
@@ -156,8 +162,28 @@ const AyogiSettingQuoteTags = (props) => {
     </IonSelect> */}
     <IonInput value={newTag} placeholder="Enter New Tag" onIonChange={e => {setNewTag(e.detail.value);}}></IonInput>
     <IonButton color="primary" fill="outline" onClick={() => {updateTagList(newCategory, newTag);}}>Add to list</IonButton>
-    </React.Fragment>) :
-    (             <IonButton color="primary" fill="outline" disabled={editingTag} onClick={() => {setAddingTag(true);}}>Add Tag</IonButton>);
+    </IonItem>);
+  } else if(!addingCategory && !editingCategory) {
+    addTagMarkup = (<IonItem>
+      <IonButton color="primary" fill="outline" disabled={editingTag} onClick={() => {setAddingTag(true);}}>Add Tag</IonButton>
+    </IonItem>);
+  }
+
+
+  const tagMarkup = isEditing ? null : (
+  <React.Fragment>
+    <IonItem>
+      <IonLabel>Tags for {currentCategory}</IonLabel>
+    </IonItem>
+    <IonItem>
+      <IonList>
+        {tagList.length > 0 && tagList.map((t) => {
+          return <IonItem><IonLabel>{t}</IonLabel></IonItem>
+        })}
+      </IonList>
+    </IonItem>
+  </React.Fragment>
+);
 
   return (
     <IonList>
@@ -165,20 +191,9 @@ const AyogiSettingQuoteTags = (props) => {
         <h2 className="ion-margin-start">Quote Selection</h2>
       </IonItemDivider> */}
       {addCategoryMarkup}
-      <IonItem>
-        <IonLabel>Tags for {currentCategory}</IonLabel>
-        </IonItem>
-        <IonItem>
-        <IonList>
-          {tagList.length > 0 && tagList.map((t) => {
-            return <IonItem><IonLabel>{t}</IonLabel></IonItem>
-          })}
-        </IonList>
-      </IonItem>
-      <IonItem>
-        {addTagMarkup}
-      </IonItem>
-      {isChanged && <IonItem>
+      {tagMarkup}
+      {addTagMarkup}
+      {isChanged && !isEditing && <IonItem>
           <IonButton color="primary" 
           disabled={editingTag || addingTag} 
           onClick={() => {
