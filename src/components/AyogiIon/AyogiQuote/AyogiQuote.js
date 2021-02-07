@@ -28,7 +28,7 @@ const initialQuote = {
   startchar: 0,
   endline: 0,
   endchar: 0,
-  categoryTags: {},
+  selectedCategoryTags: {},
   tags: [],
   linePos: [],
   paragraphLines: [],
@@ -56,28 +56,22 @@ const AyogiQuote = (props) => {
   }, [props.items]);
 
   const setupCategories = () => {
-    let newCategories = props.aycategories.map(c => c.category);
+    const allCategories = [...props.aycategories].concat(props.currentQuoteTags);
+    let newCategories = allCategories.map(c => c.category);
 
-    let newCategoryTags = props.aycategories.reduce(function(map, obj) {
+    let newCategoryTags = allCategories.reduce(function(map, obj) {
       map[obj.category] = obj.tags;
       return map;
     }, {});
 
-    let newCategoryChips = props.aycategories.reduce(function(map, obj) {
+    let newCategoryChips = allCategories.reduce(function(map, obj) {
       map[obj.category] = obj.color;
       return map;
     }, {});
 
-    //AMSTODO: Uopdate with categories of tags
-    if(props.currentQuoteTags.length > 0){
-      newCategories.push("My Tags");
-      newCategoryTags["My Tags"] = props.currentQuoteTags;
-      newCategoryChips["My Tags"] = "warning";
-    };
-
-    //    console.log(newCategories);
-    console.log(newCategoryTags);
-    console.log(newCategoryChips);
+    // console.log(newCategories);
+    // console.log(newCategoryTags);
+    // console.log(newCategoryChips);
     setCategories(newCategories);
     setCategoryTags(newCategoryTags);
     setCategoryChips(newCategoryChips);
@@ -160,7 +154,7 @@ const AyogiQuote = (props) => {
         if (!newTags.includes) {
           newTags.push(action.tag.name);
         }
-        newCategoryTags = { ...state.categoryTags };
+        newCategoryTags = { ...state.selectedCategoryTags };
         //            console.log(newCategoryTags);
         newCategoryTags[action.tag.category] =
           newCategoryTags[action.tag.category] || [];
@@ -169,11 +163,11 @@ const AyogiQuote = (props) => {
         }
         // console.log(newTags);
         // console.log(newCategoryTags);
-        return { ...state, tags: newTags, categoryTags: newCategoryTags };
+        return { ...state, tags: newTags, selectedCategoryTags: newCategoryTags };
       case "REMOVE_TAG":
         //            console.log('REMOVE_TAG',action);
         newTags = [...state.tags].filter((t) => t !== action.tag.name);
-        newCategoryTags = { ...state.categoryTags };
+        newCategoryTags = { ...state.selectedCategoryTags };
 //        debugger;
         // console.log(newCategoryTags);
         if (newCategoryTags.hasOwnProperty(action.tag.category)) {
@@ -181,8 +175,8 @@ const AyogiQuote = (props) => {
             (t) => t !== action.tag.name
           );
         }
-                    console.log(newCategoryTags);
-        return { ...state, tags: newTags, categoryTags: newCategoryTags };
+//        console.log(newCategoryTags);
+        return { ...state, tags: newTags, selectedCategoryTags: newCategoryTags };
       default:
         throw new Error();
     }
@@ -219,7 +213,7 @@ const AyogiQuote = (props) => {
           <AyogiQuoteChips
             categories={categories}
             categoryChips={categoryChips}
-            categoryTags={quoteState.categoryTags}
+            selectedCategoryTags={quoteState.selectedCategoryTags}
           />
 
           {quoteState.edit === constants.QUOTE_EDIT.NONE && (<IonItem>
@@ -259,7 +253,7 @@ const AyogiQuote = (props) => {
               <AyogiQuoteMetadata
                 categories={categories}
                 categoryTags={categoryTags}
-                categoryTags={quoteState.categoryTags}
+                selectedCategoryTags={quoteState.selectedCategoryTags}
                 addTag={addTag}
                 removeTag={removeTag}
                 setQuoteEdit={setQuoteEdit}
@@ -274,6 +268,9 @@ const AyogiQuote = (props) => {
                   console.log("add-quote", quoteState.tags);
                   const newLinePos = getQuotelinePos(quoteState);
                   //            const selTags = getSelectedTags();
+                  // console.log(quoteState);
+                  // console.log(newLinePos);
+
                   props.addSelectedQuote(
                     quoteState.quoteId,
                     quoteState.chapter,
@@ -282,7 +279,7 @@ const AyogiQuote = (props) => {
                     quoteState.endline,
                     quoteState.endchar,
                     newLinePos,
-                    quoteState.categoryTags,
+                    quoteState.selectedCategoryTags,
                     quoteState.tags
                   );
                   props.setIsSelected(true);

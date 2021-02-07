@@ -1,6 +1,6 @@
 import constants from "../constants";
 
-export function addSelectedQuote(quoteId, chapter, startline, startchar, endline, endchar, linePos, categoryTags, tags) {
+export function addSelectedQuote(quoteId, chapter, startline, startchar, endline, endchar, linePos, selectedCategoryTags, tags) {
     return {
         type: constants.ADD_SELECTED_QUOTE,
         quoteId: quoteId,
@@ -10,7 +10,7 @@ export function addSelectedQuote(quoteId, chapter, startline, startchar, endline
         endline: endline,
         endchar: endchar,
         linePos: linePos,
-        categoryTags: categoryTags,
+        selectedCategoryTags: selectedCategoryTags,
         tags: tags
     }
 }

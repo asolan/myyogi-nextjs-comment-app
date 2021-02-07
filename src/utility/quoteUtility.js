@@ -1,4 +1,14 @@
 //AMSTODO:QUOTE:DEPRECATE
+export const catTagsToObject = (toCatTags) => {
+    const tagsObj = [];
+    Object.keys(toCatTags).forEach(c => {
+    // console.log(c);
+    // console.log(toCatTags[c]);
+        tagsObj.push({category:c, color: 'danger', tags:toCatTags[c]});
+    });
+    return tagsObj;
+};
+
 export const getTextQuoteFromPos = (item, quote) => {
 
     if(!quote || 

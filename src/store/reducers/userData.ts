@@ -10,7 +10,22 @@ let initialState = {
   fontSize: 1,
   fontJustification: true,
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
-  myQuoteTags: ['Inspiration','Favorite']
+  myQuoteTags: [{"category": "My Inspiration",
+  "color": "primary",
+  "tags": [
+  "Healing",
+  "Divine Feminine",
+  "Health",
+  "True Teaching"
+]}
+,{"category": "Proof of God",
+  "color": "secondary",
+  "tags": [
+  "Miracles",
+  "Resurrection",
+  "Divine Support",
+  "Divine Teaching"
+]}]
 };
 
 const autoyogiState = window.localStorage["autoyogiState"]

@@ -14,7 +14,7 @@ const newQuote = {
   endline: 0,
   endchar: 0,
   linePos: [],
-  categoryTags: {},
+  selectedCategoryTags: {},
   tags: []
 };
 // console.log(window.localStorage["autoyogiQuotes"] || initialState);
@@ -66,7 +66,7 @@ const getQuoteIndex = (quotes: any[], quoteId: string) => {
         endline: action.endline,
         endchar: action.endchar,
         linePos: action.linePos,
-        categoryTags: action.categoryTags,
+        selectedCategoryTags: action.selectedCategoryTags,
         tags: action.tags});
 
       newState = state.set("selectedQuotes", fromJS(selQuotes));

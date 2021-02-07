@@ -23,14 +23,14 @@ const AyogiQuoteChips = (props) => {
   const [tagsChips, setTagsChips] = useState(null);
 
   useEffect(() => {
-//    console.log("categoryTags", props.categoryTags);
+//    console.log("selectedCategoryTags", props.selectedCategoryTags);
 
     let chips = (
       <IonGrid>
         {props.categories.map((c) => {
-          if (props.categoryTags && props.categoryTags.hasOwnProperty(c)) {
+          if (props.selectedCategoryTags && props.selectedCategoryTags.hasOwnProperty(c)) {
             return (<IonRow key={`chiprow-${c}`}>{
-              props.categoryTags[c].map((t) => {
+              props.selectedCategoryTags[c].map((t) => {
 //              console.log(t);
               return (
                 <IonChip
@@ -51,7 +51,7 @@ const AyogiQuoteChips = (props) => {
     );
 
     setTagsChips(chips);
-  }, [props.categoryTags]);
+  }, [props.selectedCategoryTags]);
 
   let returnVal = (
     <React.Fragment>

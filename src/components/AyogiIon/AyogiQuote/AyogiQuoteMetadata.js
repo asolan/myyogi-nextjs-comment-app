@@ -13,10 +13,6 @@ import {
   IonButton,
   IonContent,
   IonCheckbox,
-  IonChip,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonPopover,
 } from "@ionic/react";
 import {
@@ -50,10 +46,11 @@ const AyogiQuoteMetadata = (props) => {
 //    console.log("AyogiQuoteMetadata[categoryTags]");
   }, [props.categoryTags]);
 
-  // useEffect(() => {
-  //   console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-  //   props.categoryTags.mytags = props.currentQuoteTags;
-  // }, [props.currentQuoteTags]);
+//   useEffect(() => {
+//     console.log('AyogiQuoteMetadata[props.selectedCategoryTags]', 
+//       props.selectedCategoryTags);
+// //    props.categoryTags.mytags = props.currentQuoteTags;
+//   }, [props.selectedCategoryTags]);
 
   const showSetting = (settingToShow, value) => {
     let newCategoryShow = { ...props.categories };
@@ -73,35 +70,37 @@ const AyogiQuoteMetadata = (props) => {
       map[obj] = false;
       return map;
     }, {});
-    console.log(newCategories);
+//    console.log(newCategories);
     setCategoryShow(newCategories);
 
     let newCategoriesTagValues = {...props.categoryTags};
+    // console.log(props.categories);
+    // console.log(props.categoryTags);
+    // console.log(props.selectedCategoryTags);
     props.categories.map((c, i) => {
       props.categoryTags[c].length > 0 &&
         props.categoryTags[c].map((val, i) => {
-              const isChecked =
-                props.categoryTags &&
-                props.categoryTags.hasOwnProperty(c) &&
-                props.categoryTags[c].includes(val);
-                newCategoriesTagValues[c][val] = isChecked;
+          const isChecked =
+            props.selectedCategoryTags &&
+            props.selectedCategoryTags.hasOwnProperty(c) &&
+            props.selectedCategoryTags[c].includes(val);
+          newCategoriesTagValues[c][val] = isChecked;
         });
     });
+    //AMSTODO: object or array? not both
+//     My Inspiration: Array(4)
+// 0: "Healing"
+// 1: "Divine Feminine"
+// 2: "Health"
+// 3: "True Teaching"
+// Divine Feminine: false
+// Healing: false
+// Health: false
+// True Teaching: false
     console.log('setCategoryTagsValues', newCategoriesTagValues);
     setCategoryTagsValues(newCategoriesTagValues);
   };
 
-//   props.categories.map((c, i) => {
-//     let newIsChecked = {};
-//     props.categoryTags[c].length > 0 &&
-//       props.categoryTags[c].map((val, i) => {
-//         newIsChecked[c] =
-//           props.categoryTags &&
-//           props.categoryTags.hasOwnProperty(c) &&
-//           props.categoryTags[c].includes(val);
-//         setIsChecked({...isChecked, isChecked[c]: isThisChecked})
-// });
-//console.log(categoryTagsValues);
   let categoriesMarkup =
     // isAdding &&
     Object.keys(categoryTagsValues).length >  0 && 
@@ -112,6 +111,7 @@ const AyogiQuoteMetadata = (props) => {
         return (
           <React.Fragment key={`metadata-${c}`}>
             <IonButton
+              className="ion-margin-end ion-margin-bottom"
               // expand="block"
               color="dark"
               fill={categoryShow[c] ? "solid" : "outline"}
@@ -186,7 +186,7 @@ const AyogiQuoteMetadata = (props) => {
   // console.log(categoriesMarkup);
   // let returnVal = (
 
-  console.log(categoriesMarkup);
+//  console.log(categoriesMarkup);
   
   return (
     <React.Fragment>
