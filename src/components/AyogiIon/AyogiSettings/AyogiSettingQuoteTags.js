@@ -39,9 +39,10 @@ const AyogiSettingQuoteTags = (props) => {
       // categoryTags && 
       // Object.keys(categoryTags).length > 0
       ){
-      setCurrentCategoryAndTags(categories[0]);
+      const nextCategory = currentCategory && currentCategory.length > 0 ? currentCategory : categories[0];
+      setCurrentCategoryAndTags(nextCategory);
     }
-  }, [categoryTags])
+  }, [currentCategory, categoryTags])
 
   const setupCategories = () => {
     console.log('setupCategories');
@@ -84,11 +85,12 @@ const AyogiSettingQuoteTags = (props) => {
       newCategories.push(newCategory)
       setCategories(newCategories);
       const newCategoryTags = {...categoryTags};
-      newCategoryTags[newCategory] = ["first"];
+      newCategoryTags[newCategory] = [];
       setCategoryTags(newCategoryTags);
       setTagList([]);
       setNewCategory("");
       setAddingCategory(false);
+      setCurrentCategory(newCategory);
     }
   };
 

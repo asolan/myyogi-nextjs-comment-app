@@ -36,10 +36,6 @@ import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 const AyogiSettings = (props: any) => {
   // console.log("AyogiSettings");
   // console.log(props);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [fontSize, setFontSize] = useState<number>(1);
-  const [fontJustified, setFontJustified] = useState<boolean>(true);
-  // const [testContent, setTestContent] = useState<string>(LINE_TYPE_ENUM.WISDOM);
 
   return (
     <IonPage className="AyogiSettings AyogiChapter">

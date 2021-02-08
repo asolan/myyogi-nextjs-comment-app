@@ -261,7 +261,8 @@ const AyogiQuote = (props) => {
               />
             )}
             {quoteState.edit === constants.QUOTE_EDIT.NONE 
-            && (<IonItem>
+            && (<React.Fragment>
+              <IonItem>
               <IonButton
                 slot="start"
                 onClick={() => {
@@ -289,29 +290,32 @@ const AyogiQuote = (props) => {
               >
                 Save Quote
               </IonButton>
+            </IonItem>
+            <IonItem>
               <IonButton
-                slot="end"
+                slot="start"
                 color="light"
                 onClick={() => {
                   props.setIsSelected(false);
                   props.setShowQuotePopup(false);
                 }}
               >
-                TODO-Cancel
+                Cancel
               </IonButton>
               <IonButton
                 className="ion-padding-start"
                 slot="end"
-                color="light"
+                color="warning"
                 onClick={() => {
                   props.removeSelectedQuote(quoteState.quoteId);
                   props.setIsSelected(false);
                   props.setShowQuotePopup(false);
                 }}
               >
-                Remove Quote
+                Delete
               </IonButton>
-            </IonItem>)}
+            </IonItem>
+            </React.Fragment>)}
           </IonCardContent>
         </IonCard>
       </IonModal>
