@@ -25,7 +25,8 @@ const makeSelectMyQuoteSelectionType = () =>
   createSelector(selectUserData, (ud) => ud.get("myQuoteSelectionType"));
 const makeSelectMyQuoteTags = () =>
   createSelector(selectUserData, (ud) => ud.get("myQuoteTags").toJS());
-
+const makeSelectQuoteViewSettings = () =>
+  createSelector(selectUserData, (ud) => ud.get("quoteViewSettings").toJS());
 export {
   makeSelectTab,
   makeSelectChapter,
@@ -35,5 +36,6 @@ export {
   makeSelectFontSize,
   makeSelectFontJustification,
   makeSelectMyQuoteSelectionType,
-  makeSelectMyQuoteTags
+  makeSelectMyQuoteTags,
+  makeSelectQuoteViewSettings
 };

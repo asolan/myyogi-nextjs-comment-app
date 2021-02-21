@@ -13,6 +13,7 @@ import {
   IonCardTitle,
   IonCardContent,
   IonText,
+  IonVirtualScroll
 } from "@ionic/react";
 import {getParaLineQuoteFromPos, 
   getParagraphQuote, 
@@ -24,6 +25,7 @@ import { act } from "react-dom/test-utils";
 
 const initialQuote = {
   chapter: 0,
+  paragraph: 0,
   startline: 0,
   startchar: 0,
   endline: 0,
@@ -90,6 +92,7 @@ const AyogiQuote = (props) => {
         quote = {...initialQuote, 
           quoteId: uuidv4(),
           chapter: para[0].chapterNumber,
+          paragraph: para[0].paragraphNumber,
           startline: para[0].lineNumber,
           endline: para[endLineNum].lineNumber,
           endchar: endCharNum,
@@ -151,7 +154,7 @@ const AyogiQuote = (props) => {
       case "ADD_TAG":
         //            console.log('ADD_TAG',action);
         newTags = [...state.tags];
-        if (!newTags.includes) {
+        if (!newTags.includes(action.tag.name)) {
           newTags.push(action.tag.name);
         }
         newCategoryTags = { ...state.selectedCategoryTags };
@@ -198,14 +201,17 @@ const AyogiQuote = (props) => {
     dispatch({ type: "EDIT_STATE", edit });
   };
 
+  const cardStyle = { maxHeight: "100%", display: "flex", flexDirection: "column" };
+  const cardContentStyle = { overflow: "scroll" };
+
   return (
     <div className="AyogiQuote">
       <IonModal isOpen={props.showQuotePopup} cssClass="">
-        <IonCard>
+        <IonCard style={cardStyle}>
           <IonCardHeader>
             <IonCardTitle>Quote Selection</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>
+          <IonCardContent style={cardContentStyle}>
           {quoteState.edit !== constants.QUOTE_EDIT.SELECT_TEXT 
           && (<IonText className="ion-margin-start">
             {quoteState.paragraphLineQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
@@ -275,6 +281,7 @@ const AyogiQuote = (props) => {
                   props.addSelectedQuote(
                     quoteState.quoteId,
                     quoteState.chapter,
+                    quoteState.paragraph,
                     quoteState.startline,
                     quoteState.startchar,
                     quoteState.endline,

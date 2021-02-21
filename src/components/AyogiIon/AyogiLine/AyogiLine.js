@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./AyogiLine.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import AyogiQuote from "../AyogiQuote/AyogiQuote";
+import AyogiQuoteChipsSimple from '../AyogiQuote/AyogiQuoteChipsSimple';
 import { parseParagraphData } from "../../../utility/parseUtility";
 import {
   IonLabel,
@@ -83,6 +84,7 @@ if(props.c.lineNumber === 4){
 
   returnVal = (
     <React.Fragment>
+      <AyogiQuoteChipsSimple itemTags={props.itemTags} />
       {quoteModal}
       {paragraph}
       <IonLabel

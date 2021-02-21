@@ -1,6 +1,13 @@
 import { fromJS } from "immutable";
 import constants from "../constants";
 
+const initialQuoteView = {
+  sort: 'chapter',
+  categoriesSelected: {},
+  selectedCategoryTags: {},
+  tags: []
+};
+
 let initialState = {
   tab: "aychap",
   chapter: 1,
@@ -9,6 +16,7 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
+  quoteViewSettings: {...initialQuoteView},
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
   myQuoteTags: [{"category": "My Inspiration",
   "color": "primary",
@@ -92,6 +100,12 @@ function userData(state = fullInitiatState, action) {
     case constants.ON_CHANGE_MY_QUOTE_TAGS:
       console.log('ON_CHANGE_MY_QUOTE_TAGS', action);
       newState = state.set("myQuoteTags", fromJS(action.payload));
+      console.log(newState);
+      setStorageState(newState);
+      return newState;
+    case constants.SET_QUOTE_VIEW_SETTINGS:
+      console.log('SET_QUOTE_VIEW_SETTINGS', action);
+      newState = state.set("quoteViewSettings", fromJS(action.payload));
       console.log(newState);
       setStorageState(newState);
       return newState;

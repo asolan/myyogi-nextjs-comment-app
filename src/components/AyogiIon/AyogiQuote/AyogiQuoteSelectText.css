@@ -3,7 +3,8 @@
 }
     
 .quoteclass {
-    background-color: rgb(223, 222, 219);
+/*     background-color: rgb(146, 148, 156, 0.1); */
+    background-color: rgb(223, 222, 219, 0.3);
     color: rgb(0, 0, 0);
 }
 

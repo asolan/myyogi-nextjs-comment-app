@@ -18,7 +18,7 @@ import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
-import AyogiMyQuote from "./pages/AyogiMyQuote";
+import AyogiQuoteView from "./pages/AyogiQuoteView";
 import AyogiSettings from './pages/AyogiSettings';
 
 // Delme
@@ -136,9 +136,10 @@ const App: React.SFC = (props) => {
             <Route
               path="/quotes"
               render={(props) => (
-                <AyogiMyQuote 
+                <AyogiQuoteView 
                 aydata={aydata}
                 aycategories={aycategories}
+                aychapttitle={aychapttitle}
                 {...props} />
               )}
             />            

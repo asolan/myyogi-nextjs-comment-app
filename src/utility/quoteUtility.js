@@ -1,5 +1,7 @@
-//AMSTODO:QUOTE:DEPRECATE
+import constants from '../store/constants';
+
 export const catTagsToObject = (toCatTags) => {
+    //AMSTODO:QUOTE:DEPRECATE??
     const tagsObj = [];
     Object.keys(toCatTags).forEach(c => {
     // console.log(c);
@@ -8,6 +10,31 @@ export const catTagsToObject = (toCatTags) => {
     });
     return tagsObj;
 };
+
+export const buildQuoteViewSettings = (oldQuoteViewSettings, categories) => {
+    const newViewSettings = {...oldQuoteViewSettings};
+    if (categories && categories.length > 0) {
+      const newCategoriesSelected =
+        categories &&
+        categories.reduce(function (map, obj) {
+          map[obj] = true;
+          return map;
+        }, {});
+        const newCatPlus = {[constants.SHOW_UNTAGGED]: true, ...newCategoriesSelected};
+//          newCategoriesSelected[constants.SHOW_UNTAGGED] = true;
+
+      if(newViewSettings && newViewSettings.categoriesSelected &&
+        Object.keys(newViewSettings.categoriesSelected).length > 0){
+        Object.keys(newViewSettings.categoriesSelected).map(oc => {
+          if(oc in newCatPlus){
+            newCatPlus[oc] = newViewSettings.categoriesSelected[oc];
+          }
+        })
+      }
+      newViewSettings.categoriesSelected = {...newCatPlus};
+    }
+    return newViewSettings;
+}
 
 export const getTextQuoteFromPos = (item, quote) => {
 

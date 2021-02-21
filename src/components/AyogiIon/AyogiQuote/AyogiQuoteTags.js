@@ -12,7 +12,7 @@ import {
 } from "@ionic/react";
 
 const [quoteTagsList, setQuoteTagsList] = useState([]);
-
+//AMSTODO:DELETE:Not Used
 const AyogiQuoteTags = (props) => {
 
   useEffect(() => {

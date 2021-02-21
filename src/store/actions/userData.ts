@@ -107,3 +107,10 @@ export function onChangeMyQuoteTags(myQuoteTags) {
         payload: myQuoteTags
     }
 }
+
+export function setQuoteViewSettings(quoteViewSettings) {
+    return {
+        type: constants.SET_QUOTE_VIEW_SETTINGS,
+        payload: quoteViewSettings
+    }
+}

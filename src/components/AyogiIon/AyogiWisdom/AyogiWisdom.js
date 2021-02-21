@@ -9,6 +9,9 @@ const AyogiWisdom = props => {
     const [itemsSelected, setItemsSelected] = useState([]);
     const [itemTags, setItemTags] = useState([]);
 
+
+    //AMSTODO:REMOVE Are itemtags used here anymore?
+    // not used in AyogiLine
     useEffect(() => {
         let itemsSel = {};
         let itemTags = {};
@@ -39,7 +42,7 @@ const AyogiWisdom = props => {
     };
 
     return (
-        <div className="AyogiWisdom">
+        <div className="AyogiWisdom" key={`AyogiWisdom${props.items[0]._id}`}>
             {props.items && props.items.map((c,i) => {
                  return (<AyogiLine 
                     isLineSelected={itemsSelected[c._id]}

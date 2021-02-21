@@ -13,9 +13,11 @@ export const UPDATE_POEM = 'userData.UPDATE_POEM';
 export const UPDATE_FONT = 'userData.UPDATE_FONT';
 export const ON_CHANGE_MY_QUOTE_SELECTION_TYPE = 'userData.ON_CHANGE_MY_QUOTE_SELECTION_TYPE';
 export const ON_CHANGE_MY_QUOTE_TAGS = 'userData.ON_CHANGE_MY_QUOTE_TAGS';
+export const SET_QUOTE_VIEW_SETTINGS = 'userData.SET_QUOTE_VIEW_SETTINGS';
 export const MY_QUOTE_SELECTION_TYPE = {
     NONE: 'NONE',
     BASIC: 'BASIC',
     TAGS: 'TAGS',
     METADATA: 'METADATA',
 }
+export const SHOW_UNTAGGED = 'Show Quotes without tags';

@@ -4,11 +4,11 @@ import "./AyogiPoem.css";
 import { LINE_TYPE_ENUM } from "../../../utility/dataTypes";
 import { IonCard, IonCardHeader, IonGrid, IonRow, IonCol } from "@ionic/react";
 
-const AyogiPoem = ({ items }) => {
+const AyogiPoem = (props) => {
   //    console.log('AyogiPoem');
-  //    console.log(items);
+  //    console.log(props.items);
 
-  let poemContent = items.reduce((acc, curr, pos, src) => {
+  let poemContent = props.items.reduce((acc, curr, pos, src) => {
     //            //console.log({acc, curr, pos, src});
     if (curr.class === "poemStart") {
       acc.push({ pos: pos, title: curr.text + "yeah" });
@@ -16,7 +16,7 @@ const AyogiPoem = ({ items }) => {
     return acc;
   }, []);
 
-  poemContent.push({ pos: items.length, title: "endofpeoms" });
+  poemContent.push({ pos: props.items.length, title: "endofpeoms" });
   // console.log('poemContent');
   // console.log(poemContent);
 
@@ -27,7 +27,7 @@ const AyogiPoem = ({ items }) => {
       if (i > 0) {
         // console.log(a);
         let ppos = poemContent[i - 1].pos;
-        a.push(items.slice(ppos, c.pos));
+        a.push(props.items.slice(ppos, c.pos));
       }
       return a;
     }, []);
@@ -35,7 +35,7 @@ const AyogiPoem = ({ items }) => {
   // console.log('poemsz');
   // console.log(poemsz);
   return (
-    <div className="poem-div" key={`ayogipoem-div-${items[0]._id}`}>
+    <div className="poem-div" key={`ayogipoem-div-${props.items[0]._id}`}>
       <IonGrid>
         {poemsz.map((p) => {
           const poemClasses = ["AyogiPoem"];
@@ -59,7 +59,8 @@ const AyogiPoem = ({ items }) => {
                             c={c}
                             i={i}
                             type={LINE_TYPE_ENUM.POEM}
-                          ></AyogiLine>
+                            {...props}
+                            ></AyogiLine>
                         );
                       })}
                   </div>

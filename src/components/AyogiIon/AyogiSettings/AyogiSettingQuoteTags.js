@@ -32,6 +32,7 @@ const AyogiSettingQuoteTags = (props) => {
   }, [props.aycategories])
 //}, [props.currentQuoteTags])
 
+//AMSTODO: Watch for infinite loops
   useEffect(() => {
     console.log(categories, categoryTags);
     if(categories && 
@@ -40,7 +41,9 @@ const AyogiSettingQuoteTags = (props) => {
       // Object.keys(categoryTags).length > 0
       ){
       const nextCategory = currentCategory && currentCategory.length > 0 ? currentCategory : categories[0];
-      setCurrentCategoryAndTags(nextCategory);
+      if(nextCategory !== currentCategory){
+        setCurrentCategoryAndTags(nextCategory);
+      }
     }
   }, [currentCategory, categoryTags])
 

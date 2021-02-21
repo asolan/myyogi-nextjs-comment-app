@@ -9,6 +9,7 @@ let initialState = {
 const newQuote = {
   quoteId: '',
   chapter: 0,
+  paragraph: 0,
   startline: 0,
   startchar: 0,
   endline: 0,
@@ -46,6 +47,7 @@ const getQuoteIndex = (quotes: any[], quoteId: string) => {
     console.log('Add Quote', 
     action,
     action.chapter, 
+    action.paragraph,
     action.startline, 
     action.startchar,
     action.quoteId);
@@ -61,6 +63,7 @@ const getQuoteIndex = (quotes: any[], quoteId: string) => {
       selQuotes.push({...newQuote, 
         quoteId: action.quoteId,
         chapter: action.chapter, 
+        paragraph: action.paragraph,
         startline: action.startline,
         startchar: action.startchar,
         endline: action.endline,
