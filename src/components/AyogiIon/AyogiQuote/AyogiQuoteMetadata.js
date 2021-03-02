@@ -53,7 +53,9 @@ const AyogiQuoteMetadata = (props) => {
 //   }, [props.selectedCategoryTags]);
 
   const showSetting = (settingToShow, value) => {
-    let newCategoryShow = { ...props.categories };
+    //AMSTODO:Verify fix
+//    let newCategoryShow = { ...props.categories };
+    let newCategoryShow = { ...categoryShow };
     newCategoryShow[settingToShow] = value;
     setCategoryShow(newCategoryShow);
   };
@@ -197,8 +199,9 @@ const AyogiQuoteMetadata = (props) => {
             return c;
           })}
       </IonList>
-      <IonItem>
+      <IonItem lines="full">
         <IonButton
+          slot="start"
           color="primary"
           fill={"solid"}
           onClick={() => {
@@ -207,6 +210,18 @@ const AyogiQuoteMetadata = (props) => {
         >
           Done
         </IonButton>
+        {/* TODO: being redirected back
+        <IonButton
+          slot="end"
+          color="secondary"
+          fill={"solid"}
+          onClick={() => {
+            //Go to Categery Edit
+            props.history.replace(`/ayogi/settings`);
+          }}
+        >
+          Edit Tags
+        </IonButton> */}
       </IonItem>
       {/* {isAdding ? reviewTags : addedTags} */}
     </React.Fragment>

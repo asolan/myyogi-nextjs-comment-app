@@ -9,7 +9,7 @@ import constants from "../../../store/constants";
 const AyogiQuoteViewMain = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showQuoteViewPopup, setShowQuoteViewPopup] = useState(false);
-  const [sortByVal, setSortByVal] = useState("chapter");
+  const [sortByVal, setSortByVal] = useState(constants.QUOTE_SORT_VALUES.CHAPTER);
   const [quoteGroups, setQuoteGroups] = useState([]);
   const [categories, setCategories] = useState([]);
   // const [categoryTags, setCategoryTags] = useState([]);
@@ -98,7 +98,7 @@ const AyogiQuoteViewMain = (props) => {
         });
         thisItem['selectedCategoryTags'] = a.selectedCategoryTags;
         thisItem['tags'] = a.tags;
-        thisItem['chapter'] = props.aychapttitle[thisItem.chapterNumber].text;
+        thisItem['chapter'] = thisItem.chapterNumber + ' - ' + props.aychapttitle[thisItem.chapterNumber].text;
 
         //      console.log('thisItem', thisItem);
         return thisItem;
@@ -106,7 +106,7 @@ const AyogiQuoteViewMain = (props) => {
 
  //     console.log('sortQuotesItems', sortQuotesItems);
 
-      let sortQuoteGroups = groupBy(sortQuotesItems, doSortBy);
+      let sortQuoteGroups = groupBy(sortQuotesItems, doSortBy.toLowerCase());
 //      console.log('sortQuoteGroups', sortQuoteGroups);
       setQuoteGroups(sortQuoteGroups);
       // let sortQuotesText = <AyogiWisdom items={sortQuotesItems} {...props} />
@@ -158,7 +158,7 @@ const AyogiQuoteViewMain = (props) => {
 
       content.push(
         <h3 key={`quoteGroup${key}`}>
-          {sortByVal}: {key}
+          {sortByVal} {key}
         </h3>
       );
 

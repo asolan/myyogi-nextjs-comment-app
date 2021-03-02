@@ -20,7 +20,7 @@ import constants from "../../../store/constants";
 
 const initialQuoteView = {
   isUpdated: false,
-  sort: "chapter",
+  sort: constants.QUOTE_SORT_VALUES.CHAPTER,
   categoriesSelected: {},
   selectedCategoryTags: {},
   tags: [],

@@ -24,12 +24,12 @@ const AyogiQuoteViewSort = (props) => {
       </IonListHeader>
 
       <IonItem lines="none">
-        <IonLabel>Chapter</IonLabel>
-        <IonRadio slot="start" value="chapter" />
+        <IonLabel>{constants.QUOTE_SORT_VALUES.CHAPTER}</IonLabel>
+        <IonRadio value={constants.QUOTE_SORT_VALUES.CHAPTER} />
       </IonItem>
       <IonItem lines="none">
-        <IonLabel>Tags</IonLabel>
-        <IonRadio slot="start" value="tags" />
+        <IonLabel>{constants.QUOTE_SORT_VALUES.TAGS}</IonLabel>
+        <IonRadio value={constants.QUOTE_SORT_VALUES.TAGS} />
       </IonItem>
       </IonRadioGroup>
     </IonList>);

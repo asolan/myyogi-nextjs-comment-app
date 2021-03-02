@@ -222,28 +222,29 @@ const AyogiQuote = (props) => {
             selectedCategoryTags={quoteState.selectedCategoryTags}
           />
 
-          {quoteState.edit === constants.QUOTE_EDIT.NONE && (<IonItem>
-            <IonButton
-              slot="start"
-              color="primary"
-              fill={"solid"}
-              onClick={() => {
-                setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
-              }}
-            >
-              Change Text
-            </IonButton>
-            <IonButton
-              slot="end"
-              color="primary"
-              fill={"solid"}
-              onClick={() => {
-                setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
-              }}
-            >
-              Change Tags
-            </IonButton>
-          </IonItem>)}
+          {quoteState.edit === constants.QUOTE_EDIT.NONE && (
+            <IonItem lines="full">
+              <IonButton
+                slot="start"
+                color="primary"
+                fill={"solid"}
+                onClick={() => {
+                  setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
+                }}
+              >
+                Change Text
+              </IonButton>
+              <IonButton
+                slot="end"
+                color="primary"
+                fill={"solid"}
+                onClick={() => {
+                  setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
+                }}
+              >
+                Change Tags
+              </IonButton>
+            </IonItem>)}
 
             {quoteState.edit === constants.QUOTE_EDIT.SELECT_TEXT 
             && (<AyogiQuoteSelectText
@@ -268,7 +269,7 @@ const AyogiQuote = (props) => {
             )}
             {quoteState.edit === constants.QUOTE_EDIT.NONE 
             && (<React.Fragment>
-              <IonItem>
+            <IonItem lines="full">
               <IonButton
                 slot="start"
                 onClick={() => {
@@ -298,7 +299,7 @@ const AyogiQuote = (props) => {
                 Save Quote
               </IonButton>
             </IonItem>
-            <IonItem>
+            <IonItem lines="full">
               <IonButton
                 slot="start"
                 color="light"

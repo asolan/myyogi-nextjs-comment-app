@@ -21,3 +21,7 @@ export const MY_QUOTE_SELECTION_TYPE = {
     METADATA: 'METADATA',
 }
 export const SHOW_UNTAGGED = 'Show Quotes without tags';
+export const QUOTE_SORT_VALUES = {
+    CHAPTER: 'Chapter',
+    TAGS: 'Tags',
+}

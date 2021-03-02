@@ -34,8 +34,8 @@ import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //let aychaptlist = require('../aychaptlist.json');
 
 const AyogiSettings = (props: any) => {
-  // console.log("AyogiSettings");
-  // console.log(props);
+  console.log("AyogiSettings");
+  console.log(props);
 
   return (
     <IonPage className="AyogiSettings AyogiChapter">
