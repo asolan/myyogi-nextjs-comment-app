@@ -1,0 +1,11 @@
+ion-select::part(text) {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+  }
+
+  ion-select::part(icon) {
+    width: 20px;
+    height: 30px;
+    opacity: 0.7;
+  }

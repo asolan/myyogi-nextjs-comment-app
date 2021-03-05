@@ -29,7 +29,7 @@ const AyogiMetaPopup = props => {
             key={'meta' }
             onClick={() => showhideClick()}
             >
-            {showhide ? 'X' : props.detail.substring(0,3)}
+            {props.detail.substring(0,3)}
         </IonBadge>;
 
     // console.log('m-popup');

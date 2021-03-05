@@ -35,7 +35,7 @@ const AyogiFootnotePopup = props => {
             onMouseEnter={() => showhideHover(true)}
             onMouseLeave={() => showhideHover(false)}
         >
-            {showhide ? 'X' : (showhidehover ? 'P' : props.c.footnoteCount)}
+            {showhidehover ? 'P' : props.c.footnoteCount}
         </IonBadge>;
 
     const footnote = parseFootnote(props.c, false, 'p');

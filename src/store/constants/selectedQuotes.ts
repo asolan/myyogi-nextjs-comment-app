@@ -1,0 +1,8 @@
+export const ADD_SELECTED_QUOTE = 'userData.ADD_SELECTED_QUOTE';
+export const REMOVE_SELECTED_QUOTE = 'userData.REMOVE_SELECTED_QUOTE';
+export const QUOTE_EDIT = {
+    NONE: 'NONE',
+    SELECT_TEXT: 'SELECT_TEXT',
+    SELECT_TAGS: 'SELECT_TAGS',
+}
+

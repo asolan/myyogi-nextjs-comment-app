@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom';
 import {
   IonList,
   IonItem,
-//  IonLabel,
+  //  IonLabel,
   IonContent,
-//  IonButton,
+  //  IonButton,
   IonCard,
-//  IonCardContent,
+  IonCardContent,
   IonCardTitle,
-//  IonCardSubtitle,
+  //  IonCardSubtitle,
   // IonIcon,
   // IonFab,
-//  IonRouterLink
-}  from '@ionic/react';
+  //  IonRouterLink
+} from '@ionic/react';
 import './AyogiChapterList.css';
 //import { paper } from 'ionicons/icons';
 //import { book, build, colorFill, grid } from 'ionicons/icons';
@@ -42,33 +42,38 @@ const AyogiChapterList = props => {
   return (
     <IonContent className="ChapterList">
       <IonList>
-        {props.chaptersList.map((c, i) => (
-          <IonItem key={'cs' + i}>
+        {props.chaptersList.map((c, i) => {
+          const headerHeader = c.chapterNumber > 0 ? (<span>Chapter: <span>{c.chapterNumber}</span></span>): null;
+          return (<IonItem key={'cs' + i}>
             {/* <Button key={'cb'+i} onClick={()=>props.setCurrentChapter(c.chapterNumber-1)}> */}
-            <IonCard 
+            <IonCard
               button="true"
               class="ion-text-center"
-              onClick={()=> {
-                console.log('occ');
-                props.onChangeChapter(c.chapterNumber);
+              onClick={(e) => {
+                e.preventDefault();
+                props.goToChapter(c.chapterNumber);
               }
               }
-              >
-                {/* <ion-icon slot="end" name="paper">
+            >
+              {/* <ion-icon slot="end" name="paper">
                 </ion-icon> */}
-                {/* <IonCardSubtitle slot="start">
+              {/* <IonCardSubtitle slot="start">
                 {c.chapterNumber}
                 </IonCardSubtitle> */}
-                {/* <ion-fab right top>
+              {/* <ion-fab right top>
                     <ion-icon name="paper"></ion-icon>
                 </ion-fab>                 */}
-                <IonCardTitle className="chapterheader">
-                  chapter: <span>{c.chapterNumber}</span>
-                </IonCardTitle>
-                <div className="chaptertitle" slot="middle">
+              <IonCardContent className="chaptertitle" slot="end">
+              </IonCardContent>
+              <IonCardTitle>
+                <div className="chapterheader">
+                  {headerHeader}
+                </div>
+                <div className="chaptertitle">
                   {c.text}
                 </div>
-                           {/* <IonItem
+              </IonCardTitle>
+              {/* <IonItem
               button="true"
               no-padding>
                 <IonLabel
@@ -86,7 +91,8 @@ const AyogiChapterList = props => {
                 </IonButton> */}
             </IonCard>
           </IonItem>
-        ))
+        )}
+        )
         }
       </IonList>
     </IonContent>

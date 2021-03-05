@@ -1,7 +1,6 @@
 import constants from "../constants";
-//import { TActionCreatorType, TReducerExtraData } from '../types';
 
-export function onChangeTab(tabName: string) {
+export function onChangeTab(tabName) {
     console.log('action-onChangeTab');
     return {
         type: constants.ON_CHANGE_TAB,
@@ -9,73 +8,109 @@ export function onChangeTab(tabName: string) {
     }
 }
 
-export function onChangeChapter(chapterNumber: number) {
-    console.log('action-onChangeChapter');
+export function onChangeChapter(chapterNumber) {
+//    console.log('action-onChangeChapter');
     return {
         type: constants.ON_CHANGE_CHAPTER,
         payload: chapterNumber
     }
 }
 
-export function onChangeChapterLine(chapterLineNumber: number) {
+export function onChangeChapter2(chapterNumber) {
+//    console.log('action-onChangeChapter2');
+    return {
+        type: constants.ON_CHANGE_CHAPTER2,
+        payload: chapterNumber
+    }
+}
+
+export function onChangeChapterLine(chapterLineNumber) {
     return {
         type: constants.ON_CHANGE_CHAPTER_LINE,
         payload: chapterLineNumber
     }
 }
 
-export function onChangeImage(imageId: string) {
+export function onChangeImage(imageId) {
     return {
         type: constants.ON_CHANGE_IMAGE,
         payload: imageId
     }
 }
 
-export function onChangePoem(poemId: string) {
+export function onChangePoem(poemId) {
     return {
         type: constants.ON_CHANGE_POEM,
         payload: poemId
     }
 }
 
-export function onChangeFont(font: string) {
+export function onChangeFontSize(font) {
     return {
-        type: constants.ON_CHANGE_FONT,
+        type: constants.ON_CHANGE_FONT_SIZE,
         payload: font
     }
 }
 
-export function updateChapter(chapterNumber: number) {
+export function onChangeFontJustification(justify) {
+    return {
+        type: constants.ON_CHANGE_FONT_JUSTIFICATION,
+        payload: justify
+    }
+}
+
+export function updateChapter(chapterNumber) {
     return {
         type: constants.UPDATE_CHAPTER,
         payload: chapterNumber
     }
 }
 
-export function updateChapterLine(chapterLineNumber: number) {
+export function updateChapterLine(chapterLineNumber) {
     return {
         type: constants.UPDATE_CHAPTER_LINE,
         payload: chapterLineNumber
     }
 }
 
-export function updateImage(imageId: string) {
+export function updateImage(imageId) {
     return {
         type: constants.UPDATE_IMAGE,
         payload: imageId
     }
 }
 
-export function updatePoem(poemId: string) {
+export function updatePoem(poemId) {
     return {
         type: constants.UPDATE_POEM,
         payload: poemId
     }
 }
 
-export function updateFont(font: string) {
+export function updateFont(font) {
     return {
         type: constants.UPDATE_FONT,
         payload: font
+    }
+}
+
+export function onChangeMyQuoteSelectionType(myQuoteSelectionType) {
+    return {
+        type: constants.ON_CHANGE_MY_QUOTE_SELECTION_TYPE,
+        payload: myQuoteSelectionType
+    }
+}
+
+export function onChangeMyQuoteTags(myQuoteTags) {
+    return {
+        type: constants.ON_CHANGE_MY_QUOTE_TAGS,
+        payload: myQuoteTags
+    }
+}
+
+export function setQuoteViewSettings(quoteViewSettings) {
+    return {
+        type: constants.SET_QUOTE_VIEW_SETTINGS,
+        payload: quoteViewSettings
     }
 }

@@ -7,8 +7,9 @@ import {
     IonCardContent
 } from '@ionic/react';
 
-const imageMainTitle = ["ImageMainTitle"];
+const imageCredit = ["ImageCredit"];
 const imageSubTitle = ["ImageSubTitle1","ImageSubTitle1a", "ImageSubTitle2"];
+const imageMainTitle = ["ImageMainTitle"];
 
 const parseFootnote = (c, wrap, type) => {
 //    console.log(`${c._id}-${type}`);
@@ -29,26 +30,68 @@ const parseFootnote = (c, wrap, type) => {
 }
 
 const parseImageTitles = (c) => {
-    let imageTitles = null; 
+    let imageTitles = []; 
+    let hasTitle = true;
     if(c.titles && c.titles && c.titles.length > 0) {
         // console.log(c); 
         // console.log(c.titles); 
-
-        imageTitles = c.titles.reduce((a, t, i) => {
+        let title = [], subtitle = [], credit = '', contentClass = '', content = [];
+        c.titles.forEach((t, i) => {
             if(c.class[i] !== 'image'){
+                if(t === 'NoTitle'){
+                    hasTitle = false;
+                }
+
                 let ic = c.class[i];
                 let ik = 'imagetitle'+c._id+'-'+i;
-                let title = <IonCardContent  className={ic} key={ik}>{t}</IonCardContent>
-                if(imageMainTitle.some((ti) => c.class[i] === ti)){
-                    title = <IonCardTitle className={ic} key={ik}>{t}</IonCardTitle>;
+               if(imageMainTitle.some((ti) => c.class[i] === ti)){
+                    title.push(<div className={ic} key={ik}>{t}</div>);
                 } 
-                if(imageSubTitle.some((ti) => c.class[i] === ti)){
-                    title = <IonCardSubtitle  className={ic} key={ik}>{t}</IonCardSubtitle>; 
-                } 
-                return [...a, title];
+                else if(imageSubTitle.some((ti) => c.class[i] === ti))
+                {
+                    subtitle.push(<div className={ic} key={ik}>{t}</div>); 
+                }
+                else if(imageCredit.some((ti) => c.class[i] === ti))
+                {
+                    credit = (<IonCardContent  className={ic} key={ik}>{t}</IonCardContent>); 
+                }else {
+                    contentClass = contentClass.length === 0 ? ic : contentClass;
+//                    content.push(<span className={ic}>{t}</span>);
+                    content.push(<span key={ik}>{t}</span>);
+                }
             }
-            return a;
-        }, [])
+        });
+
+        title = <IonCardTitle key={`title-${c._id}`}>{title}</IonCardTitle>;
+        subtitle = <IonCardSubtitle key={`subtitle-${c._id}`}>{subtitle}</IonCardSubtitle>;
+        // let contentFull = (<IonCardContent className={contentClass} key={'imagetitle'+c._id+'-content'}>
+        //         {content}
+        //     </IonCardContent>);
+        let contentFull = (<IonCardContent className="ImageCaption" key={'imagetitle'+c._id+'-content'}>
+                {content}
+            </IonCardContent>);
+
+        if(hasTitle){
+            imageTitles = [title, subtitle, credit, contentFull];
+        } else {
+            imageTitles = [[], [], '', null];
+        }
+
+        // imageTitles = c.titles.reduce((a, t, i) => {
+        //     if(c.class[i] !== 'image'){
+        //         let ic = c.class[i];
+        //         let ik = 'imagetitle'+c._id+'-'+i;
+        //         let title = <span  className={ic} key={ik}>{t}</span>
+        //         if(imageMainTitle.some((ti) => c.class[i] === ti)){
+        //             title = <IonCardTitle className={ic} key={ik}>{t}</IonCardTitle>;
+        //         } 
+        //         if(imageSubTitle.some((ti) => c.class[i] === ti)){
+        //             title = <IonCardSubtitle  className={ic} key={ik}>{t}</IonCardSubtitle>; 
+        //         } 
+        //         return [...a, title];
+        //     }
+        //     return a;
+        // }, [])
     }
 
     return imageTitles;
@@ -67,9 +110,10 @@ const parseParagraphData = (c, i) => {
 
     let indentClasses = [];
     if (c && c.class) {
-//        console.log(c.class);
-        if(typeof c.class === 'string') {
-            indentClasses.push(c.class.split(' '));
+        // console.log(c.class);
+        // console.log(typeof c.class);
+        if(typeof c.class === 'string' && c.class.indexOf(' ') > -1) {
+            indentClasses.concat(c.class.split(' '));
         } else {
             indentClasses.push(c.class);
         }

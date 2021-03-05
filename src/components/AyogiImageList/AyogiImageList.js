@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+//AMSTODO:DELETE
+
+import React, { useState } from "react";
 //import Button from '../Button/Button';
 //import { Redirect, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import {
   IonList,
@@ -23,42 +25,59 @@ import {
   IonButton,
   IonFab,
   IonFabButton,
-  IonIcon
-
-} from '@ionic/react';
-import { chevronDownOutline, chevronUpOutline, bookOutline, add, camera, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
-
-import './AyogiImageList.css';
-//import { paper } from 'ionicons/icons';
-//import { book, build, colorFill, grid } from 'ionicons/icons';
-
-
-import '@ionic/react/css/core.css';
+  IonIcon,
+} from "@ionic/react";
+import {
+  chevronDownOutline,
+  chevronUpOutline,
+  bookOutline,
+  add,
+  camera,
+  settings,
+  share,
+  person,
+  arrowForwardCircle,
+  arrowBackCircle,
+  arrowUpCircle,
+  logoVimeo,
+  logoFacebook,
+  logoInstagram,
+  logoTwitter,
+} from "ionicons/icons";
+import "../../theme/AyogiImage.css";
+import "./AyogiImageList.css";
+import "@ionic/react/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
+import "@ionic/react/css/padding.css";
+import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/text-alignment.css";
+import "@ionic/react/css/text-transformation.css";
+import "@ionic/react/css/flex-utils.css";
+import "@ionic/react/css/display.css";
 
-const AyogiImageList = props => {
-
+const AyogiImageList = (props) => {
+  console.log('AyogiImageList');
+  console.log(props);
   const imageContent = [];
   const [showModal, setShowModal] = useState(false);
   const [popImage, setPopImage] = useState({});
   props.imageList.map((c, i) => {
-
     //    console.log(i, c);
 
-    const thisImage =
-      (<IonCol class="ion-justify-content-end" size-lg="3" size-md="3" size-xs="6" key={'cs' + i}>
+    const thisImage = (
+      <IonCol
+        class="ion-justify-content-end"
+        size-lg="3"
+        size-md="3"
+        size-xs="6"
+        key={"cs" + i}
+      >
         <IonCard class="ion-text-center">
           {/* <IonFab vertical="bottom" horizontal="center">
             <IonFabButton color="primary">Primary</IonFabButton>
@@ -78,22 +97,20 @@ const AyogiImageList = props => {
             name={c.name}
             key={c.id}
           ></IonImg>
-          <IonCardTitle>
-            {c.text[0]}
-          </IonCardTitle>
-
+          <IonCardTitle>{c.text[0]}</IonCardTitle>
         </IonCard>
-      </IonCol>);
+      </IonCol>
+    );
 
     imageContent.push(thisImage);
     return null;
   });
 
   const goToContent = (chapterNumber) => {
-    console.log('gotocontent');
+    console.log("gotocontent");
     setShowModal(false);
-//    history.push(`/ayogi/${chapterNumber}`);
-  }
+    //    history.push(`/ayogi/${chapterNumber}`);
+  };
 
   const showImage = (imageNum) => {
     let d = props.imageList[imageNum];
@@ -103,9 +120,12 @@ const AyogiImageList = props => {
     //    console.log(d.text);
     setPopImage(
       <IonCard button="true" class="ion-text-center">
-        <Link to={'/ayogi/' + d.chapterNumber}>
+        <Link to={"/ayogi/" + d.chapterNumber}>
           <IonFab vertical="top" horizontal="end">
-          <IonFabButton color="primary"  onClick={() => goToContent(d.chapterNumber)}>
+            <IonFabButton
+              color="primary"
+              onClick={() => goToContent(d.chapterNumber)}
+            >
               <IonIcon icon={bookOutline}></IonIcon>
             </IonFabButton>
           </IonFab>
@@ -123,17 +143,14 @@ const AyogiImageList = props => {
         {d.text[0]}
       </IonCardTitle> */}
         <IonCardTitle>
-          {
-            d.text.slice(1).map((t, i) => {
-              return <div className={d.class[i + 1]}>
-                {t}
-              </div>
-            })
-          }
+          {d.text.slice(1).map((t, i) => {
+            return <div className={d.class[i + 1]}>{t}</div>;
+          })}
         </IonCardTitle>
-      </IonCard>);
+      </IonCard>
+    );
     setShowModal(true);
-  }
+  };
 
   return (
     <IonContent className="ImageList">
@@ -146,16 +163,14 @@ const AyogiImageList = props => {
         {popImage}
       </IonModal>
       <IonGrid>
-        <IonRow class="justify-content-center align-items-center" >
+        <IonRow class="justify-content-center align-items-center">
           {imageContent.map((i, c) => {
             return i;
-          })
-          }
+          })}
         </IonRow>
       </IonGrid>
     </IonContent>
-
-  )
+  );
 };
 
 export default AyogiImageList;

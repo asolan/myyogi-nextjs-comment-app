@@ -5,26 +5,37 @@ import { createSelector } from "reselect";
 //import { TActionCreatorType, TReducerExtraData, TUserDataInitialState } from "../types";
 
 //const selectUserData = (state: RootState) => state["userData"];
-const selectUserData = (state: any) => state["userData"];
+const selectUserData = (state) => state["userData"];
 
-const makeSelectTab: any = () =>
+const makeSelectTab = () =>
   createSelector(selectUserData, (ud) => ud.get("tab"));
-const makeSelectChapter: any = () =>
+const makeSelectChapter = () =>
   createSelector(selectUserData, (ud) => ud.get("chapter"));
-const makeSelectChapterLine: any = () =>
+const makeSelectChapterLine = () =>
   createSelector(selectUserData, (ud) => ud.get("chapterLine"));
-const makeSelectImage: any = () =>
+const makeSelectImage = () =>
   createSelector(selectUserData, (ud) => ud.get("image"));
-const makeSelectPoem: any = () =>
+const makeSelectPoem = () =>
   createSelector(selectUserData, (ud) => ud.get("poem"));
-const makeSelectFont: any = () =>
-  createSelector(selectUserData, (ud) => ud.get("font"));
-
+const makeSelectFontSize = () =>
+  createSelector(selectUserData, (ud) => ud.get("fontSize"));
+const makeSelectFontJustification = () =>
+  createSelector(selectUserData, (ud) => ud.get("fontJustification"));
+const makeSelectMyQuoteSelectionType = () =>
+  createSelector(selectUserData, (ud) => ud.get("myQuoteSelectionType"));
+const makeSelectMyQuoteTags = () =>
+  createSelector(selectUserData, (ud) => ud.get("myQuoteTags").toJS());
+const makeSelectQuoteViewSettings = () =>
+  createSelector(selectUserData, (ud) => ud.get("quoteViewSettings").toJS());
 export {
   makeSelectTab,
   makeSelectChapter,
   makeSelectChapterLine,
   makeSelectImage,
   makeSelectPoem,
-  makeSelectFont,
+  makeSelectFontSize,
+  makeSelectFontJustification,
+  makeSelectMyQuoteSelectionType,
+  makeSelectMyQuoteTags,
+  makeSelectQuoteViewSettings
 };

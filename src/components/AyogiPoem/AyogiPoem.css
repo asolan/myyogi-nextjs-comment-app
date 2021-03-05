@@ -5,8 +5,7 @@
     margin-top: 1rem;
     padding-bottom: 2rem;
     margin-bottom: 1rem;
-    font-size: 1rem;
-    /* line-height: 1.3rem; */
+    font-size: calc(var(--yogi-font-size) * 1);
 }
 
 /* .swiper-container-horizontal >.swiper-pagination-bullets, 
@@ -17,7 +16,7 @@
 }
 
 ion-card-header {    
-    font-size: 1rem;
+    font-size: calc(var(--yogi-font-size) * 1);
     border-bottom: 1px solid lightgrey;
     margin: 1rem 0.5rem 0.1rem;
 }
@@ -39,30 +38,14 @@ ion-card-header {
   }
   
 .AyogiPoem .poem {
-    /* background-color: #ddd; */
-    /* margin: 0.3rem;
-    widows: 3;
-    orphans: 3; */
     margin-top: 0px;
-    /* line-height: 12.0pt;*/
-    /* font-size: 10.0pt; */
-    /* font-weight: bold; */
-    /* word-spacing: .06em; */
 }
 
 
-/* .AyogiPoem .poem + .poem {
-    margin-left: 0.3em;
-} */
-
-/* .AyogiChapter .AyogiPoem .paragraphIndent.poem { */
 .AyogiPoem .paragraphIndent.poem {
     margin-left: 0px;
 }
 
-/* .AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem,
-.AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem + .poem,
-.AyogiChapter .AyogiPoem .paragraphIndent.poem + .poem + .poem + .poem */
 .AyogiPoem .paragraphIndent.poem + .poem,
 .AyogiPoem .paragraphIndent.poem + .poem + .poem,
 .AyogiPoem .paragraphIndent.poem + .poem + .poem + .poem
@@ -90,7 +73,7 @@ ion-card-header {
 }
 
 .AyogiPoem .samadhi {
-    font-size: 0.9rem;
+    font-size: calc(var(--yogi-font-size) * 0.9);
 }
 /*
 
@@ -105,10 +88,9 @@ ion-card-header {
         margin-top: 0.1rem;
         margin-bottom: 0.1rem;
         width: 100%;
-        /* font-size: 0.8rem; */
     }
     .AyogiPoem .poem {
-        font-size: 0.85rem;
+        font-size: calc(var(--yogi-font-size) * 0.85);
     }
 }
 

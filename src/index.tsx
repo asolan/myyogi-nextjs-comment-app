@@ -4,13 +4,15 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import {Provider} from 'react-redux';
+//import store from "./store/index.js";
 import store from "./store";
+
 
 //import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 
 ReactDOM.render(
-    <Provider store={store({})}>
+    <Provider store={store}>
         <App />
     </Provider>, 
     document.getElementById('root'));

@@ -1,10 +1,19 @@
 
 .footnote {
     display: block;
-    /* font-size: 0.9rem; */
-    font-size: 9pt;
+    hyphens: auto;
+    font-size: calc(var(--yogi-font-size) * 0.9);
     line-height: 9pt;
     text-align: justify;
+}
+
+.footnote .emphasis {
+    font-size: calc(var(--yogi-font-size) * 0.9);
+}
+
+.footnotepoem {
+    display: block;
+    margin-left: 1rem;
 }
 
 .popover-wrapper .footnote {
@@ -13,9 +22,9 @@
     text-align: justify;
 }
 
-ion-badge {
+.AyogiFootnoteAlert ion-badge {
     background-color: rgb(189, 189, 189);
-    margin: -0.3rem -0.2rem -0.3rem 0.1rem;
+    margin: -0.3rem 0.2rem -0.3rem 0.1rem;
     padding: 0.0rem 0.9rem;
 }
 

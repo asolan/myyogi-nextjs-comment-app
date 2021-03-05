@@ -5,9 +5,9 @@ import { META_TYPE_ENUM } from '../../../../utility/metaTypes';
 //import parseBookData from '../../../utility/parseBookData';
 
 const AyogiMetaItem = props => {
-console.log(`AyogiMetaItem-${props}`);
-console.log(props);
-console.log(META_TYPE_ENUM.PERSON);
+// console.log(`AyogiMetaItem-${props}`);
+// console.log(props);
+// console.log(META_TYPE_ENUM.PERSON);
 
     let content = [];
     if(props.c.scripture) {

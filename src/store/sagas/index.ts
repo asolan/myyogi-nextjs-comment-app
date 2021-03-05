@@ -1,7 +1,9 @@
-import userData from './userData';
+import {watchUser} from './userData';
+// // console.log('userDatasaga');
+// // console.log(userData);
 
-export default function * rootSaga() {
+export default function* rootSaga() {
   yield [
-    ...userData
+    watchUser
   ];
 }
