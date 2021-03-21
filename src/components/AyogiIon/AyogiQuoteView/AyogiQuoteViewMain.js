@@ -3,6 +3,7 @@ import "./AyogiQuoteViewMain.css";
 import AyogiQuoteViewSetting from "./AyogiQuoteViewSetting";
 import AyogiWisdom from "../AyogiWisdom/AyogiWisdom";
 import { buildQuoteViewSettings } from "../../../utility/quoteUtility";
+import { sendCategoryToFirebaseStorage } from "../../../utility/firebaseSend";
 import { IonItem, IonList, IonButton } from "@ionic/react";
 import constants from "../../../store/constants";
 
@@ -186,18 +187,32 @@ const AyogiQuoteViewMain = (props) => {
       {...props}
     />
   ) : (
-    <IonItem lines="full">
-      <IonButton
-        slot="end"
-        color="primary"
-        fill={"outline"}
-        onClick={() => {
-          setShowQuoteViewPopup(true);
-        }}
-      >
-        Sort and Filter
-      </IonButton>
-    </IonItem>
+    <React.Fragment>
+      <IonItem lines="full">
+        <IonButton
+          slot="end"
+          color="primary"
+          fill={"outline"}
+          onClick={() => {
+            sendCategoryToFirebaseStorage('test2', props.selectedQuotes);
+          }}
+        >
+          Send Quotes to Firebase
+        </IonButton>
+      </IonItem>
+      <IonItem lines="full">
+        <IonButton
+          slot="end"
+          color="primary"
+          fill={"outline"}
+          onClick={() => {
+            setShowQuoteViewPopup(true);
+          }}
+        >
+          Sort and Filter
+        </IonButton>
+      </IonItem>
+    </React.Fragment>
   );
   return (
     <div className="AyogiQuoteViewMain" key="AyogiQuoteViewMain">

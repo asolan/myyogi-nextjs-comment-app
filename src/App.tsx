@@ -63,9 +63,7 @@ import selectors from "./store/selectors";
 // import actions from "./store/actions";
 // import constants from "./store/constants";
 
-const App: React.SFC = (props) => {
-  // console.log('app');
-  // console.log(props);
+function App(props) {
 
   let currentTab = "/ayogi";
   // Page load
@@ -87,8 +85,7 @@ const App: React.SFC = (props) => {
   };
 
 
-  return (
-    <IonApp>
+  return (<IonApp>
       <IonReactRouter>
         {/* <IonTabs ref={tabRef}> */}
         <IonTabs>
@@ -152,13 +149,7 @@ const App: React.SFC = (props) => {
                   {...props} />
               )}
             />            
-            {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
-            <Route
-              path="/"
-              render={(props) => <Redirect to={currentTab} />}
-//              render={(props) => console.log(props)}
-//              exact={true}
-            />
+            <Route exact path="/" render={() => (<Redirect to={currentTab} />)} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="chapterlist" href="/aychap">
@@ -184,9 +175,8 @@ const App: React.SFC = (props) => {
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
-    </IonApp>
-  );
-};
+    </IonApp>); 
+}
 
 const mapStateToProps = () =>
    createStructuredSelector({
