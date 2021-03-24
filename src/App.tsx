@@ -105,7 +105,7 @@ function App(props) {
 //              exact={true}
             />
             <Route
-              path="/ayogi/:id/:line"
+              path="/ayogi/:id?/:line?"
               // aydata={aydata}
               // aychaptlist={aychaptlist}
               render={(props) => (
@@ -117,7 +117,6 @@ function App(props) {
                   {...props}
                 />
               )}
-  //            exact={true}
             />
             <Route
               path="/:tab(imagelist)"

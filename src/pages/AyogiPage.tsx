@@ -43,6 +43,7 @@ const AyogiPage = (props: any) => {
   // const [props.aychapttitle, setprops.aychapttitle] = useState<any>([]);
   // const [chaptersText, setChaptersText] = useState<any>([]);
   const [chNum, setChNum] = useState<number>(0);
+  const [maxLine, setMaxLine] = useState<number>(500);
   const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("");
   const [chapterContent, setChapterContent] = useState<any>([]);
   //  const [ayogiState, setAyogiState] = useState<any>({});
@@ -63,8 +64,14 @@ const AyogiPage = (props: any) => {
       var scrollEl = document.getElementById(lineId);
       // console.log(lineId);
       // console.log(scrollEl);
-      let offsetTop = scrollEl && scrollEl.offsetTop || 0;
-      cref.scrollToPoint && cref.scrollToPoint(0, offsetTop);  
+      if(scrollEl){
+        let offsetTop = scrollEl && scrollEl.offsetTop || 0;
+        let scrollTime = offsetTop > 500 ? 1000 : 0;
+        cref.scrollToPoint && cref.scrollToPoint(0, offsetTop, scrollTime);  
+      } else {
+        let scrollTime = line > 100 ? 1000 : 0;
+        cref.scrollToPoint && cref.scrollToPoint(0, line, scrollTime);  
+      }
     }
     setTimeout(scrollToIdDelay, 1);
   };
@@ -95,16 +102,13 @@ const AyogiPage = (props: any) => {
   useEffect(() => {
 //    console.log(`AyogiPage[props.chPos]-${props.chPos}`);
     // console.log(props.chPos);
-    setCurrentChapter(props.match.params.id - 1,
-      props.match.params.line);
+    setCurrentChapter();
   }, [props.chPos]);
 
   useEffect(() => {
 //    console.log(`AyogiPage[page-effect-id-props.match.params.id]-${props.match.params.id}`);
     setIsLoading(false);
-    setCurrentChapter(
-      props.match.params.id - 1,
-      props.match.params.line);
+    setCurrentChapter();
     }, [props.match.params.id]);
 //  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
@@ -115,13 +119,24 @@ useEffect(() => {
       }
 }, [props.selectedQuotes]);
   
-  const contentScrollEnd = (e) => {
+
+const contentScrollEnd = (e) => {
+
     e.target.getScrollElement().then((el) => {
-      props.onChangeChapterLine(el.scrollTop);
+      // Change from pos to current line
+      const sToTop = el.scrollTop;
+      console.log(sToTop, maxLine);
+      if(sToTop > maxLine){
+        props.onChangeChapterLine(el.scrollTop);
+      }
     });
   };
 
-  const setCurrentChapter = (cnum: number, clinenumber: number) => {
+  const setCurrentChapter = () => {
+    let cnum = props.match.params.id ? props.match.params.id - 1 : props.currentChapter;
+    let clinenumber = props.match.params.line ? props.match.params.line : props.currentChapterLine;
+
+//    console.log(cnum, clinenumber);
     if (
       props.aydata &&
       props.chPos.length > 0 &&
@@ -150,6 +165,7 @@ useEffect(() => {
 
   const buildChapterText = (cnum: number) => {
     contentId = 0;
+    let newMaxLine = 0;
 
     if (!props.aydata || !props.chPos) {
       console.log("buildchaptext-notext");
@@ -179,11 +195,14 @@ useEffect(() => {
     nextContent &&
       nextContent.slice(1).forEach((c: any, i: any) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
+//        console.log(newItems);
+        newMaxLine = newItems[newItems.length-1].lineNumber;
         nextContentList.push(buildSection(newItems));
       });
 
     // console.log('nextContentList');
     // console.log(nextContentList);
+    setMaxLine(newMaxLine);
     setChapterContent(nextContentList);
   };
 

@@ -41,6 +41,7 @@
 
 .AyogiImage p.smallSpace {
     font-size: calc(14px + (var(--yogi-font-size) * 0.2));
+    hyphens: auto;
     line-height: 0.2rem;
 }
 
