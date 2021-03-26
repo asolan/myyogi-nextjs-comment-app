@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import {
   IonContent,
   IonHeader,
@@ -19,9 +19,9 @@ import {
 } from "@ionic/react";
 import { textOutline, sunny } from "ionicons/icons";
 
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
-import AyogiWisdom from "../components/AyogiIon/AyogiWisdom/AyogiWisdom";
-import AyogiSettingsMain from "../components/AyogiIon/AyogiSettings/AyogiSettingsMain";
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
+import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
+import AyogiSettingsMain from "../components/AyogiSettings/AyogiSettingsMain";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiSettings.css";
 import { createStructuredSelector } from "reselect";

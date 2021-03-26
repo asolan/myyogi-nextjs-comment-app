@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import {
   // IonCard,
   // IonCardContent,
@@ -24,8 +24,8 @@ import {
 import { withRouter } from "react-router"; 
 
 //import { book, build, colorFill, grid } from 'ionicons/icons';
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
-import AyogiChapterList from "../components/AyogiIon/AyogiChapterList/AyogiChapterList";
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
+import AyogiChapterList from "../components/AyogiChapterList/AyogiChapterList";
 //import { fetchAYChapterList } from '../utility/fetchData';
 //import { LINE_TYPE_ENUM } from '../utility/dataTypes';
 import "./AyogiPage.css";

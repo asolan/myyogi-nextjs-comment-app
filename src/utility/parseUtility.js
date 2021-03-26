@@ -1,6 +1,6 @@
 import React from 'react';
 //import { LINE_TYPE_ENUM } from './dataTypes';
-import AyogiFootnoteAlert from '../components/AyogiIon/AyogiFootnoteAlert/AyogiFootnoteAlert';
+import AyogiFootnoteAlert from '../components/AyogiFootnoteAlert/AyogiFootnoteAlert';
 import { 
     IonCardTitle, 
     IonCardSubtitle,

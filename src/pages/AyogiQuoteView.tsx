@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import { IonPage, IonContent, IonList, IonItem, IonLabel } from "@ionic/react";
-import AyogiQuoteViewMain from "../components/AyogiIon/AyogiQuoteView/AyogiQuoteViewMain";
-import AyogiImage from "../components/AyogiIon/AyogiImage/AyogiImage";
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
+import AyogiQuoteViewMain from "../components/AyogiQuoteView/AyogiQuoteViewMain";
+import AyogiImage from "../components/AyogiImage/AyogiImage";
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiQuoteView.css";

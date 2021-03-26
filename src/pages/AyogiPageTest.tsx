@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import {
   // IonCard,
   // IonCardContent,
@@ -17,15 +17,15 @@ import {
   IonPage,
   IonContent,
 } from "@ionic/react";
-import AyogiWisdom from "../components/AyogiIon/AyogiWisdom/AyogiWisdom";
-import AyogiImage from "../components/AyogiIon/AyogiImage/AyogiImage";
-import AyogiPoem from "../components/AyogiIon/AyogiPoem/AyogiPoem";
-import AyogiFootnoteAlert from "../components/AyogiIon/AyogiFootnoteAlert/AyogiFootnoteAlert";
+import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
+import AyogiImage from "../components/AyogiImage/AyogiImage";
+import AyogiPoem from "../components/AyogiPoem/AyogiPoem";
+import AyogiFootnoteAlert from "../components/AyogiFootnoteAlert/AyogiFootnoteAlert";
 
 //import { listBox, planet, colorFill, more } from 'ionicons/icons';
 
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
-import AyogiChapter from "../components/AyogiIon/AyogiChapter/AyogiChapter";
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
+import AyogiChapter from "../components/AyogiChapter/AyogiChapter";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiPageTest.css";

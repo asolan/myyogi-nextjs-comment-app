@@ -1,11 +1,12 @@
 .AyogiPoem {
     text-align: left;
-    width: 80%;
     padding-top: 2rem;
     margin-top: 1rem;
+    margin-left: 1rem;
     padding-bottom: 2rem;
     margin-bottom: 1rem;
-    font-size: calc(var(--yogi-font-size) * 1);
+    font-size: var(--yogi-font-size);
+    color: black;
 }
 
 /* .swiper-container-horizontal >.swiper-pagination-bullets, 
@@ -16,9 +17,19 @@
 }
 
 ion-card-header {    
-    font-size: calc(var(--yogi-font-size) * 1);
+    font-size: var(--yogi-font-size);
     border-bottom: 1px solid lightgrey;
     margin: 1rem 0.5rem 0.1rem;
+}
+
+
+.poem-div {
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.poem-div ion-card {
+    max-width: 500px;
 }
 
 .AyogiPoem .poem.break
@@ -40,7 +51,6 @@ ion-card-header {
 .AyogiPoem .poem {
     margin-top: 0px;
 }
-
 
 .AyogiPoem .paragraphIndent.poem {
     margin-left: 0px;
@@ -73,7 +83,7 @@ ion-card-header {
 }
 
 .AyogiPoem .samadhi {
-    font-size: calc(var(--yogi-font-size) * 0.9);
+    font-size: calc(var(--yogi-font-size)*0.95);
 }
 /*
 
@@ -81,16 +91,21 @@ ion-card-header {
 } */
 
 @media (max-width: 768px) {
+    .poem-div ion-card {
+        max-width: 400px;
+    }
+    
     .AyogiPoem {
         padding-top: 0.2rem;
         padding-bottom: 0.2rem;
         padding-left: 0.5rem;
         margin-top: 0.1rem;
+        margin-left: 0.05rem;
         margin-bottom: 0.1rem;
         width: 100%;
     }
     .AyogiPoem .poem {
-        font-size: calc(var(--yogi-font-size) * 0.85);
+        font-size: calc(var(--yogi-font-size)*0.9);
     }
 }
 
