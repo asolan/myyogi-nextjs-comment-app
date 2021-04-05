@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { parseFootnote } from '../../utility/parseUtility';
 import {
     IonBadge,
@@ -15,6 +15,13 @@ import './AyogiFootnoteAlert.css';
 const AyogiFootnoteAlert = props => {
     // console.log(props);
     const [showhide, setShowhide] = useState(false);
+
+    useEffect(()=> {
+        if(props.footnoteCount > 0){
+            setShowhide(true);
+        }
+
+    }, [props.footnoteCount])
 
     const showhideClick = () => {
         setShowhide(!showhide);

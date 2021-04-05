@@ -29,6 +29,10 @@ p.smallSpace {
     margin-left: 15px;
 }
 
+.emphasis {
+    font-style: italic;
+}
+
 .break {
     /* display: inline-block; */
 }

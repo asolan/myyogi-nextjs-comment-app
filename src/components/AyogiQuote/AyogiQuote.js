@@ -13,12 +13,14 @@ import {
   IonCardTitle,
   IonCardContent,
   IonText,
-  IonVirtualScroll
+  IonVirtualScroll,
 } from "@ionic/react";
-import {getParaLineQuoteFromPos, 
-  getParagraphQuote, 
-  getLinesInParagraph, 
-  getQuotelinePos} from '../../utility/quoteUtility';
+import {
+  getParaLineQuoteFromPos,
+  getParagraphQuote,
+  getLinesInParagraph,
+  getQuotelinePos,
+} from "../../utility/quoteUtility";
 import constants from "../../store/constants";
 import { uuidv4 } from "../../utility/jsutility";
 import { act } from "react-dom/test-utils";
@@ -34,9 +36,9 @@ const initialQuote = {
   tags: [],
   linePos: [],
   paragraphLines: [],
-  paragraphLine: '',
+  paragraphLine: "",
   paragraphLineQuote: [],
-  edit: constants.QUOTE_EDIT.NONE
+  edit: constants.QUOTE_EDIT.NONE,
 };
 
 const AyogiQuote = (props) => {
@@ -44,7 +46,7 @@ const AyogiQuote = (props) => {
   const [categories, setCategories] = useState([]);
   const [categoryTags, setCategoryTags] = useState([]);
   const [categoryChips, setCategoryChips] = useState([]);
-  
+
   useEffect(() => {
     setupCategories();
   }, []);
@@ -53,20 +55,22 @@ const AyogiQuote = (props) => {
     setupCategories();
   }, [props.currentQuoteTags]);
 
-    useEffect(() => {
-      setQuoteState();
-  }, [props.items]);
+  useEffect(() => {
+    setQuoteState();
+  }, [props.quoteId]);
 
   const setupCategories = () => {
-    const allCategories = [...props.aycategories].concat(props.currentQuoteTags);
-    let newCategories = allCategories.map(c => c.category);
+    const allCategories = [...props.aycategories].concat(
+      props.currentQuoteTags
+    );
+    let newCategories = allCategories.map((c) => c.category);
 
-    let newCategoryTags = allCategories.reduce(function(map, obj) {
+    let newCategoryTags = allCategories.reduce(function (map, obj) {
       map[obj.category] = obj.tags;
       return map;
     }, {});
 
-    let newCategoryChips = allCategories.reduce(function(map, obj) {
+    let newCategoryChips = allCategories.reduce(function (map, obj) {
       map[obj.category] = obj.color;
       return map;
     }, {});
@@ -77,19 +81,20 @@ const AyogiQuote = (props) => {
     setCategories(newCategories);
     setCategoryTags(newCategoryTags);
     setCategoryChips(newCategoryChips);
-
   };
 
   const setQuoteState = () => {
     let para = getLinesInParagraph(props.c, props.items);
-    if(para.length > 0){
+    if (para.length > 0) {
       //      debugger;
-      let quote = getParagraphQuote(para, props.selectedQuotes);
-      if(!quote || !quote.chapter){
-        const endLineNum = para.length -1;
-        const endCharNum = para.reduce((n,l) => n + l.text.length,0);
-  //        console.log(endCharNum);
-        quote = {...initialQuote, 
+      let quoteIndex = props.quotes.findIndex(q => q.quoteId === props.quoteId);
+      let quote = null;
+      if (quoteIndex === -1) {
+        const endLineNum = para.length - 1;
+        const endCharNum = para.reduce((n, l) => n + l.text.length, 0);
+        //        console.log(endCharNum);
+        quote = {
+          ...initialQuote,
           quoteId: uuidv4(),
           chapter: para[0].chapterNumber,
           paragraph: para[0].paragraphNumber,
@@ -98,24 +103,29 @@ const AyogiQuote = (props) => {
           endchar: endCharNum,
         };
       }
+      else 
+      {
+        quote = {...props.quotes[quoteIndex]};
+      }
 
-      const pline = para.reduce((t,l) => t + l.text, '');
+      const pline = para.reduce((t, l) => t + l.text, "");
       const plineQuote = getParaLineQuoteFromPos(
-        pline, 
-        quote.startchar, 
-        quote.endchar);
+        pline,
+        quote.startchar,
+        quote.endchar
+      );
       quote.paragraphLines = para;
       quote.paragraphLine = pline;
       quote.paragraphLineQuote = plineQuote;
 
-      console.log(quote);
+//      console.log(quote);
       dispatch({ type: "UPDATE", quote });
     }
   };
 
-    // this.setState({ dealersOverallTotal: total }, () => {
+  // this.setState({ dealersOverallTotal: total }, () => {
   //   console.log(this.state.dealersOverallTotal, 'dealersOverallTotal1');
-  // }); 
+  // });
 
   // useEffect(() => {
   //   if(props.showQuotePopup){
@@ -129,27 +139,27 @@ const AyogiQuote = (props) => {
     switch (action.type) {
       case "EDIT_STATE":
         console.log("EDIT_STATE", action);
-        return {...state, 
-          edit: action.edit
-        };
+        return { ...state, edit: action.edit };
       case "UPDATE":
         let newQuote;
-          newQuote = {...action.quote};
-       return {...state, ...action.quote}
+        newQuote = { ...action.quote };
+        return { ...state, ...action.quote };
       case "SET_POS":
         console.log("SET_POS", action);
         const plineQuoteNew = getParaLineQuoteFromPos(
-          state.paragraphLine, 
-          action.pos.startchar, 
-          action.pos.endchar);
-  
-        return {...state, 
+          state.paragraphLine,
+          action.pos.startchar,
+          action.pos.endchar
+        );
+
+        return {
+          ...state,
           chapter: action.pos.chapter,
           startline: action.pos.startline,
           startchar: action.pos.startchar,
           endline: action.pos.endline,
           endchar: action.pos.endchar,
-          paragraphLineQuote: plineQuoteNew
+          paragraphLineQuote: plineQuoteNew,
         };
       case "ADD_TAG":
         //            console.log('ADD_TAG',action);
@@ -166,20 +176,28 @@ const AyogiQuote = (props) => {
         }
         // console.log(newTags);
         // console.log(newCategoryTags);
-        return { ...state, tags: newTags, selectedCategoryTags: newCategoryTags };
+        return {
+          ...state,
+          tags: newTags,
+          selectedCategoryTags: newCategoryTags,
+        };
       case "REMOVE_TAG":
         //            console.log('REMOVE_TAG',action);
         newTags = [...state.tags].filter((t) => t !== action.tag.name);
         newCategoryTags = { ...state.selectedCategoryTags };
-//        debugger;
+        //        debugger;
         // console.log(newCategoryTags);
         if (newCategoryTags.hasOwnProperty(action.tag.category)) {
-          newCategoryTags[action.tag.category] = newCategoryTags[action.tag.category].filter(
-            (t) => t !== action.tag.name
-          );
+          newCategoryTags[action.tag.category] = newCategoryTags[
+            action.tag.category
+          ].filter((t) => t !== action.tag.name);
         }
-//        console.log(newCategoryTags);
-        return { ...state, tags: newTags, selectedCategoryTags: newCategoryTags };
+        //        console.log(newCategoryTags);
+        return {
+          ...state,
+          tags: newTags,
+          selectedCategoryTags: newCategoryTags,
+        };
       default:
         throw new Error();
     }
@@ -201,7 +219,11 @@ const AyogiQuote = (props) => {
     dispatch({ type: "EDIT_STATE", edit });
   };
 
-  const cardStyle = { maxHeight: "100%", display: "flex", flexDirection: "column" };
+  const cardStyle = {
+    maxHeight: "100%",
+    display: "flex",
+    flexDirection: "column",
+  };
   const cardContentStyle = { overflow: "scroll" };
 
   return (
@@ -212,118 +234,130 @@ const AyogiQuote = (props) => {
             <IonCardTitle>Quote Selection</IonCardTitle>
           </IonCardHeader>
           <IonCardContent style={cardContentStyle}>
-          {quoteState.edit !== constants.QUOTE_EDIT.SELECT_TEXT 
-          && (<IonText className="ion-margin-start">
-            {quoteState.paragraphLineQuote.slice(1,2).map((q,i) => <span key={`itemquoteselt${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
-          </IonText>)}
-          <AyogiQuoteChips
-            categories={categories}
-            categoryChips={categoryChips}
-            selectedCategoryTags={quoteState.selectedCategoryTags}
-          />
+            {quoteState.edit !== constants.QUOTE_EDIT.SELECT_TEXT && (
+              <IonText className="ion-margin-start">
+                {quoteState.paragraphLineQuote.slice(1, 2).map((q, i) => (
+                  <span
+                    key={`itemquoteselt${props.item._id}${i}`}
+                    className={q.className}
+                  >
+                    {q.text}
+                  </span>
+                ))}
+              </IonText>
+            )}
+            <AyogiQuoteChips
+              categories={categories}
+              categoryChips={categoryChips}
+              selectedCategoryTags={quoteState.selectedCategoryTags}
+            />
 
-          {quoteState.edit === constants.QUOTE_EDIT.NONE && (
-            <IonItem lines="full">
-              <IonButton
-                slot="start"
-                color="primary"
-                fill={"solid"}
-                onClick={() => {
-                  setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
-                }}
-              >
-                Change Text
-              </IonButton>
-              <IonButton
-                slot="end"
-                color="primary"
-                fill={"solid"}
-                onClick={() => {
-                  setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
-                }}
-              >
-                Change Tags
-              </IonButton>
-            </IonItem>)}
+            {quoteState.edit === constants.QUOTE_EDIT.NONE && (
+              <IonItem lines="full">
+                <IonButton
+                  slot="start"
+                  color="primary"
+                  fill={"outline"}
+                  onClick={() => {
+                    setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
+                  }}
+                >
+                  Change Text
+                </IonButton>
+                <IonButton
+                  slot="end"
+                  color="primary"
+                  fill={"outline"}
+                  onClick={() => {
+                    setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
+                  }}
+                >
+                  Change Tags
+                </IonButton>
+              </IonItem>
+            )}
 
-            {quoteState.edit === constants.QUOTE_EDIT.SELECT_TEXT 
-            && (<AyogiQuoteSelectText
-              setPos={setPos} 
-              setQuoteEdit={setQuoteEdit}
-              item={props.item}
-              quoteState={quoteState} />)}
-            {(quoteState.edit === constants.QUOTE_EDIT.SELECT_TAGS &&
-              (props.currentQuoteSelectionType ===
-              constants.MY_QUOTE_SELECTION_TYPE.TAGS ||
-              props.currentQuoteSelectionType ===
-                constants.MY_QUOTE_SELECTION_TYPE.METADATA)) && (
-              <AyogiQuoteMetadata
-                categories={categories}
-                categoryTags={categoryTags}
-                selectedCategoryTags={quoteState.selectedCategoryTags}
-                addTag={addTag}
-                removeTag={removeTag}
+            {quoteState.edit === constants.QUOTE_EDIT.SELECT_TEXT && (
+              <AyogiQuoteSelectText
+                setPos={setPos}
                 setQuoteEdit={setQuoteEdit}
-                {...props}
+                item={props.item}
+                quoteState={quoteState}
               />
             )}
-            {quoteState.edit === constants.QUOTE_EDIT.NONE 
-            && (<React.Fragment>
-            <IonItem lines="full">
-              <IonButton
-                slot="start"
-                onClick={() => {
-                  console.log("add-quote", quoteState.tags);
-                  const newLinePos = getQuotelinePos(quoteState);
-                  //            const selTags = getSelectedTags();
-                  // console.log(quoteState);
-                  // console.log(newLinePos);
+            {quoteState.edit === constants.QUOTE_EDIT.SELECT_TAGS &&
+              (props.currentQuoteSelectionType ===
+                constants.MY_QUOTE_SELECTION_TYPE.TAGS ||
+                props.currentQuoteSelectionType ===
+                  constants.MY_QUOTE_SELECTION_TYPE.METADATA) && (
+                <AyogiQuoteMetadata
+                  categories={categories}
+                  categoryTags={categoryTags}
+                  selectedCategoryTags={quoteState.selectedCategoryTags}
+                  addTag={addTag}
+                  removeTag={removeTag}
+                  setQuoteEdit={setQuoteEdit}
+                  {...props}
+                />
+              )}
+            {quoteState.edit === constants.QUOTE_EDIT.NONE && (
+              <React.Fragment>
+                <IonItem lines="full">
+                  <IonButton
+                    slot="start"
+                    onClick={() => {
+                      console.log("add-quote", quoteState.tags);
+                      const newLinePos = getQuotelinePos(quoteState);
+                      //            const selTags = getSelectedTags();
+                      // console.log(quoteState);
+                      // console.log(newLinePos);
 
-                  props.addSelectedQuote(
-                    quoteState.quoteId,
-                    quoteState.chapter,
-                    quoteState.paragraph,
-                    quoteState.startline,
-                    quoteState.startchar,
-                    quoteState.endline,
-                    quoteState.endchar,
-                    newLinePos,
-                    quoteState.selectedCategoryTags,
-                    quoteState.tags
-                  );
-                  props.setIsSelected(true);
-                  props.updateQuote(quoteState);
-                  props.setShowQuotePopup(false);
-                }}
-              >
-                Save Quote
-              </IonButton>
-            </IonItem>
-            <IonItem lines="full">
-              <IonButton
-                slot="start"
-                color="light"
-                onClick={() => {
-                  props.setIsSelected(false);
-                  props.setShowQuotePopup(false);
-                }}
-              >
-                Cancel
-              </IonButton>
-              <IonButton
-                className="ion-padding-start"
-                slot="end"
-                color="warning"
-                onClick={() => {
-                  props.removeSelectedQuote(quoteState.quoteId);
-                  props.setIsSelected(false);
-                  props.setShowQuotePopup(false);
-                }}
-              >
-                Delete
-              </IonButton>
-            </IonItem>
-            </React.Fragment>)}
+                      props.addSelectedQuote(
+                        quoteState.quoteId,
+                        quoteState.chapter,
+                        quoteState.paragraph,
+                        quoteState.startline,
+                        quoteState.startchar,
+                        quoteState.endline,
+                        quoteState.endchar,
+                        newLinePos,
+                        quoteState.selectedCategoryTags,
+                        quoteState.tags
+                      );
+                      props.setIsSelected(true);
+                      props.updateQuote(quoteState);
+                      props.setShowQuotePopup(false);
+                    }}
+                  >
+                    Save Quote
+                  </IonButton>
+                  <IonButton
+                    slot="end"
+                    color="light"
+                    onClick={() => {
+                      props.setIsSelected(false);
+                      props.setShowQuotePopup(false);
+                    }}
+                  >
+                    Cancel
+                  </IonButton>
+                </IonItem>
+                <IonItem lines="full">
+                  <IonButton
+                    className="ion-padding-start"
+                    slot="end"
+                    color="warning"
+                    onClick={() => {
+                      props.removeSelectedQuote(quoteState.quoteId);
+                      props.setIsSelected(false);
+                      props.setShowQuotePopup(false);
+                    }}
+                  >
+                    Delete
+                  </IonButton>
+                </IonItem>
+              </React.Fragment>
+            )}
           </IonCardContent>
         </IonCard>
       </IonModal>

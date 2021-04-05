@@ -37,19 +37,24 @@ export const buildQuoteViewSettings = (oldQuoteViewSettings, categories) => {
 }
 
 export const getTextQuoteFromPos = (item, quote) => {
+    //TODOV1: Build multiple quotes
+//    if(quote.length > 0){
+//      console.log(quote);
+//    }
 
     if(!quote || 
-        !quote.chapter ||
-        item.chapterNumber !== quote.chapter){
+        quote.length === 0 ||
+        !quote[0].chapter ||
+        item.chapterNumber !== quote[0].chapter){
         return [{text: '', className: ''},
                 {text: item.text, className: ''},
                 {text: '', className: ''}];
     }
 
     let l = item.text.length;
-    let pos = quote.linePos.length < item.paragraphLineNumber  ? 
+    let pos = quote[0].linePos.length < item.paragraphLineNumber  ? 
     {start:l, end: l} :
-    {...quote.linePos[item.paragraphLineNumber]};
+    {...quote[0].linePos[item.paragraphLineNumber]};
     let textQuote = [];
     textQuote.push({text: item.text.slice(0, pos.start), className: ''});
     textQuote.push({text: item.text.slice(pos.start, pos.end), className: 'quoteclass'});
@@ -60,36 +65,36 @@ export const getTextQuoteFromPos = (item, quote) => {
 
 export const getParaLineQuoteFromPos = (paraLine, startchar, endchar) => {
     let paraLineQuote = [];
-    console.log(paraLine, startchar, endchar);
+//    console.log(paraLine, startchar, endchar);
     paraLineQuote.push({text: paraLine.slice(0, startchar), className: ''});
     paraLineQuote.push({text: paraLine.slice(startchar, endchar), className: 'quoteclass'});
     paraLineQuote.push({text: paraLine.slice(endchar, paraLine.length), className: ''});
-console.log(paraLineQuote);
+//console.log(paraLineQuote);
     return paraLineQuote;
 };
 
-export const getParaQuoteForLine = (item, para, quote) => {
-    //debugger;
-    if(!quote || 
-        !quote.chapter ||
-        item.chapterNumber !== quote.chapter ||
-        item.lineNumber < quote.startline ||
-        item.lineNumber > quote.endline){
-        return [{text: '', className: ''},
-                {text: item.text, className: ''},
-                {text: '', className: ''}];
-    }
+// export const getParaQuoteForLine = (item, para, quote) => {
+//     //debugger;
+//     if(!quote || 
+//         !quote.chapter ||
+//         item.chapterNumber !== quote.chapter ||
+//         item.lineNumber < quote.startline ||
+//         item.lineNumber > quote.endline){
+//         return [{text: '', className: ''},
+//                 {text: item.text, className: ''},
+//                 {text: '', className: ''}];
+//     }
 
-    let startchar = item.lineNumber > quote.startline ? 1 : quote.startchar;
-    let endchar = item.lineNumber < quote.startline ? item.text.length : quote.endchar;
+//     let startchar = item.lineNumber > quote.startline ? 1 : quote.startchar;
+//     let endchar = item.lineNumber < quote.startline ? item.text.length : quote.endchar;
 
-    let textQuote = [];
-    textQuote.push({text: item.text.slice(0, startchar), className: ''});
-    textQuote.push({text: item.text.slice(startchar, endchar), className: 'quoteclass'});
-    textQuote.push({text: item.text.slice(endchar, item.text.length), className: ''});
+//     let textQuote = [];
+//     textQuote.push({text: item.text.slice(0, startchar), className: ''});
+//     textQuote.push({text: item.text.slice(startchar, endchar), className: 'quoteclass'});
+//     textQuote.push({text: item.text.slice(endchar, item.text.length), className: ''});
 
-    return textQuote;
-};
+//     return textQuote;
+// };
 
 // export const getParaQuoteFromFullPos = (para, quote) => {
 //     //debugger;
@@ -121,8 +126,8 @@ export const getLinesInParagraph = (item, chapterItems) => {
     ); 
 };
 
-export const getLineQuote = (item, selectedQuotes) => {
-    return selectedQuotes && selectedQuotes.find(q => {
+export const getLineQuotes = (item, selectedQuotes) => {
+    return selectedQuotes && selectedQuotes.filter(q => {
         return q.chapter === item.chapterNumber &&
             (q.startline <= item.lineNumber &&
             q.endline >= item.lineNumber)}
