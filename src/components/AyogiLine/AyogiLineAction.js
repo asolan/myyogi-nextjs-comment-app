@@ -22,11 +22,13 @@ const AyogiLineAction = (props) => {
     close: close,
     reader: reader
   }
+//  console.log(props.showLineAction);
+
   return (
     <React.Fragment>
       <IonActionSheet
         isOpen={props.showLineAction}
-        //      onDidDismiss={() => props.updateLineAction('')}
+        onDidDismiss={() => props.setShowLineAction(false)}
         cssClass="my-custom-class"
         buttons={props.lineActionItems.map((ai) => {
           return {

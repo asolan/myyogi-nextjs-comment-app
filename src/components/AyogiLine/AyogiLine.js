@@ -49,7 +49,7 @@ const AyogiLine = (props) => {
   };
 
   const updateLineAction = (action, value) => {
-//    console.log('updateLineAction', action, value, footnoteCount);
+//    console.log('updateLineAction', action, value, footnoteCount, showLineAction);
     switch(action){
       case 'quote':
         setCurrentQuoteId(value);
@@ -61,7 +61,6 @@ const AyogiLine = (props) => {
         setFootnoteCount(footnoteCount+1);
         break;
     }
-    setShowLineAction(false);
   }
 
   const buildQuoteAndAction = (bQuotes) => {
@@ -168,6 +167,7 @@ const AyogiLine = (props) => {
       <AyogiLineAction
         lineActionItems={lineActionItems}
         showLineAction={showLineAction}
+        setShowLineAction={setShowLineAction}
         updateLineAction={updateLineAction}
       ></AyogiLineAction>
     </React.Fragment>
