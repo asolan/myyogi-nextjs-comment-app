@@ -2,7 +2,7 @@ import React, { useReducer, useEffect, useState } from "react";
 import "./AyogiQuoteViewMain.css";
 import AyogiQuoteViewSetting from "./AyogiQuoteViewSetting";
 import AyogiWisdom from "../AyogiWisdom/AyogiWisdom";
-import { buildQuoteViewSettings } from "../../utility/quoteUtility";
+import { buildQuoteViewSettings, quoteSort } from "../../utility/quoteUtility";
 import { sendCategoryToFirebaseStorage } from "../../utility/firebaseSend";
 import { IonItem, IonList, IonButton } from "@ionic/react";
 import constants from "../../store/constants";
@@ -93,16 +93,18 @@ const AyogiQuoteViewMain = (props) => {
 
       let sortQuotesItems = filteredQuotes.map((a, i) => {
 //        console.log(a);
-        let thisItem = props.aydata.find((c) => {
-          return c.chapterNumber === a.chapter && 
-            c.paragraphNumber === a.paragraph;
-        });
-        thisItem['selectedCategoryTags'] = a.selectedCategoryTags;
-        thisItem['tags'] = a.tags;
-        thisItem['chapter'] = thisItem.chapterNumber + ' - ' + props.aychapttitle[thisItem.chapterNumber].text;
+        if(a && a.selectedCategoryTags && a.selectedCategoryTags !== 'undefined'){
+          let thisItem = props.aydata.find((c) => {
+            return c.chapterNumber === a.chapter && 
+              c.paragraphNumber === a.paragraph;
+          });
+          thisItem['selectedCategoryTags'] = a.selectedCategoryTags;
+          thisItem['tags'] = a.tags;
+          thisItem['chapter'] = thisItem.chapterNumber + ' - ' + props.aychapttitle[thisItem.chapterNumber].text;
 
-        //      console.log('thisItem', thisItem);
-        return thisItem;
+          //      console.log('thisItem', thisItem);
+          return thisItem;
+        }
       });
 
  //     console.log('sortQuotesItems', sortQuotesItems);
@@ -129,16 +131,6 @@ const AyogiQuoteViewMain = (props) => {
     }
     return hash;
   }
-
-  const quoteSort = (a, b) => {
-    if (a.chapter > b.chapter) {
-      return 1;
-    }
-    if (a.chapter < b.chapter) {
-      return -1;
-    }
-    return a.line - b.line;
-  };
 
   let content = [];
 

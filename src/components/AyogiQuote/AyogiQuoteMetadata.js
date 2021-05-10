@@ -25,36 +25,35 @@ import {
 import constants from "../../store/constants";
 
 const AyogiQuoteMetadata = (props) => {
-
   // const [isAdding, setIsAdding] = useState(false);
   const [categoryShow, setCategoryShow] = useState({});
   const [categoryTagsValues, setCategoryTagsValues] = useState({});
 
   useEffect(() => {
-//  console.log('AyogiQuoteMetadata[]');
+    //  console.log('AyogiQuoteMetadata[]');
     buildCategoriesValues();
   }, []);
 
   useEffect(() => {
-//    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
-//  props.categoryTags.mytags = props.currentQuoteTags;
-  
+    //    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
+    //  props.categoryTags.mytags = props.currentQuoteTags;
+
     buildCategoriesValues();
   }, [props.currentQuoteTags]);
 
   useEffect(() => {
-//    console.log("AyogiQuoteMetadata[categoryTags]");
+    //    console.log("AyogiQuoteMetadata[categoryTags]");
   }, [props.categoryTags]);
 
-//   useEffect(() => {
-//     console.log('AyogiQuoteMetadata[props.selectedCategoryTags]', 
-//       props.selectedCategoryTags);
-// //    props.categoryTags.mytags = props.currentQuoteTags;
-//   }, [props.selectedCategoryTags]);
+  //   useEffect(() => {
+  //     console.log('AyogiQuoteMetadata[props.selectedCategoryTags]',
+  //       props.selectedCategoryTags);
+  // //    props.categoryTags.mytags = props.currentQuoteTags;
+  //   }, [props.selectedCategoryTags]);
 
   const showSetting = (settingToShow, value) => {
     //AMSTODO:Verify fix
-//    let newCategoryShow = { ...props.categories };
+    //    let newCategoryShow = { ...props.categories };
     let newCategoryShow = { ...categoryShow };
     newCategoryShow[settingToShow] = value;
     setCategoryShow(newCategoryShow);
@@ -67,45 +66,48 @@ const AyogiQuoteMetadata = (props) => {
   );
 
   const buildCategoriesValues = () => {
+    if (props.categories && props.categories.length > 0) {
+      let newCategories = props.categories.reduce(function (map, obj) {
+        map[obj] = false;
+        return map;
+      }, {});
+      //    console.log(newCategories);
+      setCategoryShow(newCategories);
 
-    let newCategories = props.categories.reduce(function(map, obj) {
-      map[obj] = false;
-      return map;
-    }, {});
-//    console.log(newCategories);
-    setCategoryShow(newCategories);
-
-    let newCategoriesTagValues = {...props.categoryTags};
-    // console.log(props.categories);
-    // console.log(props.categoryTags);
-    // console.log(props.selectedCategoryTags);
-    props.categories.map((c, i) => {
-      props.categoryTags[c].length > 0 &&
-        props.categoryTags[c].map((val, i) => {
-          const isChecked =
-            props.selectedCategoryTags &&
-            props.selectedCategoryTags.hasOwnProperty(c) &&
-            props.selectedCategoryTags[c].includes(val);
-          newCategoriesTagValues[c][val] = isChecked;
+      if (props.categoryTags && props.categoryTags.length > 0) {
+        let newCategoriesTagValues = { ...props.categoryTags };
+        // console.log(props.categories);
+        // console.log(props.categoryTags);
+        // console.log(props.selectedCategoryTags);
+        props.categories.map((c, i) => {
+          props.categoryTags[c].length > 0 &&
+            props.categoryTags[c].map((val, i) => {
+              const isChecked =
+                props.selectedCategoryTags &&
+                props.selectedCategoryTags.hasOwnProperty(c) &&
+                props.selectedCategoryTags[c].includes(val);
+              newCategoriesTagValues[c][val] = isChecked;
+            });
         });
-    });
-    //AMSTODO: object or array? not both
-//     My Inspiration: Array(4)
-// 0: "Healing"
-// 1: "Divine Feminine"
-// 2: "Health"
-// 3: "True Teaching"
-// Divine Feminine: false
-// Healing: false
-// Health: false
-// True Teaching: false
-    console.log('setCategoryTagsValues', newCategoriesTagValues);
-    setCategoryTagsValues(newCategoriesTagValues);
+        //AMSTODO: object or array? not both
+        //     My Inspiration: Array(4)
+        // 0: "Healing"
+        // 1: "Divine Feminine"
+        // 2: "Health"
+        // 3: "True Teaching"
+        // Divine Feminine: false
+        // Healing: false
+        // Health: false
+        // True Teaching: false
+        console.log("setCategoryTagsValues", newCategoriesTagValues);
+        setCategoryTagsValues(newCategoriesTagValues);
+      }
+    }
   };
 
   let categoriesMarkup =
     // isAdding &&
-    Object.keys(categoryTagsValues).length >  0 && 
+    Object.keys(categoryTagsValues).length > 0 &&
     props.categories.map((c, i) => {
       if (c === "mytags" && props.currentQuoteTags.length === 0) {
         return setMyTags;
@@ -132,32 +134,37 @@ const AyogiQuoteMetadata = (props) => {
             >
               {props.categoryTags[c].length > 0 &&
                 props.categoryTags[c].map((val, i) => {
-                  return(<IonItem key={`MetadatacategoryTags${i}`}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    slot="end"
-                    value={val}
-                    checked={categoryTagsValues && categoryTagsValues[c] && categoryTagsValues[c][val]}
-                    onIonChange={(e) => {
-//                      e.stopPropagation();
-                      console.log("onIonChange", e.detail);
-                      categoryTagsValues[c][val] = e.detail.checked;
-                      if (e.detail.checked) {
-                        props.addTag({
-                          name: e.detail.value,
-                          category: c,
-                        });
-                      } else {
-                        props.removeTag({
-                          name: e.detail.value,
-                          category: c,
-                        });
-                      }
-                    }}
-                  />
-                </IonItem>
-                );
-              })}
+                  return (
+                    <IonItem key={`MetadatacategoryTags${i}`}>
+                      <IonLabel>{val}</IonLabel>
+                      <IonCheckbox
+                        slot="end"
+                        value={val}
+                        checked={
+                          categoryTagsValues &&
+                          categoryTagsValues[c] &&
+                          categoryTagsValues[c][val]
+                        }
+                        onIonChange={(e) => {
+                          //                      e.stopPropagation();
+                          console.log("onIonChange", e.detail);
+                          categoryTagsValues[c][val] = e.detail.checked;
+                          if (e.detail.checked) {
+                            props.addTag({
+                              name: e.detail.value,
+                              category: c,
+                            });
+                          } else {
+                            props.removeTag({
+                              name: e.detail.value,
+                              category: c,
+                            });
+                          }
+                        }}
+                      />
+                    </IonItem>
+                  );
+                })}
               <IonItem>
                 <IonButton
                   // expand="block"
@@ -188,8 +195,8 @@ const AyogiQuoteMetadata = (props) => {
   // console.log(categoriesMarkup);
   // let returnVal = (
 
-//  console.log(categoriesMarkup);
-  
+  //  console.log(categoriesMarkup);
+
   return (
     <React.Fragment>
       <IonList>

@@ -1,55 +1,28 @@
-[{"category": "saints",
+[{"category": "masters",
     "color": "primary",
     "tags": [
     "Yogananda",
     "Jesus Christ",
     "Lahiri Mahasaya",
     "Sri Yukteswar",
-    "Babaji",
-    "Krishna",
-    "Buddha",
-    "Ananamoya Ma",
-    "Swami Pranabananda",
-    "Ram Gopal Muzumdar",
-    "Gandhi",
-    "Therese Neumann",
-    "Giri Bala",
-    "Luther Burbank"
+    "Babaji Krishna"
   ]}
-  ,{"category": "people",
+  ,{"category": "inspiration",
     "color": "secondary",
     "tags": [
-    "Bhagabati",
-    "Mother",
-    "Ananta",
-    "Roma",
-    "Nalini",
-    "Kashi Moni Lahiri"
+    "Miracles",
+    "Love",
+    "Kindness",
+    "Proof of God"
   ]},
-  {"category": "godheads",
-    "color": "tertiary",
-    "tags": [
-    "Brahma",
-    "Vishnu",
-    "Shiva",
-    "Durga",
-    "Kali",
-    "Babaji",
-    "Ram",
-    "Sita"
-  ]},
-  {"category": "scriptures",
+  {"category": "scripture religion",
     "color":"success",
     "tags": [
     "Bible",
     "Bhagavad Gita",
     "Mahabharata",
     "Yoga Sutras",
-    "Koran"
-  ]},
-  {"category": "religions",
-    "color":"medium",
-    "tags": [
+    "Koran",
     "Christianity",
     "Buddhism",
     "Sikhism",

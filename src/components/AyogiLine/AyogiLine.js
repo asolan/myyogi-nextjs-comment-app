@@ -8,7 +8,7 @@ import AyogiQuoteChipsSimple from "../AyogiQuote/AyogiQuoteChipsSimple";
 import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
 import { parseParagraphData } from "../../utility/parseUtility";
 import { IonLabel } from "@ionic/react";
-import { getTextQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
+import { getTextQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
 
 const AyogiLine = (props) => {
   const [showLineAction, setShowLineAction] = useState(false);
@@ -36,9 +36,14 @@ const AyogiLine = (props) => {
 
   const updateLineActionItems = (newQuote) => {
     //TODOV1-get quote - first x chars
-    const newLineAI = newQuote.map(q => {
-      return {key: q.quoteId, icon: 'chatbox', action: 'quote', val: 'quote:' + q.startchar+'-'+q.endchar};
+    let newLineAI = [];
+    if( newQuote){
+      newLineAI = newQuote.map(q => {
+      // console.log(q);
+      // console.log(getTextSubstrQuoteFromPos(props.c, q, 50));
+      return {key: q.quoteId, icon: 'chatbox', action: 'quote', val: 'Edit Quote: ..' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
     });
+  }
 
     newLineAI.push({key: '', icon: 'chatboxEllipses', action: 'quote', val: 'New Quote'});
     if(hasFootnote){
@@ -71,7 +76,7 @@ const AyogiLine = (props) => {
     }
     updateLineActionItems(quote);
 
-    const newTextQuote = getTextQuoteFromPos(props.c, quote);
+    const newTextQuote = getTextQuoteFromPos(props.c, quote, 0);
     setTextQuote(newTextQuote);
 
   };

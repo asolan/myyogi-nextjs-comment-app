@@ -7,9 +7,9 @@
     text-align: justify;
 }
 
-.footnote .emphasis {
+/* .footnote .emphasis {
     font-size: calc(var(--yogi-font-size) * 0.9);
-}
+} */
 
 .footnotepoem {
     display: block;

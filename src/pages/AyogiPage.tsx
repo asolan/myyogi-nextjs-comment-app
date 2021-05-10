@@ -57,7 +57,7 @@ const AyogiPage = (props: any) => {
   };
 
   const scrollToId = (chapter, line) => {
-    console.log('scrollToId', chapter, line);
+//    console.log('scrollToId', chapter, line);
     let scrollToIdDelay = () => {      
       let cref = contentRef!.current as any;
       let lineId = `${chapter}-${line}`;
@@ -113,7 +113,7 @@ const AyogiPage = (props: any) => {
 //  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
 useEffect(() => {
-      console.log(`AyogiPage[props.selectedQuotes]`, props.selectedQuotes, chNum);
+//        console.log(`AyogiPage[props.selectedQuotes]`, props.selectedQuotes, chNum);
       if(chNum > 0){
         buildChapterText(chNum);
       }
@@ -125,7 +125,7 @@ const contentScrollEnd = (e) => {
     e.target.getScrollElement().then((el) => {
       // Change from pos to current line
       const sToTop = el.scrollTop;
-      console.log(sToTop, maxLine);
+//      console.log(sToTop, maxLine);
       if(sToTop > maxLine){
         props.onChangeChapterLine(el.scrollTop);
       }
