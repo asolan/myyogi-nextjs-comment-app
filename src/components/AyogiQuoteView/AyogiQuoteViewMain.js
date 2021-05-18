@@ -6,6 +6,7 @@ import { buildQuoteViewSettings, quoteSort } from "../../utility/quoteUtility";
 import { sendCategoryToFirebaseStorage } from "../../utility/firebaseSend";
 import { IonItem, IonList, IonButton } from "@ionic/react";
 import constants from "../../store/constants";
+import { uuidv4 } from "../../utility/jsutility";
 
 const AyogiQuoteViewMain = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -186,7 +187,7 @@ const AyogiQuoteViewMain = (props) => {
           color="primary"
           fill={"outline"}
           onClick={() => {
-            sendCategoryToFirebaseStorage('test2', props.selectedQuotes);
+            sendCategoryToFirebaseStorage(uuidv4(), props.selectedQuotes);
           }}
         >
           Send Quotes to Firebase
