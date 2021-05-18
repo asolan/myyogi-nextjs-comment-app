@@ -11,6 +11,66 @@ export const catTagsToObject = (toCatTags) => {
   return tagsObj;
 };
 
+export const getItemQuoteFromPos = (item, quote) => {
+
+  if (
+    !quote ||
+    quote.length === 0 ||
+    !quote[0].chapter ||
+    item.chapterNumber !== quote[0].chapter
+  ) {
+    return [
+      { text: "", className: "" },
+      { text: item.text, className: "" },
+      { text: "", className: "" },
+    ];
+  }
+
+  const sortedQuote = quote.sort(quoteSort); // sort quot
+  let l = item.text.length;
+  let prevQuote = null;
+  let posList = [];
+  sortedQuote.forEach((q) => {
+
+    if (prevQuote) {
+      if (
+        q.startline >= prevQuote.endline &&
+        q.startchar >= prevQuote.endchar
+      ) {
+          posList.push(q.linePos[item.paragraphLineNumber]);
+      }
+    } else {
+      posList.push(q.linePos[item.paragraphLineNumber]);
+    }
+    prevQuote = { ...q };
+  });
+
+  let textQuote = [];
+  let prevPos = null;
+
+  if(posList.length > 0){
+    posList.forEach((p) => {
+      if (prevPos) {
+        if (p.start >= prevPos.end) {
+          textQuote.push({ text: item.text.slice(prevPos.end, p.start), className: ""});
+        }
+      } else {
+        if (p.start > 0) {
+          // Add start text before first quote
+          textQuote.push({ text: item.text.slice(0, p.start), className: "" });
+        }
+      }
+      textQuote.push({ text: item.text.slice(p.start, p.end), className: "quoteclass"});
+      prevPos = { ...p };
+    });
+    // Add end text after last quote
+    if (posList[posList.length - 1].end < l) {
+      textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: "" });
+    }
+  }
+  return textQuote;
+};
+
 export const buildQuoteViewSettings = (oldQuoteViewSettings, categories) => {
   const newViewSettings = { ...oldQuoteViewSettings };
   if (categories && categories.length > 0) {
@@ -108,25 +168,19 @@ export const getTextQuoteFromPos = (item, quote) => {
   const noPos = { start: l, end: l };
 
   sortedQuote.forEach((q) => {
-    //      console.log(q);
-    if (prevQuote) {
-      //        console.log('2a', q, prevQuote);
-      if (
-        q.startline >= prevQuote.endline &&
-        q.startchar >= prevQuote.endchar
-      ) {
-        posList = posList.concat([...q.linePos]);
-        //            console.log('2b', q.linePos, posList);
-      }
-    } else {
-      //        console.log('1a', q);
-      posList = posList.concat([...q.linePos]);
-      //        console.log('1b', q.linePos, posList);
-    }
-    prevQuote = { ...q };
-  });
+      if (prevQuote) {
+              if (
+                q.startline >= prevQuote.endline &&
+                q.startchar >= prevQuote.endchar
+              ) {
+                  posList = posList.concat([...q.linePos]);
+              }
+            } else {
+                  posList = posList.concat([...q.linePos]);
+            }
+        prevQuote = { ...q };
+      });
 
-  console.log(posList);
 
   // if(sortedQuote.length > 1){
   //   console.log('sortedQuote', sortedQuote.map(q => {
@@ -167,11 +221,9 @@ export const getTextQuoteFromPos = (item, quote) => {
       prevPos = { ...p };
     });
     // Add end text after last quote
-    console.log(posList);
     if (posList[posList.length - 1].end < l) {
       textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: "" });
     }
-    console.log(textQuote);
   }
   return textQuote;
 };

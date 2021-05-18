@@ -7,4 +7,9 @@ capacitor-resources
 cordova-res android --skip-config --copy
 npx cap open android
 
+npx cap add ios
+npx cap sync ios
+npx cap open ios
+
+
 

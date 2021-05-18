@@ -8,7 +8,7 @@ import AyogiQuoteChipsSimple from "../AyogiQuote/AyogiQuoteChipsSimple";
 import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
 import { parseParagraphData } from "../../utility/parseUtility";
 import { IonLabel } from "@ionic/react";
-import { getTextQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
+import { getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
 
 const AyogiLine = (props) => {
   const [showLineAction, setShowLineAction] = useState(false);
@@ -76,7 +76,7 @@ const AyogiLine = (props) => {
     }
     updateLineActionItems(quote);
 
-    const newTextQuote = getTextQuoteFromPos(props.c, quote, 0);
+    const newTextQuote = getItemQuoteFromPos(props.c, quote);
     setTextQuote(newTextQuote);
 
   };
@@ -145,8 +145,8 @@ const AyogiLine = (props) => {
       footnoteCount={footnoteCount}
       key={'f'+lineKey} 
       c={props.c} />) : null;
-
-
+      
+      
   returnVal = (
     <React.Fragment>
       <AyogiQuoteChipsSimple itemTags={props.itemTags} />

@@ -35,14 +35,12 @@ const AyogiQuoteMetadata = (props) => {
   }, []);
 
   useEffect(() => {
-    //    console.log('AyogiQuoteMetadata[props.currentQuoteTags]');
     //  props.categoryTags.mytags = props.currentQuoteTags;
 
     buildCategoriesValues();
   }, [props.currentQuoteTags]);
 
   useEffect(() => {
-    //    console.log("AyogiQuoteMetadata[categoryTags]");
   }, [props.categoryTags]);
 
   //   useEffect(() => {
@@ -71,10 +69,9 @@ const AyogiQuoteMetadata = (props) => {
         map[obj] = false;
         return map;
       }, {});
-      //    console.log(newCategories);
       setCategoryShow(newCategories);
 
-      if (props.categoryTags && props.categoryTags.length > 0) {
+      if (props.categoryTags && Object.keys(props.categoryTags).length > 0) {
         let newCategoriesTagValues = { ...props.categoryTags };
         // console.log(props.categories);
         // console.log(props.categoryTags);
@@ -195,7 +192,7 @@ const AyogiQuoteMetadata = (props) => {
   // console.log(categoriesMarkup);
   // let returnVal = (
 
-  //  console.log(categoriesMarkup);
+//  console.log(categoryTagsValues, categoriesMarkup);
 
   return (
     <React.Fragment>

@@ -61,7 +61,7 @@ const AyogiQuoteSelectText = (props) => {
     ) {
       setStartPos(isAdd ? startPos + amount : startPos - amount);
     }
-
+// AMSTODO: adjust by + 1 to end not working
     if (
       !isStart && ((!isAdd && endPos - amount >= startPos) ||
       (isAdd && endPos + amount <= props.item.text.length))

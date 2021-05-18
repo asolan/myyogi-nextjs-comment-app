@@ -308,9 +308,7 @@ const AyogiQuote = (props) => {
                     onClick={() => {
                       console.log("add-quote", quoteState.tags);
                       const newLinePos = getQuotelinePos(quoteState);
-                      //            const selTags = getSelectedTags();
-                      // console.log(quoteState);
-                      // console.log(newLinePos);
+                      quoteState.linePos = [...newLinePos];
 
                       props.addSelectedQuote(
                         quoteState.quoteId,
