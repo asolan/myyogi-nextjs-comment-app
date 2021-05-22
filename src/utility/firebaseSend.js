@@ -19,9 +19,9 @@ if (!firebase.apps.length) {
 
 export const sendCategoryToFirebaseStorage = (categoryName, data) => {
 
-    console.log('sendCategoryToFirebaseStorage', categoryName, data[0]);
+    console.log('sendCategoryToFirebaseStorage', categoryName, data);
 
-    var jsonString = JSON.stringify(data[0]);
+    var jsonString = JSON.stringify(data);
     // create a Blob from the JSON-string
     console.log(jsonString);
     var blob = new Blob([jsonString], {type: "application/json"});

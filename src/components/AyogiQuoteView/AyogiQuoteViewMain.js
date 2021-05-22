@@ -4,7 +4,7 @@ import AyogiQuoteViewSetting from "./AyogiQuoteViewSetting";
 import AyogiWisdom from "../AyogiWisdom/AyogiWisdom";
 import { buildQuoteViewSettings, quoteSort } from "../../utility/quoteUtility";
 import { sendCategoryToFirebaseStorage } from "../../utility/firebaseSend";
-import { IonItem, IonList, IonButton } from "@ionic/react";
+import { IonItem, IonList, IonButton, useIonAlert } from "@ionic/react";
 import constants from "../../store/constants";
 import { uuidv4 } from "../../utility/jsutility";
 
@@ -14,7 +14,8 @@ const AyogiQuoteViewMain = (props) => {
   const [sortByVal, setSortByVal] = useState(constants.QUOTE_SORT_VALUES.CHAPTER);
   const [quoteGroups, setQuoteGroups] = useState([]);
   const [categories, setCategories] = useState([]);
-  // const [categoryTags, setCategoryTags] = useState([]);
+  const [present] = useIonAlert();
+    // const [categoryTags, setCategoryTags] = useState([]);
   // const [categoryChips, setCategoryChips] = useState([]);
   let contentId = 0;
 
@@ -92,14 +93,14 @@ const AyogiQuoteViewMain = (props) => {
       // filteredQuotes.sort(quoteSort);
       // console.log(filteredQuotes);
 
-      let sortQuotesItems = filteredQuotes.flatMap((a, i) => {
+      let sortQuotesItems = filteredQuotes.map((a, i) => {
 //        console.log(a);
         if(a && a.selectedCategoryTags && a.selectedCategoryTags !== 'undefined'){
           let thatItems = props.aydata.filter((c) => {
             return c.chapterNumber === a.chapter && 
               c.paragraphNumber === a.paragraph;
           });
-          console.log(thatItems);
+//          console.log(thatItems);
           thatItems.forEach(function(part, index) {
             this[index]['selectedCategoryTags'] = a.selectedCategoryTags;
             this[index]['tags'] = a.tags;
@@ -111,7 +112,7 @@ const AyogiQuoteViewMain = (props) => {
         }
       });
 
-      console.log('sortQuotesItems', sortQuotesItems);
+//      console.log('sortQuotesItems', sortQuotesItems, doSortBy);
 
       let sortQuoteGroups = groupBy(sortQuotesItems, doSortBy.toLowerCase());
 //      console.log('sortQuoteGroups', sortQuoteGroups);
@@ -128,10 +129,10 @@ const AyogiQuoteViewMain = (props) => {
   function groupBy(array, property) {
     var hash = {};
     for (var i = 0; i < array.length; i++) {
-      if (!hash[array[i][property]]) {
-        hash[array[i][property]] = [];
+      if (!hash[array[i][0][property]]) {
+        hash[array[i][0][property]] = [];
       }
-      hash[array[i][property]].push(array[i]);
+      hash[array[i][0][property]].push(array[i]);
     }
     return hash;
   }
@@ -146,7 +147,7 @@ const AyogiQuoteViewMain = (props) => {
     //   console.log(key + " -> " + quoteGroups[key]);
     // }
 
-    // console.log('quoteGroups', quoteGroups);
+//    console.log('quoteGroups', quoteGroups);
     Object.keys(quoteGroups).forEach((key) => {
       // console.log('quoteGroup', key);
       // console.log(quoteGroups[key]);
@@ -159,10 +160,12 @@ const AyogiQuoteViewMain = (props) => {
         </h3>
       );
 
+
       quoteGroups[key].map((c) => {
-//        console.log(c);
         //console.log(props.aydata[dIndex].text);
-        content.push(c);
+        content.push(
+          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}`} items={c} {...props} />
+        );
       });
 
       // console.log(quoteGroups[key]);
@@ -184,19 +187,6 @@ const AyogiQuoteViewMain = (props) => {
           color="primary"
           fill={"outline"}
           onClick={() => {
-            console.log(props.selectedQuotes);
-//            sendCategoryToFirebaseStorage(uuidv4(), props.selectedQuotes);
-          }}
-        >
-          Send Quotes to Firebase (log only)
-        </IonButton>
-      </IonItem>
-      <IonItem lines="full">
-        <IonButton
-          slot="end"
-          color="primary"
-          fill={"outline"}
-          onClick={() => {
             setShowQuoteViewPopup(true);
           }}
         >
@@ -209,14 +199,33 @@ const AyogiQuoteViewMain = (props) => {
   return (
     <div className="AyogiQuoteViewMain" key="AyogiQuoteViewMain">
       {quoteViewSettingsModal}
-      <IonList>
-        {content.length > 0 && 
-        <AyogiWisdom key={`AyogiQuoteViewMain${content[1]._id}`}
-          items={content}
-          {...props}
-        />
-        }
-      </IonList>
+      <IonList>{content.map((c) => c)}</IonList>
+      <IonItem lines="full">
+        <IonButton
+          slot="end"
+          color="primary"
+          fill={"outline"}
+          onClick={() => {
+            present({
+//              cssClass: 'my-css',
+              header: 'Submit Quotes?',
+              message: 'Submit quotes to firebase',
+              buttons: [
+                'Cancel',
+                { text: 'Ok', handler: (d) => {
+                  console.log('Submit quotes to firebase', props.selectedQuotes);
+                  sendCategoryToFirebaseStorage(uuidv4(), props.selectedQuotes);
+                }},
+              ],
+              onDidDismiss: (e) => console.log('did dismiss'),
+            })
+          }            
+          }
+        >
+          Send Quotes to Firebase
+        </IonButton>
+      </IonItem>
+
     </div>
   );
 };
