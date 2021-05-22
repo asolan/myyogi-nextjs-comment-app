@@ -92,23 +92,26 @@ const AyogiQuoteViewMain = (props) => {
       // filteredQuotes.sort(quoteSort);
       // console.log(filteredQuotes);
 
-      let sortQuotesItems = filteredQuotes.map((a, i) => {
+      let sortQuotesItems = filteredQuotes.flatMap((a, i) => {
 //        console.log(a);
         if(a && a.selectedCategoryTags && a.selectedCategoryTags !== 'undefined'){
-          let thisItem = props.aydata.find((c) => {
+          let thatItems = props.aydata.filter((c) => {
             return c.chapterNumber === a.chapter && 
               c.paragraphNumber === a.paragraph;
           });
-          thisItem['selectedCategoryTags'] = a.selectedCategoryTags;
-          thisItem['tags'] = a.tags;
-          thisItem['chapter'] = thisItem.chapterNumber + ' - ' + props.aychapttitle[thisItem.chapterNumber].text;
+          console.log(thatItems);
+          thatItems.forEach(function(part, index) {
+            this[index]['selectedCategoryTags'] = a.selectedCategoryTags;
+            this[index]['tags'] = a.tags;
+            this[index]['chapter'] = this[index].chapterNumber + ' - ' + props.aychapttitle[this[index].chapterNumber].text;
+            }, thatItems); // use thatItems as this
 
           //      console.log('thisItem', thisItem);
-          return thisItem;
+          return thatItems;
         }
       });
 
- //     console.log('sortQuotesItems', sortQuotesItems);
+      console.log('sortQuotesItems', sortQuotesItems);
 
       let sortQuoteGroups = groupBy(sortQuotesItems, doSortBy.toLowerCase());
 //      console.log('sortQuoteGroups', sortQuoteGroups);
@@ -157,15 +160,9 @@ const AyogiQuoteViewMain = (props) => {
       );
 
       quoteGroups[key].map((c) => {
-        // console.log(c);
+//        console.log(c);
         //console.log(props.aydata[dIndex].text);
-        content.push(
-          <AyogiWisdom
-            key={`AyogiQuoteViewMain${c._id}`}
-            items={[c]}
-            {...props}
-          />
-        );
+        content.push(c);
       });
 
       // console.log(quoteGroups[key]);
@@ -187,10 +184,11 @@ const AyogiQuoteViewMain = (props) => {
           color="primary"
           fill={"outline"}
           onClick={() => {
-            sendCategoryToFirebaseStorage(uuidv4(), props.selectedQuotes);
+            console.log(props.selectedQuotes);
+//            sendCategoryToFirebaseStorage(uuidv4(), props.selectedQuotes);
           }}
         >
-          Send Quotes to Firebase
+          Send Quotes to Firebase (log only)
         </IonButton>
       </IonItem>
       <IonItem lines="full">
@@ -207,10 +205,18 @@ const AyogiQuoteViewMain = (props) => {
       </IonItem>
     </React.Fragment>
   );
+  console.log(content);
   return (
     <div className="AyogiQuoteViewMain" key="AyogiQuoteViewMain">
       {quoteViewSettingsModal}
-      <IonList>{content.map((c) => c)}</IonList>
+      <IonList>
+        {content.length > 0 && 
+        <AyogiWisdom key={`AyogiQuoteViewMain${content[1]._id}`}
+          items={content}
+          {...props}
+        />
+        }
+      </IonList>
     </div>
   );
 };

@@ -11,7 +11,11 @@ var firebaseConfig = {
     appId: "1:1048033740105:web:a9ea70ed4264848765c698",
     measurementId: "G-EFM4K038KP"
 };
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}else {
+  firebase.app(); // if already initialized, use that one
+}
 
 export const sendCategoryToFirebaseStorage = (categoryName, data) => {
 
@@ -27,6 +31,7 @@ export const sendCategoryToFirebaseStorage = (categoryName, data) => {
     // the reference points to "/BUCKET_NAME/FILE_NAME.json"
     var fileRef = storageRef.child(`/categories/${categoryName}.json`)
     // upload you blob into the storage 
+
     fileRef.put(blob).then(function(snapshot) {
       console.log('Uploaded a blob!');
     });
