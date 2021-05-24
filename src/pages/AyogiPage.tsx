@@ -14,11 +14,11 @@ import {
   IonPage,
   IonContent,
 } from "@ionic/react";
-import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
-import AyogiImage from "../components/AyogiImage/AyogiImage";
-import AyogiPoem from "../components/AyogiPoem/AyogiPoem";
-import AyogiFootnoteAlert from "../components/AyogiFootnoteAlert/AyogiFootnoteAlert";
-
+// import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
+// import AyogiImage from "../components/AyogiImage/AyogiImage";
+// import AyogiPoem from "../components/AyogiPoem/AyogiPoem";
+// import AyogiFootnoteAlert from "../components/AyogiFootnoteAlert/AyogiFootnoteAlert";
+import { buildSection } from "../utility/parseUtility";
 //import { listBox, planet, colorFill, more } from 'ionicons/icons';
 
 import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
@@ -53,7 +53,7 @@ const AyogiPage = (props: any) => {
 
   const scrollToTop = () => {
     let cref = contentRef!.current as any;
-    cref.scrollToTop && cref.scrollToTop();
+    cref.scrollToPoint && cref.scrollToPoint(0, 100, 0);
   };
 
   const scrollToId = (chapter, line) => {
@@ -133,7 +133,7 @@ const contentScrollEnd = (e) => {
   };
 
   const setCurrentChapter = () => {
-    let cnum = props.match.params.id ? props.match.params.id - 1 : props.currentChapter;
+    let cnum = props.match.params.id ? props.match.params.id - 1 : props.currentChapter - 1;
     let clinenumber = props.match.params.line ? props.match.params.line : props.currentChapterLine;
 
 //    console.log(cnum, clinenumber);
@@ -149,6 +149,7 @@ const contentScrollEnd = (e) => {
       buildChapterText(cnum);
       //      scrollToTop();
 
+      if (clinenumber <= 1) clinenumber = 4;
       scrollToId(props.aychapttitle[cnum].chapterNumber, clinenumber);
       //scrollToLine(clinenumber);
     }
@@ -197,7 +198,7 @@ const contentScrollEnd = (e) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
 //        console.log(newItems);
         newMaxLine = newItems[newItems.length-1].lineNumber;
-        nextContentList.push(buildSection(newItems));
+        nextContentList.push(buildSection(newItems, ++contentId, props));
       });
 
     // console.log('nextContentList');
@@ -206,39 +207,6 @@ const contentScrollEnd = (e) => {
     setChapterContent(nextContentList);
   };
 
-  //Build the section from items
-  const buildSection = (newItems: any[]): any => {
-    let lineType = newItems[0].type;
-    let result;
-    contentId++;
-    switch (lineType) {
-      case LINE_TYPE_ENUM.FOOTNOTE:
-        result = (
-          <AyogiFootnoteAlert
-            key={"AyogiFootnoteAlert" + contentId}
-            items={newItems}
-            {...props}
-          />
-        );
-        break;
-      case LINE_TYPE_ENUM.POEM:
-        result = <AyogiPoem key={"AyogiPoem" + contentId} items={newItems} {...props} />;
-        break;
-      case LINE_TYPE_ENUM.IMAGE:
-        result = <AyogiImage key={"AyogiImage" + contentId} items={newItems} {...props} />;
-        break;
-      case LINE_TYPE_ENUM.WISDOM:
-      default:
-        //        console.log(newItems);
-        result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
-        );
-        break;
-    }
-
-    // console.log(chlist);
-    return result;
-  };
 
   let content = <Loading loading={isLoading} />;
 

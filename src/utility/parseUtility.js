@@ -1,10 +1,48 @@
 import React from "react";
 //import { LINE_TYPE_ENUM } from './dataTypes';
 import { IonCardTitle, IonCardSubtitle, IonCardContent } from "@ionic/react";
+import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
+import AyogiImage from "../components/AyogiImage/AyogiImage";
+import AyogiPoem from "../components/AyogiPoem/AyogiPoem";
+import AyogiFootnoteAlert from "../components/AyogiFootnoteAlert/AyogiFootnoteAlert";
+import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 
 const imageCredit = ["ImageCredit"];
 const imageSubTitle = ["ImageSubTitle1", "ImageSubTitle1a", "ImageSubTitle2"];
 const imageMainTitle = ["ImageMainTitle"];
+
+  //Build the section from items
+  const buildSection = (newItems, contentId, props) => {
+    let lineType = newItems[0].type;
+    let result;
+    switch (lineType) {
+      case LINE_TYPE_ENUM.FOOTNOTE:
+        result = (
+          <AyogiFootnoteAlert
+            key={"AyogiFootnoteAlert" + contentId}
+            items={newItems}
+            {...props}
+          />
+        );
+        break;
+      case LINE_TYPE_ENUM.POEM:
+        result = <AyogiPoem key={"AyogiPoem" + contentId} items={newItems} {...props} />;
+        break;
+      case LINE_TYPE_ENUM.IMAGE:
+        result = <AyogiImage key={"AyogiImage" + contentId} items={newItems} {...props} />;
+        break;
+      case LINE_TYPE_ENUM.WISDOM:
+      default:
+        //        console.log(newItems);
+        result = (
+          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
+        );
+        break;
+    }
+
+    // console.log(chlist);
+    return result;
+  };
 
 const parseFootnote = (c, wrap, type) => {
   //    console.log(`${c._id}-${type}`);
@@ -168,4 +206,4 @@ const parseParagraphData = (c, i) => {
   return [paragraph, thisId, indentClasses];
 };
 
-export { parseParagraphData, parseImageTitles, parseFootnote };
+export { buildSection, parseParagraphData, parseImageTitles, parseFootnote };

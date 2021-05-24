@@ -49,7 +49,7 @@ p.smallSpace {
     float: left;
     position: relative;
     /* top: .12em; */
-    top:calc(0.1rem + (var(--yogi-font-size) * 0.1));
+    top:calc(0.11rem + (var(--yogi-font-size) * 0.11));
     height: 0.7em;
     /* margin-right: 0.07em;
     margin-bottom: 0.6em; */

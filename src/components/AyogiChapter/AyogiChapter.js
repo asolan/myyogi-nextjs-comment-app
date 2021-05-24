@@ -48,6 +48,12 @@ const AyogiChapter = (props) => {
 
     return (
         <div className="AyogiChapter">
+            <IonGrid className="prevnext">
+                <IonRow className="ion-text-center">
+                    <IonCol>{prevChapt}</IonCol>
+                    <IonCol>{nextChapt}</IonCol>
+                </IonRow>
+            </IonGrid>
             <div>{props.currentChapterText.map((c) => {
                 //                console.log(c);
                 return c;

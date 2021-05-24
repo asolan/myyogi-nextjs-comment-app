@@ -129,11 +129,14 @@ const AyogiQuoteViewMain = (props) => {
   function groupBy(array, property) {
     var hash = {};
     for (var i = 0; i < array.length; i++) {
-      if (!hash[array[i][0][property]]) {
-        hash[array[i][0][property]] = [];
+      if(array[i].length > 0 ){
+        if (!hash[array[i][0][property]]) {
+          hash[array[i][0][property]] = [];
+        }
+        hash[array[i][0][property]].push(array[i]);
       }
-      hash[array[i][0][property]].push(array[i]);
     }
+//    console.log(hash);
     return hash;
   }
 
@@ -148,6 +151,7 @@ const AyogiQuoteViewMain = (props) => {
     // }
 
 //    console.log('quoteGroups', quoteGroups);
+    let keyCount = 0;
     Object.keys(quoteGroups).forEach((key) => {
       // console.log('quoteGroup', key);
       // console.log(quoteGroups[key]);
@@ -164,7 +168,7 @@ const AyogiQuoteViewMain = (props) => {
       quoteGroups[key].map((c) => {
         //console.log(props.aydata[dIndex].text);
         content.push(
-          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}`} items={c} {...props} />
+          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} items={c} {...props} />
         );
       });
 
