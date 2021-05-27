@@ -27,7 +27,7 @@ const AyogiHeader = (props) => {
     case "settings":
       headerContent = (
         <IonRow className="yogananda-row">
-          <IonCol className="otherheader">Settings</IonCol>
+          <IonCol className="otherheader">Font Size</IonCol>
         </IonRow>
       );
       break;

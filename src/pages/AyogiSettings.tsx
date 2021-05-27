@@ -22,6 +22,7 @@ import { textOutline, sunny } from "ionicons/icons";
 import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
 import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
 import AyogiSettingsMain from "../components/AyogiSettings/AyogiSettingsMain";
+import AyogiSettingFontSize from "../components/AyogiSettings/AyogiSettingFontSize";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiSettings.css";
 import { createStructuredSelector } from "reselect";
@@ -41,7 +42,8 @@ const AyogiSettings = (props: any) => {
     <IonPage className="AyogiSettings AyogiChapter">
       <IonContent>
         <AyogiHeader headerType="settings"></AyogiHeader>
-        <AyogiSettingsMain {...props} />
+        <AyogiSettingFontSize {...props} />
+        {/* <AyogiSettingsMain {...props} /> */}
       </IonContent>{" "}
     </IonPage>
   );

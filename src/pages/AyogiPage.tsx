@@ -49,6 +49,7 @@ const AyogiPage = (props: any) => {
   //  const [ayogiState, setAyogiState] = useState<any>({});
 
   let contentId: number = 0;
+  const quoteOnly = false;
   const contentRef = useRef(null);
 
   const scrollToTop = () => {
@@ -198,7 +199,7 @@ const contentScrollEnd = (e) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
 //        console.log(newItems);
         newMaxLine = newItems[newItems.length-1].lineNumber;
-        nextContentList.push(buildSection(newItems, ++contentId, props));
+        nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly));
       });
 
     // console.log('nextContentList');

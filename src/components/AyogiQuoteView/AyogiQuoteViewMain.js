@@ -18,7 +18,7 @@ const AyogiQuoteViewMain = (props) => {
     // const [categoryTags, setCategoryTags] = useState([]);
   // const [categoryChips, setCategoryChips] = useState([]);
   let contentId = 0;
-
+  let quoteOnly = true;
 //  console.log('AyogiQuoteViewMain', quoteGroups, sortByVal);
   
   useEffect(() => {
@@ -168,7 +168,7 @@ const AyogiQuoteViewMain = (props) => {
       quoteGroups[key].map((c) => {
         //console.log(props.aydata[dIndex].text);
         content.push(
-          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} items={c} {...props} />
+          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} items={c} {...props} quoteOnly={quoteOnly} />
         );
       });
 

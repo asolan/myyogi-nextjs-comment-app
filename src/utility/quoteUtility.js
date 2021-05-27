@@ -11,7 +11,7 @@ export const catTagsToObject = (toCatTags) => {
   return tagsObj;
 };
 
-export const getItemQuoteFromPos = (item, quote) => {
+export const getItemQuoteFromPos = (item, quote, quoteOnly) => {
 
   if (
     !quote ||
@@ -19,11 +19,15 @@ export const getItemQuoteFromPos = (item, quote) => {
     !quote[0].chapter ||
     item.chapterNumber !== quote[0].chapter
   ) {
+    if(quoteOnly){
+      return [{ text: "", className: "" }];
+    } else {
     return [
-      { text: "", className: "" },
-      { text: item.text, className: "" },
-      { text: "", className: "" },
-    ];
+        { text: "", className: "" },
+        { text: item.text, className: "" },
+        { text: "", className: "" },
+      ];
+    }
   }
 
   const sortedQuote = quote.sort(quoteSort); // sort quot
@@ -52,12 +56,16 @@ export const getItemQuoteFromPos = (item, quote) => {
     posList.forEach((p) => {
       if (prevPos) {
         if (p.start >= prevPos.end) {
-          textQuote.push({ text: item.text.slice(prevPos.end, p.start), className: ""});
+          if(!quoteOnly){
+            textQuote.push({ text: item.text.slice(prevPos.end, p.start), className: ""});
+          }
         }
       } else {
         if (p.start > 0) {
           // Add start text before first quote
-          textQuote.push({ text: item.text.slice(0, p.start), className: "" });
+          if(!quoteOnly){
+            textQuote.push({ text: item.text.slice(0, p.start), className: "" });
+          }
         }
       }
       textQuote.push({ text: item.text.slice(p.start, p.end), className: "quoteclass"});
@@ -65,7 +73,9 @@ export const getItemQuoteFromPos = (item, quote) => {
     });
     // Add end text after last quote
     if (posList[posList.length - 1].end < l) {
-      textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: "" });
+      if(!quoteOnly){
+        textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: "" });
+      }
     }
   }
   return textQuote;

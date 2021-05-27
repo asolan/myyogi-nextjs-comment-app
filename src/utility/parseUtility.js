@@ -12,7 +12,7 @@ const imageSubTitle = ["ImageSubTitle1", "ImageSubTitle1a", "ImageSubTitle2"];
 const imageMainTitle = ["ImageMainTitle"];
 
   //Build the section from items
-  const buildSection = (newItems, contentId, props) => {
+  const buildSection = (newItems, contentId, props, quoteOnly) => {
     let lineType = newItems[0].type;
     let result;
     switch (lineType) {
@@ -35,7 +35,7 @@ const imageMainTitle = ["ImageMainTitle"];
       default:
         //        console.log(newItems);
         result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
+          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} quoteOnly={quoteOnly}/>
         );
         break;
     }

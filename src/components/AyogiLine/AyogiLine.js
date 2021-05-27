@@ -9,6 +9,7 @@ import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
 import { parseParagraphData } from "../../utility/parseUtility";
 import { IonLabel } from "@ionic/react";
 import { getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
+import useLongPress from "../../utility/useLongPress";
 
 const AyogiLine = (props) => {
   const [showLineAction, setShowLineAction] = useState(false);
@@ -54,18 +55,20 @@ const AyogiLine = (props) => {
   };
 
   const updateLineAction = (action, value) => {
-//    console.log('updateLineAction', action, value, footnoteCount, showLineAction);
+
+    setShowQuotePopup(false);
     switch(action){
       case 'quote':
         setCurrentQuoteId(value);
         setShowQuotePopup(true);
         break;
-      case 'close':
-        break;
       case 'footnote':
         setFootnoteCount(footnoteCount+1);
         break;
-    }
+      case 'close':
+      default:
+          break;
+      }
   }
 
   const buildQuoteAndAction = (bQuotes) => {
@@ -76,7 +79,7 @@ const AyogiLine = (props) => {
     }
     updateLineActionItems(quote);
 
-    const newTextQuote = getItemQuoteFromPos(props.c, quote);
+    const newTextQuote = getItemQuoteFromPos(props.c, quote, props.quoteOnly);
     setTextQuote(newTextQuote);
 
   };
@@ -145,7 +148,16 @@ const AyogiLine = (props) => {
       footnoteCount={footnoteCount}
       key={'f'+lineKey} 
       c={props.c} />) : null;
-      
+    
+  const onLongPress = () => { setShowLineAction(true); };
+  const onClick = () => { setShowLineAction(true); };
+
+  const defaultOptions = {
+      shouldPreventDefault: false,
+      delay: 500,
+  };
+
+  const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);   
       
   returnVal = (
     <React.Fragment>
@@ -153,9 +165,8 @@ const AyogiLine = (props) => {
       {quoteModal}
       {paragraph}
       <IonLabel
-        onClick={() => { setShowLineAction(true); }}
-//        onClick={() => { setShowQuotePopup(true); }}
-        id={props.c._id}
+        {...longPressEvent}
+          id={props.c._id}
         // style={props.style}
         className={allClasses.join(" ")}
       >
