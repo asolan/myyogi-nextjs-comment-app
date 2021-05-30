@@ -9,7 +9,7 @@ import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
 import { parseParagraphData } from "../../utility/parseUtility";
 import { IonLabel } from "@ionic/react";
 import { getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
-import useLongPress from "../../utility/useLongPress";
+//import useLongPress from "../../utility/useLongPress";
 
 const AyogiLine = (props) => {
   const [showLineAction, setShowLineAction] = useState(false);
@@ -149,15 +149,10 @@ const AyogiLine = (props) => {
       key={'f'+lineKey} 
       c={props.c} />) : null;
     
-  const onLongPress = () => { setShowLineAction(true); };
-  const onClick = () => { setShowLineAction(true); };
+//  const onLongPress = () => { setShowLineAction(true); };
+//  const onClick = () => { setShowLineAction(true); };
 
-  const defaultOptions = {
-      shouldPreventDefault: false,
-      delay: 500,
-  };
-
-  const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);   
+//  const longPressEvent = useLongPress(onLongPress, 700);   
       
   returnVal = (
     <React.Fragment>
@@ -165,7 +160,8 @@ const AyogiLine = (props) => {
       {quoteModal}
       {paragraph}
       <IonLabel
-        {...longPressEvent}
+        onClick = { () => { setShowLineAction(true); }}
+        // {...longPressEvent}
           id={props.c._id}
         // style={props.style}
         className={allClasses.join(" ")}

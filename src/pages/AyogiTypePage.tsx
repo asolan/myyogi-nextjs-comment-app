@@ -24,8 +24,6 @@ import {
 
 import AyogiHeader from '../components/AyogiHeader/AyogiHeader';
 import AyogiType from '../components/AyogiType/AyogiType';
-//import { fetchAYDataOfType } from '../utility/fetchData';
-//import { fetchAYDataOfType } from '../utility/fetchDataJson';
 import { LINE_TYPE_ENUM } from '../utility/dataTypes';
 import './AyogiPage.css';
 let aypoem = require('../aypoem.json');

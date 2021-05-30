@@ -14,6 +14,7 @@ const AyogiQuoteViewMain = (props) => {
   const [sortByVal, setSortByVal] = useState(constants.QUOTE_SORT_VALUES.CHAPTER);
   const [quoteGroups, setQuoteGroups] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [subProps, setSubProps] = useState<any>({});
   const [present] = useIonAlert();
     // const [categoryTags, setCategoryTags] = useState([]);
   // const [categoryChips, setCategoryChips] = useState([]);
@@ -26,6 +27,11 @@ const AyogiQuoteViewMain = (props) => {
     setupCategories();
     buildQuotes([...props.selectedQuotes], { ...props.quoteViewSettings }, categories);
   }, []);
+
+  useEffect(() => {
+    var {aydata, ...sProps} = props;
+    setSubProps({...sProps});
+  }, [props]);
 
   useEffect(() => {
     setupCategories();
@@ -168,7 +174,11 @@ const AyogiQuoteViewMain = (props) => {
       quoteGroups[key].map((c) => {
         //console.log(props.aydata[dIndex].text);
         content.push(
-          <AyogiWisdom key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} items={c} {...props} quoteOnly={quoteOnly} />
+          <AyogiWisdom 
+            key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} 
+            items={c} 
+            props={subProps} 
+            quoteOnly={quoteOnly} />
         );
       });
 
@@ -181,7 +191,7 @@ const AyogiQuoteViewMain = (props) => {
       categories={categories}
       showQuoteViewPopup={showQuoteViewPopup}
       setShowQuoteViewPopup={setShowQuoteViewPopup}
-      {...props}
+      props={subProps}
     />
   ) : (
     <React.Fragment>

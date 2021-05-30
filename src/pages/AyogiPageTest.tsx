@@ -34,9 +34,6 @@ import { connect } from "react-redux";
 import selectors from "../store/selectors";
 import actions from "../store/actions";
 
-//let aydata = require('../aydata.json');
-//let aychaptlist = require('../aychaptlist.json');
-
 const AyogiPageTest = (props: any) => {
   console.log("AyogiPageTest");
   //  console.log(props);

@@ -11,7 +11,17 @@ const imageCredit = ["ImageCredit"];
 const imageSubTitle = ["ImageSubTitle1", "ImageSubTitle1a", "ImageSubTitle2"];
 const imageMainTitle = ["ImageMainTitle"];
 
-  //Build the section from items
+
+const notChapterTitleHeader = (c) => {
+  //Convery to array
+  return (
+    c !== undefined &&
+    c.class !== "chaptertitleheader" &&
+    c.class !== "chaptertitle"
+  );
+};
+
+//Build the section from items
   const buildSection = (newItems, contentId, props, quoteOnly) => {
     let lineType = newItems[0].type;
     let result;
@@ -206,4 +216,4 @@ const parseParagraphData = (c, i) => {
   return [paragraph, thisId, indentClasses];
 };
 
-export { buildSection, parseParagraphData, parseImageTitles, parseFootnote };
+export { notChapterTitleHeader, buildSection, parseParagraphData, parseImageTitles, parseFootnote };

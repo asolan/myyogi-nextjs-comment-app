@@ -1,24 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Loading from "../components/Loading/Loading";
 import {
-  // IonCard,
-  // IonCardContent,
-  // IonCardHeader,
-  // IonCardSubtitle,
-  // IonCardTitle,
-  // IonIcon,
-  // IonItem,
-  // IonLabel,
-  // IonList,
-  // IonListHeader,
   IonPage,
   IonContent,
 } from "@ionic/react";
-// import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
-// import AyogiImage from "../components/AyogiImage/AyogiImage";
-// import AyogiPoem from "../components/AyogiPoem/AyogiPoem";
-// import AyogiFootnoteAlert from "../components/AyogiFootnoteAlert/AyogiFootnoteAlert";
-import { buildSection } from "../utility/parseUtility";
+import { notChapterTitleHeader, buildSection } from "../utility/parseUtility";
 //import { listBox, planet, colorFill, more } from 'ionicons/icons';
 
 import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
@@ -32,9 +18,6 @@ import selectors from "../store/selectors";
 import actions from "../store/actions";
 
 
-//let aydata = require('../aydata.json');
-//let aychapttitle = require('../aychapttitle.json');
-
 const AyogiPage = (props: any) => {
   //  console.log("AyogiPage");
   //  console.log(props);
@@ -46,6 +29,7 @@ const AyogiPage = (props: any) => {
   const [maxLine, setMaxLine] = useState<number>(500);
   const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("");
   const [chapterContent, setChapterContent] = useState<any>([]);
+  const [subProps, setSubProps] = useState<any>({});
   //  const [ayogiState, setAyogiState] = useState<any>({});
 
   let contentId: number = 0;
@@ -100,6 +84,11 @@ const AyogiPage = (props: any) => {
     //    parseChapterData();
   }, []);
 
+  useEffect(() => {
+    var {aydata, ...sProps} = props;
+    setSubProps({...sProps});
+  }, [props]);
+    
   useEffect(() => {
 //    console.log(`AyogiPage[props.chPos]-${props.chPos}`);
     // console.log(props.chPos);
@@ -156,15 +145,6 @@ const contentScrollEnd = (e) => {
     }
   };
 
-  const notChapterTitleHeader = (c: any) => {
-    //Convery to array
-    return (
-      c !== undefined &&
-      c.class !== "chaptertitleheader" &&
-      c.class !== "chaptertitle"
-    );
-  };
-
   const buildChapterText = (cnum: number) => {
     contentId = 0;
     let newMaxLine = 0;
@@ -199,7 +179,7 @@ const contentScrollEnd = (e) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
 //        console.log(newItems);
         newMaxLine = newItems[newItems.length-1].lineNumber;
-        nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly));
+        nextContentList.push(buildSection(newItems, ++contentId, subProps, quoteOnly));
       });
 
     // console.log('nextContentList');
@@ -222,7 +202,7 @@ const contentScrollEnd = (e) => {
     // console.log(chapterContent);
     content = (
       <AyogiChapter
-        {...props}
+        props={subProps}
         currentChapterNumber={chNum}
         currentChapterTitle={currentChapterTitle}
         currentChapterText={chapterContent}

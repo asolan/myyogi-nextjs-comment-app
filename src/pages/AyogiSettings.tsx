@@ -31,8 +31,6 @@ import selectors from "../store/selectors";
 import actions from "../store/actions";
 import constants from "../store/constants";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
-//let aydata = require('../aydata.json');
-//let aychaptlist = require('../aychaptlist.json');
 
 const AyogiSettings = (props: any) => {
   console.log("AyogiSettings");
