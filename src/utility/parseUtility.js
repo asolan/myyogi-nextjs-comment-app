@@ -22,7 +22,7 @@ const notChapterTitleHeader = (c) => {
 };
 
 //Build the section from items
-  const buildSection = (newItems, contentId, props, quoteOnly) => {
+  const buildSection = (newItems, contentId, props, quoteOnly, highlightTerm, goToChapter) => {
     let lineType = newItems[0].type;
     let result;
     switch (lineType) {
@@ -45,7 +45,14 @@ const notChapterTitleHeader = (c) => {
       default:
         //        console.log(newItems);
         result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} quoteOnly={quoteOnly}/>
+          <AyogiWisdom 
+            key={"AyogiWisdom" + contentId} 
+            items={newItems} 
+            {...props} 
+            quoteOnly={quoteOnly}
+            highlightTerm={highlightTerm}
+            goToChapter={goToChapter}
+          />
         );
         break;
     }

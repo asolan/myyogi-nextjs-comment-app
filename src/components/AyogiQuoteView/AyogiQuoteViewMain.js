@@ -178,7 +178,10 @@ const AyogiQuoteViewMain = (props) => {
             key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} 
             items={c} 
             props={subProps} 
-            quoteOnly={quoteOnly} />
+            quoteOnly={quoteOnly}
+            highlightTerm={null}
+            goToChapter={true}
+         />
         );
       });
 

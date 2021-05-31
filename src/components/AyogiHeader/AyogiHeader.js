@@ -17,6 +17,13 @@ const AyogiHeader = (props) => {
 
   let headerContent = null;
   switch (props.headerType) {
+    case "search":
+      headerContent = (
+        <IonRow className="yogananda-row">
+          <IonCol className="otherheader">Search</IonCol>
+        </IonRow>
+      );
+      break;
     case "quotes":
       headerContent = (
         <IonRow className="yogananda-row">
@@ -64,7 +71,7 @@ const AyogiHeader = (props) => {
               </IonCol>
             </IonRow>
             <IonRow>
-              <IonCol className="chaptertitle">{props.headerTitle}</IonCol>
+              <IonCol className="chaptertitle">{props.headerTitle ? props.headerTitle : ''}</IonCol>
             </IonRow>
           </IonGrid>
         </IonRow>

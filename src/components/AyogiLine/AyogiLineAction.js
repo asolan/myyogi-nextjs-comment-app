@@ -7,6 +7,7 @@ import {
   flag,
   close,
   reader,
+  book
 } from "ionicons/icons";
 import { queries } from "@testing-library/dom";
 
@@ -20,7 +21,8 @@ const AyogiLineAction = (props) => {
     chatboxEllipses: chatboxEllipses,
     flag: flag,
     close: close,
-    reader: reader
+    reader: reader,
+    book: book
   }
 //  console.log(props.showLineAction);
 

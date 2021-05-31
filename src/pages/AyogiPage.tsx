@@ -179,7 +179,7 @@ const contentScrollEnd = (e) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
 //        console.log(newItems);
         newMaxLine = newItems[newItems.length-1].lineNumber;
-        nextContentList.push(buildSection(newItems, ++contentId, subProps, quoteOnly));
+        nextContentList.push(buildSection(newItems, ++contentId, subProps, quoteOnly, null, false));
       });
 
     // console.log('nextContentList');

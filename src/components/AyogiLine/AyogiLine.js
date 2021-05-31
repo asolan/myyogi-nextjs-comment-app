@@ -50,6 +50,10 @@ const AyogiLine = (props) => {
     if(hasFootnote){
       newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', val: 'See Footnote'});
     }
+
+    if(props.goToChapter){
+      newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', val: 'Go to Chapter'});
+    }
     newLineAI.push({key: 'close', icon: 'close', action: 'close', val: 'Close'});
     setLineActionItems(newLineAI);
   };
@@ -65,7 +69,12 @@ const AyogiLine = (props) => {
       case 'footnote':
         setFootnoteCount(footnoteCount+1);
         break;
-      case 'close':
+      case 'gotochap':
+        const newPos = "/ayogi/" + props.c.chapterNumber + "/" + props.c.lineNumber
+//        props.onChangeChapter(props.c.chapterNumber);
+        props.history.push(newPos);
+        break;
+        case 'close':
       default:
           break;
       }
@@ -153,8 +162,37 @@ const AyogiLine = (props) => {
 //  const onClick = () => { setShowLineAction(true); };
 
 //  const longPressEvent = useLongPress(onLongPress, 700);   
-      
-  returnVal = (
+
+  // const searchMatch = (searchString, searchTerm) => {
+  //   // /(\bmoo+\b)/
+  //   const newSearchTerm = '(\\b' + searchTerm + '\\b)';
+  //   const regr = new RegExp(newSearchTerm,"gi");
+
+  //   const parts = searchString.split(regr);
+  //   console.log(parts);
+  //   return parts.map(part => (part.match(regr) ? <span className="searchfind">{part}</span> : part));
+  // };
+
+  const highlightPattern = (text, term) => {
+    const pattern = new RegExp(term,"gi");
+    const splitText = text.split(pattern);
+  
+    if (splitText.length <= 1) {
+      return text;
+    }
+  
+    const matches = text.match(pattern);
+  
+    return splitText.reduce((arr, element, index) => (matches[index] ? [
+      ...arr,
+      element,
+      <span className="searchfind">
+        {matches[index]}
+      </span>,
+    ] : [...arr, element]), []);
+  };
+  
+returnVal = (
     <React.Fragment>
       <AyogiQuoteChipsSimple itemTags={props.itemTags} />
       {quoteModal}
@@ -169,7 +207,9 @@ const AyogiLine = (props) => {
         {textQuote &&
           textQuote.map((q, i) => (
             <span key={`itemquotesels${i}`} className={q.className}>
-              {q.text}
+              {props.highlightTerm && props.highlightTerm.length > 0 ? 
+                highlightPattern(q.text, props.highlightTerm) 
+                : q.text}
             </span>
           ))}
         {/* {props.c.text} */}

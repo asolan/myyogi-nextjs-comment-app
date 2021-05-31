@@ -10,13 +10,14 @@ import {
   IonTabs,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { imagesOutline, listOutline, bookOutline, ribbonOutline, settingsOutline } from "ionicons/icons";
+import { searchOutline, imagesOutline, listOutline, bookOutline, ribbonOutline, settingsOutline } from "ionicons/icons";
 import ImageListTab from "./pages/ImageListTab";
 import ImageTab from "./pages/ImageTab";
 import PoemListTab from "./pages/PoemListTab";
 import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
+import AyogiSearchPage from "./pages/AyogiSearchPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
 import AyogiQuoteView from "./pages/AyogiQuoteView";
 import AyogiSettings from './pages/AyogiSettings';
@@ -124,6 +125,15 @@ function App(props) {
 //              exact={true}
             />
             <Route
+              path="/search"
+              render={(props) => (
+                <AyogiSearchPage 
+                  aydata={aydata}
+                  {...props} 
+                />
+              )}
+            />
+            <Route
               path="/aypoems"
               render={(props) => (
                 <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />
@@ -162,6 +172,10 @@ function App(props) {
             <IonTabButton tab="imagelist" href="/imagelist">
               <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="search" href="/search">
+              <IonIcon icon={searchOutline} />
+              <IonLabel>Search</IonLabel>
             </IonTabButton>
             <IonTabButton tab="quotes" href="/quotes">
               <IonIcon icon={ribbonOutline} />
