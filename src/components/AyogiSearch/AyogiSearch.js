@@ -26,7 +26,6 @@ const AyogiSearch = (props) => {
 
     const [searchTerm, setSearchTerm] = useState([]);
     const [searchResultsContent, setSearchResultsContent] = useState([]);
-    const [subProps, setSubProps] = useState({});
     const [disableSearch, setDisableSearch] = useState(true);
     const [searchLoading, setSearchLoading] = useState(false);
 
@@ -35,12 +34,6 @@ const AyogiSearch = (props) => {
     useEffect(() => {
 //        buildSearchText('');
     }, []);
-
-
-    useEffect(() => {
-      var {aydata, ...sProps} = props;
-      setSubProps({...sProps});
-    }, [props]);
 
       // useEffect(() => {
     //     buildSearchText(searchTerm);
@@ -70,7 +63,35 @@ const AyogiSearch = (props) => {
       }
       return found;
     };
-    
+
+    const doSearch2 = (a, c) => {
+      //Search in footnotes too?
+//      console.log(a, c);
+      let found = false;
+
+      if(c && c !== undefined && c.type === 'WISDOM'){
+        if(typeof c.text === 'string'){
+          if(c.text.toLowerCase().indexOf(searchTerm) > -1) {
+            found = true;
+          }
+        } else {
+           if(c.text.length > 0 && 
+            c.text.findIndex(f => f.toLowerCase().indexOf(searchTerm)> -1) > -1){
+              found = true;
+          }
+        }
+        if((c.footnote && 
+          c.footnote.length > 0 && 
+          c.footnote.findIndex(f => f.toLowerCase().indexOf(searchTerm)> -1) > -1)){
+            found = true;
+        }
+      }
+      if(found){
+        a.push({chapterNumber: c.chapterNumber, paragraphNumber: c.paragraphNumber});
+      }
+      return a;
+    };
+      
     const buildSearchText = (newSearchTerm) => {
       let contentId = 0;
       let nextContentList = [];
@@ -81,8 +102,16 @@ const AyogiSearch = (props) => {
         console.log("buildchaptext-notext");
         return;
       }
-      let nextText = props.aydata
-        .filter(doSearch,newSearchTerm);
+      let matchedPar = props.aydata.reduce(doSearch2, [])
+      console.log('matchedPar', matchedPar);
+      let nextText = props.aydata.reduce((a,c) => {
+        if(matchedPar.some(m => m.chapterNumber === c.chapterNumber && 
+          m.paragraphNumber === c.paragraphNumber)){
+            a.push(c);
+        }
+        return a;
+        }, []);
+//        .filter(doSearch,newSearchTerm);
 //TODO Remove image in illustrations?
 //        .filter(notChapterTitleHeader);
   
@@ -106,7 +135,7 @@ const AyogiSearch = (props) => {
           nextContent.slice(1).forEach((c, i) => {
             let newItems = nextText.slice(nextContent[i].pos, c.pos);
     //        console.log(newItems);
-            nextContentList.push(buildSection(newItems, ++contentId, subProps, quoteOnly, newSearchTerm, true));
+            nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly, newSearchTerm, true));
           });
         }
   

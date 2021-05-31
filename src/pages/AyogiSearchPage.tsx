@@ -37,6 +37,14 @@ const AyogiSearchPage = (props: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    onChangeChapter: (chapter: number) =>
+      dispatch(actions.onChangeChapter(chapter)),
+    onChangeChapterLine: (chapterLine: number) =>
+      dispatch(actions.onChangeChapterLine(chapterLine)),
+    addSelectedQuote: (quoteId: string, chapter:number,  paragraph:number, startline:number, startchar:number, endline:number, endchar:number, linePos:any[], selectedCategoryTags:any, tags:string[]) =>
+      dispatch(actions.addSelectedQuote(quoteId, chapter, paragraph, startline, startchar, endline, endchar, linePos, selectedCategoryTags, tags)),
+    removeSelectedQuote: (quoteId: string) =>
+      dispatch(actions.removeSelectedQuote(quoteId)),
   };
 };
 

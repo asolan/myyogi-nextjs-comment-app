@@ -60,34 +60,36 @@ const AyogiQuote = (props) => {
   }, [props.quoteId]);
 
   const setupCategories = () => {
-    const allCategories = [...props.aycategories].concat(
-      props.currentQuoteTags
-    );
-    let newCategories = allCategories.map((c) => c.category);
+    if(props.aycategories && props.aycategories.length > 0){
+      const allCategories = [...props.aycategories].concat(
+        props.currentQuoteTags
+      );
+      let newCategories = allCategories.map((c) => c.category);
 
-    let newCategoryTags = allCategories.reduce(function (map, obj) {
-      map[obj.category] = obj.tags;
-      return map;
-    }, {});
+      let newCategoryTags = allCategories.reduce(function (map, obj) {
+        map[obj.category] = obj.tags;
+        return map;
+      }, {});
 
-    let newCategoryChips = allCategories.reduce(function (map, obj) {
-      map[obj.category] = obj.color;
-      return map;
-    }, {});
+      let newCategoryChips = allCategories.reduce(function (map, obj) {
+        map[obj.category] = obj.color;
+        return map;
+      }, {});
 
-    // console.log(newCategories);
-    // console.log(newCategoryTags);
-    // console.log(newCategoryChips);
-    setCategories(newCategories);
-    setCategoryTags(newCategoryTags);
-    setCategoryChips(newCategoryChips);
+      // console.log(newCategories);
+      // console.log(newCategoryTags);
+      // console.log(newCategoryChips);
+      setCategories(newCategories);
+      setCategoryTags(newCategoryTags);
+      setCategoryChips(newCategoryChips);
+    }
   };
 
   const setQuoteState = () => {
     let para = getLinesInParagraph(props.c, props.items);
     if (para.length > 0) {
       //      debugger;
-      let quoteIndex = props.quotes.findIndex(q => q.quoteId === props.quoteId);
+      let quoteIndex = props.quotes ? props.quotes.findIndex(q => q.quoteId === props.quoteId) : -1;
       let quote = null;
       if (quoteIndex === -1) {
         const endLineNum = para.length - 1;
@@ -304,7 +306,7 @@ const AyogiQuote = (props) => {
               <React.Fragment>
                 <IonItem lines="full">
                   <IonButton
-                    slot="start"
+                    slot="end"
                     onClick={() => {
                       console.log("add-quote", quoteState.tags);
                       const newLinePos = getQuotelinePos(quoteState);
@@ -330,7 +332,7 @@ const AyogiQuote = (props) => {
                     Save Quote
                   </IonButton>
                   <IonButton
-                    slot="end"
+                    slot="start"
                     color="light"
                     onClick={() => {
                       props.setIsSelected(false);
@@ -342,16 +344,14 @@ const AyogiQuote = (props) => {
                 </IonItem>
                 <IonItem lines="full">
                   <IonButton
-                    className="ion-padding-start"
-                    slot="end"
+                    slot="start"
                     color="warning"
                     onClick={() => {
                       props.removeSelectedQuote(quoteState.quoteId);
                       props.setIsSelected(false);
                       props.setShowQuotePopup(false);
                     }}
-                  >
-                    Delete
+                  >Delete
                   </IonButton>
                 </IonItem>
               </React.Fragment>

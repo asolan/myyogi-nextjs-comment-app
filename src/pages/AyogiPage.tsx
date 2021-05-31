@@ -29,7 +29,6 @@ const AyogiPage = (props: any) => {
   const [maxLine, setMaxLine] = useState<number>(500);
   const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("");
   const [chapterContent, setChapterContent] = useState<any>([]);
-  const [subProps, setSubProps] = useState<any>({});
   //  const [ayogiState, setAyogiState] = useState<any>({});
 
   let contentId: number = 0;
@@ -84,11 +83,6 @@ const AyogiPage = (props: any) => {
     //    parseChapterData();
   }, []);
 
-  useEffect(() => {
-    var {aydata, ...sProps} = props;
-    setSubProps({...sProps});
-  }, [props]);
-    
   useEffect(() => {
 //    console.log(`AyogiPage[props.chPos]-${props.chPos}`);
     // console.log(props.chPos);
@@ -179,7 +173,7 @@ const contentScrollEnd = (e) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
 //        console.log(newItems);
         newMaxLine = newItems[newItems.length-1].lineNumber;
-        nextContentList.push(buildSection(newItems, ++contentId, subProps, quoteOnly, null, false));
+        nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly, null, false));
       });
 
     // console.log('nextContentList');
@@ -202,7 +196,7 @@ const contentScrollEnd = (e) => {
     // console.log(chapterContent);
     content = (
       <AyogiChapter
-        props={subProps}
+        {...props}
         currentChapterNumber={chNum}
         currentChapterTitle={currentChapterTitle}
         currentChapterText={chapterContent}
