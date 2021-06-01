@@ -36,10 +36,17 @@ const notChapterTitleHeader = (c) => {
         );
         break;
       case LINE_TYPE_ENUM.POEM:
-        result = <AyogiPoem key={"AyogiPoem" + contentId} items={newItems} {...props} />;
+        result = (<AyogiPoem 
+                    key={"AyogiPoem" + contentId} 
+                    items={newItems} 
+                    {...props} />);
         break;
       case LINE_TYPE_ENUM.IMAGE:
-        result = <AyogiImage key={"AyogiImage" + contentId} items={newItems} {...props} />;
+        result = (<AyogiImage 
+                    key={"AyogiImage" + contentId} 
+                    items={newItems} 
+                    {...props} 
+                  />);
         break;
       case LINE_TYPE_ENUM.WISDOM:
       default:

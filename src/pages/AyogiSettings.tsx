@@ -33,8 +33,6 @@ import constants from "../store/constants";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 
 const AyogiSettings = (props: any) => {
-  console.log("AyogiSettings");
-  console.log(props);
 
   return (
     <IonPage className="AyogiSettings AyogiChapter">

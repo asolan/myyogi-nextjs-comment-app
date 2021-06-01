@@ -27,46 +27,18 @@ const AyogiSearch = (props) => {
     const [searchTerm, setSearchTerm] = useState([]);
     const [searchResultsContent, setSearchResultsContent] = useState([]);
     const [disableSearch, setDisableSearch] = useState(true);
-    const [searchLoading, setSearchLoading] = useState(false);
+//    const [searchLoading, setSearchLoading] = useState(false);
 
+    let searchLoading = false;
     const quoteOnly = false;
+    const minSearchLength = 3;
 
     useEffect(() => {
 //        buildSearchText('');
     }, []);
 
-      // useEffect(() => {
-    //     buildSearchText(searchTerm);
-    // }, [searchTerm]);
 
-    const doSearch = (c) => {
-      //Search in footnotes too?
-//      console.log(c, this, searchTerm);
-      let found = false;
-
-      if(c && c !== undefined){
-        if(typeof c.text === 'string'){
-          if(c.text.toLowerCase().indexOf(searchTerm) > -1) {
-            found = true;
-          }
-        } else {
-           if(c.text.length > 0 && 
-            c.text.findIndex(f => f.toLowerCase().indexOf(searchTerm)> -1) > -1){
-              found = true;
-          }
-        }
-        if((c.footnote && 
-          c.footnote.length > 0 && 
-          c.footnote.findIndex(f => f.toLowerCase().indexOf(searchTerm)> -1) > -1)){
-            found = true;
-        }
-      }
-      return found;
-    };
-
-    const doSearch2 = (a, c) => {
-      //Search in footnotes too?
-//      console.log(a, c);
+    const doSearch = (a, c) => {
       let found = false;
 
       if(c && c !== undefined && c.type === 'WISDOM'){
@@ -86,7 +58,10 @@ const AyogiSearch = (props) => {
             found = true;
         }
       }
-      if(found){
+      if(found && !a.find(f => {
+        return f.chapterNumber === c.chapterNumber && 
+          f.paragraphNumber === c.paragraphNumber
+        })){
         a.push({chapterNumber: c.chapterNumber, paragraphNumber: c.paragraphNumber});
       }
       return a;
@@ -96,51 +71,44 @@ const AyogiSearch = (props) => {
       let contentId = 0;
       let nextContentList = [];
       setDisableSearch(true);
-      setSearchLoading(true);
 
       if (!props.aydata) {
         console.log("buildchaptext-notext");
         return;
       }
-      let matchedPar = props.aydata.reduce(doSearch2, [])
-      console.log('matchedPar', matchedPar);
-      let nextText = props.aydata.reduce((a,c) => {
-        if(matchedPar.some(m => m.chapterNumber === c.chapterNumber && 
-          m.paragraphNumber === c.paragraphNumber)){
-            a.push(c);
-        }
-        return a;
-        }, []);
-//        .filter(doSearch,newSearchTerm);
-//TODO Remove image in illustrations?
-//        .filter(notChapterTitleHeader);
+
+      let matchedPar = props.aydata.reduce(doSearch, [])
+      let currentChapter = -1;
+      let nextText = matchedPar.map((m) => {
+          const a = [];
+
+          if(m.chapterNumber !== currentChapter){
+              currentChapter = m.chapterNumber;
+              let chapTitle = m.chapterNumber === 0 ? 
+              <span className="chapterheader" key={`searchChapterNumber${m.chapterNumber}`}>Introduction</span> :
+              <span className="chapterheader" key={`searchChapterNumber${m.chapterNumber}`}>Chapter: <span>{m.chapterNumber}</span></span>
+              a.push(chapTitle);
+            }
+
+            const parItems = props.aydata.filter((c) => { 
+              return c.chapterNumber === m.chapterNumber && 
+                c.paragraphNumber === m.paragraphNumber
+            });
+
+            a.push(buildSection(
+              parItems,
+              ++contentId, 
+              props, 
+              quoteOnly, 
+              newSearchTerm, 
+              true));
+
+            a.push(<hr key={`hr${m.chapterNumber}${m.paragraphNumber}`}/>);
+            return a;
+        });
   
-      // Build array with positions of each type of content
-      if(nextText.length > 0){
-        let nextContent = nextText.reduce(
-          (acc, curr, pos, src) => {
-            if (pos > 1 && curr.type !== src[pos - 1].type) {
-              acc.push({ pos: pos, type: curr.type });
-          }
-            return acc;
-          },
-          [{ pos: 0, type: LINE_TYPE_ENUM.WISDOM }]
-        );
-    
-        const last = nextText.length;
-        nextContent.push({ pos: last, type: LINE_TYPE_ENUM.UNUSED });
-        console.log(nextContent);
-    
-        nextContent &&
-          nextContent.slice(1).forEach((c, i) => {
-            let newItems = nextText.slice(nextContent[i].pos, c.pos);
-    //        console.log(newItems);
-            nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly, newSearchTerm, true));
-          });
-        }
-  
-      setSearchResultsContent(nextContentList);
-      setSearchLoading(false);
+      setSearchResultsContent(nextText);
+      searchLoading = false;
     };
 
     const searchBar = (
@@ -149,7 +117,7 @@ const AyogiSearch = (props) => {
             value={searchTerm} 
             onIonChange={e => {
               setSearchTerm(e.detail.value.toLowerCase());
-              setDisableSearch(e.detail.value.length < 4);
+              setDisableSearch(e.detail.value.length < minSearchLength);
             }}
             >
         </IonSearchbar>
@@ -160,8 +128,9 @@ const AyogiSearch = (props) => {
             disabled={disableSearch}
             onClick={() => {
               //todo-validate and give error
-              if(searchTerm.length > 3){
-              buildSearchText(searchTerm);
+              if(searchTerm.length >= minSearchLength){
+                searchLoading = true;
+                buildSearchText(searchTerm);
               }
   //                    props.history.push(`/ayogi/${chNum}/1`);
             }}>Search
@@ -195,8 +164,8 @@ const AyogiSearch = (props) => {
 
     return (
       <div className="AyogiSearch">
-          <div>{searchBar}</div>
           {searchLoading && <IonSpinner name="crescent"></IonSpinner>}
+          {!searchLoading && <div>{searchBar}</div>}
           {!searchLoading && 
             <IonContent
               scrollEvents={true}
@@ -204,10 +173,9 @@ const AyogiSearch = (props) => {
               onIonScroll={() => { }}
               onIonScrollEnd={() => {  }}
             >
-              <div>
+              <div key="searchResultsContent">
                 {searchResultsContent.map((c) => {
-                    //                console.log(c);
-                    return c;
+                  return c;
                   })
                 }
                 {/* <IonList>

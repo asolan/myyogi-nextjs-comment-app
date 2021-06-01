@@ -46,7 +46,7 @@ const AyogiLine = (props) => {
     });
   }
 
-    newLineAI.push({key: '', icon: 'chatboxEllipses', action: 'quote', val: 'New Quote'});
+    newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', val: 'New Quote'});
     if(hasFootnote){
       newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', val: 'See Footnote'});
     }
@@ -140,6 +140,7 @@ const AyogiLine = (props) => {
 
   let quoteModal = showQuotePopup ? (
     <AyogiQuote
+      key={`AyogiQuote-${props.c.id}`}
       quotes={quotes}
       quoteId={currentQuoteId}
       updateQuote={updateQuote}
@@ -174,22 +175,26 @@ const AyogiLine = (props) => {
   // };
 
   const highlightPattern = (text, term) => {
-    const pattern = new RegExp(term,"gi");
-    const splitText = text.split(pattern);
-  
-    if (splitText.length <= 1) {
+    if(text && text.length > 0 && typeof text === 'string'){
+      const pattern = new RegExp(term,"gi");
+      const splitText = text.split(pattern);
+    
+      if (splitText.length <= 1) {
+        return text;
+      }
+    
+      const matches = text.match(pattern);
+    
+      return splitText.reduce((arr, element, index) => (matches[index] ? [
+        ...arr,
+        element,
+        <span className="searchfind" key={`searchfind${index}`}>
+          {matches[index]}
+        </span>,
+      ] : [...arr, element]), []);
+    } else {
       return text;
     }
-  
-    const matches = text.match(pattern);
-  
-    return splitText.reduce((arr, element, index) => (matches[index] ? [
-      ...arr,
-      element,
-      <span className="searchfind">
-        {matches[index]}
-      </span>,
-    ] : [...arr, element]), []);
   };
   
 returnVal = (
