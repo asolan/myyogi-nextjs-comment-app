@@ -4,13 +4,13 @@ import "./AyogiQuoteMetadata.css";
 import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import { parseParagraphData } from "../../utility/parseUtility";
 //import { LINE_TYPE_ENUM } from '../../utility/dataTypes';
+import Button from "../Button/Button";
 import {
   IonItem,
   IonModal,
   IonIcon,
   IonList,
   IonLabel,
-  IonButton,
   IonContent,
   IonCheckbox,
   IonPopover,
@@ -111,8 +111,8 @@ const AyogiQuoteMetadata = (props) => {
       } else {
         return (
           <React.Fragment key={`metadata-${c}`}>
-            <IonButton
-              className="ion-margin-end ion-margin-bottom"
+            <Button
+              // className="ion-margin-end ion-margin-bottom"
               // expand="block"
               color="dark"
               fill={categoryShow[c] ? "solid" : "outline"}
@@ -122,7 +122,7 @@ const AyogiQuoteMetadata = (props) => {
               }}
             >
               <h4>{c}</h4>
-            </IonButton>
+            </Button>
             <IonPopover
               cssClass="metadatapop"
               event={null}
@@ -163,7 +163,7 @@ const AyogiQuoteMetadata = (props) => {
                   );
                 })}
               <IonItem>
-                <IonButton
+                <Button
                   // expand="block"
                   color="primary"
                   onClick={() => {
@@ -171,7 +171,7 @@ const AyogiQuoteMetadata = (props) => {
                   }}
                 >
                   <h4>Close</h4>
-                </IonButton>
+                </Button>
               </IonItem>{" "}
             </IonPopover>
           </React.Fragment>
@@ -180,14 +180,14 @@ const AyogiQuoteMetadata = (props) => {
     });
 
   // let reviewTags = (
-  //   <IonButton
+  //   <Button
   //     color="primary"
   //     onClick={() => {
   //       setIsAdding(false);
   //     }}
   //   >
   //     <h4>Review Tags</h4>
-  //   </IonButton>
+  //   </Button>
   // );
   // console.log(categoriesMarkup);
   // let returnVal = (
@@ -204,7 +204,7 @@ const AyogiQuoteMetadata = (props) => {
           })}
       </IonList>
       <IonItem lines="full">
-        <IonButton
+        <Button
           slot="start"
           color="primary"
           fill={"solid"}
@@ -213,9 +213,9 @@ const AyogiQuoteMetadata = (props) => {
           }}
         >
           Done
-        </IonButton>
+        </Button>
         {/* TODO: being redirected back
-        <IonButton
+        <Button
           slot="end"
           color="secondary"
           fill={"solid"}
@@ -225,7 +225,7 @@ const AyogiQuoteMetadata = (props) => {
           }}
         >
           Edit Tags
-        </IonButton> */}
+        </Button> */}
       </IonItem>
       {/* {isAdding ? reviewTags : addedTags} */}
     </React.Fragment>
