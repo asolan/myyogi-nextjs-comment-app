@@ -26,14 +26,7 @@ let initialState = {
   "Health",
   "True Teaching"
 ]}
-,{"category": "Proof of God",
-  "color": "secondary",
-  "tags": [
-  "Miracles",
-  "Resurrection",
-  "Divine Support",
-  "Divine Teaching"
-]}]
+]
 };
 
 const autoyogiState = window.localStorage["autoyogiState"]

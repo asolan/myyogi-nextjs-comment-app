@@ -54,6 +54,7 @@ const mapStateToProps = () =>
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
     currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),
+    quoteViewSettings: selectors.makeSelectQuoteViewSettings(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiSearchPage);

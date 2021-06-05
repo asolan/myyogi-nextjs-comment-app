@@ -182,6 +182,7 @@ const AyogiQuoteViewSetting = (props) => {
               <React.Fragment>
                 <IonItem lines="full">
                   <IonButton
+                    size="large"
                     slot="start"
                     onClick={() => {
                       console.log("add-quote", {
@@ -204,6 +205,7 @@ const AyogiQuoteViewSetting = (props) => {
                     Save Changes
                   </IonButton>
                   <IonButton
+                    size="large"
                     slot="end"
                     color="light"
                     onClick={() => {
@@ -218,6 +220,7 @@ const AyogiQuoteViewSetting = (props) => {
             {!quoteViewState.isUpdated && (
               <IonItem lines="full">
                 <IonButton
+                  size="large"
                   slot="start"
                   color="light"
                   onClick={() => {

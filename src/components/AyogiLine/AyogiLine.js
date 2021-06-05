@@ -38,6 +38,15 @@ const AyogiLine = (props) => {
   const updateLineActionItems = (newQuote) => {
     //TODOV1-get quote - first x chars
     let newLineAI = [];
+
+    if(props.goToChapter){
+      newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', val: 'Go to Chapter'});
+    }
+
+    if(hasFootnote){
+      newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', val: 'See Footnote'});
+    }
+
     if( newQuote){
       newLineAI = newQuote.map(q => {
       // console.log(q);
@@ -47,13 +56,7 @@ const AyogiLine = (props) => {
   }
 
     newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', val: 'New Quote'});
-    if(hasFootnote){
-      newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', val: 'See Footnote'});
-    }
 
-    if(props.goToChapter){
-      newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', val: 'Go to Chapter'});
-    }
     newLineAI.push({key: 'close', icon: 'close', action: 'close', val: 'Close'});
     setLineActionItems(newLineAI);
   };

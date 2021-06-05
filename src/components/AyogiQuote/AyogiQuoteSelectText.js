@@ -104,6 +104,7 @@ const AyogiQuoteSelectText = (props) => {
             <ion-icon size="small" color="secondary" name="bookOutline"></ion-icon>
         </IonButton> */}
         <IonButton
+          size="large"
           fill="outline"
           slot="start"
           onClick={() => {
@@ -118,6 +119,7 @@ const AyogiQuoteSelectText = (props) => {
         </IonButton>
         <IonText className="ion-padding" slot="start">Start</IonText>
         <IonButton
+          size="large"
           fill="outline"
           slot="start"
           onClick={() => {
@@ -139,6 +141,7 @@ const AyogiQuoteSelectText = (props) => {
             <ion-icon size="small" color="secondary" name="listOutline"></ion-icon>
         </IonButton> */}
         <IonButton
+          size="large"
           fill="outline"
           slot="end"
           onClick={() => {
@@ -153,6 +156,7 @@ const AyogiQuoteSelectText = (props) => {
         </IonButton>
         <IonText className="ion-padding" slot="end">End</IonText>
         <IonButton
+          size="large"
           fill="outline"
           slot="end"
           onClick={() => {
@@ -170,6 +174,7 @@ const AyogiQuoteSelectText = (props) => {
       </IonItem>
       <IonItem>
         <IonButton
+          size="large"
           color="primary"
           fill={"solid"}
           onClick={() => {

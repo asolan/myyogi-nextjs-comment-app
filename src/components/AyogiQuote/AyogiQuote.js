@@ -3,10 +3,10 @@ import "./AyogiQuote.css";
 import AyogiQuoteSelectText from "./AyogiQuoteSelectText";
 import AyogiQuoteChips from "./AyogiQuoteChips";
 import AyogiQuoteMetadata from "./AyogiQuoteMetadata";
+import Button from "../Button/Button";
 import {
   IonItem,
   IonModal,
-  IonButton,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
@@ -61,9 +61,10 @@ const AyogiQuote = (props) => {
 
   const setupCategories = () => {
     if(props.aycategories && props.aycategories.length > 0){
-      const allCategories = [...props.aycategories].concat(
-        props.currentQuoteTags
-      );
+      // const allCategories = [...props.aycategories].concat(
+      //   props.currentQuoteTags
+      // );
+      const allCategories = [...props.aycategories];
       let newCategories = allCategories.map((c) => c.category);
 
       let newCategoryTags = allCategories.reduce(function (map, obj) {
@@ -256,7 +257,10 @@ const AyogiQuote = (props) => {
 
             {quoteState.edit === constants.QUOTE_EDIT.NONE && (
               <IonItem lines="full">
-                <IonButton
+                <Button
+                  // className="ion-padding"
+                  expand="block"
+                  size="large"
                   slot="start"
                   color="primary"
                   fill={"outline"}
@@ -265,8 +269,10 @@ const AyogiQuote = (props) => {
                   }}
                 >
                   Change Text
-                </IonButton>
-                <IonButton
+                </Button>
+                <Button
+                  // className="ion-padding"
+                  size="large"
                   slot="end"
                   color="primary"
                   fill={"outline"}
@@ -275,7 +281,7 @@ const AyogiQuote = (props) => {
                   }}
                 >
                   Change Tags
-                </IonButton>
+                </Button>
               </IonItem>
             )}
 
@@ -305,7 +311,10 @@ const AyogiQuote = (props) => {
             {quoteState.edit === constants.QUOTE_EDIT.NONE && (
               <React.Fragment>
                 <IonItem lines="full">
-                  <IonButton
+                  <Button
+                    // className="ion-padding"
+                    expand="block"
+                    size="large"
                     slot="end"
                     onClick={() => {
                       console.log("add-quote", quoteState.tags);
@@ -330,8 +339,10 @@ const AyogiQuote = (props) => {
                     }}
                   >
                     Save Quote
-                  </IonButton>
-                  <IonButton
+                  </Button>
+                  <Button
+                    // className="ion-padding"
+                    size="large"
                     slot="start"
                     color="light"
                     onClick={() => {
@@ -340,10 +351,12 @@ const AyogiQuote = (props) => {
                     }}
                   >
                     Cancel
-                  </IonButton>
+                  </Button>
                 </IonItem>
                 <IonItem lines="full">
-                  <IonButton
+                  <Button
+                    // className="ion-padding"
+                    size="large"
                     slot="start"
                     color="warning"
                     onClick={() => {
@@ -352,7 +365,7 @@ const AyogiQuote = (props) => {
                       props.setShowQuotePopup(false);
                     }}
                   >Delete
-                  </IonButton>
+                  </Button>
                 </IonItem>
               </React.Fragment>
             )}

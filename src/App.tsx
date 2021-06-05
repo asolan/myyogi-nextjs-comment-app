@@ -129,6 +129,7 @@ function App(props) {
               render={(props) => (
                 <AyogiSearchPage 
                   aydata={aydata}
+                  aycategories={aycategories}
                   {...props} 
                 />
               )}

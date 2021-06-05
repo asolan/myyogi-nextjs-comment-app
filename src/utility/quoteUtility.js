@@ -24,7 +24,7 @@ export const getItemQuoteFromPos = (item, quote, quoteOnly) => {
     } else {
     return [
         { text: "", className: "" },
-        { text: item.text, className: "" },
+        { text: item.text, className: item.class },
         { text: "", className: "" },
       ];
     }
@@ -57,24 +57,24 @@ export const getItemQuoteFromPos = (item, quote, quoteOnly) => {
       if (prevPos) {
         if (p.start >= prevPos.end) {
           if(!quoteOnly){
-            textQuote.push({ text: item.text.slice(prevPos.end, p.start), className: ""});
+            textQuote.push({ text: item.text.slice(prevPos.end, p.start), className: item.class});
           }
         }
       } else {
         if (p.start > 0) {
           // Add start text before first quote
           if(!quoteOnly){
-            textQuote.push({ text: item.text.slice(0, p.start), className: "" });
+            textQuote.push({ text: item.text.slice(0, p.start), className: item.class });
           }
         }
       }
-      textQuote.push({ text: item.text.slice(p.start, p.end), className: "quoteclass"});
+      textQuote.push({ text: item.text.slice(p.start, p.end), className: item.class + " quoteclass"});
       prevPos = { ...p };
     });
     // Add end text after last quote
     if (posList[posList.length - 1].end < l) {
       if(!quoteOnly){
-        textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: "" });
+        textQuote.push({ text: item.text.slice(posList[posList.length - 1].end, l), className: item.class });
       }
     }
   }

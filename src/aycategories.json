@@ -10,23 +10,40 @@
   ,{"category": "inspiration",
     "color": "secondary",
     "tags": [
+    "Saints",
+    "People",
+    "Temples",
+    "Kriya",
     "Miracles",
     "Love",
-    "Kindness",
-    "Proof of God"
+    "Kindness"
   ]},
-  {"category": "scripture religion",
+  {"category": "Proof of God",
+    "color": "secondary",
+    "tags": [
+    "Miracles",
+    "Resurrection",
+    "Divine Support",
+    "Divine Teaching"]
+  },  
+  {"category": "scripture",
     "color":"success",
     "tags": [
     "Bible",
     "Bhagavad Gita",
     "Mahabharata",
     "Yoga Sutras",
-    "Koran",
+    "Torah",
+    "Koran"
+  ]},
+  {"category": "religion",
+    "color":"success",
+    "tags": [
     "Christianity",
     "Buddhism",
     "Sikhism",
     "Hinduism",
+    "Judaism",
     "Islam",
     "Janoism"
   ]}

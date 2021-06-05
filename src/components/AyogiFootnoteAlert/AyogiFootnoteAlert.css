@@ -24,7 +24,7 @@
 
 .AyogiFootnoteAlert ion-badge {
     background-color: rgb(189, 189, 189);
-    margin: -0.3rem 0.2rem -0.3rem 0.1rem;
-    padding: 0.0rem 0.9rem;
+    margin: -0.1rem -0.08rem -0.4rem 0.08rem;
+    padding: calc(0.1rem + (var(--yogi-font-size) * 0.05)) calc(0.1rem + (var(--yogi-font-size) * 1.5));
 }
 

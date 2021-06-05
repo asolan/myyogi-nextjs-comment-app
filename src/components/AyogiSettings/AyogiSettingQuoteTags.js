@@ -131,7 +131,11 @@ const AyogiSettingQuoteTags = (props) => {
       </IonInput>
       </IonItem>
       <IonItem>
-      <IonButton color="primary" fill="outline" onClick={() => {updateCategoryList(newCategory);}}>Save Category</IonButton>
+      <IonButton 
+        className="ion-padding"
+        color="primary" 
+        fill="outline" 
+        onClick={() => {updateCategoryList(newCategory);}}>Save Category</IonButton>
       </IonItem></React.Fragment>)
   } else if (addingTag || editingTag){
     addCategoryMarkup = (<IonItem><IonLabel>Category:</IonLabel> { <h4>{currentCategory}</h4>}</IonItem>);
@@ -153,12 +157,14 @@ const AyogiSettingQuoteTags = (props) => {
         </IonItem>
         <IonItem>
           <IonButton 
+            className="ion-padding"
             color="primary" fill="outline" slot="start"
             // disabled={editingCategory} 
             onClick={() => {setAddingCategory(true);}}>
             Add Category
           </IonButton>
           <IonButton 
+            className="ion-padding"
             color="primary" fill="outline" slot="end"
             // disabled={editingCategory} 
             onClick={() => {setEditingCategory(true);}}>
@@ -177,11 +183,17 @@ const AyogiSettingQuoteTags = (props) => {
       })}
     </IonSelect> */}
     <IonInput value={newTag} placeholder="Enter New Tag" onIonChange={e => {setNewTag(e.detail.value);}}></IonInput>
-    <IonButton color="primary" fill="outline" onClick={() => {updateTagList(currentCategory, newTag);}}>Add to list</IonButton>
+    <IonButton 
+      className="ion-padding"
+      color="primary" 
+      fill="outline" 
+      onClick={() => {updateTagList(currentCategory, newTag);}}>Add to list</IonButton>
     </IonItem>);
   } else if(!addingCategory && !editingCategory) {
     addTagMarkup = (<IonItem>
-      <IonButton color="primary" fill="outline" disabled={editingTag} onClick={() => {setAddingTag(true);}}>Add Tag</IonButton>
+      <IonButton 
+        className="ion-padding"
+        color="primary" fill="outline" disabled={editingTag} onClick={() => {setAddingTag(true);}}>Add Tag</IonButton>
     </IonItem>);
   }
 

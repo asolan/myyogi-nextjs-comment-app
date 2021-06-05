@@ -4,7 +4,8 @@ import AyogiQuoteViewSetting from "./AyogiQuoteViewSetting";
 import AyogiWisdom from "../AyogiWisdom/AyogiWisdom";
 import { buildQuoteViewSettings, quoteSort } from "../../utility/quoteUtility";
 import { sendCategoryToFirebaseStorage } from "../../utility/firebaseSend";
-import { IonItem, IonList, IonButton, useIonAlert } from "@ionic/react";
+import Button from "../Button/Button";
+import { IonItem, IonList, useIonAlert } from "@ionic/react";
 import constants from "../../store/constants";
 import { uuidv4 } from "../../utility/jsutility";
 
@@ -193,7 +194,8 @@ const AyogiQuoteViewMain = (props) => {
   ) : (
     <React.Fragment>
       <IonItem lines="full">
-        <IonButton
+        <Button
+          size="large"
           slot="end"
           color="primary"
           fill={"outline"}
@@ -202,7 +204,7 @@ const AyogiQuoteViewMain = (props) => {
           }}
         >
           Sort and Filter
-        </IonButton>
+        </Button>
       </IonItem>
     </React.Fragment>
   );
@@ -212,7 +214,8 @@ const AyogiQuoteViewMain = (props) => {
       {quoteViewSettingsModal}
       <IonList>{content.map((c) => c)}</IonList>
       <IonItem lines="full">
-        <IonButton
+        <Button
+          size="large"
           slot="end"
           color="primary"
           fill={"outline"}
@@ -234,7 +237,7 @@ const AyogiQuoteViewMain = (props) => {
           }
         >
           Send Quotes to Firebase
-        </IonButton>
+        </Button>
       </IonItem>
 
     </div>

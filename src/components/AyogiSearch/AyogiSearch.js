@@ -9,7 +9,6 @@ import {
     IonCol,
     IonIcon,
     IonItem,
-    IonButton,
     IonInput,
     IonList,
     IonSpinner,
@@ -27,7 +26,7 @@ const AyogiSearch = (props) => {
     const [searchTerm, setSearchTerm] = useState([]);
     const [searchResultsContent, setSearchResultsContent] = useState([]);
     const [disableSearch, setDisableSearch] = useState(true);
-//    const [searchLoading, setSearchLoading] = useState(false);
+    const [isSearchDone, setIsSearchDone] = useState(false);
 
     let searchLoading = false;
     const quoteOnly = false;
@@ -82,12 +81,17 @@ const AyogiSearch = (props) => {
       let nextText = matchedPar.map((m) => {
           const a = [];
 
+          if(currentChapter === -1){
+            a.push(<hr key={`hr${m.chapterNumber}${m.paragraphNumber}`}/>);
+          }
+
           if(m.chapterNumber !== currentChapter){
               currentChapter = m.chapterNumber;
               let chapTitle = m.chapterNumber === 0 ? 
               <span className="chapterheader" key={`searchChapterNumber${m.chapterNumber}`}>Introduction</span> :
               <span className="chapterheader" key={`searchChapterNumber${m.chapterNumber}`}>Chapter: <span>{m.chapterNumber}</span></span>
               a.push(chapTitle);
+              a.push(<hr key={`hrtop${m.chapterNumber}${m.paragraphNumber}`}/>);
             }
 
             const parItems = props.aydata.filter((c) => { 
@@ -109,6 +113,7 @@ const AyogiSearch = (props) => {
   
       setSearchResultsContent(nextText);
       searchLoading = false;
+      setIsSearchDone(true);
     };
 
     const searchBar = (
@@ -118,6 +123,7 @@ const AyogiSearch = (props) => {
             onIonChange={e => {
               setSearchTerm(e.detail.value.toLowerCase());
               setDisableSearch(e.detail.value.length < minSearchLength);
+              setIsSearchDone(false);
             }}
             >
         </IonSearchbar>
@@ -166,7 +172,7 @@ const AyogiSearch = (props) => {
       <div className="AyogiSearch">
           {searchLoading && <IonSpinner name="crescent"></IonSpinner>}
           {!searchLoading && <div>{searchBar}</div>}
-          {!searchLoading && 
+          {isSearchDone && 
             <IonContent
               scrollEvents={true}
               onIonScrollStart={() => { }}
@@ -174,7 +180,9 @@ const AyogiSearch = (props) => {
               onIonScrollEnd={() => {  }}
             >
               <div key="searchResultsContent">
-                {searchResultsContent.map((c) => {
+                {searchResultsContent.length === 0 ? 
+                "No Results Found" :
+                searchResultsContent.map((c) => {
                   return c;
                   })
                 }
