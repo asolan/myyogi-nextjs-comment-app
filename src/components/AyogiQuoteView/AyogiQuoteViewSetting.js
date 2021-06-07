@@ -5,10 +5,10 @@ import AyogiQuoteViewSort from "./AyogiQuoteViewSort";
 import AyogiQuoteViewMetadata from "./AyogiQuoteViewMetadata";
 import AyogiQuoteViewCategories from "./AyogiQuoteViewCategories";
 import {buildQuoteViewSettings} from "../../utility/quoteUtility";
+import Button from "../Button/Button";
 import {
   IonItem,
   IonModal,
-  IonButton,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
@@ -181,9 +181,21 @@ const AyogiQuoteViewSetting = (props) => {
             {quoteViewState.isUpdated && (
               <React.Fragment>
                 <IonItem lines="full">
-                  <IonButton
-                    size="large"
-                    slot="start"
+                  <Button
+                    expand="full"
+                    color="light"
+                    buttonClass="buttonFull"
+                    onClick={() => {
+                      props.setShowQuoteViewPopup(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </IonItem>
+                <IonItem lines="full">
+                  <Button
+                    expand="full"
+                    buttonClass="buttonFull"
                     onClick={() => {
                       console.log("add-quote", {
                         sort: quoteViewState.sort,
@@ -203,32 +215,22 @@ const AyogiQuoteViewSetting = (props) => {
                     }}
                   >
                     Save Changes
-                  </IonButton>
-                  <IonButton
-                    size="large"
-                    slot="end"
-                    color="light"
-                    onClick={() => {
-                      props.setShowQuoteViewPopup(false);
-                    }}
-                  >
-                    Cancel
-                  </IonButton>
+                  </Button>
                 </IonItem>
               </React.Fragment>
             )}
             {!quoteViewState.isUpdated && (
               <IonItem lines="full">
-                <IonButton
-                  size="large"
-                  slot="start"
+                <Button
+                  expand="full"
                   color="light"
+                  buttonClass="buttonFull"
                   onClick={() => {
                     props.setShowQuoteViewPopup(false);
                   }}
                 >
                   Close
-                </IonButton>
+                </Button>
               </IonItem>
             )}
           </IonCardContent>

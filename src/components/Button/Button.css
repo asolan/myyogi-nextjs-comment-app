@@ -8,6 +8,14 @@
   /* padding: 0; */
 }
 
+.buttonFull {
+  width: 100%;
+}
+
+.buttonHalf {
+  width: 40%;
+}
+
 .button:focus {
   /* outline: none; */
 }

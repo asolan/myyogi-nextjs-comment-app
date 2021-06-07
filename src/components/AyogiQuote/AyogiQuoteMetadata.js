@@ -111,18 +111,23 @@ const AyogiQuoteMetadata = (props) => {
       } else {
         return (
           <React.Fragment key={`metadata-${c}`}>
-            <Button
-              // className="ion-margin-end ion-margin-bottom"
-              // expand="block"
-              color="dark"
-              fill={categoryShow[c] ? "solid" : "outline"}
-              onClick={() => {
-                console.log(categoryShow[c]);
-                showSetting(c, !categoryShow[c]);
-              }}
-            >
-              <h4>{c}</h4>
-            </Button>
+            <IonItem lines="full">
+              <Button
+                // className="ion-margin-end ion-margin-bottom"
+                // expand="block"
+                buttonClass="buttonFull"
+                expand="full"
+                size="large"
+                color="light"
+                // fill={categoryShow[c] ? "solid" : "outline"}
+                onClick={() => {
+                  console.log(categoryShow[c]);
+                  showSetting(c, !categoryShow[c]);
+                }}
+              >
+                <h4>{c}</h4>
+              </Button>
+            </IonItem>
             <IonPopover
               cssClass="metadatapop"
               event={null}
@@ -162,10 +167,11 @@ const AyogiQuoteMetadata = (props) => {
                     </IonItem>
                   );
                 })}
-              <IonItem>
+              <IonItem lines="full">
                 <Button
                   // expand="block"
                   color="primary"
+                  buttonClass="buttonFull"
                   onClick={() => {
                     showSetting(c, false);
                   }}
@@ -205,6 +211,7 @@ const AyogiQuoteMetadata = (props) => {
       </IonList>
       <IonItem lines="full">
         <Button
+          buttonClass="buttonFull"
           slot="start"
           color="primary"
           fill={"solid"}

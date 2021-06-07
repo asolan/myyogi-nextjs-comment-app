@@ -25,7 +25,7 @@ const AyogiFooters = props => {
             // console.log(b);
             const theseFnotes = b.props.items.reduce((acc2, c) => {
                 if(c.footnote && c.footnote.length > 0) {
-                    acc2.push(parseFootnote(c, true,'b'));
+                    acc2.push(parseFootnote(c, true,'b', ''));
                 }
                 return acc2;
             }, []);

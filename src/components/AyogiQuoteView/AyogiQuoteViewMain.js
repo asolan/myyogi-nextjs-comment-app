@@ -165,18 +165,20 @@ const AyogiQuoteViewMain = (props) => {
         </h3>
       );
 
-
       quoteGroups[key].map((c) => {
         //console.log(props.aydata[dIndex].text);
         content.push(
-          <AyogiWisdom 
-            key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} 
-            items={c} 
-            {...props} 
-            quoteOnly={quoteOnly}
-            highlightTerm={null}
-            goToChapter={true}
-         />
+          <React.Fragment>
+            <hr/>
+            <AyogiWisdom 
+              key={`AyogiQuoteViewMain${c[0]._id}${keyCount++}`} 
+              items={c} 
+              {...props} 
+              quoteOnly={quoteOnly}
+              highlightTerm={null}
+              goToChapter={true}
+          />
+          </React.Fragment>
         );
       });
 
@@ -195,10 +197,10 @@ const AyogiQuoteViewMain = (props) => {
     <React.Fragment>
       <IonItem lines="full">
         <Button
+          buttonClass="buttonFull"
           size="large"
           slot="end"
-          color="primary"
-          fill={"outline"}
+          color="light"
           onClick={() => {
             setShowQuoteViewPopup(true);
           }}
@@ -215,10 +217,10 @@ const AyogiQuoteViewMain = (props) => {
       <IonList>{content.map((c) => c)}</IonList>
       <IonItem lines="full">
         <Button
+          buttonClass="buttonFull"
           size="large"
           slot="end"
-          color="primary"
-          fill={"outline"}
+          color="light"
           onClick={() => {
             present({
 //              cssClass: 'my-css',

@@ -38,7 +38,7 @@ const AyogiLineAction = (props) => {
             //                role: "destructive",
             icon: iconMap[ai.icon],
             handler: () => {
-              props.updateLineAction(ai.action, ai.key);
+              props.updateLineAction(ai.action, ai.key, ai.isNew);
             },
           };
         })}

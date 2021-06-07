@@ -36,7 +36,7 @@ const AyogiFootnoteAlert = props => {
             {props.c.footnoteCount}
         </IonBadge>;
 
-    const footnote = parseFootnote(props.c, false, 'p');
+    const footnote = parseFootnote(props.c, false, 'p', props.highlightTerm);
     // console.log('f-popup');
     // console.log(props);
     // console.log(footnote);

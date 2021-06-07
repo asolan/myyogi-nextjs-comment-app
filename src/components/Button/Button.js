@@ -6,9 +6,9 @@ import './Button.css';
 const Button = props => 
 (<IonButton
     size="large"
-    className="button ion-margin" 
+    className={`button ion-margin ${props.buttonClass}`} 
     {...props}>
-        {props.children}
+    {props.children}
 </IonButton>)
 
 export default Button;

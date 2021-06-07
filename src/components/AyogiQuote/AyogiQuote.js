@@ -256,33 +256,36 @@ const AyogiQuote = (props) => {
             />
 
             {quoteState.edit === constants.QUOTE_EDIT.NONE && (
-              <IonItem lines="full">
-                <Button
-                  // className="ion-padding"
-                  expand="block"
-                  size="large"
-                  slot="start"
-                  color="primary"
-                  fill={"outline"}
-                  onClick={() => {
-                    setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
-                  }}
-                >
-                  Change Text
-                </Button>
-                <Button
-                  // className="ion-padding"
-                  size="large"
-                  slot="end"
-                  color="primary"
-                  fill={"outline"}
-                  onClick={() => {
-                    setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
-                  }}
-                >
-                  Change Tags
-                </Button>
-              </IonItem>
+              <React.Fragment>
+                <IonItem lines="full">
+                  <Button
+                    // className="ion-padding"
+                    expand="full"
+                    color="light"
+                    buttonClass="buttonFull"
+                    // fill={"outline"}
+                    onClick={() => {
+                      setQuoteEdit(constants.QUOTE_EDIT.SELECT_TEXT);
+                    }}
+                  >
+                    Alter Text
+                  </Button>
+                </IonItem>
+                <IonItem lines="full">
+                  <Button
+                    // className="ion-padding"
+                    expand="full"
+                    color="light"
+                    buttonClass="buttonFull"
+                    // fill={"outline"}
+                    onClick={() => {
+                      setQuoteEdit(constants.QUOTE_EDIT.SELECT_TAGS);
+                    }}
+                  >
+                    Select Tags
+                  </Button>
+                </IonItem>
+              </React.Fragment>
             )}
 
             {quoteState.edit === constants.QUOTE_EDIT.SELECT_TEXT && (
@@ -313,9 +316,24 @@ const AyogiQuote = (props) => {
                 <IonItem lines="full">
                   <Button
                     // className="ion-padding"
-                    expand="block"
+                    buttonClass="buttonFull"
+                    expand="full"
                     size="large"
-                    slot="end"
+                    color="light"
+                    onClick={() => {
+                      props.setIsSelected(false);
+                      props.setShowQuotePopup(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </IonItem>
+                <IonItem lines="full">
+                  <Button
+                    // className="ion-padding"
+                    buttonClass="buttonFull"
+                    expand="full"
+                    size="large"
                     onClick={() => {
                       console.log("add-quote", quoteState.tags);
                       const newLinePos = getQuotelinePos(quoteState);
@@ -340,33 +358,24 @@ const AyogiQuote = (props) => {
                   >
                     Save Quote
                   </Button>
-                  <Button
-                    // className="ion-padding"
-                    size="large"
-                    slot="start"
-                    color="light"
-                    onClick={() => {
-                      props.setIsSelected(false);
-                      props.setShowQuotePopup(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
                 </IonItem>
-                <IonItem lines="full">
-                  <Button
-                    // className="ion-padding"
-                    size="large"
-                    slot="start"
-                    color="warning"
-                    onClick={() => {
-                      props.removeSelectedQuote(quoteState.quoteId);
-                      props.setIsSelected(false);
-                      props.setShowQuotePopup(false);
-                    }}
-                  >Delete
-                  </Button>
-                </IonItem>
+                {!props.isNewQuote &&
+                  <IonItem lines="full">
+                    <Button
+                      // className="ion-padding"
+                      buttonClass="buttonFull"
+                      expand="full"
+                      size="large"
+                      color="warning"
+                      onClick={() => {
+                        props.removeSelectedQuote(quoteState.quoteId);
+                        props.setIsSelected(false);
+                        props.setShowQuotePopup(false);
+                      }}
+                    >Delete
+                    </Button>
+                  </IonItem>
+                }
               </React.Fragment>
             )}
           </IonCardContent>

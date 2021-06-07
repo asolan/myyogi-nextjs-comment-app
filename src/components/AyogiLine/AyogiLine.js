@@ -6,7 +6,7 @@ import AyogiMetaItem from "../AyogiMeta/AyogiMetaItem/AyogiMetaItem";
 import AyogiQuote from "../AyogiQuote/AyogiQuote";
 import AyogiQuoteChipsSimple from "../AyogiQuote/AyogiQuoteChipsSimple";
 import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
-import { parseParagraphData } from "../../utility/parseUtility";
+import { parseParagraphData, highlightPattern } from "../../utility/parseUtility";
 import { IonLabel } from "@ionic/react";
 import { getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
 //import useLongPress from "../../utility/useLongPress";
@@ -24,6 +24,7 @@ const AyogiLine = (props) => {
   const [footnoteCount, setFootnoteCount] = useState(0);
   const [quotes, setQuotes] = useState([]);
   const [currentQuoteId, setCurrentQuoteId] = useState(null);
+  const [isNewQuote, setIsNewQuote] = useState(false);
   const [textQuote, setTextQuote] = useState([]);
   // <div className={classes.AyogiChapter}>
 
@@ -40,33 +41,34 @@ const AyogiLine = (props) => {
     let newLineAI = [];
 
     if(props.goToChapter){
-      newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', val: 'Go to Chapter'});
+      newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', isNew: false, val: 'Go to Chapter'});
     }
 
     if(hasFootnote){
-      newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', val: 'See Footnote'});
+      newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', isNew: false, val: 'See Footnote'});
     }
 
     if( newQuote){
       newLineAI = newQuote.map(q => {
       // console.log(q);
       // console.log(getTextSubstrQuoteFromPos(props.c, q, 50));
-      return {key: q.quoteId, icon: 'chatbox', action: 'quote', val: 'Edit Quote: ..' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
+      return {key: q.quoteId, icon: 'chatbox', action: 'quote', isNew: false, val: 'Edit Quote: ..' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
     });
   }
 
-    newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', val: 'New Quote'});
+    newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', isNew: true, val: 'New Quote'});
 
-    newLineAI.push({key: 'close', icon: 'close', action: 'close', val: 'Close'});
+    newLineAI.push({key: 'close', icon: 'close', action: 'close', isNew: false, val: 'Close'});
     setLineActionItems(newLineAI);
   };
 
-  const updateLineAction = (action, value) => {
+  const updateLineAction = (action, value, isNew) => {
 
     setShowQuotePopup(false);
     switch(action){
       case 'quote':
         setCurrentQuoteId(value);
+        setIsNewQuote(isNew);
         setShowQuotePopup(true);
         break;
       case 'footnote':
@@ -146,6 +148,7 @@ const AyogiLine = (props) => {
       key={`AyogiQuote-${props.c.id}`}
       quotes={quotes}
       quoteId={currentQuoteId}
+      isNewQuote={isNewQuote}
       updateQuote={updateQuote}
       showQuotePopup={showQuotePopup}
       setShowQuotePopup={setShowQuotePopup}
@@ -158,6 +161,7 @@ const AyogiLine = (props) => {
   let returnVal = <div />;
   let footnoteMarkup = hasFootnote ?       
     (<AyogiFootnoteAlert 
+      highlightTerm={props.highlightTerm}
       footnoteCount={footnoteCount}
       key={'f'+lineKey} 
       c={props.c} />) : null;
@@ -177,32 +181,11 @@ const AyogiLine = (props) => {
   //   return parts.map(part => (part.match(regr) ? <span className="searchfind">{part}</span> : part));
   // };
 
-  const highlightPattern = (text, term) => {
-    if(text && text.length > 0 && typeof text === 'string'){
-      const pattern = new RegExp(term,"gi");
-      const splitText = text.split(pattern);
-    
-      if (splitText.length <= 1) {
-        return text;
-      }
-    
-      const matches = text.match(pattern);
-    
-      return splitText.reduce((arr, element, index) => (matches[index] ? [
-        ...arr,
-        element,
-        <span className="searchfind" key={`searchfind${index}`}>
-          {matches[index]}
-        </span>,
-      ] : [...arr, element]), []);
-    } else {
-      return text;
-    }
-  };
-  
 returnVal = (
     <React.Fragment>
-      <AyogiQuoteChipsSimple itemTags={props.itemTags} />
+      {props.quoteOnly && 
+        <AyogiQuoteChipsSimple itemTags={props.itemTags} />
+      }
       {quoteModal}
       {paragraph}
       <IonLabel

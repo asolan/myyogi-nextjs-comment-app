@@ -26,15 +26,6 @@ const notChapterTitleHeader = (c) => {
     let lineType = newItems[0].type;
     let result;
     switch (lineType) {
-      case LINE_TYPE_ENUM.FOOTNOTE:
-        result = (
-          <AyogiFootnoteAlert
-            key={"AyogiFootnoteAlert" + contentId}
-            items={newItems}
-            {...props}
-          />
-        );
-        break;
       case LINE_TYPE_ENUM.POEM:
         result = (<AyogiPoem 
                     key={"AyogiPoem" + contentId} 
@@ -47,6 +38,16 @@ const notChapterTitleHeader = (c) => {
                     items={newItems} 
                     {...props} 
                   />);
+        break;
+      case LINE_TYPE_ENUM.FOOTNOTE:
+        result = (
+          <AyogiFootnoteAlert
+            key={"AyogiFootnoteAlert" + contentId}
+            highlightTerm={highlightTerm}
+            items={newItems}
+            {...props}
+          />
+        );
         break;
       case LINE_TYPE_ENUM.WISDOM:
       default:
@@ -68,7 +69,12 @@ const notChapterTitleHeader = (c) => {
     return result;
   };
 
-const parseFootnote = (c, wrap, type) => {
+const parseFootnote = (c, wrap, type, highlightTerm) => {
+  // if(c && c.footnote && c.footnote.length > 0){
+  //   console.log('parseFootnote', highlightTerm);
+  //   console.log(highlightPattern(c.footnote[0], highlightTerm));
+  // }
+
   //    console.log(`${c._id}-${type}`);
   // console.log(wrap);
   // console.log(type);
@@ -81,7 +87,10 @@ const parseFootnote = (c, wrap, type) => {
               key={"footnote" + type + c._id + i}
               className={c.footnoteClass[i]}
             >
-              {f}
+              {highlightTerm && highlightTerm.length > 0 ? 
+                highlightPattern(f, highlightTerm) 
+                : f
+              }
             </span>,
           ],
           []
@@ -230,4 +239,28 @@ const parseParagraphData = (c, i) => {
   return [paragraph, thisId, indentClasses];
 };
 
-export { notChapterTitleHeader, buildSection, parseParagraphData, parseImageTitles, parseFootnote };
+const highlightPattern = (text, term) => {
+  if(text && text.length > 0 && typeof text === 'string'){
+    const pattern = new RegExp(term,"gi");
+    const splitText = text.split(pattern);
+  
+    if (splitText.length <= 1) {
+      return text;
+    }
+  
+    const matches = text.match(pattern);
+  
+    return splitText.reduce((arr, element, index) => (matches[index] ? [
+      ...arr,
+      element,
+      <span className="highlight" key={`highlight${index}`}>
+        {matches[index]}
+      </span>,
+    ] : [...arr, element]), []);
+  } else {
+    return text;
+  }
+};
+
+
+export { notChapterTitleHeader, buildSection, parseParagraphData, parseImageTitles, parseFootnote, highlightPattern };

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 //import React from 'react';
 import "./AyogiQuoteSelectText.css";
+import Button from "../Button/Button";
 import {
   IonItem,
   IonModal,
   IonIcon,
   IonList,
   IonLabel,
-  IonButton,
   IonTextarea,
   IonRadioGroup,
   IonText,
@@ -75,106 +75,116 @@ const AyogiQuoteSelectText = (props) => {
       <IonText className="ion-margin-start">
         {paraQuote.map((q, i) => <span key={`itemquotesels${props.item._id}${i}`} className={q.className}>{q.text}</span>)}
       </IonText>
-      <IonRange
-        className="quoterange"
-        //          debounce={5}
-        dualKnobs={true}
-        min={0}
-        max={props.quoteState.paragraphLine.length}
-        step={3}
-        snaps={false}
-        //          pin
-        value={{ lower: startPos, upper: realEnd }}
-        onIonChange={(e) => {
-          //          console.log(e.detail.value);
-          setStartPos(e.detail.value.lower);
-          setEndPos(e.detail.value.upper);
-        }}
-      >
-        <ion-icon
-          slot="start"
-          size="small"
-          color="secondary"
-          name="chatbubble"
-        ></ion-icon>
-        <ion-icon slot="end" color="secondary" name="chatbubble"></ion-icon>
-      </IonRange>
-      <IonItem>
-        {/* <IonButton fill="outline" slot="start" onClick={() => { adjustPos(5,true,false) }}>
+      <IonItem lines="full">
+        <IonRange
+          className="quoterange ion-margin"
+          //          debounce={5}
+          dualKnobs={true}
+          min={0}
+          max={props.quoteState.paragraphLine.length}
+          step={3}
+          snaps={false}
+          //          pin
+          value={{ lower: startPos, upper: realEnd }}
+          onIonChange={(e) => {
+            //          console.log(e.detail.value);
+            setStartPos(e.detail.value.lower);
+            setEndPos(e.detail.value.upper);
+          }}
+        >
+          <ion-icon
+            slot="start"
+            size="small"
+            color="secondary"
+            name="chatbubble"
+          ></ion-icon>
+          <ion-icon slot="end" color="secondary" name="chatbubble"></ion-icon>
+        </IonRange>
+      </IonItem>
+      <IonItem lines="full">
+        {/* <Button fill="outline" slot="start" onClick={() => { adjustPos(5,true,false) }}>
             <ion-icon size="small" color="secondary" name="bookOutline"></ion-icon>
-        </IonButton> */}
-        <IonButton
+        </Button> */}
+        <Button
+          buttonClass="buttonHalf"
+          expand="full"
           size="large"
-          fill="outline"
-          slot="start"
+          color="light"
           onClick={() => {
             adjustPos(1, true, false);
           }}
-        >-
+        >&lt;
           {/* <ion-icon
             size="small"
             color="secondary"
             name="bookOutline"
           ></ion-icon> */}
-        </IonButton>
-        <IonText className="ion-padding" slot="start">Start</IonText>
-        <IonButton
+        </Button>
+        <IonText className="ion-padding">Start</IonText>
+        <Button
+          buttonClass="buttonHalf"
+          expand="full"
           size="large"
-          fill="outline"
-          slot="start"
+          color="light"
           onClick={() => {
             adjustPos(1, true, true);
           }}
-        >+
+        >&gt;
           {/* <ion-icon
             size="small"
             color="primary"
             name="bookOutline"
           ></ion-icon> */}
-        </IonButton>
-        {/* <IonButton fill="outline" slot="start" onClick={() => { adjustPos(5,true,true) }}>
+        </Button>
+        {/* <Button fill="outline" slot="start" onClick={() => { adjustPos(5,true,true) }}>
             <ion-icon size="small" color="secondary" name="bookOutline"></ion-icon>
-        </IonButton> */}
+        </Button> */}
         {/* </IonItem>
         <IonItem> */}
-        {/* <IonButton fill="outline" slot="end" onClick={() => { adjustPos(5,false,false)}}>
+        {/* <Button fill="outline" slot="end" onClick={() => { adjustPos(5,false,false)}}>
             <ion-icon size="small" color="secondary" name="listOutline"></ion-icon>
-        </IonButton> */}
-        <IonButton
+        </Button> */}
+      </IonItem>
+      <IonItem lines="full">
+        <Button
+          buttonClass="buttonHalf"
+          expand="full"
           size="large"
-          fill="outline"
-          slot="end"
+          color="light"
           onClick={() => {
             adjustPos(1, false, false);
           }}
-        >-
+        >&lt;
           {/* <ion-icon
             size="tiny"
             color="secondary"
             name="list"
           ></ion-icon> */}
-        </IonButton>
-        <IonText className="ion-padding" slot="end">End</IonText>
-        <IonButton
+        </Button>
+        <IonText className="ion-padding">End</IonText>
+        <Button
+          buttonClass="buttonHalf"
+          expand="full"
           size="large"
-          fill="outline"
-          slot="end"
+          color="light"
           onClick={() => {
             adjustPos(1, false, true);
           }}
-        >+
+        >&gt;
           {/* <ion-icon
             color="primary"
             name="list"
           ></ion-icon> */}
-        </IonButton>
-        {/* <IonButton fill="outline" slot="end" onClick={() => { adjustPos(5,false,true)}}>
+        </Button>
+        {/* <Button fill="outline" slot="end" onClick={() => { adjustPos(5,false,true)}}>
             <ion-icon size="small" color="secondary" name="listOutline"></ion-icon>
-        </IonButton> */}
+        </Button> */}
       </IonItem>
       <IonItem>
-        <IonButton
+        <Button
+          buttonClass="buttonFull"
           size="large"
+          expand="full"
           color="primary"
           fill={"solid"}
           onClick={() => {
@@ -184,7 +194,7 @@ const AyogiQuoteSelectText = (props) => {
           }}
         >
           Set
-        </IonButton>
+        </Button>
       </IonItem>
     </React.Fragment>
   );

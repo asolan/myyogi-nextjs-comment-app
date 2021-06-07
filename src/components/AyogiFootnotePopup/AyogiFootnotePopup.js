@@ -38,7 +38,7 @@ const AyogiFootnotePopup = props => {
             {showhidehover ? 'P' : props.c.footnoteCount}
         </IonBadge>;
 
-    const footnote = parseFootnote(props.c, false, 'p');
+    const footnote = parseFootnote(props.c, false, 'p', '');
     // console.log('f-popup');
     // console.log(props);
     // console.log(footnote);
