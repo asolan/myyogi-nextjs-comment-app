@@ -41,7 +41,7 @@ const AyogiPage = (props: any) => {
   };
 
   const scrollToId = (chapter, line) => {
-//    console.log('scrollToId', chapter, line);
+    console.log('scrollToId', chapter, line);
     let scrollToIdDelay = () => {      
       let cref = contentRef!.current as any;
       let lineId = `${chapter}-${line}`;
@@ -101,7 +101,7 @@ useEffect(() => {
       if(chNum > 0){
         buildChapterText(chNum);
       }
-}, [props.selectedQuotes]);
+}, [props.selectedQuotes,props.currentFootnotePopup,props.currentDefinitionPopup]);
   
 
 const contentScrollEnd = (e) => {
@@ -247,6 +247,9 @@ const mapStateToProps = () =>
     currentImage: selectors.makeSelectImage(),
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
+    currentFontJustification: selectors.makeSelectFontJustification(),     
+    currentFootnotePopup: selectors.makeSelectFootnotePopup(),
+    currentDefinitionPopup: selectors.makeSelectDefinitionPopup(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
     currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),

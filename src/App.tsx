@@ -156,7 +156,7 @@ function App(props) {
                 <AyogiSettings 
                   items={aydata.slice(45,49)} 
                   aycategories={aycategories}
-                  {...props} />
+\                  {...props} />
               )}
             />            
             <Route exact path="/" render={() => (<Redirect to={currentTab} />)} />

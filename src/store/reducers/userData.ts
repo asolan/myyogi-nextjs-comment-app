@@ -16,6 +16,8 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
+  footnotePopup: true,
+  definitionPopup: true,
   quoteViewSettings: {...initialQuoteView},
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
   myQuoteTags: [{"category": "My Inspiration",
@@ -82,6 +84,14 @@ function userData(state = fullInitiatState, action) {
       return newState;
     case constants.ON_CHANGE_FONT_JUSTIFICATION:
       newState = state.set("fontJustification", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_FOOTNOTE_POPUP:
+      newState = state.set("footnotePopup", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_DEFINITION_POPUP:
+      newState = state.set("definitionPopup", action.payload);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_MY_QUOTE_SELECTION_TYPE:

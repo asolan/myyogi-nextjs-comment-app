@@ -21,8 +21,9 @@ import { textOutline, sunny } from "ionicons/icons";
 
 import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
 import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
-import AyogiSettingsMain from "../components/AyogiSettings/AyogiSettingsMain";
+// import AyogiSettingsMain from "../components/AyogiSettings/AyogiSettingsMain";
 import AyogiSettingFontSize from "../components/AyogiSettings/AyogiSettingFontSize";
+import AyogiSettingPopup from "../components/AyogiSettings/AyogiSettingPopup";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiSettings.css";
 import { createStructuredSelector } from "reselect";
@@ -38,6 +39,7 @@ const AyogiSettings = (props: any) => {
     <IonPage className="AyogiSettings AyogiChapter">
       <IonContent>
         <AyogiHeader headerType="settings"></AyogiHeader>
+        <AyogiSettingPopup {...props} />
         <AyogiSettingFontSize {...props} />
         {/* <AyogiSettingsMain {...props} /> */}
       </IonContent>{" "}
@@ -51,6 +53,10 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(actions.onChangeFontSize(size)),
     onChangeFontJustification: (justified: boolean) =>
       dispatch(actions.onChangeFontJustification(justified)),
+    onChangeFootnotePopup: (show: boolean) =>
+      dispatch(actions.onChangeFootnotePopup(show)),
+    onChangeDefinitionPopup: (show: boolean) =>
+      dispatch(actions.onChangeDefinitionPopup(show)),
     onChangeMyQuoteSelectionType: (myQuoteSelectionType: string) =>
       dispatch(actions.onChangeMyQuoteSelectionType(myQuoteSelectionType)),
     onChangeMyQuoteTags: (myQuoteTags: string[]) =>
@@ -62,6 +68,8 @@ const mapStateToProps = () =>
   createStructuredSelector({
     currentFontSize: selectors.makeSelectFontSize(),
     currentFontJustification: selectors.makeSelectFontJustification(),
+    currentFootnotePopup: selectors.makeSelectFootnotePopup(),
+    currentDefinitionPopup: selectors.makeSelectDefinitionPopup(),
     currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),
   });

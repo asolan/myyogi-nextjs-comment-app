@@ -21,6 +21,10 @@ const makeSelectFontSize = () =>
   createSelector(selectUserData, (ud) => ud.get("fontSize"));
 const makeSelectFontJustification = () =>
   createSelector(selectUserData, (ud) => ud.get("fontJustification"));
+const makeSelectFootnotePopup = () =>
+  createSelector(selectUserData, (ud) => ud.get("footnotePopup"));
+const makeSelectDefinitionPopup = () =>
+  createSelector(selectUserData, (ud) => ud.get("definitionPopup"));
 const makeSelectMyQuoteSelectionType = () =>
   createSelector(selectUserData, (ud) => ud.get("myQuoteSelectionType"));
 const makeSelectMyQuoteTags = () =>
@@ -37,5 +41,7 @@ export {
   makeSelectFontJustification,
   makeSelectMyQuoteSelectionType,
   makeSelectMyQuoteTags,
-  makeSelectQuoteViewSettings
+  makeSelectQuoteViewSettings,
+  makeSelectFootnotePopup,
+  makeSelectDefinitionPopup
 };

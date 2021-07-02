@@ -51,6 +51,8 @@ const mapDispatchToProps = (dispatch: any) => {
 const mapStateToProps = () =>
   createStructuredSelector({
     currentFontSize: selectors.makeSelectFontSize(),
+    currentFootnotePopup: selectors.makeSelectFootnotePopup(),
+    currentDefinitionPopup: selectors.makeSelectDefinitionPopup(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
     currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),

@@ -29,12 +29,14 @@ const AyogiFootnoteAlert = props => {
     }
 
     const showhideButton =
+        props.currentFootnotePopup ?
         <IonBadge
             key={'fn' + props.c.footnoteCount}
             onClick={() => showhideClick()}
         >
             {props.c.footnoteCount}
-        </IonBadge>;
+        </IonBadge> :
+        <sup>{props.c.footnoteCount}</sup>;
 
     const footnote = parseFootnote(props.c, false, 'p', props.highlightTerm);
     // console.log('f-popup');

@@ -116,6 +116,8 @@ const mapStateToProps = () =>
     currentImage: selectors.makeSelectImage(),
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
+    currentFootnotePopup: selectors.makeSelectFootnotePopup(),
+    currentDefinitionPopup: selectors.makeSelectDefinitionPopup(),
   });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AyogiPageTest);

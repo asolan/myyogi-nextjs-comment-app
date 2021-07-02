@@ -70,7 +70,7 @@ const AyogiSettingFontSize = (props) => {
           </IonRange>
         </IonItem>
       </IonList>
-      <AyogiWisdom items={props.items} />
+      <AyogiWisdom {...props} />
     </React.Fragment>
   );
 };
