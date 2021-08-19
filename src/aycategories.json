@@ -1,50 +1,32 @@
-[{"category": "masters",
+[{"category": "Saints and Masters",
     "color": "primary",
     "tags": [
     "Yogananda",
     "Jesus Christ",
     "Lahiri Mahasaya",
     "Sri Yukteswar",
-    "Babaji"
+    "Babaji",
+    "Saint"
   ]}
-  ,{"category": "inspiration",
+  ,{"category": "Inspiration",
     "color": "secondary",
     "tags": [
-    "Saints",
-    "People",
-    "Temples",
+    "Meditation",
     "Kriya",
-    "Miracles",
-    "Love",
-    "Kindness"
-  ]},
-  {"category": "Proof of God",
+    "Temples",
+    "Unconditional Love",
+    "Miracles"
+  ]} 
+  ,{"category": "Spiritual Truths",
     "color": "secondary",
     "tags": [
-    "Miracles",
-    "Resurrection",
-    "Divine Support",
-    "Divine Teaching"]
-  },  
-  {"category": "scripture",
-    "color":"success",
-    "tags": [
-    "Bible",
-    "Bhagavad Gita",
-    "Mahabharata",
-    "Yoga Sutras",
-    "Torah",
-    "Koran"
-  ]},
-  {"category": "religion",
-    "color":"success",
-    "tags": [
-    "Christianity",
-    "Buddhism",
-    "Sikhism",
-    "Hinduism",
-    "Judaism",
-    "Islam",
-    "Janoism"
+      "Guru",
+      "Karma and Reincarnation",
+      "Balanced Living",
+      "Finding God",
+      "Devotion",
+      "Faith",
+      "Kindness",
+      "Forgiveness"
   ]}
 ]

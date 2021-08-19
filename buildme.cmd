@@ -32,9 +32,7 @@ npx cap open android
 
 ionic build && npx cap add android && npx cap copy && capacitor-resources && cordova-res android --skip-config --copy && npx cap open android
 
-npx cap add ios
-npx cap sync ios
-npx cap open ios
+npx cap add ios && npx cap sync ios && npx cap open ios
 
 
 

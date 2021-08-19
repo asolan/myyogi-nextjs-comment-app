@@ -8,9 +8,14 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonMenu,
+  IonHeader,
+  IonTitle,
+  IonContent,
+  IonList
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { searchOutline, imagesOutline, listOutline, bookOutline, ribbonOutline, settingsOutline } from "ionicons/icons";
+import { searchOutline, imagesOutline, listOutline, bookOutline, ribbonOutline, menuOutline, settingsOutline } from "ionicons/icons";
 import ImageListTab from "./pages/ImageListTab";
 import ImageTab from "./pages/ImageTab";
 import PoemListTab from "./pages/PoemListTab";
@@ -19,8 +24,9 @@ import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
 import AyogiSearchPage from "./pages/AyogiSearchPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
-import AyogiQuoteView from "./pages/AyogiQuoteView";
 import AyogiSettings from './pages/AyogiSettings';
+import AyogiQuoteView from "./pages/AyogiQuoteView";
+import AyogiMorePage from "./pages/AyogiMorePage";
 
 // Delme
 //import AyogiPageTest from "./pages/AyogiPageTest";
@@ -120,11 +126,6 @@ function App(props) {
               )}
             />
             <Route
-              path="/:tab(imagelist)"
-              render={(props) => <ImageListTab />}
-//              exact={true}
-            />
-            <Route
               path="/search"
               render={(props) => (
                 <AyogiSearchPage 
@@ -132,12 +133,6 @@ function App(props) {
                   aycategories={aycategories}
                   {...props} 
                 />
-              )}
-            />
-            <Route
-              path="/aypoems"
-              render={(props) => (
-                <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />
               )}
             />
             <Route
@@ -150,6 +145,16 @@ function App(props) {
                 {...props} />
               )}
             />            
+            <Route
+              path="/more"
+              render={(props) => (
+                <AyogiMorePage 
+                  items={aydata.slice(45,49)} 
+                  aycategories={aycategories}
+                  {...props} />
+              )}
+            />            
+
             <Route
               path="/settings"
               render={(props) => (
@@ -170,10 +175,10 @@ function App(props) {
               <IonIcon icon={bookOutline} />
               <IonLabel>Book</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="imagelist" href="/imagelist">
-              <IonIcon icon={imagesOutline} />
+            {/* <IonTabButton tab="imagelist" href="/imagelist">
+              // <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
-            </IonTabButton>
+            </IonTabButton> */}
             <IonTabButton tab="search" href="/search">
               <IonIcon icon={searchOutline} />
               <IonLabel>Search</IonLabel>
@@ -182,6 +187,10 @@ function App(props) {
               <IonIcon icon={ribbonOutline} />
               <IonLabel>Quotes</IonLabel>
             </IonTabButton>
+            {/* <IonTabButton tab="more" href="/more">
+              // <IonIcon icon={menuOutline} />
+              <IonLabel>Menu</IonLabel>
+            </IonTabButton> */}
             <IonTabButton tab="settings" href="/settings">
               <IonIcon icon={settingsOutline} />
               <IonLabel>Settings</IonLabel>

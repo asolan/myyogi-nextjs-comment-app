@@ -49,16 +49,19 @@ const AyogiLine = (props) => {
       newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', isNew: false, val: 'See Footnote'});
     }
 
+    newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', isNew: true, val: 'New Quote'});
+
     if(existingQuote && existingQuote.length > 0){
+//      console.log(existingQuote);
       const existQuoteMapped = existingQuote.map(q => {
         // console.log(q);
         // console.log(getTextSubstrQuoteFromPos(props.c, q, 50));
-        return {key: q.quoteId, icon: 'chatbox', action: 'quote', isNew: false, val: 'Edit Quote: ..' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
+        return {key: q.quoteId, icon: 'chatbox', action: 'quote', isNew: false, val: 'Edit Quote: ' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
       });
-      newLineAI.concat(existQuoteMapped);
+      console.log(existQuoteMapped);
+      newLineAI = newLineAI.concat(existQuoteMapped);
+      console.log(newLineAI);
     };
-
-    newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', isNew: true, val: 'New Quote'});
 
     newLineAI.push({key: 'close', icon: 'close', action: 'close', isNew: false, val: 'Close'});
     setLineActionItems(newLineAI);
@@ -93,9 +96,9 @@ const AyogiLine = (props) => {
   const buildQuoteAndAction = (bQuotes) => {
     setQuotes(bQuotes);
     const quote = getLineQuotes(props.c, bQuotes);
-    if(quote && quote.length > 0){
-//      console.log(quote, props.c);
-    }
+    // if(quote && quote.length > 0){
+    //   console.log(quote, props.c);
+    // }
     updateLineActionItems(quote);
 
     const newTextQuote = getItemQuoteFromPos(props.c, quote, props.quoteOnly);

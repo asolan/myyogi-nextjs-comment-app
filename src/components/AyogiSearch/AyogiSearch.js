@@ -12,9 +12,11 @@ import {
     IonInput,
     IonList,
     IonSpinner,
-    IonContent
+    IonContent,
+    IonLoading
 } from "@ionic/react";
 import './AyogiSearch.css';
+import { searchOutline } from "ionicons/icons";
 import { notChapterTitleHeader, buildSection } from "../../utility/parseUtility";
 import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 //import parseBookData from '../../utility/parseBookData';
@@ -22,15 +24,14 @@ import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 
 
 const AyogiSearch = (props) => {
+  const [showLoading, setShowLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState([]);
+  const [searchResultsContent, setSearchResultsContent] = useState([]);
+  const [disableSearch, setDisableSearch] = useState(true);
+  const [isSearchDone, setIsSearchDone] = useState(false);
 
-    const [searchTerm, setSearchTerm] = useState([]);
-    const [searchResultsContent, setSearchResultsContent] = useState([]);
-    const [disableSearch, setDisableSearch] = useState(true);
-    const [isSearchDone, setIsSearchDone] = useState(false);
-
-    let searchLoading = false;
-    const quoteOnly = false;
-    const minSearchLength = 3;
+  const quoteOnly = false;
+  const minSearchLength = 3;
 
     useEffect(() => {
 //        buildSearchText('');
@@ -70,7 +71,9 @@ const AyogiSearch = (props) => {
       let contentId = 0;
       let nextContentList = [];
       setDisableSearch(true);
-
+      setShowLoading(true);
+      console.log('search.1');
+      setTimeout(setShowLoading(false), 5000);
       if (!props.aydata) {
         console.log("buildchaptext-notext");
         return;
@@ -112,7 +115,8 @@ const AyogiSearch = (props) => {
         });
   
       setSearchResultsContent(nextText);
-      searchLoading = false;
+//      console.log('search.5');
+//      setShowLoading(false);
       setIsSearchDone(true);
     };
 
@@ -135,11 +139,10 @@ const AyogiSearch = (props) => {
             onClick={() => {
               //todo-validate and give error
               if(searchTerm.length >= minSearchLength){
-                searchLoading = true;
                 buildSearchText(searchTerm);
               }
   //                    props.history.push(`/ayogi/${chNum}/1`);
-            }}>Search
+            }}><IonIcon slot="start" icon={searchOutline}></IonIcon>
         </Button>
       </IonItem>
   );
@@ -170,8 +173,18 @@ const AyogiSearch = (props) => {
 
     return (
       <div className="AyogiSearch">
-          {searchLoading && <IonSpinner name="crescent"></IonSpinner>}
-          {!searchLoading && <div>{searchBar}</div>}
+        <IonLoading
+//          cssClass='my-custom-class'
+          isOpen={showLoading}
+          onDidDismiss={() => setShowLoading(false)}
+          message={'Searching...'}
+          duration={5000}
+        />        
+          {/* {searchLoading && <IonSpinner name="crescent"></IonSpinner>} */}
+          {<div>{searchBar}</div>}
+          {!isSearchDone && 
+              <div className="ion-margin ion-padding ion-text-center">Enter a search term, and click "Search". E.g. Kriya or Jesus</div>
+          }
           {isSearchDone && 
             <IonContent
               scrollEvents={true}
@@ -181,11 +194,11 @@ const AyogiSearch = (props) => {
             >
               <div key="searchResultsContent">
                 {searchResultsContent.length === 0 ? 
-                "No Results Found" :
-                searchResultsContent.map((c) => {
-                  return c;
-                  })
-                }
+                  <div className="ion-margin ion-padding ion-text-center">No Results Found</div> :
+                  searchResultsContent.map((c) => {
+                    return c;
+                    })
+                  }
                 {/* <IonList>
                 {searchResultsContent.map((c) => {
                     //                console.log(c);

@@ -16,20 +16,22 @@ let initialState = {
   poem: "",
   fontSize: 1,
   fontJustification: true,
-  footnotePopup: true,
+  footnotePopup: false,
   definitionPopup: true,
   quoteViewSettings: {...initialQuoteView},
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
-  myQuoteTags: [{"category": "My Inspiration",
-  "color": "primary",
-  "tags": [
-  "Healing",
-  "Divine Feminine",
-  "Health",
-  "True Teaching"
-]}
-]
+  myQuoteTags: []
 };
+
+// myQuoteTags: [{"category": "My Inspiration",
+// "color": "primary",
+// "tags": [
+// "Healing",
+// "Divine Feminine",
+// "Health",
+// "True Teaching"
+// ]}
+
 
 const autoyogiState = window.localStorage["autoyogiState"]
   ? JSON.parse(window.localStorage["autoyogiState"])

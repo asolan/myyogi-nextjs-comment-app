@@ -216,7 +216,7 @@ const AyogiQuoteViewMain = (props) => {
       {quoteViewSettingsModal}
       <IonList>{content.map((c) => c)}</IonList>
       <IonItem lines="full">
-        <Button
+        {/* <Button
           buttonClass="buttonFull"
           size="large"
           slot="end"
@@ -239,7 +239,7 @@ const AyogiQuoteViewMain = (props) => {
           }
         >
           Send Quotes to Firebase
-        </Button>
+        </Button> */}
       </IonItem>
 
     </div>

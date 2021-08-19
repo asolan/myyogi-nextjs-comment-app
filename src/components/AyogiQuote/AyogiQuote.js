@@ -3,6 +3,7 @@ import "./AyogiQuote.css";
 import AyogiQuoteSelectText from "./AyogiQuoteSelectText";
 import AyogiQuoteChips from "./AyogiQuoteChips";
 import AyogiQuoteMetadata from "./AyogiQuoteMetadata";
+import AyogiShare from "../AyogiShare/AyogiShare";
 import Button from "../Button/Button";
 import {
   IonItem,
@@ -46,6 +47,7 @@ const AyogiQuote = (props) => {
   const [categories, setCategories] = useState([]);
   const [categoryTags, setCategoryTags] = useState([]);
   const [categoryChips, setCategoryChips] = useState([]);
+  const [showShare, setShowShare] = useState(false);
 
   useEffect(() => {
     setupCategories();
@@ -229,6 +231,12 @@ const AyogiQuote = (props) => {
   };
   const cardContentStyle = { overflow: "scroll" };
 
+  const shareQuote = quoteState.paragraphLineQuote.slice(1, 2).map((q, i) => (
+    q.className === 'quoteclass' ? q.text : [""])
+  );
+
+//  console.log("shareQuote", shareQuote[0], shareQuote, typeof shareQuote);
+
   return (
     <div className="AyogiQuote">
       <IonModal isOpen={props.showQuotePopup} cssClass="">
@@ -313,6 +321,23 @@ const AyogiQuote = (props) => {
               )}
             {quoteState.edit === constants.QUOTE_EDIT.NONE && (
               <React.Fragment>
+                <IonItem lines="full">
+                  {showShare &&
+                    <AyogiShare message={shareQuote[0]} title={`Chapter: ${quoteState.chapter}. Paragraph: ${quoteState.paragraph}`} />
+                  }
+                  <Button
+                    // className="ion-padding"
+                    buttonClass={showShare ? "": "buttonFull"}
+                    expand={showShare ? "block": "full"}
+                    size="large"
+                    color="medium"
+                    onClick={() => {
+                      setShowShare(!showShare);
+                    }}
+                  >
+                    {showShare ? "Done": "Share Quote"}
+                  </Button>
+                </IonItem>
                 <IonItem lines="full">
                   <Button
                     // className="ion-padding"
