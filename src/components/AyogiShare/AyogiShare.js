@@ -13,7 +13,7 @@ import {
 import { SocialSharing } from '@ionic-native/social-sharing';
 //import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import './AyogiShare.css';
-import { shareSocialOutline, mailOutline, logoFacebook, logoInstagram, logoTwitter, logoWhatsapp } from "ionicons/icons";
+import { chatboxEllipsesOutline, mailOutline, logoFacebook, logoInstagram, logoTwitter, logoWhatsapp } from "ionicons/icons";
 import { notChapterTitleHeader, buildSection } from "../../utility/parseUtility";
 import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 //import parseBookData from '../../utility/parseBookData';
@@ -29,6 +29,8 @@ const AyogiShare = (props) => {
 
   const quoteOnly = false;
   const minSearchLength = 3;
+  const ayPrefix = "Paramhansa Yogananda writes, '";
+  const ayPostfix = "' in Autobiography of a Yogi";
 
   const shareType = {
     FACEBOOK: 'FACEBOOK', 
@@ -45,35 +47,37 @@ const AyogiShare = (props) => {
 
     const shareItem = (thisShareType) => {
       const url = "SocialUrl";
-      console.log('shareItem', thisShareType);
-      console.log('message', props.message);
-      console.log('title', props.title);
+      // console.log('shareItem', thisShareType);
+      // console.log('message', props.message);
+      // console.log('title', props.title);
+      const fullQuote = ayPrefix + props.message + ayPostfix + ' ' + props.title;
+//      console.log('shareItem', thisShareType, fullQuote);
 
       switch(thisShareType){
         case shareType.FACEBOOK:
-          SocialSharing.shareViaFacebook(props.message, props.title, url).then(() => {
+          SocialSharing.shareViaFacebookWithPasteMessageHint('', '', '', fullQuote).then(() => {
           })
           break;
         case shareType.TWITTER:
-          SocialSharing.shareViaTwitter(props.message, props.title, url).then(() => {
+          SocialSharing.shareViaTwitter(fullQuote, null, null).then(() => {
         })
         break;
         case shareType.WHATSAPP:
-          SocialSharing.shareViaWhatsApp(null, null, url).then(() => {
+          SocialSharing.shareViaWhatsApp(fullQuote, null, null).then(() => {
           })
           break;
         case shareType.INSTAGRAM:
 //          SocialSharing.shareViaInstagram(message, image).then(() => {
-          SocialSharing.shareViaInstagram(props.message, '').then(() => {
+          SocialSharing.shareViaInstagram(fullQuote, '').then(() => {
           })
           break;
         case shareType.SMS:
 //          SocialSharing.shareViaSMS(message, phoneNumber).then(() => {
-          SocialSharing.shareViaSMS(props.message, '').then(() => {
+          SocialSharing.shareViaSMS(fullQuote, null).then(() => {
           })
           break;
         case shareType.EMAIL:
-          SocialSharing.shareViaEmail(props.title, props.message, '', '', '', '').then(() => {
+          SocialSharing.shareViaEmail(fullQuote, props.message.substring(0,50), null, null, null, null).then(() => {
           })
       }
     };
@@ -81,33 +85,35 @@ const AyogiShare = (props) => {
     const socialList = (
       <IonGrid>
         <IonRow class="ion-align-items-center">
-          <IonCol size="2">
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {shareItem(shareType.SMS);}}>
-              <IonIcon icon={shareSocialOutline}></IonIcon>
+              <IonIcon icon={chatboxEllipsesOutline}></IonIcon>
             </IonButton>
           </IonCol>
-          <IonCol size="2">
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {shareItem(shareType.EMAIL);}}>
               <IonIcon icon={mailOutline}></IonIcon>
             </IonButton>
           </IonCol>
-          <IonCol size="2">
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {
               shareItem(shareType.FACEBOOK);}}>
               <IonIcon icon={logoFacebook}></IonIcon>
             </IonButton>
           </IonCol>
-          <IonCol size="2">
+          {/* </IonRow>
+          <IonRow class="ion-align-items-center"> */}
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {shareItem(shareType.WHATSAPP);}}>
               <IonIcon icon={logoWhatsapp}></IonIcon>
             </IonButton>
           </IonCol>
-          <IonCol size="2">
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {shareItem(shareType.TWITTER);}}>
               <IonIcon icon={logoTwitter}></IonIcon>
             </IonButton>
           </IonCol>
-          <IonCol size="2">
+          <IonCol class="ion-align-self-center">
             <IonButton color="light" onClick={() => {shareItem(shareType.INSTAGRAM);}}>
               <IonIcon icon={logoInstagram}></IonIcon>
             </IonButton>

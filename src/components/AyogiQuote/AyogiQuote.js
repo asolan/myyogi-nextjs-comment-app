@@ -323,7 +323,7 @@ const AyogiQuote = (props) => {
               <React.Fragment>
                 <IonItem lines="full">
                   {showShare &&
-                    <AyogiShare message={shareQuote[0]} title={`Chapter: ${quoteState.chapter}. Paragraph: ${quoteState.paragraph}`} />
+                    <AyogiShare message={shareQuote[0]} title={`Chapter ${quoteState.chapter} Paragraph ${quoteState.paragraph}`} />
                   }
                   <Button
                     // className="ion-padding"
