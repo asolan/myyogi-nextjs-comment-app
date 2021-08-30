@@ -1,4 +1,28 @@
 import constants from "../store/constants";
+import { SocialSharing } from '@ionic-native/social-sharing';
+
+export const shareAQuote = (title, message) => {
+  console.log('shareAQuote', title, message);
+
+  const ayPrefix = "Paramhansa Yogananda writes, '";
+  const ayPostfix = "' in Autobiography of a Yogi";
+  const fullQuote = ayPrefix + message + ayPostfix + ' ' + title;
+  const shareHeader = message.substring(0,50);
+
+  var shareOptions = {
+      message: fullQuote,
+      subject: shareHeader, // fi. for email
+  //            files: ['', ''], // an array of filenames either locally or remotely
+  //            url: 'https://www.website.com/foo/#bar?a=b',
+  //            chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
+  //            appPackageName: 'com.apple.social.facebook', // Android only, you can provide id of the App you want to share with
+  //            iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
+  };          
+
+  SocialSharing.shareWithOptions(shareOptions).then(() => {
+  })
+
+};
 
 export const catTagsToObject = (toCatTags) => {
   //AMSTODO:QUOTE:DEPRECATE??

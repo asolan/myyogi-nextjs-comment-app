@@ -7,9 +7,11 @@ import AyogiQuote from "../AyogiQuote/AyogiQuote";
 import AyogiQuoteChipsSimple from "../AyogiQuote/AyogiQuoteChipsSimple";
 import AyogiFootnoteAlert from '../AyogiFootnoteAlert/AyogiFootnoteAlert';
 import AyogiDefinitionInline from '../AyogiDefinitionInline/AyogiDefinitionInline';
+//import AyogiShare from "../AyogiShare/AyogiShare";
 import { parseParagraphData, highlightPattern } from "../../utility/parseUtility";
-import { IonLabel } from "@ionic/react";
-import { getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes } from "../../utility/quoteUtility";
+import { IonLabel, IonPopover } from "@ionic/react";
+import { shareAQuote, getItemQuoteFromPos, getTextSubstrQuoteFromPos, getLineQuotes, getLinesInParagraph } 
+from "../../utility/quoteUtility";
 //import useLongPress from "../../utility/useLongPress";
 //import  reactStringReplace from 'react-string-replace';
 
@@ -49,6 +51,8 @@ const AyogiLine = (props) => {
       newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', isNew: false, val: 'See Footnote'});
     }
 
+    newLineAI.push({key: 'share', icon: 'share', action: 'share', isNew: false, val: 'Share'});
+
     newLineAI.push({key: 'newquote', icon: 'chatboxEllipses', action: 'quote', isNew: true, val: 'New Quote'});
 
     if(existingQuote && existingQuote.length > 0){
@@ -58,9 +62,9 @@ const AyogiLine = (props) => {
         // console.log(getTextSubstrQuoteFromPos(props.c, q, 50));
         return {key: q.quoteId, icon: 'chatbox', action: 'quote', isNew: false, val: 'Edit Quote: ' + getTextSubstrQuoteFromPos(props.c, q, 25) + '..'};
       });
-      console.log(existQuoteMapped);
+//      console.log(existQuoteMapped);
       newLineAI = newLineAI.concat(existQuoteMapped);
-      console.log(newLineAI);
+//      console.log(newLineAI);
     };
 
     newLineAI.push({key: 'close', icon: 'close', action: 'close', isNew: false, val: 'Close'});
@@ -82,6 +86,10 @@ const AyogiLine = (props) => {
       case 'footnote':
         setFootnoteCount(footnoteCount+1);
         break;
+      case 'share':
+        openSharing();
+        break;
+                  
       case 'gotochap':
         const newPos = "/ayogi/" + props.c.chapterNumber + "/" + props.c.lineNumber
 //        props.onChangeChapter(props.c.chapterNumber);
@@ -145,6 +153,16 @@ const AyogiLine = (props) => {
         newQuotes.push(newQuote);
       }
       buildQuoteAndAction(newQuotes);
+  };
+
+  const openSharing = () => {
+    const shareMessage = props.quoteOnly ? 
+        textQuote.reduce((p, t) => { return p + t.text }, '') :
+        getLinesInParagraph(props.c, props.items).reduce((p, t) => { return p + t.text }, '');
+//console.log('openSharing', props.quoteOnly, shareMessage);
+    const shareTitle = `Chapter ${props.c.chapterNumber} Paragraph ${props.c.paragraphNumber}`;
+//    console.log('openSharing', textQuote, shareMessage);
+    shareAQuote(shareTitle, shareMessage);
   };
 
   useEffect(() => {
@@ -227,7 +245,7 @@ returnVal = (
       {paragraph}
       <IonLabel
         onClick = { () => { 
-          console.log('label click');
+//          console.log('label click');
           setShowLineAction(true); 
         }}
         // {...longPressEvent}

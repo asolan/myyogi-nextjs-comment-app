@@ -17,9 +17,9 @@ const AyogiQuoteView = (props: any) => {
   // console.log(props);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(props.quoteViewSettings);
-  }, [props.quoteViewSettings]);
+  // useEffect(() => {
+  //   console.log(props.quoteViewSettings);
+  // }, [props.quoteViewSettings]);
 
   return (
     <IonPage>

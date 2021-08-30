@@ -3,7 +3,7 @@ import "./AyogiQuote.css";
 import AyogiQuoteSelectText from "./AyogiQuoteSelectText";
 import AyogiQuoteChips from "./AyogiQuoteChips";
 import AyogiQuoteMetadata from "./AyogiQuoteMetadata";
-import AyogiShare from "../AyogiShare/AyogiShare";
+//import AyogiShare from "../AyogiShare/AyogiShare";
 import Button from "../Button/Button";
 import {
   IonItem,
@@ -14,9 +14,11 @@ import {
   IonCardTitle,
   IonCardContent,
   IonText,
+  IonIcon,
   IonVirtualScroll,
 } from "@ionic/react";
 import {
+  shareAQuote,
   getParaLineQuoteFromPos,
   getParagraphQuote,
   getLinesInParagraph,
@@ -25,6 +27,7 @@ import {
 import constants from "../../store/constants";
 import { uuidv4 } from "../../utility/jsutility";
 import { act } from "react-dom/test-utils";
+import { share } from "ionicons/icons";
 
 const initialQuote = {
   chapter: 0,
@@ -47,7 +50,6 @@ const AyogiQuote = (props) => {
   const [categories, setCategories] = useState([]);
   const [categoryTags, setCategoryTags] = useState([]);
   const [categoryChips, setCategoryChips] = useState([]);
-  const [showShare, setShowShare] = useState(false);
 
   useEffect(() => {
     setupCategories();
@@ -60,6 +62,12 @@ const AyogiQuote = (props) => {
   useEffect(() => {
     setQuoteState();
   }, [props.quoteId]);
+
+  const openSharing = () => {
+    const shareMessage = shareQuote[0];
+    const shareTitle = `Chapter ${quoteState.chapter} Paragraph ${quoteState.paragraph}`;
+    shareAQuote(shareTitle, shareMessage);
+  };
 
   const setupCategories = () => {
     if(props.aycategories && props.aycategories.length > 0){
@@ -229,6 +237,7 @@ const AyogiQuote = (props) => {
     display: "flex",
     flexDirection: "column",
   };
+  
   const cardContentStyle = { overflow: "scroll" };
 
   const shareQuote = quoteState.paragraphLineQuote.slice(1, 2).map((q, i) => (
@@ -322,20 +331,17 @@ const AyogiQuote = (props) => {
             {quoteState.edit === constants.QUOTE_EDIT.NONE && (
               <React.Fragment>
                 <IonItem lines="full">
-                  {showShare &&
-                    <AyogiShare message={shareQuote[0]} title={`Chapter ${quoteState.chapter} Paragraph ${quoteState.paragraph}`} />
-                  }
                   <Button
                     // className="ion-padding"
-                    buttonClass={showShare ? "": "buttonFull"}
-                    expand={showShare ? "block": "full"}
+                    buttonClass="buttonFull"
+                    expand="full"
                     size="large"
                     color="medium"
                     onClick={() => {
-                      setShowShare(!showShare);
+                      openSharing();
                     }}
-                  >
-                    {showShare ? "Done": "Share Quote"}
+                  > <IonIcon icon={share}></IonIcon>
+                    Share Quote
                   </Button>
                 </IonItem>
                 <IonItem lines="full">

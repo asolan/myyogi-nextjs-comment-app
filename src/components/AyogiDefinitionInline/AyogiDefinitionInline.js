@@ -52,7 +52,6 @@ const AyogiDefinitionInline = props => {
                   </IonCardContent>
                 </IonCard>
               </IonPopover>
-
           </React.Fragment>
       );
   } else {

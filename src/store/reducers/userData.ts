@@ -14,7 +14,7 @@ let initialState = {
   chapterLine: 1,
   image: "",
   poem: "",
-  fontSize: 1,
+  fontSize: 1.175,
   fontJustification: true,
   footnotePopup: false,
   definitionPopup: true,

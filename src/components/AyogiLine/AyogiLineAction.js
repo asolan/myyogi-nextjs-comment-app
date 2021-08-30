@@ -7,14 +7,15 @@ import {
   flag,
   close,
   reader,
-  book
+  book,
+  share
 } from "ionicons/icons";
 import { queries } from "@testing-library/dom";
 
 const AyogiLineAction = (props) => {
-  if (props.lineActionItems.length > 2) {
-    //        console.log(props.lineActionItems);
-  }
+  // if (props.lineActionItems.length > 2) {
+  //   console.log(props.lineActionItems);
+  // }
   const iconMap = {
     clipboardOutline: clipboardOutline,
     chatbox: chatbox,
@@ -22,7 +23,8 @@ const AyogiLineAction = (props) => {
     flag: flag,
     close: close,
     reader: reader,
-    book: book
+    book: book,
+    share: share
   }
 //  console.log(props.showLineAction);
 

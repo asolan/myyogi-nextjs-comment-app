@@ -210,7 +210,7 @@ const AyogiQuoteViewMain = (props) => {
       </IonItem>
     </React.Fragment>
   );
-  console.log(content);
+//  console.log(content);
   return (
     <div className="AyogiQuoteViewMain" key="AyogiQuoteViewMain">
       {quoteViewSettingsModal}

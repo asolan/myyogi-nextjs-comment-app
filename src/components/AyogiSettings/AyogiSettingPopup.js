@@ -46,10 +46,10 @@ const AyogiSettingPopup = (props) => {
             <IonLabel>Show Footnote Popup Button</IonLabel>
             <IonCheckbox checked={props.currentFootnotePopup} onIonChange={e => props.onChangeFootnotePopup(e.detail.checked)} />
         </IonItem>
-        <IonItem>
+        {/* <IonItem>
             <IonLabel>Show Definition Popup Button</IonLabel>
             <IonCheckbox checked={props.currentDefinitionPopup} onIonChange={e => props.onChangeDefinitionPopup(e.detail.checked)} />
-        </IonItem>
+        </IonItem> */}
       </IonList>
     </React.Fragment>
   );

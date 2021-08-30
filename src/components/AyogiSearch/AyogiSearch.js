@@ -16,7 +16,7 @@ import {
     IonLoading
 } from "@ionic/react";
 import './AyogiSearch.css';
-import { searchOutline } from "ionicons/icons";
+import { closeCircleOutline, searchOutline } from "ionicons/icons";
 import { notChapterTitleHeader, buildSection } from "../../utility/parseUtility";
 import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 //import parseBookData from '../../utility/parseBookData';
@@ -25,6 +25,7 @@ import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 
 const AyogiSearch = (props) => {
   const [showLoading, setShowLoading] = useState(false);
+  const [searchFocus, setSearchFocus] = useState(false);
   const [searchTerm, setSearchTerm] = useState([]);
   const [searchResultsContent, setSearchResultsContent] = useState([]);
   const [disableSearch, setDisableSearch] = useState(true);
@@ -124,6 +125,8 @@ const AyogiSearch = (props) => {
       <IonItem>
         <IonSearchbar
             value={searchTerm} 
+            onIonBlur={e => {setSearchFocus(false)}}
+            onIonFocus={e => {setSearchFocus(true)}}
             onIonChange={e => {
               setSearchTerm(e.detail.value.toLowerCase());
               setDisableSearch(e.detail.value.length < minSearchLength);
@@ -182,8 +185,17 @@ const AyogiSearch = (props) => {
         />        
           {/* {searchLoading && <IonSpinner name="crescent"></IonSpinner>} */}
           {<div>{searchBar}</div>}
+          {searchFocus && (<div className="ion-text-center"><Button
+              title="closeKeyboard"
+              alt="closeKeyboard"
+              key={'closeKeyboard'}
+              color="light"
+              onClick={() => {}}>
+                <IonIcon slot="start" icon={closeCircleOutline}></IonIcon>
+                Close Keyboard
+          </Button></div>)}
           {!isSearchDone && 
-              <div className="ion-margin ion-padding ion-text-center">Enter a search term, and click "Search". E.g. Kriya or Jesus</div>
+            <div className="ion-padding ion-text-center">Enter a search term, and click "Search". E.g. Kriya or Jesus</div>
           }
           {isSearchDone && 
             <IonContent
