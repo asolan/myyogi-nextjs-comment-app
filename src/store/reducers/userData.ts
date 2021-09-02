@@ -16,8 +16,8 @@ let initialState = {
   poem: "",
   fontSize: 1.175,
   fontJustification: true,
-  footnotePopup: false,
-  definitionPopup: true,
+  footnotePopup: true,
+  definitionPopup: false,
   quoteViewSettings: {...initialQuoteView},
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
   myQuoteTags: []

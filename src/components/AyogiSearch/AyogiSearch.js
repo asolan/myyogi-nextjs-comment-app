@@ -24,7 +24,7 @@ import { LINE_TYPE_ENUM } from "../../utility/dataTypes";
 
 
 const AyogiSearch = (props) => {
-  const [showLoading, setShowLoading] = useState(false);
+//  const [showLoading, setShowLoading] = useState(false);
   const [searchFocus, setSearchFocus] = useState(false);
   const [searchTerm, setSearchTerm] = useState([]);
   const [searchResultsContent, setSearchResultsContent] = useState([]);
@@ -35,8 +35,8 @@ const AyogiSearch = (props) => {
   const minSearchLength = 3;
 
     useEffect(() => {
-//        buildSearchText('');
-    }, []);
+      buildSearchText(searchTerm);
+    }, [searchTerm]);
 
 
     const doSearch = (a, c) => {
@@ -69,12 +69,19 @@ const AyogiSearch = (props) => {
     };
       
     const buildSearchText = (newSearchTerm) => {
+      //todo-validate and give error
+      console.log('buildSearchText', newSearchTerm);
+      if(searchTerm.length < minSearchLength){
+        return;
+      }
+
+      props.setSearching(true);
       let contentId = 0;
       let nextContentList = [];
-      setDisableSearch(true);
-      setShowLoading(true);
-      console.log('search.1');
-      setTimeout(setShowLoading(false), 5000);
+      //setDisableSearch(true);
+      // setShowLoading(true);
+      // console.log('search.1');
+      // setTimeout(setShowLoading(false), 5000);
       if (!props.aydata) {
         console.log("buildchaptext-notext");
         return;
@@ -116,6 +123,8 @@ const AyogiSearch = (props) => {
         });
   
       setSearchResultsContent(nextText);
+      props.setSearching(false);
+
 //      console.log('search.5');
 //      setShowLoading(false);
       setIsSearchDone(true);
@@ -128,25 +137,25 @@ const AyogiSearch = (props) => {
             onIonBlur={e => {setSearchFocus(false)}}
             onIonFocus={e => {setSearchFocus(true)}}
             onIonChange={e => {
-              setSearchTerm(e.detail.value.toLowerCase());
-              setDisableSearch(e.detail.value.length < minSearchLength);
               setIsSearchDone(false);
+              setSearchTerm(e.detail.value.toLowerCase());
+              
+//              setDisableSearch(e.detail.value.length < minSearchLength);
             }}
+            debounce={1000}
             >
         </IonSearchbar>
-        <Button
+        {/* <Button
+            type="submit"
             title="Search"
             alt="Search"
             key={'searchButton'}
             disabled={disableSearch}
             onClick={() => {
-              //todo-validate and give error
-              if(searchTerm.length >= minSearchLength){
-                buildSearchText(searchTerm);
-              }
+              buildSearchText(searchTerm);
   //                    props.history.push(`/ayogi/${chNum}/1`);
             }}><IonIcon slot="start" icon={searchOutline}></IonIcon>
-        </Button>
+        </Button> */}
       </IonItem>
   );
 
@@ -176,13 +185,6 @@ const AyogiSearch = (props) => {
 
     return (
       <div className="AyogiSearch">
-        <IonLoading
-//          cssClass='my-custom-class'
-          isOpen={showLoading}
-          onDidDismiss={() => setShowLoading(false)}
-          message={'Searching...'}
-          duration={5000}
-        />        
           {/* {searchLoading && <IonSpinner name="crescent"></IonSpinner>} */}
           {<div>{searchBar}</div>}
           {searchFocus && (<div className="ion-text-center"><Button

@@ -110,16 +110,20 @@ p.smallSpace {
 }
 
 .letterAfterDropCapL {
-   margin-left: -.1em;
+   margin-left: -.05em;
+   margin-right: -0.25em;
 }
 
 .letterAfterDropCapA {
-   margin-left: .1em;
+   margin-left: 0em;
+   margin-right: -0.2em;
 }
 
 .letterAfterDropCapR {
    margin-left: -.05em;
+   margin-right: -0.25em;
 }
+
 .hangingDoubleQuote {
     position: relative;						
     left: -.5em;

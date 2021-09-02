@@ -3,6 +3,7 @@ import Loading from "../components/Loading/Loading";
 import {
   IonPage,
   IonContent,
+  IonLoading
 } from "@ionic/react";
 
 import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
@@ -24,13 +25,25 @@ const AyogiSearchPage = (props: any) => {
   useEffect(() => {
   }, []);
 
+  const setSearching = (flag) => {
+    console.log('setSearching', flag);
+    setIsLoading(flag);
+  };
+
   return (
     <IonPage>
       <AyogiHeader
         headerType="search"
         headerTitle={"Search"}
       ></AyogiHeader>
-        <AyogiSearch {...props} />
+        <IonLoading
+//          cssClass='my-custom-class'
+          isOpen={isLoading}
+          onDidDismiss={() => setIsLoading(false)}
+          message={'Searching...'}
+          duration={2000}
+        />
+        {<AyogiSearch {...props} setSearching={setSearching} />}
     </IonPage>
   );
 };
