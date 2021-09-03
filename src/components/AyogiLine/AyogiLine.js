@@ -47,6 +47,7 @@ const AyogiLine = (props) => {
       newLineAI.push({key: 'gotochap', icon: 'book', action: 'gotochap', isNew: false, val: 'Go to Chapter'});
     }
 
+//    console.log(hasFootnote, hasFootnote ? props.c._id + props.c.text: '');
     if(hasFootnote){
       newLineAI.push({key: 'footnote', icon: 'flag', action: 'footnote', isNew: false, val: 'See Footnote'});
     }
@@ -107,8 +108,6 @@ const AyogiLine = (props) => {
     // if(quote && quote.length > 0){
     //   console.log(quote, props.c);
     // }
-    updateLineActionItems(quote);
-
     const newTextQuote = getItemQuoteFromPos(props.c, quote, props.quoteOnly);
 
   //   if(props.currentDefinitionPopup && 
@@ -139,7 +138,7 @@ const AyogiLine = (props) => {
     
 
     setTextQuote(newTextQuote);
-
+    updateLineActionItems(quote);
   };
 
   const updateQuote = (newQuote) => {
@@ -177,13 +176,20 @@ const AyogiLine = (props) => {
     setParagraph(p);
     setLineKey(id);
     setIndentClasses(ic);
-    setHasFootnote(props.c.footnote && props.c.footnote.length > 0);
+    setHasFootnote(props.c.footnote && props.c.footnote.length > 0 ? true : false);
   }, [props.c, props.i, props.type]);
+
+  useEffect(() => {
+    if(hasFootnote){
+      buildQuoteAndAction(props.selectedQuotes);
+    }
+  }, [hasFootnote]);
 
   useEffect(() => {
     setIsSelected(props.isLineSelected);
     //    console.log('isLineSelected', props.isLineSelected);
   }, [props.isLineSelected]);
+
 
   useEffect(() => {
     let newIndentClasses = [...indentClasses];
@@ -236,6 +242,26 @@ const AyogiLine = (props) => {
   //   return parts.map(part => (part.match(regr) ? <span className="searchfind">{part}</span> : part));
   // };
 
+  let outputQuote = textQuote &&
+    textQuote.map((q, i) => {
+      if(props.highlightTerm && props.highlightTerm.length > 0){
+        return highlightPattern(q.text, props.highlightTerm);
+      }
+      if(q.text && q.text.length > 0){
+        let resultText;
+        if(props.currentDefinitionPopup){
+          const dictText = q.text.split(' ');
+          resultText = dictText.map((t,i) => {
+              return <AyogiDefinitionInline dictionary={props.c.dictionary} word={t} isLast={!dictText[i+1]}/>;
+          });
+        } else {
+          resultText = q.text;
+        }
+        // console.log(resultText);
+        return <span key={`itemquotesels${i}`} className={q.className}>{resultText}</span>
+      }
+  });
+
 returnVal = (
     <React.Fragment>
       {props.quoteOnly && 
@@ -253,25 +279,7 @@ returnVal = (
         // style={props.style}
         className={allClasses.join(" ")}
       >
-        {textQuote &&
-          textQuote.map((q, i) => {
-            if(props.highlightTerm && props.highlightTerm.length > 0){
-              return highlightPattern(q.text, props.highlightTerm);
-            }
-            if(q.text && q.text.length > 0){
-              let resultText;
-              if(props.currentDefinitionPopup){
-                const dictText = q.text.split(' ');
-                resultText = dictText.map(t => {
-                    return <AyogiDefinitionInline dictionary={props.c.dictionary} word={t}/>;
-                });
-              } else {
-                resultText = q.text;
-              }
-//              const resultArr = resultText.join(' ');
-              return <span key={`itemquotesels${i}`} className={q.className}>{resultText}</span>
-            }
-          })}
+        {outputQuote}
         <AyogiMetaItem c={props.c} />
       </IonLabel>
       {footnoteMarkup}

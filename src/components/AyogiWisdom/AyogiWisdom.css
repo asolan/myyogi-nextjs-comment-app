@@ -41,7 +41,7 @@ p.smallSpace {
     margin-right: 15px;
 }
 
-.DropCap {
+.DropCap, .DropCapI {
     font-size: calc(var(--yogi-font-size) * 1.1);
     /* line-height: calc(var(--yogi-font-size) - 0.8); */
     line-height: 0.75em;
@@ -54,6 +54,10 @@ p.smallSpace {
     margin-bottom: 0.5em;
     /* margin-right: 0.07em;
     margin-bottom: 0.6em; */
+}
+
+.DropCapI {
+    margin-right: 0.1em;
 }
 
 .FirstWords,
@@ -111,17 +115,17 @@ p.smallSpace {
 
 .letterAfterDropCapL {
    margin-left: -.05em;
-   margin-right: -0.25em;
+   margin-right: -0.1em;
 }
 
 .letterAfterDropCapA {
    margin-left: 0em;
-   margin-right: -0.2em;
+   margin-right: -0.1em;
 }
 
 .letterAfterDropCapR {
    margin-left: -.05em;
-   margin-right: -0.25em;
+   margin-right: -0.1em;
 }
 
 .hangingDoubleQuote {

@@ -75,7 +75,7 @@ const AyogiSearch = (props) => {
         return;
       }
 
-      props.setSearching(true);
+//      props.setSearching(true);
       let contentId = 0;
       let nextContentList = [];
       //setDisableSearch(true);
@@ -123,7 +123,7 @@ const AyogiSearch = (props) => {
         });
   
       setSearchResultsContent(nextText);
-      props.setSearching(false);
+//      props.setSearching(false);
 
 //      console.log('search.5');
 //      setShowLoading(false);
@@ -137,7 +137,7 @@ const AyogiSearch = (props) => {
             onIonBlur={e => {setSearchFocus(false)}}
             onIonFocus={e => {setSearchFocus(true)}}
             onIonChange={e => {
-              setIsSearchDone(false);
+//              setIsSearchDone(false);
               setSearchTerm(e.detail.value.toLowerCase());
               
 //              setDisableSearch(e.detail.value.length < minSearchLength);

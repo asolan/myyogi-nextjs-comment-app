@@ -55,7 +55,7 @@ const AyogiDefinitionInline = props => {
           </React.Fragment>
       );
   } else {
-    return props.word + ' ';
+    return props.word + (props.isLast ? '' : ' ');
   }
 };
 

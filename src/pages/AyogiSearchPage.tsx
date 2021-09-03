@@ -19,16 +19,16 @@ import actions from "../store/actions";
 const AyogiSearchPage = (props: any) => {
   //  console.log("AyogiSearchPage");
   //  console.log(props);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+//  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Page load
   useEffect(() => {
   }, []);
 
-  const setSearching = (flag) => {
-    console.log('setSearching', flag);
-    setIsLoading(flag);
-  };
+  // const setSearching = (flag) => {
+  //   console.log('setSearching', flag);
+  //   setIsLoading(flag);
+  // };
 
   return (
     <IonPage>
@@ -36,14 +36,16 @@ const AyogiSearchPage = (props: any) => {
         headerType="search"
         headerTitle={"Search"}
       ></AyogiHeader>
-        <IonLoading
+        {/* <IonLoading
 //          cssClass='my-custom-class'
           isOpen={isLoading}
           onDidDismiss={() => setIsLoading(false)}
           message={'Searching...'}
           duration={2000}
-        />
-        {<AyogiSearch {...props} setSearching={setSearching} />}
+        /> */}
+        {<AyogiSearch {...props} 
+          //setSearching={setSearching} 
+          />}
     </IonPage>
   );
 };
