@@ -29,14 +29,14 @@ const AyogiQuoteSelectText = (props) => {
 
   useEffect(() => {
     // if(props.quoteState.chapter > 0 && props.quoteState.startline > 0){
-      console.log('AyogiQuoteSelectText[props.quoteState]', props.quoteState);
+//      console.log('AyogiQuoteSelectText[props.quoteState]', props.quoteState);
       if(props.quoteState.chapter > 0 || props.quoteState.startline > 0){
         const schar = props.quoteState.startchar;
         const echar = props.quoteState.endchar;
 
         setStartPos(schar);
         setEndPos(echar);
-        console.log(props.quoteState.paragraphLine);
+//        console.log(props.quoteState.paragraphLine);
         // const newParaQuote = getParaLineQuoteFromPos(props.quoteState.paragraphLine, {...props.quoteState, startchar:schar ,endchar: echar});
         // console.log(newParaQuote);
         // setParaQuote(newParaQuote);
@@ -55,6 +55,7 @@ const AyogiQuoteSelectText = (props) => {
   const paraQuote = getParaLineQuoteFromPos(props.quoteState.paragraphLine, startPos, endPos);
 
   const adjustPos = (amount, isStart, isAdd) => {
+    console.log('adjustPos', amount, isStart, isAdd, endPos, props.quoteState.paragraphLine.length);
     if (
       isStart && ((!isAdd && startPos - amount >= 0) ||
       (isAdd && startPos + amount <= endPos))
@@ -64,7 +65,7 @@ const AyogiQuoteSelectText = (props) => {
 // AMSTODO: adjust by + 1 to end not working
     if (
       !isStart && ((!isAdd && endPos - amount >= startPos) ||
-      (isAdd && endPos + amount <= props.item.text.length))
+      (isAdd && endPos + amount <= props.quoteState.paragraphLine.length))
     ) {
       setEndPos(isAdd ? endPos + amount : endPos - amount);
     }

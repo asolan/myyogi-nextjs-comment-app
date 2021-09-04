@@ -151,14 +151,14 @@ const AyogiQuote = (props) => {
     let newCategoryTags;
     switch (action.type) {
       case "EDIT_STATE":
-        console.log("EDIT_STATE", action);
+//        console.log("EDIT_STATE", action);
         return { ...state, edit: action.edit };
       case "UPDATE":
         let newQuote;
         newQuote = { ...action.quote };
         return { ...state, ...action.quote };
       case "SET_POS":
-        console.log("SET_POS", action);
+//        console.log("SET_POS", action);
         const plineQuoteNew = getParaLineQuoteFromPos(
           state.paragraphLine,
           action.pos.startchar,
