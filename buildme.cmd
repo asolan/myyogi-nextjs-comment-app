@@ -28,13 +28,16 @@ capacitor-resources
 npx cap open android
 
 ionic build && npx cap copy && capacitor-resources
+
+ionic build && npx cap copy 
+sudo capacitor-resources
 sudo cordova-res android --skip-config --copy
 npx cap open android
 
 ionic build && npx cap add android && npx cap copy && capacitor-resources && cordova-res android --skip-config --copy && npx cap open android
 
 npx cap add ios && npx cap sync ios
-cordova-res ios --skip-config --copy --type icon
+--cordova-res ios --skip-config --copy --type icon
 sudo cordova-res ios --skip-config --copy
 npx cap open ios
 

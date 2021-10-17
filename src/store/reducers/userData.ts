@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fromJS } from "immutable";
 import constants from "../constants";
 
