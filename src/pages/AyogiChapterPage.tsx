@@ -34,7 +34,7 @@ import actions from "../store/actions";
 
 let aychaptlist = require("../aychaptlist.json");
 
-const AyogiChapterPage: React.SFC<any> = (props: any) => {
+const AyogiChapterPage = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
@@ -61,7 +61,6 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   // };
 
   const goToChapter = (num: number) => {
-    console.log("goToChapter");
     props.onChangeChapter(num);
     //props.goToTab(`/ayogi/${num}/1`);
 //    props.history.replace(`/ayogi/${num}/1`);

@@ -131,9 +131,10 @@ const contentScrollEnd = (e) => {
       setChNum(props.aychapttitle[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
-      //      scrollToTop();
 
-      if (clinenumber <= 1) clinenumber = 4;
+      if (clinenumber <= 1) {
+        clinenumber = 4;
+      }
       scrollToId(props.aychapttitle[cnum].chapterNumber, clinenumber);
       //scrollToLine(clinenumber);
     }

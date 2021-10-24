@@ -1,32 +1,30 @@
-[{"category": "Saints and Masters",
+[
+  {
+    "category": "Saints and People",
     "color": "primary",
     "tags": [
-    "Yogananda",
-    "Jesus Christ",
-    "Lahiri Mahasaya",
-    "Sri Yukteswar",
-    "Babaji",
-    "Saint"
-  ]}
-  ,{"category": "Inspiration",
+      "Saints",
+      "Yogananda",
+      "Jesus Christ",
+      "Babaji",
+      "Lahiri Mahasaya",
+      "Sri Yukteswar",
+      "Notable People"
+    ]
+  },
+  {
+    "category": "Inspiration",
     "color": "secondary",
     "tags": [
-    "Meditation",
-    "Kriya",
-    "Temples",
-    "Unconditional Love",
-    "Miracles"
-  ]} 
-  ,{"category": "Spiritual Truths",
-    "color": "secondary",
-    "tags": [
+      "Miracles",
+      "Bible",
+      "Hinduism",
+      "Yoga",
+      "Meditation",
+      "Kriya",
       "Guru",
-      "Karma and Reincarnation",
-      "Balanced Living",
-      "Finding God",
-      "Devotion",
-      "Faith",
-      "Kindness",
-      "Forgiveness"
-  ]}
+      "Karma",
+      "Reincarnation"
+    ]
+  }
 ]

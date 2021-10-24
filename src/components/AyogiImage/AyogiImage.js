@@ -29,7 +29,9 @@ const AyogiImage = (props) => {
 
   let imageTitles;
   let imageId;
-  const imageContent = props.items.map((image, i) => {
+  let imageList = [...props.items];
+  imageList.splice(1, 2);
+  const imageContent = imageList.map((image, i) => {
     let maxWidth = image.width > 400 ? image.width : 400;
     let imgStyle = { maxWidth: maxWidth + "px" };
 

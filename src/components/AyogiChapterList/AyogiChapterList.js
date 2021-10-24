@@ -39,8 +39,28 @@ import '@ionic/react/css/display.css';
 
 const AyogiChapterList = props => {
 
+  const imageCard = (<IonItem>
+    <IonCard
+    button="true"
+    class="ion-text-center"
+    onClick={(e) => { e.preventDefault(); props.history.push(`/imagelist`);}}
+    >
+    <IonCardContent className="chaptertitle" slot="end">
+    </IonCardContent>
+    <IonCardTitle>
+      <div className="chapterheader">
+      </div>
+      <div className="chaptertitle">
+        Illustrations
+      </div>
+    </IonCardTitle>
+  </IonCard>
+</IonItem>
+);
+console.log()
   return (
     <IonContent className="ChapterList">
+      {imageCard}
       <IonList>
         {props.chaptersList.map((c, i) => {
           const headerHeader = c.chapterNumber > 0 ? (<span>Chapter: <span>{c.chapterNumber}</span></span>): null;

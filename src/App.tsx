@@ -126,6 +126,11 @@ function App(props) {
               )}
             />
             <Route
+              path="/:tab(imagelist)"
+              render={(props) => <ImageListTab />}
+//              exact={true}
+            />
+            <Route
               path="/search"
               render={(props) => (
                 <AyogiSearchPage 
@@ -176,7 +181,7 @@ function App(props) {
               <IonLabel>Book</IonLabel>
             </IonTabButton>
             {/* <IonTabButton tab="imagelist" href="/imagelist">
-              // <IonIcon icon={imagesOutline} />
+              <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
             </IonTabButton> */}
             <IonTabButton tab="search" href="/search">
