@@ -24,6 +24,7 @@ import AyogiWisdom from "../components/AyogiWisdom/AyogiWisdom";
 // import AyogiSettingsMain from "../components/AyogiSettings/AyogiSettingsMain";
 import AyogiSettingFontSize from "../components/AyogiSettings/AyogiSettingFontSize";
 import AyogiSettingPopup from "../components/AyogiSettings/AyogiSettingPopup";
+import AyogiFeedback from "../components/AyogiSettings/AyogiFeedback";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiSettings.css";
 import { createStructuredSelector } from "reselect";
@@ -41,6 +42,7 @@ const AyogiSettings = (props: any) => {
         <AyogiHeader headerType="settings"></AyogiHeader>
         <AyogiSettingPopup {...props} />
         <AyogiSettingFontSize {...props} />
+        <AyogiFeedback {...props} />
         {/* <AyogiSettingsMain {...props} /> */}
       </IonContent>{" "}
     </IonPage>

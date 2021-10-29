@@ -127,7 +127,7 @@ const contentScrollEnd = (e) => {
       props.aychapttitle &&
       props.aychapttitle.length > 0
     ) {
-     cnum++;
+      cnum++;
       setChNum(props.aychapttitle[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
