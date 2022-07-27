@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import {
   // IonCard,
   // IonCardContent,
@@ -24,10 +24,8 @@ import {
 import { withRouter } from "react-router"; 
 
 //import { book, build, colorFill, grid } from 'ionicons/icons';
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
-import AyogiChapterList from "../components/AyogiIon/AyogiChapterList/AyogiChapterList";
-//import { fetchAYChapterList } from '../utility/fetchData';
-//import { LINE_TYPE_ENUM } from '../utility/dataTypes';
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
+import AyogiChapterList from "../components/AyogiChapterList/AyogiChapterList";
 import "./AyogiPage.css";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
@@ -36,7 +34,7 @@ import actions from "../store/actions";
 
 let aychaptlist = require("../aychaptlist.json");
 
-const AyogiChapterPage: React.SFC<any> = (props: any) => {
+const AyogiChapterPage = (props: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [chaptersList, setChaptersList] = useState<any>([]);
 
@@ -63,7 +61,6 @@ const AyogiChapterPage: React.SFC<any> = (props: any) => {
   // };
 
   const goToChapter = (num: number) => {
-    console.log("goToChapter");
     props.onChangeChapter(num);
     //props.goToTab(`/ayogi/${num}/1`);
 //    props.history.replace(`/ayogi/${num}/1`);

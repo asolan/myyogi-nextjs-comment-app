@@ -1,37 +1,21 @@
-//AMSTODO:DELETE
 //import * as React from 'react';
 import React, { useEffect } from "react";
-//import { LINE_TYPE_ENUM } from '../../../utility/dataTypes';
-import { parseImageTitles } from "../../utility/parseUtility";
-import {
-  IonSlides,
-  IonSlide,
-  IonCard,
-  //    IonCardContent,
-  IonCardHeader,
-  //    IonCardSubtitle,
-  //    IonCardTitle
-  // IonButtons,
-  // IonButton,
-  // IonContent,
-  // IonHeader,
-  // IonPage,
-  // IonTitle,
-  // IonToolbar,
-  // IonIcon
-} from "@ionic/react";
 import "../../theme/AyogiImage.css";
-
-const slideOpts = {
-  initialSlide: 0,
-  speed: 400,
-  effect: "cube",
-  autoHeight: true,
-  cssMode: true,
-};
+//import { LINE_TYPE_ENUM } from '../../utility/dataTypes';
+import { parseImageTitles } from "../../utility/parseUtility";
+import { Link } from "react-router-dom";
+import {
+  // IonSlides,
+  // IonSlide,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+} from "@ionic/react";
 
 const AyogiImage = (props) => {
-  // console.log('AyogiImage');
+  // console.log("IonAyogiImage");
   // console.log(props);
 
   // const [titlesHeight, setTitlesHeight] = useState([0]);
@@ -44,47 +28,59 @@ const AyogiImage = (props) => {
   }, []);
 
   let imageTitles;
-  const imageContent = props.items.map((image, i) => {
-    let imgStyle = { maxWidth: image.width + "px" };
+  let imageId;
+  let imageList = [...props.items];
+  imageList.splice(1, 2);
+  const imageContent = imageList.map((image, i) => {
+    let maxWidth = image.width > 400 ? image.width : 400;
+    let imgStyle = { maxWidth: maxWidth + "px" };
+
     // console.log(imgStyle);
+    imageId += image.id;
     return (
-      <IonSlide key={"image" + image.id}>
-        <IonCard className="AyogiImage" style={imgStyle}>
-          <img
-            alt={image.text}
-            width={image.width}
-            height={image.height}
-            src={image.src}
-            //TODO                        border={image.border}
-            id={image.id}
-            name={image.name}
-            key={image.id}
-          />{" "}
-          <IonCardHeader>
-            {" "}
-            {(imageTitles = parseImageTitles(image))}{" "}
-            {imageTitles &&
-              imageTitles.children &&
-              imageTitles.children.map((c, i) => {
-                return imageTitles;
-              })}{" "}
-          </IonCardHeader>{" "}
-        </IonCard>{" "}
-      </IonSlide>
+      <IonRow
+        className="ion-padding AyogiImage"
+        lines="none"
+        key={"image-row" + image.id}
+        id={image._id}
+      >
+        <IonCol center text-center>
+          <Link to={"/ayogi/" + image.chapterNumber + "/" + image.lineNumber}>
+            <div className="AyogiImageOuter">
+              <IonCard className="" style={imgStyle}>
+                <img
+                  alt={image.text}
+                  width={image.width}
+                  height={image.height}
+                  src={image.src}
+                  border={image.border}
+                  id={image.id}
+                  name={image.name}
+                  key={image.id}
+                />
+                <IonCardHeader>
+                  {(imageTitles = parseImageTitles(image))}
+                  {imageTitles &&
+                    imageTitles.children &&
+                    imageTitles.children.map((c, i) => {
+                      return imageTitles;
+                    })}
+                </IonCardHeader>
+              </IonCard>
+            </div>
+          </Link>
+        </IonCol>
+      </IonRow>
     );
   });
 
   return (
-    <div className="image-div">
-      <IonSlides
-        key={props.items.map((p) => p._id).join("_")}
-        pager={true}
-        options={slideOpts}
-      >
-        {" "}
-        {imageContent}{" "}
-      </IonSlides>{" "}
+    <div className="image-div" key={`ayogiimage-${imageId}`}>
+      <IonGrid key={props.items.map((p) => p._id).join("_")}>
+        {imageContent}
+      </IonGrid>
     </div>
   );
 };
+
 export default AyogiImage;

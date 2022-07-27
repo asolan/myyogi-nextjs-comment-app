@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fromJS } from "immutable";
 import constants from "../constants";
 
@@ -14,27 +15,24 @@ let initialState = {
   chapterLine: 1,
   image: "",
   poem: "",
-  fontSize: 1,
+  fontSize: 1.175,
   fontJustification: true,
+  footnotePopup: true,
+  definitionPopup: false,
   quoteViewSettings: {...initialQuoteView},
   myQuoteSelectionType: constants.MY_QUOTE_SELECTION_TYPE.METADATA,
-  myQuoteTags: [{"category": "My Inspiration",
-  "color": "primary",
-  "tags": [
-  "Healing",
-  "Divine Feminine",
-  "Health",
-  "True Teaching"
-]}
-,{"category": "Proof of God",
-  "color": "secondary",
-  "tags": [
-  "Miracles",
-  "Resurrection",
-  "Divine Support",
-  "Divine Teaching"
-]}]
+  myQuoteTags: []
 };
+
+// myQuoteTags: [{"category": "My Inspiration",
+// "color": "primary",
+// "tags": [
+// "Healing",
+// "Divine Feminine",
+// "Health",
+// "True Teaching"
+// ]}
+
 
 const autoyogiState = window.localStorage["autoyogiState"]
   ? JSON.parse(window.localStorage["autoyogiState"])
@@ -89,6 +87,14 @@ function userData(state = fullInitiatState, action) {
       return newState;
     case constants.ON_CHANGE_FONT_JUSTIFICATION:
       newState = state.set("fontJustification", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_FOOTNOTE_POPUP:
+      newState = state.set("footnotePopup", action.payload);
+      setStorageState(newState);
+      return newState;
+    case constants.ON_CHANGE_DEFINITION_POPUP:
+      newState = state.set("definitionPopup", action.payload);
       setStorageState(newState);
       return newState;
     case constants.ON_CHANGE_MY_QUOTE_SELECTION_TYPE:

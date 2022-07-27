@@ -59,6 +59,20 @@ export function onChangeFontJustification(justify) {
     }
 }
 
+export function onChangeFootnotePopup(font) {
+    return {
+        type: constants.ON_CHANGE_FOOTNOTE_POPUP,
+        payload: font
+    }
+}
+
+export function onChangeDefinitionPopup(justify) {
+    return {
+        type: constants.ON_CHANGE_DEFINITION_POPUP,
+        payload: justify
+    }
+}
+
 export function updateChapter(chapterNumber) {
     return {
         type: constants.UPDATE_CHAPTER,

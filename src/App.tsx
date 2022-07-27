@@ -8,18 +8,25 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonMenu,
+  IonHeader,
+  IonTitle,
+  IonContent,
+  IonList
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { imagesOutline, listOutline, bookOutline, ribbonOutline, settingsOutline } from "ionicons/icons";
+import { searchOutline, imagesOutline, listOutline, bookOutline, ribbonOutline, menuOutline, settingsOutline } from "ionicons/icons";
 import ImageListTab from "./pages/ImageListTab";
 import ImageTab from "./pages/ImageTab";
 import PoemListTab from "./pages/PoemListTab";
 import PoemTab from "./pages/PoemTab";
 import AyogiPage from "./pages/AyogiPage";
 import AyogiChapterPage from "./pages/AyogiChapterPage";
+import AyogiSearchPage from "./pages/AyogiSearchPage";
 import AyogiTypePage from "./pages/AyogiTypePage";
-import AyogiQuoteView from "./pages/AyogiQuoteView";
 import AyogiSettings from './pages/AyogiSettings';
+import AyogiQuoteView from "./pages/AyogiQuoteView";
+import AyogiMorePage from "./pages/AyogiMorePage";
 
 // Delme
 //import AyogiPageTest from "./pages/AyogiPageTest";
@@ -63,9 +70,7 @@ import selectors from "./store/selectors";
 // import actions from "./store/actions";
 // import constants from "./store/constants";
 
-const App: React.SFC = (props) => {
-  // console.log('app');
-  // console.log(props);
+function App(props) {
 
   let currentTab = "/ayogi";
   // Page load
@@ -87,8 +92,7 @@ const App: React.SFC = (props) => {
   };
 
 
-  return (
-    <IonApp>
+  return (<IonApp>
       <IonReactRouter>
         {/* <IonTabs ref={tabRef}> */}
         <IonTabs>
@@ -108,7 +112,7 @@ const App: React.SFC = (props) => {
 //              exact={true}
             />
             <Route
-              path="/ayogi/:id/:line"
+              path="/ayogi/:id?/:line?"
               // aydata={aydata}
               // aychaptlist={aychaptlist}
               render={(props) => (
@@ -120,7 +124,6 @@ const App: React.SFC = (props) => {
                   {...props}
                 />
               )}
-  //            exact={true}
             />
             <Route
               path="/:tab(imagelist)"
@@ -128,9 +131,13 @@ const App: React.SFC = (props) => {
 //              exact={true}
             />
             <Route
-              path="/aypoems"
+              path="/search"
               render={(props) => (
-                <AyogiTypePage {...props} type={LINE_TYPE_ENUM.POEM} />
+                <AyogiSearchPage 
+                  aydata={aydata}
+                  aycategories={aycategories}
+                  {...props} 
+                />
               )}
             />
             <Route
@@ -144,6 +151,16 @@ const App: React.SFC = (props) => {
               )}
             />            
             <Route
+              path="/more"
+              render={(props) => (
+                <AyogiMorePage 
+                  items={aydata.slice(45,49)} 
+                  aycategories={aycategories}
+                  {...props} />
+              )}
+            />            
+
+            <Route
               path="/settings"
               render={(props) => (
                 <AyogiSettings 
@@ -152,13 +169,7 @@ const App: React.SFC = (props) => {
                   {...props} />
               )}
             />            
-            {/* <Route path="/" render={() => <Redirect to="/aychap" />} exact={true} /> */}
-            <Route
-              path="/"
-              render={(props) => <Redirect to={currentTab} />}
-//              render={(props) => console.log(props)}
-//              exact={true}
-            />
+            <Route exact path="/" render={() => (<Redirect to={currentTab} />)} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <IonTabButton tab="chapterlist" href="/aychap">
@@ -169,14 +180,22 @@ const App: React.SFC = (props) => {
               <IonIcon icon={bookOutline} />
               <IonLabel>Book</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="imagelist" href="/imagelist">
+            {/* <IonTabButton tab="imagelist" href="/imagelist">
               <IonIcon icon={imagesOutline} />
               <IonLabel>Images</IonLabel>
+            </IonTabButton> */}
+            <IonTabButton tab="search" href="/search">
+              <IonIcon icon={searchOutline} />
+              <IonLabel>Search</IonLabel>
             </IonTabButton>
             <IonTabButton tab="quotes" href="/quotes">
               <IonIcon icon={ribbonOutline} />
               <IonLabel>Quotes</IonLabel>
             </IonTabButton>
+            {/* <IonTabButton tab="more" href="/more">
+              // <IonIcon icon={menuOutline} />
+              <IonLabel>Menu</IonLabel>
+            </IonTabButton> */}
             <IonTabButton tab="settings" href="/settings">
               <IonIcon icon={settingsOutline} />
               <IonLabel>Settings</IonLabel>
@@ -184,9 +203,8 @@ const App: React.SFC = (props) => {
           </IonTabBar>
         </IonTabs>
       </IonReactRouter>
-    </IonApp>
-  );
-};
+    </IonApp>); 
+}
 
 const mapStateToProps = () =>
    createStructuredSelector({

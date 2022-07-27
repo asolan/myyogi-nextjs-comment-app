@@ -1,28 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import Loading from "../components/AyogiIon/Loading/Loading";
+import Loading from "../components/Loading/Loading";
 import {
-  // IonCard,
-  // IonCardContent,
-  // IonCardHeader,
-  // IonCardSubtitle,
-  // IonCardTitle,
-  // IonIcon,
-  // IonItem,
-  // IonLabel,
-  // IonList,
-  // IonListHeader,
   IonPage,
   IonContent,
 } from "@ionic/react";
-import AyogiWisdom from "../components/AyogiIon/AyogiWisdom/AyogiWisdom";
-import AyogiImage from "../components/AyogiIon/AyogiImage/AyogiImage";
-import AyogiPoem from "../components/AyogiIon/AyogiPoem/AyogiPoem";
-import AyogiFootnoteAlert from "../components/AyogiIon/AyogiFootnoteAlert/AyogiFootnoteAlert";
-
+import { notChapterTitleHeader, buildSection } from "../utility/parseUtility";
 //import { listBox, planet, colorFill, more } from 'ionicons/icons';
 
-import AyogiHeader from "../components/AyogiIon/AyogiHeader/AyogiHeader";
-import AyogiChapter from "../components/AyogiIon/AyogiChapter/AyogiChapter";
+import AyogiHeader from "../components/AyogiHeader/AyogiHeader";
+import AyogiChapter from "../components/AyogiChapter/AyogiChapter";
 import { LINE_TYPE_ENUM } from "../utility/dataTypes";
 //import AyogiContext from '../context/AyogiContext';
 import "./AyogiPage.css";
@@ -32,9 +18,6 @@ import selectors from "../store/selectors";
 import actions from "../store/actions";
 
 
-//let aydata = require('../aydata.json');
-//let aychapttitle = require('../aychapttitle.json');
-
 const AyogiPage = (props: any) => {
   //  console.log("AyogiPage");
   //  console.log(props);
@@ -43,16 +26,18 @@ const AyogiPage = (props: any) => {
   // const [props.aychapttitle, setprops.aychapttitle] = useState<any>([]);
   // const [chaptersText, setChaptersText] = useState<any>([]);
   const [chNum, setChNum] = useState<number>(0);
+  const [maxLine, setMaxLine] = useState<number>(500);
   const [currentChapterTitle, setCurrentChapterTitle] = useState<string>("");
   const [chapterContent, setChapterContent] = useState<any>([]);
   //  const [ayogiState, setAyogiState] = useState<any>({});
 
   let contentId: number = 0;
+  const quoteOnly = false;
   const contentRef = useRef(null);
 
   const scrollToTop = () => {
     let cref = contentRef!.current as any;
-    cref.scrollToTop && cref.scrollToTop();
+    cref.scrollToPoint && cref.scrollToPoint(0, 100, 0);
   };
 
   const scrollToId = (chapter, line) => {
@@ -63,8 +48,14 @@ const AyogiPage = (props: any) => {
       var scrollEl = document.getElementById(lineId);
       // console.log(lineId);
       // console.log(scrollEl);
-      let offsetTop = scrollEl && scrollEl.offsetTop || 0;
-      cref.scrollToPoint && cref.scrollToPoint(0, offsetTop);  
+      if(scrollEl){
+        let offsetTop = scrollEl && scrollEl.offsetTop || 0;
+        let scrollTime = offsetTop > 500 ? 1000 : 0;
+        cref.scrollToPoint && cref.scrollToPoint(0, offsetTop, scrollTime);  
+      } else {
+        let scrollTime = line > 100 ? 1000 : 0;
+        cref.scrollToPoint && cref.scrollToPoint(0, line, scrollTime);  
+      }
     }
     setTimeout(scrollToIdDelay, 1);
   };
@@ -95,61 +86,63 @@ const AyogiPage = (props: any) => {
   useEffect(() => {
 //    console.log(`AyogiPage[props.chPos]-${props.chPos}`);
     // console.log(props.chPos);
-    setCurrentChapter(props.match.params.id - 1,
-      props.match.params.line);
+    setCurrentChapter();
   }, [props.chPos]);
 
   useEffect(() => {
 //    console.log(`AyogiPage[page-effect-id-props.match.params.id]-${props.match.params.id}`);
     setIsLoading(false);
-    setCurrentChapter(
-      props.match.params.id - 1,
-      props.match.params.line);
+    setCurrentChapter();
     }, [props.match.params.id]);
 //  }, [props.match.params.id, props.currentQuoteSelectionType, props.currentQuoteTags]);
 
 useEffect(() => {
-      console.log(`AyogiPage[props.selectedQuotes]`, props.selectedQuotes, chNum);
+//        console.log(`AyogiPage[props.selectedQuotes]`, props.selectedQuotes, chNum);
       if(chNum > 0){
         buildChapterText(chNum);
       }
-}, [props.selectedQuotes]);
+}, [props.selectedQuotes,props.currentFootnotePopup,props.currentDefinitionPopup]);
   
-  const contentScrollEnd = (e) => {
+
+const contentScrollEnd = (e) => {
+
     e.target.getScrollElement().then((el) => {
-      props.onChangeChapterLine(el.scrollTop);
+      // Change from pos to current line
+      const sToTop = el.scrollTop;
+//      console.log(sToTop, maxLine);
+      if(sToTop > maxLine){
+        props.onChangeChapterLine(el.scrollTop);
+      }
     });
   };
 
-  const setCurrentChapter = (cnum: number, clinenumber: number) => {
+  const setCurrentChapter = () => {
+    let cnum = props.match.params.id ? props.match.params.id - 1 : props.currentChapter - 1;
+    let clinenumber = props.match.params.line ? props.match.params.line : props.currentChapterLine;
+
+//    console.log(cnum, clinenumber);
     if (
       props.aydata &&
       props.chPos.length > 0 &&
       props.aychapttitle &&
       props.aychapttitle.length > 0
     ) {
-     cnum++;
+      cnum++;
       setChNum(props.aychapttitle[cnum].chapterNumber);
       setCurrentChapterTitle(props.aychapttitle[cnum].text);
       buildChapterText(cnum);
-      //      scrollToTop();
 
+      if (clinenumber <= 1) {
+        clinenumber = 4;
+      }
       scrollToId(props.aychapttitle[cnum].chapterNumber, clinenumber);
       //scrollToLine(clinenumber);
     }
   };
 
-  const notChapterTitleHeader = (c: any) => {
-    //Convery to array
-    return (
-      c !== undefined &&
-      c.class !== "chaptertitleheader" &&
-      c.class !== "chaptertitle"
-    );
-  };
-
   const buildChapterText = (cnum: number) => {
     contentId = 0;
+    let newMaxLine = 0;
 
     if (!props.aydata || !props.chPos) {
       console.log("buildchaptext-notext");
@@ -179,47 +172,17 @@ useEffect(() => {
     nextContent &&
       nextContent.slice(1).forEach((c: any, i: any) => {
         let newItems = nextText.slice(nextContent[i].pos, c.pos);
-        nextContentList.push(buildSection(newItems));
+//        console.log(newItems);
+        newMaxLine = newItems[newItems.length-1].lineNumber;
+        nextContentList.push(buildSection(newItems, ++contentId, props, quoteOnly, null, false));
       });
 
     // console.log('nextContentList');
     // console.log(nextContentList);
+    setMaxLine(newMaxLine);
     setChapterContent(nextContentList);
   };
 
-  //Build the section from items
-  const buildSection = (newItems: any[]): any => {
-    let lineType = newItems[0].type;
-    let result;
-    contentId++;
-    switch (lineType) {
-      case LINE_TYPE_ENUM.FOOTNOTE:
-        result = (
-          <AyogiFootnoteAlert
-            key={"AyogiFootnoteAlert" + contentId}
-            items={newItems}
-            {...props}
-          />
-        );
-        break;
-      case LINE_TYPE_ENUM.POEM:
-        result = <AyogiPoem key={"AyogiPoem" + contentId} items={newItems} {...props} />;
-        break;
-      case LINE_TYPE_ENUM.IMAGE:
-        result = <AyogiImage key={"AyogiImage" + contentId} items={newItems} {...props} />;
-        break;
-      case LINE_TYPE_ENUM.WISDOM:
-      default:
-        //        console.log(newItems);
-        result = (
-          <AyogiWisdom key={"AyogiWisdom" + contentId} items={newItems} {...props} />
-        );
-        break;
-    }
-
-    // console.log(chlist);
-    return result;
-  };
 
   let content = <Loading loading={isLoading} />;
 
@@ -285,6 +248,9 @@ const mapStateToProps = () =>
     currentImage: selectors.makeSelectImage(),
     currentPoem: selectors.makeSelectPoem(),
     currentFontSize: selectors.makeSelectFontSize(),
+    currentFontJustification: selectors.makeSelectFontJustification(),     
+    currentFootnotePopup: selectors.makeSelectFootnotePopup(),
+    currentDefinitionPopup: selectors.makeSelectDefinitionPopup(),
     selectedQuotes: selectors.makeSelectSelectedQuotes(),
     currentQuoteSelectionType: selectors.makeSelectMyQuoteSelectionType(),
     currentQuoteTags: selectors.makeSelectMyQuoteTags(),

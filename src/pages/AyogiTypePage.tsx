@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Loading from '../components/AyogiIon/Loading/Loading';
+import Loading from '../components/Loading/Loading';
 import {
   // IonCard,
   // IonCardContent,
@@ -22,10 +22,8 @@ import {
 } from '@ionic/react';
 //import { book, build, colorFill, grid } from 'ionicons/icons';
 
-import AyogiHeader from '../components/AyogiIon/AyogiHeader/AyogiHeader';
-import AyogiType from '../components/AyogiIon/AyogiType/AyogiType';
-//import { fetchAYDataOfType } from '../utility/fetchData';
-//import { fetchAYDataOfType } from '../utility/fetchDataJson';
+import AyogiHeader from '../components/AyogiHeader/AyogiHeader';
+import AyogiType from '../components/AyogiType/AyogiType';
 import { LINE_TYPE_ENUM } from '../utility/dataTypes';
 import './AyogiPage.css';
 let aypoem = require('../aypoem.json');

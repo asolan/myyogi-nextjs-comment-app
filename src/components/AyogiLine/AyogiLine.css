@@ -1,0 +1,15 @@
+.highlight {
+    font-weight: bolder;
+    background-color: yellow;
+}
+
+.calendardate {
+    text-align: center;
+}
+
+.yukteswarLetter {
+    text-transform: uppercase;
+    text-align: end !important;
+    display: block;
+}
+

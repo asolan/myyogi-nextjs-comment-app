@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fromJS } from "immutable";
 import constants from "../constants";
 import { LINE_TYPE_ENUM } from "../../utility/dataTypes";

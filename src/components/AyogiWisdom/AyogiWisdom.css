@@ -1,0 +1,263 @@
+* {
+    font-family: "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    padding: 0pt;
+    border: 0pt;
+    margin: 0pt;
+    widows: 1;
+    orphans: 1;
+    line-height: 1.15rem;
+    line-height: calc(1.15rem + (var(--yogi-font-size) * 0.1));
+    letter-spacing: .014rem;
+    /* word-spacing: .003em; */
+    word-spacing: -.1em;
+}
+
+ .AyogiWisdom {
+     margin: 0.5rem;
+ }
+/*
+    display: block;
+    text-align: left;
+    width: 80%;
+    padding-top: 3rem;
+    margin-top: 1rem;
+    padding-bottom: 3rem;
+    margin-bottom: 1rem;
+} */
+
+.wisdom {
+    font-size: var(--yogi-font-size);
+    hyphens: auto;
+    /* text-align: var(--yogi-text-align); */
+}
+
+p.largeSpace {
+    margin: 2px; 
+}
+
+p.smallSpace {
+    margin-top: -15px; 
+}
+
+.paragraphIndent {
+    margin-left: 15px;
+}
+
+.emphasis {
+    font-style: italic;
+    margin-left: 0.1em;
+}
+
+.break {
+    /* display: inline-block; */
+}
+
+.spaceAfter {
+    margin-right: 15px;
+}
+
+.DropCap, .DropCapI {
+    font-size: calc(var(--yogi-font-size) * 1.1);
+    /* line-height: calc(var(--yogi-font-size) - 0.8); */
+    line-height: 0.75em;
+    display: block;
+    float: left;
+    position: relative;
+    /* top: .12em; */
+    top: calc(0.17rem + (var(--yogi-font-size) * 0.02));
+    height: 0.7em;
+    margin-bottom: 0.5em;
+    /* margin-right: 0.07em;
+    margin-bottom: 0.6em; */
+}
+
+.DropCapI {
+    margin-right: 0.1em;
+}
+
+.FirstWords,
+.letterAfterDropCapL,
+.letterAfterDropCapA,
+.letterAfterDropCapR {
+    font-family: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    font-variant: small-caps;
+    font-size: calc(var(--yogi-font-size) * 1);
+    line-height: 80%;
+    letter-spacing: .12em;
+    margin-left: 0.05em;
+}
+
+.DropQuoteHanging {
+    display: inline;
+    float: left;
+    vertical-align: top;
+    position: relative;
+    top: 0.08em;
+    height: .7em;
+    left: -0.2em;
+    width: 0em;
+    font-size: calc(1.05rem + (var(--yogi-font-size) * 0.4));
+}
+
+/* .DropQuoteHanging {
+    display: inline;
+    float: left;
+    vertical-align: top;
+    position: relative;
+    top: 0.18em;
+    height: .7em;
+    left: 0em;
+    width: 0em;
+    font-size: calc(1.15rem + (var(--yogi-font-size) * 0.5));
+} */
+
+.SubstituteCapJ {
+    font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+   font-style: italic;
+   letter-spacing: -.1em;	position: relative; left: .1em;	/* slide it over to the right a bit. */
+   line-height: 0pt;
+}
+
+.upShiftDropCapJ {
+    top: -.2em !important;
+}
+    
+.rightShiftDropCapQuoteJ {
+    padding-left: 6pt;
+}
+
+.letterAfterDropCapL {
+   margin-left: -.05em;
+   margin-right: -0.1em;
+}
+
+.letterAfterDropCapA {
+   margin-left: 0em;
+   margin-right: -0.1em;
+}
+
+.letterAfterDropCapR {
+   margin-left: -.05em;
+   margin-right: -0.1em;
+}
+
+.hangingDoubleQuote {
+    position: relative;						
+    left: -.5em;
+}
+
+/* todo: BLOCKQUOTE + all child classes*/
+
+/* .footnote.emphasis {
+    font-size: calc(var(--yogi-font-size) * 0.9);
+} */
+
+.emphasis {
+    font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    font-weight: normal;
+    font-style: italic;
+    /* font-size: calc(var(--yogi-font-size) * 0.9); */
+    line-height: inherit;
+}
+
+/** Introduction **/
+
+.firsttitlepage {
+    margin: 19rem auto;
+    text-align: center;
+    display: block;
+}
+
+.dedicated1, .dedicated2, .dedication {
+    margin: 1.5rem auto;
+    text-align: center;
+    display: block;
+}
+
+.dedicated1, .dedication {
+    font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+}
+
+.dedicated1 {
+    margin-top: 16rem;
+    font-style: italic;
+}
+
+.dedicated2 {
+    font-family: "Bauer Bodoni D", "Times", "Times New Roman", serif;
+    letter-spacing: .3em;
+    text-transform: uppercase;    
+}
+
+.dedication {
+    margin-bottom: 16rem;
+}
+
+.prefacetitle {
+    font-family: "Bauer Bodoni Std 1", "Times", "Times New Roman", serif;
+    font-style: italic;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 24pt;
+    letter-spacing: .2rem;
+    word-spacing: .2rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.prefaceby, .prefacebyit {
+    margin: 0.5rem auto;
+    text-align: center;
+    display: block;
+}
+
+.prefacebyit {
+    font-style: italic;
+}
+
+.wentzsignature {
+    text-align: right;
+    text-transform: uppercase;
+    font-family: "Times", "Times New Roman", serif;
+    margin-top: 1rem;
+    display: block;
+}
+
+.nocontent {
+    display: none;
+}
+
+.acknowledgments {
+    display: block;
+    margin: 15rem auto 2rem auto;
+    font-family: "Excelsior LT Std", "Baskerville Book BQ Regular", "Baskerville Book BQ", "Baskerville", "Palatino", "Palatino Linotype", "Book Antiqua", "Times", "Times New Roman", serif;
+    font-style: italic;
+    text-align: center;
+}
+
+.acknowledgmentssignature {
+    display: block;
+    text-align: right;
+    margin-right: 1em;
+    text-transform: lowercase;
+    font-variant: small-caps;
+}
+
+.acknowledgmentsplace,
+.acknowledgmentsplace2{
+    display: block;
+    text-align: left;
+    font-style: italic;
+}
+
+.acknowledgmentsplace2 {
+    margin-bottom: 10rem;
+}
+
+
