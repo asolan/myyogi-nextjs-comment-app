@@ -1,7 +1,0 @@
-{
-  "name": "www.bethouayogi.com",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}

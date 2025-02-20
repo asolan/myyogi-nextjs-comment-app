@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">A.Yogi</string>
-    <string name="title_activity_main">A.Yogi</string>
-    <string name="package_name">www.bethouayogi.com</string>
-    <string name="custom_url_scheme">www.bethouayogi.com</string>
-</resources>
