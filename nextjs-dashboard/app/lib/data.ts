@@ -2,6 +2,7 @@ import postgres from 'postgres';
 import {
   CustomerField,
   CustomersTableType,
+  CustomerForm,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
@@ -13,15 +14,7 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export async function fetchRevenue() {
   try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    // console.log('Fetching revenue data...');
-    // await new Promise((resolve) => setTimeout(resolve, 3000));
-
     const data = await sql<Revenue[]>`SELECT * FROM revenue`;
-
-    // console.log('Data fetch completed after 3 seconds.');
 
     return data;
   } catch (error) {
@@ -32,6 +25,9 @@ export async function fetchRevenue() {
 
 export async function fetchLatestInvoices() {
   try {
+    // console.log('Fetching fetchLatestInvoices data...');
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const data = await sql<LatestInvoiceRaw[]>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
       FROM invoices
@@ -119,7 +115,8 @@ export async function fetchFilteredInvoices(
     console.error('Database Error:', error);
     throw new Error('Failed to fetch invoices.');
   }
-}
+};
+
 
 export async function fetchInvoicesPages(query: string) {
   try {
@@ -160,6 +157,7 @@ export async function fetchInvoiceById(id: string) {
       amount: invoice.amount / 100,
     }));
 
+    console.log(invoice); // Invoice is an empty array []
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
@@ -184,7 +182,11 @@ export async function fetchCustomers() {
   }
 }
 
-export async function fetchFilteredCustomers(query: string) {
+export async function fetchFilteredCustomers(
+  query: string, 
+  currentPage: number) {
+
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const data = await sql<CustomersTableType[]>`
 		SELECT
@@ -199,9 +201,11 @@ export async function fetchFilteredCustomers(query: string) {
 		LEFT JOIN invoices ON customers.id = invoices.customer_id
 		WHERE
 		  customers.name ILIKE ${`%${query}%`} OR
-        customers.email ILIKE ${`%${query}%`}
+      customers.email ILIKE ${`%${query}%`} OR
+		  customers.image_url ILIKE ${`%${query}%`} 
 		GROUP BY customers.id, customers.name, customers.email, customers.image_url
 		ORDER BY customers.name ASC
+    LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 	  `;
 
     const customers = data.map((customer) => ({
@@ -216,3 +220,44 @@ export async function fetchFilteredCustomers(query: string) {
     throw new Error('Failed to fetch customer table.');
   }
 }
+
+export async function fetchCustomersPages(query: string) {
+  try {
+    const data = await sql`SELECT COUNT(*)
+    FROM customers
+    WHERE
+      customers.name ILIKE ${`%${query}%`} OR
+      customers.email ILIKE ${`%${query}%`} OR
+      customers.image_url ILIKE ${`%${query}%`}
+  `;
+
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of customers.');
+  }
+}
+
+export async function fetchCustomerById(id: string) {
+  try {
+    const data = await sql<CustomerForm[]>`
+      SELECT
+        customers.id,
+        customers.name,
+        customers.email,
+        customers.image_url
+      FROM customers
+      WHERE customers.id = ${id};
+    `;
+
+    const customer = data[0];
+
+    console.log(customer); // Customer is an empty array []
+    return customer;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch customer.');
+  }
+}
+
