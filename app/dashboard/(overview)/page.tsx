@@ -1,20 +1,20 @@
 import CardWrapper from '@/app/ui/dashboard/cards';
 //import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import LatestQuotes from '@/app/ui/dashboard/latest-quotes';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { RevenueChartSkeleton,
-  LatestInvoicesSkeleton,
+  LatestQuotesSkeleton,
   CardsSkeleton,
  } from '@/app/ui/skeletons';
 
 export default async function Page() {
   // import { fetchCardData } from '@/app/lib/data';
   // const {numberOfCustomers,
-  // numberOfInvoices,
-  // totalPaidInvoices,
-  // totalPendingInvoices} = await fetchCardData();
+  // numberOfQuotes,
+  // totalPaidQuotes,
+  // totalPendingQuotes} = await fetchCardData();
   
   return (
     <main>
@@ -30,8 +30,8 @@ export default async function Page() {
         <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
         </Suspense>
-        <Suspense fallback={<LatestInvoicesSkeleton />}>
-          <LatestInvoices />
+        <Suspense fallback={<LatestQuotesSkeleton />}>
+          <LatestQuotes />
         </Suspense>
       </div>
     </main>

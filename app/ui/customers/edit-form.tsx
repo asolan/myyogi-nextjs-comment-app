@@ -12,7 +12,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 
-export default function EditInvoiceForm({
+export default function EditQuoteForm({
   customer,
 }: {
   customer: CustomerForm;
@@ -110,7 +110,7 @@ export default function EditInvoiceForm({
         >
           Cancel
         </Link>
-        <Button type="submit">Edit Invoice</Button>
+        <Button type="submit">Edit Quote</Button>
       </div>
     </form>
   );

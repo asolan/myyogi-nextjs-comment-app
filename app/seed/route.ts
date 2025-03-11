@@ -6,10 +6,10 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 
 async function seedUsers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuID-ossp"`;
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await sql`
     CREATE TABLE IF NOT EXISTS person (
-      ID UUID DEFAULT uuID_generate_v4() PRIMARY KEY,
+      ID UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL
@@ -31,11 +31,11 @@ async function seedUsers() {
 }
 
 async function seedCustomers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuID-ossp"`;
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS customers (
-      ID UUID DEFAULT uuID_generate_v4() PRIMARY KEY,
+      ID UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
       image_url VARCHAR(255) NOT NULL
@@ -137,7 +137,7 @@ async function seedVotes() {
 // Main seed function
 export async function GET() {
   try {
-    const result = await sql.begin((sql) => [
+    const result = await sql.begin(() => [
       seedUsers(),
       seedCustomers(),
       seedQuotes(),
@@ -145,6 +145,7 @@ export async function GET() {
       seedVotes(),
     ]);
 
+    console.log(result);
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
     return Response.json({ error }, { status: 500 });

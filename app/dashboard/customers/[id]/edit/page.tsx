@@ -7,7 +7,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
   // const customers = await fetchCustomers();
-  // const invoice = await fetchInvoiceById(id);
+  // const quote = await fetchQuoteById(id);
   const customer = await fetchCustomerById(id);
 
   if (!customer) {

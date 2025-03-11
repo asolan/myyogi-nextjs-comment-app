@@ -164,6 +164,7 @@ export async function createQuote(prevState: QuoteState, formData: FormData) {
         ${isActive}, 
         new Date())`;
   } catch (error) {
+    console.log('createQuote error', error);
     // If a database error occurs, return a more specific error.
     return {
       message: 'Database Error: Failed to Create Quote.',
@@ -220,6 +221,7 @@ export async function updateQuote(
       WHERE ID = ${ID}
     `;
   } catch (error) {
+    console.log('updateQuote error', error);
     return { message: 'Database Error: Failed to Update Quote.' };
   }
  
@@ -291,6 +293,7 @@ export async function createNote(prevState: NoteState, formData: FormData) {
         NOW(), 
         ${status})`;
   } catch (error) {
+    console.log('createNote error', error);
     return {
       message: 'Database Error: Failed to Create Note.',
     };
@@ -336,6 +339,7 @@ export async function updateNote(
       WHERE ID = ${ID}
     `;
   } catch (error) {
+    console.log('updateNote error', error);
     return { message: 'Database Error: Failed to Update Note.' };
   }
 
@@ -382,6 +386,7 @@ export async function createVote(prevState: VoteState, formData: FormData) {
         ${details}, 
         NOW())`;
   } catch (error) {
+    console.log('createVote error', error);
     return {
       message: 'Database Error: Failed to Create Vote.',
     };
@@ -422,6 +427,7 @@ export async function updateVote(
       WHERE ID = ${ID}
     `;
   } catch (error) {
+    console.log('UpdateVote error', error);
     return { message: 'Database Error: Failed to Update Vote.' };
   }
 
@@ -466,6 +472,7 @@ export async function createCustomer(prevState: CustomerState, formData: FormDat
       VALUES (${name}, ${email}, ${image_url})
     `;
   } catch (error) {
+    console.log('createCustomer error', error);
     // If a database error occurs, return a more specific error.
     return {
       message: 'Database Error: Failed to Create Customer.',
@@ -508,6 +515,7 @@ export async function updateCustomer(
       WHERE ID = ${ID}
     `;
   } catch (error) {
+    console.log('UpdateCustomer error', error);
     return { message: 'Database Error: Failed to Update Customer.' };
   }
  

@@ -1,8 +1,6 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
 // https://nextjs.org/learn/dashboard-app/fetching-data
 
-import { create } from "domain";
-
 const users = [
   {
     ID: '410544b2-4001-4271-9855-fec4b6a6442a',
@@ -327,8 +325,8 @@ const votes = [
   },
   {
     ID: '9b777249-19b8-49f7-b669-46c575213430',
-    noteID: notes[9].ID,
-    customerID: customers[0].ID,
+    noteID: notes[8].ID,
+    customerID: customers[1].ID,
     created: '2022-11-14',
     details: ''
   },
