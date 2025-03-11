@@ -1,0 +1,46 @@
+my yogi db: {
+  person: {
+    shape: sql_table
+    id: int {constraint: primary_key}
+    name: string
+  }
+  quote: {
+    shape: sql_table
+    id: int {constraint: primary_key}
+    personid: int {constraint: foreign_key}
+    chapterId: int
+    paragraphid: int
+    posStart: int
+    posEnd: int
+  }
+  vote: {
+    shape: sql_table
+    id: int {constraint: primary_key}
+    noteid: int {constraint: foreign_key}
+    personid: int {constraint: foreign_key}
+    created: date
+    comment: string
+  }
+  note: {
+    shape: sql_table
+    id: int {constraint: primary_key}
+    personid: int {constraint: foreign_key}
+    title: string
+    description: string
+    created: date
+    updated: date
+  }
+  notequote: {
+    shape: sql_table
+    id: int {constraint: primary_key}
+    noteid: int {constraint: foreign_key}
+    quoteid: int {constraint: foreign_key}
+  }
+
+  quote.personid -> person.id
+  note.personid -> person.id
+  notequote.noteid -> note.id
+  notequote.quoteid -> quote.id
+  vote.personid -> person.id
+  vote.noteid -> note.id
+}
