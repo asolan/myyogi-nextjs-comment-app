@@ -6,7 +6,7 @@ async function listQuotes() {
 	const data = await sql`
     SELECT quotes.amount, customers.name
     FROM quotes
-    JOIN customers ON quotes.customer_id = customers.id
+    JOIN customers ON quotes.customerID = customers.id
     WHERE quotes.amount != 666;
   `;
 

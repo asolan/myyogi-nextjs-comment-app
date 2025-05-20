@@ -19,7 +19,7 @@ export default async function CustomersTable({
           <div className="md:hidden">
             {customers?.map((customer) => (
               <div
-                key={customer.id}
+                key={customer.ID}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -39,8 +39,8 @@ export default async function CustomersTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div className="flex justify-end gap-2">
-                    <UpdateCustomer id={customer.id} />
-                    <DeleteCustomer id={customer.id} />
+                    <UpdateCustomer id={customer.ID} />
+                    <DeleteCustomer id={customer.ID} />
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export default async function CustomersTable({
             <tbody className="bg-white">
               {customers?.map((customer) => (
                 <tr
-                  key={customer.id}
+                  key={customer.ID}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -92,8 +92,8 @@ export default async function CustomersTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateCustomer id={customer.id} />
-                      <DeleteCustomer id={customer.id} />
+                      <UpdateCustomer id={customer.ID} />
+                      <DeleteCustomer id={customer.ID} />
                     </div>
                   </td>
                 </tr>

@@ -12,15 +12,15 @@ export default async function QuotesTable({
   currentPage: number;
 }) {
   const quotes = await fetchFilteredQuotes(query, currentPage);
-
+//  console.log(quotes);
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {quotes?.map((quote) => (
+            {quotes?.map((quote,i) => (
               <div
-                key={quote.id}
+                key={quote.ID+' '+i}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -37,18 +37,22 @@ export default async function QuotesTable({
                     </div>
                     <p className="text-sm text-gray-500">{quote.email}</p>
                   </div>
-                  <QuoteStatus status={quote.status} />
+                  <QuoteStatus isActive={quote.isActive} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
                     <p className="text-xl font-medium">
-                      {formatCurrency(quote.amount)}
+                      {quote.chapterNum}-{quote.paragraphNum}
                     </p>
-                    <p>{formatDateToLocal(quote.date)}</p>
+                    <p className="text-xl font-medium">
+                      {quote.posStart}-{quote.posEnd}
+                    </p>
+
+                    <p>{formatDateToLocal(quote.created)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateQuote id={quote.id} />
-                    <DeleteQuote id={quote.id} />
+                    <UpdateQuote id={quote.ID} />
+                    <DeleteQuote id={quote.ID} />
                   </div>
                 </div>
               </div>
@@ -64,10 +68,10 @@ export default async function QuotesTable({
                   Email
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Amount
+                  Quote
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
-                  Date
+                  Created
                 </th>
                 <th scope="col" className="px-3 py-5 font-medium">
                   Status
@@ -78,9 +82,9 @@ export default async function QuotesTable({
               </tr>
             </thead>
             <tbody className="bg-white">
-              {quotes?.map((quote) => (
+              {quotes?.map((quote,i) => (
                 <tr
-                  key={quote.id}
+                  key={quote.ID+' '+i}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -99,18 +103,19 @@ export default async function QuotesTable({
                     {quote.email}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatCurrency(quote.amount)}
+                    <p>{quote.chapterNum}-{quote.paragraphNum}</p>
+                    <p>{quote.posStart}-{quote.posEnd}</p>
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {formatDateToLocal(quote.date)}
+                    {formatDateToLocal(quote.created)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    <QuoteStatus status={quote.status} />
+                    <QuoteStatus isActive={quote.isActive} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateQuote id={quote.id} />
-                      <DeleteQuote id={quote.id} />
+                      <UpdateQuote id={quote.ID} />
+                      <DeleteQuote id={quote.ID} />
                     </div>
                   </td>
                 </tr>

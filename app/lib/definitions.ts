@@ -3,22 +3,22 @@
 // For simplicity of teaching, we're manually defining these types.
 // However, these types are generated automatically if you're using an ORM such as Prisma.
 export type User = {
-  id: string;
+  ID: string;
   name: string;
   email: string;
   password: string;
 };
 
 export type Customer = {
-  id: string;
+  ID: string;
   name: string;
   email: string;
   image_url: string;
 };
 
 export type Quote = {
-  id: string;
-  customer_id: string;
+  ID: string;
+  customerID: string;
   amount: number;
   date: string;
   // In TypeScript, this is called a string union type.
@@ -32,7 +32,7 @@ export type Revenue = {
 };
 
 export type LatestQuote = {
-  id: string;
+  ID: string;
   name: string;
   image_url: string;
   email: string;
@@ -45,50 +45,57 @@ export type LatestQuoteRaw = Omit<LatestQuote, 'amount'> & {
 };
 
 export type QuotesTable = {
-  id: string;
-  customer_id: string;
+  ID: string;
+  customerID: string;
   name: string;
   email: string;
   image_url: string;
-  date: string;
-  amount: number;
-  status: 'pending' | 'paid';
+  chapterNum: number;
+  paragraphNum: number;
+  posStart: number;
+  posEnd: number;
+  created: string;
+  isActive: boolean;
 };
 
 export type CustomersTableType = {
-  id: string;
+  ID: string;
   name: string;
   email: string;
   image_url: string;
   total_quotes: number;
-  total_pending: number;
-  total_paid: number;
+  total_notes: number;
+  total_votes: number;
 };
 
 export type FormattedCustomersTable = {
-  id: string;
+  ID: string;
   name: string;
   email: string;
   image_url: string;
   total_quotes: number;
-  total_pending: string;
-  total_paid: string;
+  total_notes: string;
+  total_votes: string;
 };
 
 export type CustomerField = {
-  id: string;
+  ID: string;
   name: string;
 };
 
 export type QuoteForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: 'pending' | 'paid';
+  ID: string;
+  customerID: string;
+  chapterNum: number;
+  paragraphNum: number;
+  posStart: number;
+  posEnd: number;
+  created: string;
+  isActive: boolean;
 };
 
 export type CustomerForm = {
-  id: string;
+  ID: string;
   name: string;
   email: string;
   image_url: string;

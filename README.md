@@ -1,5 +1,5 @@
-## Next.js App Router Course - Starter
+## Next.js App for My Yogi App
+View and comment on Autobiography of a Yogi
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
-
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+login:   email: 'andrewsolan@gmail.com',
+    password: 'Solan123'
